@@ -23,12 +23,6 @@
 		<require_module>org.openmrs.module.appui</require_module>
 	</require_modules>
 	
-	<!-- Extensions -->
-	<extension>
-		<point>org.openmrs.admin.list</point>
-		<class>org.openmrs.module.msfcore.extension.html.AdminList</class>
-	</extension>
-
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
@@ -45,7 +39,6 @@
 		<lang>es</lang>
 		<file>messages_es.properties</file>
 	</messages>
-	<!-- /Internationalization -->
 	
 </module>
 
