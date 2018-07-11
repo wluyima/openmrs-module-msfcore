@@ -18,4 +18,6 @@ import org.springframework.stereotype.Component;
 public class MSFCoreConfig {
 	
 	public final static String MODULE_PRIVILEGE = "MSF Core Privilege";
+	
+	public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
 }

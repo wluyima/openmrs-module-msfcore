@@ -11,7 +11,9 @@ package org.openmrs.module.msfcore;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.appframework.service.AppFrameworkService;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
@@ -25,6 +27,9 @@ public class MSFCoreActivator extends BaseModuleActivator {
 	 */
 	public void started() {
 		log.info("Started MSF Core");
+		
+		//disabling default reference application registration app
+		Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
 	}
 	
 	/**
