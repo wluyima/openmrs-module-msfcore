@@ -11,4 +11,11 @@
 	<packaging>jar</packaging>
 	<name>MSF Core API</name>
 	<description>API project for MSF Core</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>appframework-api</artifactId>
+		</dependency>
+	</dependencies>
 </project>
