@@ -75,6 +75,28 @@
               ]
             }
           ]
+        },
+        {
+          "id":"msfcore.registration.ncd.info",
+          "label":"msfcore.others",
+          "questions":[
+            {
+              "legend":"Location.location",
+              "id":"msfcore.registration.location",
+              "fields":[
+                {
+                  "type":"personAttribute",
+                  "label":"Health Center",
+                  "formFieldName":"healthCentre",
+                  "uuid":"8d87236c-c2cc-11de-8d13-0010c6dffd0f",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/location"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }
