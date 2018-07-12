@@ -4,5 +4,24 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
- 
+ <changeSet id="2018July121002" author="k-joseph" dbms="mysql">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				<![CDATA[
+				SELECT count(*) FROM person_attribute_type WHERE uuid = '4a504478-1701-49da-9d8b-3e1d12ab6c5o'
+				]]>
+			</sqlCheck>
+		</preConditions>
+		<comment>Adding Nationality person attribute type</comment>
+		<insert tableName="person_attribute_type">
+			<column name="name" value="Nationality"/>
+			<column name="description" value="Nationality of the Patient"/>
+			<column name="format" value="org.openmrs.Concept"/>
+			<column name="searchable" valueNumeric="1"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2018-07-12T10:09:30"/>
+			<column name="retired" valueNumeric="0"/>
+			<column name="uuid" value="4a504478-1701-49da-9d8b-3e1d12ab6c5o"/>
+		</insert>
+	</changeSet>
 </databaseChangeLog>
