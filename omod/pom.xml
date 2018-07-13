@@ -50,6 +50,22 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+					<artifactId>maven-java-formatter-plugin</artifactId>
+					<version>0.3</version>
+					<configuration>
+						<compilerSource>${javaCompilerVersion}</compilerSource>
+						<compilerCompliance>${javaCompilerVersion}</compilerCompliance>
+						<compilerTargetPlatform>${javaCompilerVersion}</compilerTargetPlatform>
+						<configFile>../api/src/main/resources/jembi-formatter.xml</configFile>
+						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
