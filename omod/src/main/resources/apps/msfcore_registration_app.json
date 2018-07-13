@@ -59,7 +59,18 @@
                         "fragmentId":"field/maritalStatus"
                       },
                       "cssClasses":[]
-                    }
+                    },
+                    {
+                        "type":"personAttribute",
+                        "label":"msfcore.employmentStatus",
+                        "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5r",
+                        "formFieldName":"employmentStatus",
+                        "widget":{
+                          "providerName":"msfcore",
+                          "fragmentId":"field/employmentStatus"
+                        },
+                        "cssClasses":[]
+                      }
               ]
             }
           ]

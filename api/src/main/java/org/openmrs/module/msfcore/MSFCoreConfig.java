@@ -27,4 +27,6 @@ public class MSFCoreConfig {
 	public final static String OTHER_NATIONALITY_CONCEPT_UUID = "c901e362-0499-48a0-9a07-74e2d71bcd90";
 	
 	public final static String MARITAL_STATUS_CONCEPT_UUID = "3fb0d2d1-05ff-4390-8ec7-2e4665853f0e";
+	
+	public final static String EMPLOYMENT_STATUS_CONCEPT_UUID = "82494b0f-0049-44ba-b166-13ab352fa408";
 }
