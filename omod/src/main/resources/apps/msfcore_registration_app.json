@@ -39,38 +39,44 @@
                   ]
                 },
                 {
-                    "type":"personAttribute",
-                    "label":"msfcore.otherNationality",
-                    "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5p",
-                    "formFieldName":"otherNationality",
-                    "widget":{
-                      "providerName":"msfcore",
-                      "fragmentId":"field/otherNationality"
-                    },
-                    "cssClasses":[]
+                  "type":"personAttribute",
+                  "label":"msfcore.otherNationality",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5p",
+                  "formFieldName":"otherNationality",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/otherNationality"
                   },
-                  {
-                      "type":"personAttribute",
-                      "label":"msfcore.maritalStatus",
-                      "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5q",
-                      "formFieldName":"maritalStatus",
-                      "widget":{
-                        "providerName":"msfcore",
-                        "fragmentId":"field/maritalStatus"
-                      },
-                      "cssClasses":[]
-                    },
-                    {
-                        "type":"personAttribute",
-                        "label":"msfcore.employmentStatus",
-                        "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5r",
-                        "formFieldName":"employmentStatus",
-                        "widget":{
-                          "providerName":"msfcore",
-                          "fragmentId":"field/employmentStatus"
-                        },
-                        "cssClasses":[]
-                      }
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.maritalStatus",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5q",
+                  "formFieldName":"maritalStatus",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/maritalStatus"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.employmentStatus",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5r",
+                  "formFieldName":"employmentStatus",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/employmentStatus"
+                  },
+                  "cssClasses":[
+
+                  ]
+                }
               ]
             }
           ]
