@@ -9,6 +9,9 @@
  */
 package org.openmrs.module.msfcore.api.impl;
 
+import java.util.List;
+
+import org.openmrs.Concept;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
@@ -24,4 +27,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 		this.dao = dao;
 	}
 	
+	public List<Concept> getAllConceptAnswers(Concept question) {
+		return dao.getAllConceptAnswers(question);
+	}
 }

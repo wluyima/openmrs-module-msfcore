@@ -19,5 +19,8 @@ public class MSFCoreConfig {
 	
 	public final static String MODULE_PRIVILEGE = "MSF Core Privilege";
 	
+	//TODO expose these through settings/global properties
 	public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
+	
+	public final static String NATIONALITY_CONCEPT_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6e3f";
 }

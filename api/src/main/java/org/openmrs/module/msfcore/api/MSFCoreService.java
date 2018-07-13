@@ -9,6 +9,9 @@
  */
 package org.openmrs.module.msfcore.api;
 
+import java.util.List;
+
+import org.openmrs.Concept;
 import org.openmrs.api.OpenmrsService;
 
 /**
@@ -16,5 +19,7 @@ import org.openmrs.api.OpenmrsService;
  * moduleApplicationContext.xml on how it is wired up.
  */
 public interface MSFCoreService extends OpenmrsService {
+	
+	public List<Concept> getAllConceptAnswers(Concept question);
 	
 }

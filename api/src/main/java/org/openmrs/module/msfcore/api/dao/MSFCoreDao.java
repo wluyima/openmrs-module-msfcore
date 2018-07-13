@@ -9,6 +9,12 @@
  */
 package org.openmrs.module.msfcore.api.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.criterion.Restrictions;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +28,18 @@ public class MSFCoreDao {
 	
 	private DbSession getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Concept> getAllConceptAnswers(Concept question) {
+		List<Concept> answers = null;
+		if (question != null && question.getDatatype().isCoded()) {
+			answers = new ArrayList<Concept>();
+			for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class)
+			        .add(Restrictions.eq("concept", question)).list()) {
+				answers.add(answer.getAnswerConcept());
+			}
+		}
+		return answers;
 	}
 }
