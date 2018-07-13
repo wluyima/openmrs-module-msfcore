@@ -29,7 +29,7 @@
                   "type":"personAttribute",
                   "label":"msfcore.nationality",
                   "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5o",
-                  "formFieldName":"msfcore.nationality",
+                  "formFieldName":"nationality",
                   "widget":{
                     "providerName":"msfcore",
                     "fragmentId":"field/nationality"
@@ -37,7 +37,18 @@
                   "cssClasses":[
                     "required"
                   ]
-                }
+                },
+                {
+                    "type":"personAttribute",
+                    "label":"msfcore.otherNationality",
+                    "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5p",
+                    "formFieldName":"otherNationality",
+                    "widget":{
+                      "providerName":"msfcore",
+                      "fragmentId":"field/otherNationality"
+                    },
+                    "cssClasses":[]
+                  }
               ]
             }
           ]
