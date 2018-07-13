@@ -15,9 +15,8 @@
 		<comment>Adding Nationality person attribute type</comment>
 		<insert tableName="person_attribute_type">
 			<column name="name" value="Nationality"/>
-			<column name="description" value="Nationality of the Patient"/>
+			<column name="description" value="Nationality of the person"/>
 			<column name="format" value="org.openmrs.Concept"/>
-			<column name="searchable" valueNumeric="1"/>
 			<column name="creator" valueNumeric="1"/>
 			<column name="date_created" valueDate="2018-07-12T10:09:30"/>
 			<column name="retired" valueNumeric="0"/>
@@ -32,16 +31,34 @@
 				]]>
 			</sqlCheck>
 		</preConditions>
-		<comment>Adding Nationality person attribute type</comment>
+		<comment>Adding Other Nationality person attribute type</comment>
 		<insert tableName="person_attribute_type">
 			<column name="name" value="Other Nationality"/>
-			<column name="description" value="Nationality - if other, specify:"/>
+			<column name="description" value="Nationality - if other, specify: of a person"/>
 			<column name="format" value="org.openmrs.Concept"/>
-			<column name="searchable" valueNumeric="1"/>
 			<column name="creator" valueNumeric="1"/>
 			<column name="date_created" valueDate="2018-07-13T10:09:30"/>
 			<column name="retired" valueNumeric="0"/>
 			<column name="uuid" value="4a504478-1701-49da-9d8b-3e1d12ab6c5p"/>
+		</insert>
+	</changeSet>
+	<changeSet id="2018July131102" author="k-joseph" dbms="mysql">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				<![CDATA[
+				SELECT count(*) FROM person_attribute_type WHERE uuid = '4a504478-1701-49da-9d8b-3e1d12ab6c5q'
+				]]>
+			</sqlCheck>
+		</preConditions>
+		<comment>Adding Marital Status person attribute type</comment>
+		<insert tableName="person_attribute_type">
+			<column name="name" value="Marital Status"/>
+			<column name="description" value="Marital status of the person"/>
+			<column name="format" value="org.openmrs.Concept"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2018-07-13T10:09:30"/>
+			<column name="retired" valueNumeric="0"/>
+			<column name="uuid" value="4a504478-1701-49da-9d8b-3e1d12ab6c5q"/>
 		</insert>
 	</changeSet>
 </databaseChangeLog>
