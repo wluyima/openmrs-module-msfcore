@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
@@ -30,6 +31,9 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
     //disabling default reference application registration app
     Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+    //installation and configuration of default MSF Identifier
+    MSFIdentifierGenerator.installation();
   }
 
   /**

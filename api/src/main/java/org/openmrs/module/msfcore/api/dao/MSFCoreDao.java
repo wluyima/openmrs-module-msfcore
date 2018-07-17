@@ -15,6 +15,9 @@ import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
+import org.openmrs.LocationAttributeType;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,16 @@ public class MSFCoreDao {
     if (question != null && question.getDatatype().isCoded()) {
       answers = new ArrayList<Concept>();
       for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class)
-              .add(Restrictions.eq("concept", question)).list()) {
+          .add(Restrictions.eq("concept", question)).list()) {
         answers.add(answer.getAnswerConcept());
       }
     }
     return answers;
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
+    return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location))
+        .add(Restrictions.eq("attributeType", type)).list();
   }
 }

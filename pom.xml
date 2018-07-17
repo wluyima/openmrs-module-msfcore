@@ -47,6 +47,12 @@
 				<version>${appframeworkVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>idgen-api</artifactId>
+			<version>${idgenVersion}</version>
+			<scope>provided</scope>
+		</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -75,7 +81,10 @@
 	</pluginRepositories>
 
 	<properties>
-		<openmrsPlatformVersion>2.0.6</openmrsPlatformVersion>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<idgenVersion>4.4.1</idgenVersion>
 	</properties>
 </project>

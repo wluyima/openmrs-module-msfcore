@@ -21,6 +21,18 @@ public class MSFCoreConfig {
 
   public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
 
+  public final static String GP_COUNTRY_CODE = "msfcore.countryCode";
+
+  public final static String GP_DEFAULT_LOCATION = "default_location";
+
+  public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
+
+  public final static String PATIENT_ID_TYPE_MSF_UUID = "0t504478-1701-49da-9d8b-3e1d12ab6c5b";
+
+  public final static String PATIENT_ID_TYPE_SOURCE_MSF_UUID = "9a504478-1701-49da-9d8b-3e1d12ab6c5z";
+
+  public final static String MSF_ID_BASE_CHARACTER_SET = "0123456789";
+
   //TODO expose these through settings/global properties
   public final static String NATIONALITY_CONCEPT_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6e3f";
 

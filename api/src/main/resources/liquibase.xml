@@ -80,4 +80,36 @@
 			<column name="uuid" value="4a504478-1701-49da-9d8b-3e1d12ab6c5r"/>
 		</insert>
 	</changeSet>
+	<changeSet id="2018July152318" author="k-joseph" dbms="mysql">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT count(*) FROM location_attribute_type WHERE uuid = '5a504478-1701-49da-9d8b-3e1d12ab6c5a'</sqlCheck>
+		</preConditions>
+		<comment>Adding code location attribute type</comment>
+		<insert tableName="location_attribute_type">
+			<column name="name" value="code"/>
+			<column name="description" value="Location code or initials e.g: AB = Abia Clinic"/>
+			<column name="min_occurs" valueNumeric="0"/>
+			<column name="max_occurs" valueNumeric="1"/>
+			<column name="datatype" value="org.openmrs.customdatatype.datatype.FreeTextDatatype"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2018-07-15T23:09:30"/>
+			<column name="retired" valueNumeric="0"/>
+			<column name="uuid" value="5a504478-1701-49da-9d8b-3e1d12ab6c5a"/>
+		</insert>
+	</changeSet>
+	<changeSet id="2018July160013" author="k-joseph" dbms="mysql">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT count(*) FROM patient_identifier_type WHERE uuid = '0t504478-1701-49da-9d8b-3e1d12ab6c5b'</sqlCheck>
+		</preConditions>
+		<comment>Adding msf patient_identifier_type</comment>
+		<insert tableName="patient_identifier_type">
+			<column name="name" value="MSF Primary Identifier type"/>
+			<column name="description" value="Default MSF id type"/>
+			<column name="validator" value="org.openmrs.module.msfcore.id.LuhnMSFIdentifierValidator"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2018-07-15T23:09:30"/>
+			<column name="retired" valueNumeric="0"/>
+			<column name="uuid" value="0t504478-1701-49da-9d8b-3e1d12ab6c5b"/>
+		</insert>
+	</changeSet>
 </databaseChangeLog>

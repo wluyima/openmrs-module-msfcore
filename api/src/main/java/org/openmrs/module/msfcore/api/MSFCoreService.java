@@ -12,6 +12,9 @@ package org.openmrs.module.msfcore.api;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
+import org.openmrs.LocationAttributeType;
 import org.openmrs.api.OpenmrsService;
 
 /**
@@ -21,5 +24,7 @@ import org.openmrs.api.OpenmrsService;
 public interface MSFCoreService extends OpenmrsService {
 
   public List<Concept> getAllConceptAnswers(Concept question);
+
+  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
 
 }
