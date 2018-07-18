@@ -18,6 +18,7 @@ import org.openmrs.LocationAttributeType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -29,5 +30,5 @@ public interface MSFCoreService extends OpenmrsService {
 
   public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
 
-  public IdentifierSource updateIdentifierSource(IdentifierSource identifierSource) throws APIException;
+  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
 }

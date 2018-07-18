@@ -10,6 +10,7 @@
 package org.openmrs.module.msfcore.api.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,18 +53,20 @@ public class MSFCoreDao {
   }
 
   @SuppressWarnings("unchecked")
-  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
+  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type,
+      Location location) {
     return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location))
         .add(Restrictions.eq("attributeType", type)).list();
   }
 
   @Transactional
-  public IdentifierSource updateIdentifierSource(IdentifierSource identifierSource) throws APIException {
+  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
     DbSession currentSession = sessionFactory.getCurrentSession();
-    currentSession.flush();
+    SequentialIdentifierGenerator source = (SequentialIdentifierGenerator) currentSession
+        .load(SequentialIdentifierGenerator.class, identifierSource.getId());
+    source.setPrefix(identifierSource.getPrefix());
+    source.setDateChanged(new Date());
     currentSession.update(identifierSource);
-    currentSession.flush();
-    currentSession.close();
     return identifierSource;
   }
 }

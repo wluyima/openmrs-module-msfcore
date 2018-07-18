@@ -18,6 +18,7 @@ import org.openmrs.LocationAttributeType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 
@@ -40,7 +41,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     return dao.getLocationAttributeByTypeAndLocation(type, location);
   }
 
-  public IdentifierSource updateIdentifierSource(IdentifierSource identifierSource) throws APIException {
+  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
     return dao.updateIdentifierSource(identifierSource);
   }
 }

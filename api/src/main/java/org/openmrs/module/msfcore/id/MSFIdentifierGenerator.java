@@ -67,7 +67,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
                 .getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID),
                 defaultLocation);
         if (codes.size() > 0) {
-          //TODO test this toString
+          // TODO test this toString
           locationCode = codes.get(0).getValue().toString();
         }
       }
@@ -122,10 +122,12 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
         .getService(IdentifierSourceService.class)
         .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
     // reset next sequency if dynamic prefix changes
-    if (retrivedMsfIdGenerator != null && !retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
-      Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
-      retrivedMsfIdGenerator.setPrefix(msfIdGenerator.getPrefix());
-      Context.getService(IdentifierSourceService.class).saveIdentifierSource(retrivedMsfIdGenerator);
+    if (retrivedMsfIdGenerator != null) {
+      if (!retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
+        Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
+        retrivedMsfIdGenerator.setPrefix(msfIdGenerator.getPrefix());
+        Context.getService(MSFCoreService.class).updateIdentifierSource(retrivedMsfIdGenerator);
+      }
     } else {
       Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);
     }
