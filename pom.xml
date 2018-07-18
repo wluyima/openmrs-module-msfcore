@@ -86,5 +86,6 @@
 		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<idgenVersion>4.4.1</idgenVersion>
+		<metadatadeployVersion>1.10.0</metadatadeployVersion>
 	</properties>
 </project>

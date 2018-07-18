@@ -14,10 +14,13 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
+import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 
 /**
- * This class contains the logic that is run every time this module is either started or shutdown
+ * This class contains the logic that is run every time this module is either
+ * started or shutdown
  */
 public class MSFCoreActivator extends BaseModuleActivator {
 
@@ -29,10 +32,14 @@ public class MSFCoreActivator extends BaseModuleActivator {
   public void started() {
     log.info("Started MSF Core");
 
-    //disabling default reference application registration app
+    log.info("Disabling default reference application registration app");
     Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
 
-    //installation and configuration of default MSF Identifier
+    log.info("Installing MSF metadata");
+    Context.getService(MetadataDeployService.class)
+        .installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+
+    log.info("Installation and configuration of default MSF Identifier");
     MSFIdentifierGenerator.installation();
   }
 
