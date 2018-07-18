@@ -12,14 +12,18 @@ package org.openmrs.module.msfcore.api.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
+import org.openmrs.module.idgen.IdentifierSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +54,15 @@ public class MSFCoreDao {
   public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
     return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location))
         .add(Restrictions.eq("attributeType", type)).list();
+  }
+
+  @Transactional
+  public IdentifierSource updateIdentifierSource(IdentifierSource identifierSource) throws APIException {
+    DbSession currentSession = sessionFactory.getCurrentSession();
+    currentSession.flush();
+    currentSession.update(identifierSource);
+    currentSession.flush();
+    currentSession.close();
+    return identifierSource;
   }
 }

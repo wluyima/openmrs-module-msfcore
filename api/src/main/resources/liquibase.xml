@@ -4,5 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
- 
+                  
+ 	<changeSet author="k-joseph" id="20180718-1618">
+        <addUniqueConstraint columnNames="uuid" constraintName="unique_uuid" tableName="idgen_identifier_source"/>
+	</changeSet>
 </databaseChangeLog>

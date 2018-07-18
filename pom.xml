@@ -37,7 +37,7 @@
             <dependency>
                 <groupId>org.openmrs.distro</groupId>
                 <artifactId>referenceapplication</artifactId>
-                <version>2.4</version>
+                <version>${referenceApplicationVersion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -48,11 +48,11 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>idgen-api</artifactId>
-			<version>${idgenVersion}</version>
-			<scope>provided</scope>
-		</dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>idgen-api</artifactId>
+				<version>${idgenVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -82,10 +82,10 @@
 
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.source>1.8</maven.compiler.source>
 		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
-		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
 		<idgenVersion>4.4.1</idgenVersion>
-		<metadatadeployVersion>1.10.0</metadatadeployVersion>
+		<appframeworkVersion>2.10.0</appframeworkVersion>
 	</properties>
 </project>

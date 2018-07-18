@@ -67,6 +67,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
                 .getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID),
                 defaultLocation);
         if (codes.size() > 0) {
+          //TODO test this toString
           locationCode = codes.get(0).getValue().toString();
         }
       }
@@ -118,18 +119,19 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     msfIdGenerator.setIdentifierType(msfIdType);
     SequentialIdentifierGenerator retrivedMsfIdGenerator = (SequentialIdentifierGenerator) Context
-        .getService(IdentifierSourceService.class).getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
-    //reset next sequency if dynamic prefix changes
-    if (retrivedMsfIdGenerator != null) {
-      if (!retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
-        Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
-      }
-      msfIdGenerator.setId(retrivedMsfIdGenerator.getId());
+        .getService(IdentifierSourceService.class)
+        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
+    // reset next sequency if dynamic prefix changes
+    if (retrivedMsfIdGenerator != null && !retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
+      Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
+      retrivedMsfIdGenerator.setPrefix(msfIdGenerator.getPrefix());
+      Context.getService(IdentifierSourceService.class).saveIdentifierSource(retrivedMsfIdGenerator);
+    } else {
+      Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);
     }
 
-    Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);
-
-    AutoGenerationOption option = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(msfIdType);
+    AutoGenerationOption option = Context.getService(IdentifierSourceService.class)
+        .getAutoGenerationOption(msfIdType);
     if (option == null) {
       option = new AutoGenerationOption();
       option.setIdentifierType(msfIdType);

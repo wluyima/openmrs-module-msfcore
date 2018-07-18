@@ -11,12 +11,19 @@ package org.openmrs.module.msfcore;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.metadatamapping.MetadataTermMapping;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
+import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
 
 /**
  * This class contains the logic that is run every time this module is either
@@ -30,7 +37,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
    * @see #started()
    */
   public void started() {
-    log.info("Started MSF Core");
+    log.info("Started MSF Core Module");
 
     log.info("Disabling default reference application registration app");
     Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
@@ -41,6 +48,25 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
     log.info("Installation and configuration of default MSF Identifier");
     MSFIdentifierGenerator.installation();
+
+    log.info("Setting primary identifier source");
+    IdentifierSource msfIdSource = Context.getService(IdentifierSourceService.class)
+        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
+    if (msfIdSource != null) {
+      Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
+          String.valueOf(msfIdSource.getId()));
+    }
+
+    log.info("Configuting primary Identifier");
+    MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
+    MetadataTermMapping primaryIdentifierTypeMapping = metadataMappingService.getMetadataTermMapping(
+        EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+    PatientIdentifierType openmrsIdType = Context.getPatientService()
+        .getPatientIdentifierTypeByUuid(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE.uuid());
+    if (!openmrsIdType.getUuid().equals(primaryIdentifierTypeMapping.getMetadataUuid())) {
+      primaryIdentifierTypeMapping.setMappedObject(openmrsIdType);
+      metadataMappingService.saveMetadataTermMapping(primaryIdentifierTypeMapping);
+    }
   }
 
   /**
