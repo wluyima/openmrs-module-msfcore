@@ -40,21 +40,22 @@ public class MSFCoreActivator extends BaseModuleActivator {
   public void started() {
     log.info("Started MSF Core Module");
 
-    log.info("Disabling default reference application registration app");
+    installMSFMeta();
+
+  }
+
+  private void installMSFMeta() {
+    log.info("Replacing default reference application registration app");
     Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+    Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
 
     log.info("Installing MSF metadata");
     Context.getService(MetadataDeployService.class)
-        .installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+          .installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
 
     log.info("Installation and configuration of default MSF Identifier");
     MSFIdentifierGenerator.installation();
 
-    configureToMSFPatientPrimaryIdentifier();
-
-  }
-
-  private void configureToMSFPatientPrimaryIdentifier() {
     log.info("Un requiring OpenMRS ID if not done");
     PatientIdentifierType openmrsIdType = Context.getPatientService()
         .getPatientIdentifierTypeByName(ReferenceMetadataConstants.OPENMRS_ID_NAME);
@@ -83,7 +84,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
     }
   }
 
-  private void configureToOpenMRSPatientPrimaryIdentifier() {
+  private void removeMSFMeta() {
+    log.info("Enabling default reference application registration app");
+    Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
+    Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
     log.info("Requiring OpenMRS ID if not done");
     PatientIdentifierType openmrsIdType = Context.getPatientService()
         .getPatientIdentifierTypeByName(ReferenceMetadataConstants.OPENMRS_ID_NAME);
@@ -125,10 +130,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
   @Override
   public void willStop() {
-    Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
-    Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
-
-    configureToOpenMRSPatientPrimaryIdentifier();
+    removeMSFMeta();
     super.willStop();
   }
 

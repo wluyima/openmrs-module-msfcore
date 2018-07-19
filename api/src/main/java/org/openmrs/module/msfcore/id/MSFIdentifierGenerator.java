@@ -67,7 +67,6 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
                 .getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID),
                 defaultLocation);
         if (codes.size() > 0) {
-          // TODO test this toString
           locationCode = codes.get(0).getValue().toString();
         }
       }
