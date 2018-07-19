@@ -3,6 +3,7 @@ package org.openmrs.module.msfcore.metadata;
 import org.openmrs.Concept;
 import org.openmrs.module.metadatadeploy.descriptor.PersonAttributeTypeDescriptor;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.util.AttributableDate;
 
 public class PersonAttributeTypes {
 
@@ -122,6 +123,37 @@ public class PersonAttributeTypes {
 
     public String uuid() {
       return MSFCoreConfig.EMPLOYMENT_STATUS_PERSON_ATTRIBUTE_UUID;
+    }
+
+    @Override
+    public boolean searchable() {
+      return true;
+    }
+  };
+
+  public static PersonAttributeTypeDescriptor DATE_OF_ARRIVAL = new PersonAttributeTypeDescriptor() {
+    @Override
+    public double sortWeight() {
+      return 0;
+    }
+
+    @Override
+    public Class<?> format() {
+      return AttributableDate.class;
+    }
+
+    @Override
+    public String name() {
+      return "Date of Arrival";
+    }
+
+    @Override
+    public String description() {
+      return "Person's date of arrival to the facility";
+    }
+
+    public String uuid() {
+      return MSFCoreConfig.DATE_OF_ARRIVAL_PERSON_ATTRIBUTE_UUID;
     }
 
     @Override

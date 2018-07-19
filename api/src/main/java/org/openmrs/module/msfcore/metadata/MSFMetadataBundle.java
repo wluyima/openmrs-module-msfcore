@@ -13,6 +13,7 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
     install(PersonAttributeTypes.OTHER_NATIONALITY);
     install(PersonAttributeTypes.MARITAL_STATUS);
     install(PersonAttributeTypes.EMPLOYMENT_STATUS);
+    install(PersonAttributeTypes.DATE_OF_ARRIVAL);
 
     log.info("Installing OtherAttributeTypes");
     install(OtherAttributeTypes.LOCATION_CODE);

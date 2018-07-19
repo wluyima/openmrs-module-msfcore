@@ -9,7 +9,7 @@
         "id":"referenceapplication.registrationapp.registerPatient.homepageLink",
         "extensionPointId":"org.openmrs.referenceapplication.homepageLink",
         "type":"link",
-        "label":"referenceapplication.app.registerPatient.label",
+        "label":"msfcore.registrationapp.label",
         "url":"registrationapp/registerPatient.page?appId=msfcore.registrationapp",
         "icon":"icon-user",
         "order":1,
@@ -140,7 +140,7 @@
         },
         {
           "id":"msfcore.registration.others",
-          "label":"msfcore.others",
+          "label":"msfcore.other.info",
           "questions":[
             {
               "legend":"Location.location",
@@ -154,6 +154,22 @@
                   "widget":{
                     "providerName":"uicommons",
                     "fragmentId":"field/location"
+                  }
+                }
+              ]
+            },
+            {
+              "legend":"msfcore.registrationapp.dateOfArrival",
+              "id":"msfcore.registration.dateOfArrival",
+              "fields":[
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.registrationapp.dateOfArrival.info",
+                  "formFieldName":"dateOfArrival",
+                  "uuid":"d03313d1-12fc-4b0b-ba6c-c4873bee3be6",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/multipleInputDate"
                   }
                 }
               ]

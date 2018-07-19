@@ -52,6 +52,8 @@ public class MSFCoreConfig {
 
   public final static String EMPLOYMENT_STATUS_PERSON_ATTRIBUTE_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5r";
 
+  public final static String DATE_OF_ARRIVAL_PERSON_ATTRIBUTE_UUID = "d03313d1-12fc-4b0b-ba6c-c4873bee3be6";
+
   //TODO use org.openmrs.module.registrationcore.RegistrationCoreConstants#GP_OPENMRS_IDENTIFIER_SOURCE_ID
   public final static String GP_OPENMRS_IDENTIFIER_SOURCE_ID = "registrationcore.identifierSourceId";
 }
