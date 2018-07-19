@@ -24,6 +24,7 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;
 
 /**
  * This class contains the logic that is run every time this module is either
@@ -49,6 +50,30 @@ public class MSFCoreActivator extends BaseModuleActivator {
     log.info("Installation and configuration of default MSF Identifier");
     MSFIdentifierGenerator.installation();
 
+    configureToMSFPatientPrimaryIdentifier();
+
+  }
+
+  private void configureToMSFPatientPrimaryIdentifier() {
+    log.info("Un requiring OpenMRS ID if not done");
+    PatientIdentifierType openmrsIdType = Context.getPatientService()
+        .getPatientIdentifierTypeByName(ReferenceMetadataConstants.OPENMRS_ID_NAME);
+    if (openmrsIdType.getRequired()) {
+      openmrsIdType.setRequired(false);
+      Context.getPatientService().savePatientIdentifierType(openmrsIdType);
+    }
+
+    log.info("Configuting primary Identifier");
+    MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
+    MetadataTermMapping primaryIdentifierTypeMapping = metadataMappingService.getMetadataTermMapping(
+        EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+    PatientIdentifierType msfIdType = Context.getPatientService()
+        .getPatientIdentifierTypeByUuid(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE.uuid());
+    if (!msfIdType.getUuid().equals(primaryIdentifierTypeMapping.getMetadataUuid())) {
+      primaryIdentifierTypeMapping.setMappedObject(msfIdType);
+      metadataMappingService.saveMetadataTermMapping(primaryIdentifierTypeMapping);
+    }
+
     log.info("Setting primary identifier source");
     IdentifierSource msfIdSource = Context.getService(IdentifierSourceService.class)
         .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
@@ -56,16 +81,38 @@ public class MSFCoreActivator extends BaseModuleActivator {
       Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
           String.valueOf(msfIdSource.getId()));
     }
+  }
+
+  private void configureToOpenMRSPatientPrimaryIdentifier() {
+    log.info("Requiring OpenMRS ID if not done");
+    PatientIdentifierType openmrsIdType = Context.getPatientService()
+        .getPatientIdentifierTypeByName(ReferenceMetadataConstants.OPENMRS_ID_NAME);
+    PatientIdentifierType msfIdType = Context.getPatientService()
+            .getPatientIdentifierTypeByUuid(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE.uuid());
+    if (!openmrsIdType.getRequired()) {
+      openmrsIdType.setRequired(true);
+      Context.getPatientService().savePatientIdentifierType(openmrsIdType);
+    }
+    if (msfIdType.getRequired()) {
+      msfIdType.setRequired(false);
+      Context.getPatientService().savePatientIdentifierType(msfIdType);
+    }
 
     log.info("Configuting primary Identifier");
     MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
     MetadataTermMapping primaryIdentifierTypeMapping = metadataMappingService.getMetadataTermMapping(
         EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
-    PatientIdentifierType openmrsIdType = Context.getPatientService()
-        .getPatientIdentifierTypeByUuid(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE.uuid());
     if (!openmrsIdType.getUuid().equals(primaryIdentifierTypeMapping.getMetadataUuid())) {
       primaryIdentifierTypeMapping.setMappedObject(openmrsIdType);
       metadataMappingService.saveMetadataTermMapping(primaryIdentifierTypeMapping);
+    }
+
+    log.info("Setting primary identifier source");
+    IdentifierSource sourceForPrimaryType = Context.getService(IdentifierSourceService.class)
+        .getAutoGenerationOption(openmrsIdType).getSource();
+    if (sourceForPrimaryType != null) {
+      Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
+          String.valueOf(sourceForPrimaryType.getId()));
     }
   }
 
@@ -74,6 +121,15 @@ public class MSFCoreActivator extends BaseModuleActivator {
    */
   public void shutdown() {
     log.info("Shutdown MSF Core");
+  }
+
+  @Override
+  public void willStop() {
+    Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
+    Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+    configureToOpenMRSPatientPrimaryIdentifier();
+    super.willStop();
   }
 
 }

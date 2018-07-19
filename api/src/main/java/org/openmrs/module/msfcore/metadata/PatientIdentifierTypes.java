@@ -26,5 +26,10 @@ public class PatientIdentifierTypes {
     public String uuid() {
       return MSFCoreConfig.PATIENT_ID_TYPE_MSF_UUID;
     }
+
+    @Override
+    public boolean required() {
+      return true;
+    }
   };
 }
