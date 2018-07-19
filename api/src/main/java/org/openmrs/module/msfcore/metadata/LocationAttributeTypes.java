@@ -4,7 +4,7 @@ import org.openmrs.customdatatype.datatype.FreeTextDatatype;
 import org.openmrs.module.metadatadeploy.descriptor.LocationAttributeTypeDescriptor;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 
-public class OtherAttributeTypes {
+public class LocationAttributeTypes {
   public static LocationAttributeTypeDescriptor LOCATION_CODE = new LocationAttributeTypeDescriptor() {
     @Override
     public String name() {
@@ -24,6 +24,5 @@ public class OtherAttributeTypes {
     public Class<?> datatype() {
       return FreeTextDatatype.class;
     }
-
   };
 }

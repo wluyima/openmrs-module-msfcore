@@ -15,8 +15,55 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
     install(PersonAttributeTypes.EMPLOYMENT_STATUS);
     install(PersonAttributeTypes.DATE_OF_ARRIVAL);
 
-    log.info("Installing OtherAttributeTypes");
-    install(OtherAttributeTypes.LOCATION_CODE);
+    log.info("Installing LocationAttributeTypes");
+    install(LocationAttributeTypes.LOCATION_CODE);
+
+    log.info("Installing LocationTags");
+    install(LocationTags.MISSION);
+    install(LocationTags.PROJECT);
+    install(LocationTags.CLINIC);
+
+    log.info("Installing MissionLocations");
+    install(MissionLocations.LEBANON);
+    install(MissionLocations.UKRAINE);
+
+    log.info("Installing ProjectLocations");
+    install(ProjectLocations.BEKAA_VALLEY);
+    install(ProjectLocations.TRIPOLI);
+    install(ProjectLocations.WEST_DONETSK);
+    install(ProjectLocations.MARIUPOL);
+
+    log.info("Installing ClinicLocations");
+    install(ClinicLocations.AARSAL);
+    install(ClinicLocations.BAALBAK);
+    install(ClinicLocations.HERMEL);
+    install(ClinicLocations.MAJDAL_ANJAR);
+    install(ClinicLocations.ABDEH);
+    install(ClinicLocations.DAZ);
+    install(ClinicLocations.BEREZOVE);
+    install(ClinicLocations.KAMIANKA_2);
+    install(ClinicLocations.KURAKHOVE);
+    install(ClinicLocations.MAXIMILIANOVKA);
+    install(ClinicLocations.NETAILOVE);
+    install(ClinicLocations.NOVOSELIVKA_DRUHA);
+    install(ClinicLocations.OPYTNE);
+    install(ClinicLocations.TARAMCHUK);
+    install(ClinicLocations.VODYANE);
+    install(ClinicLocations.BERDIANSKOE);
+    install(ClinicLocations.GRANITNE);
+    install(ClinicLocations.HOSPITAL_N_1_MARIUPOL);
+    install(ClinicLocations.HOSPITAL_N_3_MARIUPOL);
+    install(ClinicLocations.KAMIANKA_1);
+    install(ClinicLocations.LEBEDINSKOE);
+    install(ClinicLocations.MIKOLAIVKA);
+    install(ClinicLocations.NOVOSELIVKA);
+    install(ClinicLocations.ORLOVSKE);
+    install(ClinicLocations.PASHKOVSKOGO);
+    install(ClinicLocations.PAVLOPIL);
+    install(ClinicLocations.PIONERSKE);
+    install(ClinicLocations.PROHOROVKA);
+    install(ClinicLocations.STAROGNATIVKA);
+    install(ClinicLocations.STEPANIVKA);
 
     log.info("Installing PatientIdentifierTypes");
     install(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE);
