@@ -27,7 +27,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -188,7 +188,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -220,7 +220,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -252,7 +252,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -284,7 +284,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -316,7 +316,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -348,7 +348,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -380,7 +380,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -412,7 +412,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -444,7 +444,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -476,7 +476,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -508,7 +508,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -540,7 +540,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -572,7 +572,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -604,7 +604,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -636,7 +636,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -668,7 +668,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -700,7 +700,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -732,7 +732,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -764,7 +764,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -796,7 +796,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -828,7 +828,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -860,7 +860,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -892,7 +892,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -924,7 +924,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override
@@ -956,7 +956,7 @@ public class ClinicLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT, LocationTags.CLINIC);
+      return Arrays.asList(LocationTags.CLINIC);
     }
 
     @Override

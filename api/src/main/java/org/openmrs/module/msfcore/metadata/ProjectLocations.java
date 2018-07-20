@@ -27,7 +27,7 @@ public class ProjectLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT);
+      return Arrays.asList(LocationTags.PROJECT);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ProjectLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT);
+      return Arrays.asList(LocationTags.PROJECT);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ProjectLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT);
+      return Arrays.asList(LocationTags.PROJECT);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class ProjectLocations {
 
     @Override
     public List<LocationTagDescriptor> tags() {
-      return Arrays.asList(LocationTags.MISSION, LocationTags.PROJECT);
+      return Arrays.asList(LocationTags.PROJECT);
     }
 
     @Override
