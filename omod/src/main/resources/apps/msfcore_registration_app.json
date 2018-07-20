@@ -23,7 +23,7 @@
           "questions":[
             {
               "id":"demographics",
-              "legend":"msfcore.msf",
+              "legend":"msfcore.ncd.variableList",
               "fields":[
                 {
                   "type":"personAttribute",

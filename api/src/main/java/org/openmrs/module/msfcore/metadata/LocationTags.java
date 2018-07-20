@@ -12,12 +12,12 @@ public class LocationTags {
 
     @Override
     public String name() {
-      return "Center (Clinic)";
+      return "Clinic";
     }
 
     @Override
     public String description() {
-      return "";
+      return "Center/Clinic";
     }
   };
 
