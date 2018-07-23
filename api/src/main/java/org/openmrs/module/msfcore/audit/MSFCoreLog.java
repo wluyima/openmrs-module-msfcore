@@ -35,10 +35,10 @@ public class MSFCoreLog implements Serializable {
 	@Column(nullable = false, updatable = false)
 	private Date date;
 	
-	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, updatable = false)
 	private String detail;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, updatable = false)
 	private Event event;
 	
@@ -59,7 +59,7 @@ public class MSFCoreLog implements Serializable {
 	private Location location;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(updatable = false)
+	@JoinColumn(updatable = false, nullable = false)
 	private User creator;
 	
 	@Column(unique = true, nullable = false, length = 38, updatable = false)
