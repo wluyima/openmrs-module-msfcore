@@ -75,9 +75,6 @@
 					<artifactId>maven-java-formatter-plugin</artifactId>
 					<version>0.3</version>
 					<configuration>
-						<compilerSource>${javaCompilerVersion}</compilerSource>
-						<compilerCompliance>${javaCompilerVersion}</compilerCompliance>
-						<compilerTargetPlatform>${javaCompilerVersion}</compilerTargetPlatform>
 						<configFile>src/main/resources/jembi-formatter.xml</configFile>
 						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
 					</configuration>
