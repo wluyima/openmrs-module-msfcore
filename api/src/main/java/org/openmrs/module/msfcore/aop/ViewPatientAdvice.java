@@ -10,7 +10,7 @@ import org.openmrs.module.msfcore.audit.MSFCoreLog;
 import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 import org.springframework.aop.AfterReturningAdvice;
 
-public class ViewPatientAdvise implements AfterReturningAdvice {
+public class ViewPatientAdvice implements AfterReturningAdvice {
 
   @Override
   public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
@@ -21,8 +21,9 @@ public class ViewPatientAdvise implements AfterReturningAdvice {
      */
     if (method.getName().equals("patientViewed") && args.length == 2 && args[0].getClass().equals(Patient.class)
         && args[1].getClass().equals(User.class)) {
-      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.VIEW_PATIENT, "loaded/viewed patient dashboard", (User) args[1]);
+      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.VIEW_PATIENT, "loaded/viewed patient dashboard", Context.getAuthenticatedUser());
       viewPatientLog.setPatient((Patient) args[0]);
+      viewPatientLog.setUser((User) args[1]);
       Context.getService(MSFCoreService.class).saveMSFCoreLog(viewPatientLog);
     }
   }

@@ -64,8 +64,9 @@
 	<!-- AOP Support to log viewing a patient -->
 	<advice>
 		<point>org.openmrs.module.emrapi.event.ApplicationEventService</point>
-		<class>org.openmrs.module.msfcore.aop.ViewPatientAdvise</class>
+		<class>org.openmrs.module.msfcore.aop.ViewPatientAdvice</class>
 	</advice>
+	
 	
 </module>
 
