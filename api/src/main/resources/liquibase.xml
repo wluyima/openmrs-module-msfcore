@@ -32,4 +32,54 @@
 			<column name="uuid" value="8defc5be-8f1b-11e8-9eb6-529269fb1459" />
 		</insert>
 	</changeSet>
+	<changeSet id="20180724-1551" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not><tableExists tableName="msfcore_log" /></not>
+		</preConditions>
+		<comment>
+			Create msfcore_log table
+		</comment>
+		<createTable tableName="msfcore_log">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="date" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="detail" type="text">
+				<constraints nullable="false" />
+			</column>
+			<column name="event" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="creator" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="user_id" type="int" />
+			<column name="patient_id" type="int" />
+			<column name="provider_id" type="int" />
+			<column name="location_id" type="int" />
+			<column name="uuid" type="char(38)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="msfcore_log_creator_fk"
+			baseTableName="msfcore_log"
+			baseColumnNames="creator" referencedTableName="users"
+			referencedColumnNames="user_id" />
+		<addForeignKeyConstraint constraintName="msfcore_log_user_fk"
+			baseTableName="msfcore_log"
+			baseColumnNames="user_id" referencedTableName="users"
+			referencedColumnNames="user_id" />
+		<addForeignKeyConstraint constraintName="msfcore_log_patient_fk"
+			baseTableName="msfcore_log" baseColumnNames="patient_id"
+			referencedTableName="patient" referencedColumnNames="patient_id" />
+		<addForeignKeyConstraint constraintName="msfcore_log_provider_fk"
+			baseTableName="msfcore_log" baseColumnNames="provider_id"
+            referencedTableName="provider" referencedColumnNames="provider_id" />
+       <addForeignKeyConstraint constraintName="msfcore_log_location_fk"
+			baseTableName="msfcore_log" baseColumnNames="location_id"
+			referencedTableName="location" referencedColumnNames="location_id"/>
+	</changeSet>
 </databaseChangeLog>

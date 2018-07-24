@@ -59,5 +59,13 @@
 		<description>Number of days the EMR should keep MSFCore logs</description>
 	</globalProperty>
 	
+	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
+	
+	<!-- AOP Support to log viewing a patient -->
+	<advice>
+		<point>org.openmrs.module.emrapi.event.ApplicationEventService</point>
+		<class>org.openmrs.module.msfcore.aop.ViewPatientAdvise</class>
+	</advice>
+	
 </module>
 
