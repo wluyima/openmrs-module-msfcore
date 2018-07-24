@@ -9,8 +9,6 @@
  */
 package org.openmrs.module.msfcore.api;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,46 +19,18 @@ import java.util.List;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
-import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
-import org.openmrs.module.msfcore.api.impl.MSFCoreServiceImpl;
 import org.openmrs.module.msfcore.audit.MSFCoreLog;
 import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This is a unit test, which verifies logic in MSFCoreService.
  */
 public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
-
-  @InjectMocks
-  MSFCoreServiceImpl msfCoreServiceImpl;
-
-  @Mock
-  MSFCoreDao dao;
-
-  @Before
-  public void setupMocks() {
-    MockitoAnnotations.initMocks(this);
-  }
-
-  @Autowired
-  MSFCoreService msfCoreService;
-
-  @Test
-  public void serviceNotNull() {
-    assertNotNull(msfCoreServiceImpl);
-    assertNotNull(msfCoreService);
-    assertNotNull(Context.getService(MSFCoreService.class));
-  }
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveAllWhenNoFiltersAreSpecified() throws Exception {
