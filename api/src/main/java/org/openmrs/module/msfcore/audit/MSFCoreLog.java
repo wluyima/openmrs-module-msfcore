@@ -65,6 +65,16 @@ public class MSFCoreLog implements Serializable {
   @Column(unique = true, nullable = false, length = 38, updatable = false)
   private String uuid = UUID.randomUUID().toString();
 
+  public MSFCoreLog() {
+  }
+
+  public MSFCoreLog(Event event, String detail, User creator) {
+    setDate(new Date());
+    setDetail(detail);
+    setEvent(event);
+    setCreator(creator);
+  }
+
   public Integer getId() {
     return id;
   }

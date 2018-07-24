@@ -88,4 +88,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     calendar.add(Calendar.DAY_OF_YEAR, -nDays);
     return calendar.getTime();
   }
+
+  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog) {
+    return dao.saveMSFCoreLog(msfCoreLog);
+  }
+
+  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId) {
+    return dao.getMSFCoreLog(msfCoreLogId);
+  }
 }

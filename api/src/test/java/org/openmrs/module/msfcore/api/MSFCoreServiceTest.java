@@ -202,4 +202,41 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         .getDateAtNDaysFromData(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-30 20:29:59"), 30);
     Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-30 20:29:59"), date);
   }
+
+  @Test
+  public void getMSFCoreLog_shouldRetrieveRightLog() throws Exception {
+    executeDataSet("MSFCoreLogs.xml");
+    MSFCoreLog log = Context.getService(MSFCoreService.class).getMSFCoreLog(1);
+    Assert.assertEquals("9e663d66-6b78-11e0-93c3-18a905e00001", log.getUuid());
+    Assert.assertEquals("basic login log", log.getDetail());
+    Assert.assertEquals(Context.getUserService().getUser(501), log.getCreator());
+    Assert.assertEquals(Context.getUserService().getUser(501), log.getUser());
+  }
+
+  @Test
+  public void saveMSFCoreLog_shouldPersistLogWithMandetoryFields() {
+    MSFCoreLog savedLog = Context.getService(MSFCoreService.class).getMSFCoreLog(Context.getService(MSFCoreService.class).saveMSFCoreLog(
+        new MSFCoreLog(Event.LOGIN, "user logging in", Context.getUserService().getUser(501))));
+    Assert.assertEquals("user logging in", savedLog.getDetail());
+    Assert.assertNotNull(savedLog.getId());
+    Assert.assertNotNull(savedLog.getUuid());
+    Assert.assertNull(savedLog.getPatient());
+    Assert.assertNull(savedLog.getUser());
+    Assert.assertNull(savedLog.getLocation());
+    Assert.assertNull(savedLog.getProvider());
+  }
+
+  @Test
+  public void saveMSFCoreLog_shouldPersistLogWithNonMandetoryFields() {
+    MSFCoreLog log = new MSFCoreLog(Event.REGISTER_PATIENT, "Registering a patient", Context.getUserService().getUser(501));
+    log.setPatient(Context.getPatientService().getPatient(6));
+    MSFCoreLog savedLog = Context.getService(MSFCoreService.class).getMSFCoreLog(
+        Context.getService(MSFCoreService.class).saveMSFCoreLog(log));
+    Assert.assertEquals("Registering a patient", savedLog.getDetail());
+    Assert.assertNotNull(savedLog.getId());
+    Assert.assertNotNull(savedLog.getUuid());
+    Assert.assertEquals(log.getId(), savedLog.getId());
+    Assert.assertEquals(log.getUuid(), savedLog.getUuid());
+    Assert.assertEquals(Context.getPatientService().getPatient(6), savedLog.getPatient());
+  }
 }

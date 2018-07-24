@@ -113,4 +113,12 @@ public class MSFCoreDao {
     currentSession.update(identifierSource);
     return identifierSource;
   }
+
+  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog) {
+    return (Integer) getSession().save(msfCoreLog);
+  }
+
+  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId) {
+    return (MSFCoreLog) getSession().get(MSFCoreLog.class, msfCoreLogId);
+  }
 }

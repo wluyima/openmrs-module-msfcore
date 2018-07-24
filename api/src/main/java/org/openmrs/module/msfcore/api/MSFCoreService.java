@@ -51,4 +51,8 @@ public interface MSFCoreService extends OpenmrsService {
   public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
   public Date getDateAtNDaysFromData(Date date, Integer nDays);
+
+  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog);
+
+  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId);
 }
