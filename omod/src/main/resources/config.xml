@@ -53,6 +53,11 @@
 		<defaultValue>UK</defaultValue>
 		<description>MSF Country code</description>
 	</globalProperty>
+	<globalProperty>
+		<property>msfcore.daysToKeepLogs</property>
+		<defaultValue>30</defaultValue>
+		<description>Number of days the EMR should keep MSFCore logs</description>
+	</globalProperty>
 	
 </module>
 

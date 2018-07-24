@@ -208,4 +208,6 @@ public class MSFCoreConfig {
 
   public final static String LOCATION_STEPANIVKA_UUID = "87081024-8b9f-11e8-9eb6-529269fb1488";
 
+  public final static String GP_DAYS_TO_KEEP_LOGS = "msfcore.daysToKeepLogs";
+
 }

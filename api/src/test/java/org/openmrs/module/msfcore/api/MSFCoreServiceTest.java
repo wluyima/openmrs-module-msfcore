@@ -11,9 +11,11 @@ package org.openmrs.module.msfcore.api;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -63,8 +65,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveAllWhenNoFiltersAreSpecified() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null,
-        null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(7));
     Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
@@ -80,8 +81,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingDateRange() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-23"), null, null, null, null, null, null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-23"),
+        null, null, null, null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(6));
     Assert.assertThat(logs.get(0).getEvent().name(), CoreMatchers.is("VIEW_PATIENT"));
@@ -96,9 +97,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingEvents() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null,
-        null, null, null, null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(3));
     Assert.assertThat(logs.get(0).getEvent().name(), CoreMatchers.is("LOGIN"));
@@ -109,9 +109,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingCreator() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), null, Context.getUserService().getUser(501), null, null,
-        null, null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        null, Context.getUserService().getUser(501), null, null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(7));
     Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
@@ -127,10 +126,9 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingPatients() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), new ArrayList<Event>(EnumSet.allOf(Event.class)),
-        Context.getUserService().getUser(501), Arrays.asList(Context.getPatientService().getPatient(6)), null, null,
-        null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        new ArrayList<Event>(EnumSet.allOf(Event.class)), Context.getUserService().getUser(501),
+        Arrays.asList(Context.getPatientService().getPatient(6)), null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(4));
     Assert.assertThat(logs.get(0).getEvent().name(), CoreMatchers.is("REGISTER_PATIENT"));
@@ -142,9 +140,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingUsers() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), new ArrayList<Event>(EnumSet.allOf(Event.class)), null,
-        null, Arrays.asList(Context.getUserService().getUser(501)), null, null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, Arrays.asList(Context.getUserService().getUser(501)), null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(1));
     Assert.assertThat(logs.get(0).getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00001"));
@@ -153,9 +150,9 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingProviders() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), new ArrayList<Event>(EnumSet.allOf(Event.class)), null,
-        null, null, Arrays.asList(Context.getProviderService().getProvider(1)), null);
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, null, Arrays.asList(Context.getProviderService().getProvider(1)),
+        null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(2));
     Assert.assertThat(logs.get(0).getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00004"));
@@ -166,9 +163,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingLocation() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"), new ArrayList<Event>(EnumSet.allOf(Event.class)), null,
-        null, null, Arrays.asList(Context.getProviderService().getProvider(1)),
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+        new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, null, Arrays.asList(Context.getProviderService().getProvider(1)),
         Arrays.asList(Context.getLocationService().getLocation(1)));
 
     Assert.assertThat(logs.size(), CoreMatchers.is(1));
@@ -178,8 +174,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getMSFCoreLogByUuid_shouldReturnRightLog() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    MSFCoreLog msfCoreLog = Context.getService(MSFCoreService.class).getMSFCoreLogByUuid(
-        "9e663d66-6b78-11e0-93c3-18a905e00001");
+    MSFCoreLog msfCoreLog = Context.getService(MSFCoreService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
     Assert.assertThat(msfCoreLog.getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00001"));
     Assert.assertThat(msfCoreLog.getEvent(), CoreMatchers.is(Event.LOGIN));
   }
@@ -187,26 +182,24 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void deleteMSFCoreLog_shouldCompletelyDeleteLog() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null)
-            .size(), CoreMatchers.is(7));
-    MSFCoreLog msfCoreLog = Context.getService(MSFCoreService.class).getMSFCoreLogByUuid(
-        "9e663d66-6b78-11e0-93c3-18a905e00001");
+    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null).size(),
+        CoreMatchers.is(7));
+    MSFCoreLog msfCoreLog = Context.getService(MSFCoreService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
     Assert.assertThat(msfCoreLog.getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00001"));
     Assert.assertThat(msfCoreLog.getEvent(), CoreMatchers.is(Event.LOGIN));
     Context.getService(MSFCoreService.class).deleteMSFCoreLog(msfCoreLog);
-    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null)
-            .size(), CoreMatchers.is(6));
+    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null).size(),
+        CoreMatchers.is(6));
   }
 
   @Test
   public void deleteMSFCoreLogsInLastNMonths_shouldCompletelyDeleteRangedLogs() throws Exception {
     executeDataSet("MSFCoreLogs.xml");
-    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null)
-            .size(), CoreMatchers.is(7));
-    Context.getService(MSFCoreService.class).deleteMSFCoreLogsInLastNMonths(
-        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-23 20:29:59"));
-    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null,
-        null);
+    Assert.assertThat(Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null).size(),
+        CoreMatchers.is(7));
+    Context.getService(MSFCoreService.class)
+        .deleteMSFCoreFromDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-23 20:29:59"));
+    List<MSFCoreLog> logs = Context.getService(MSFCoreService.class).getMSFCoreLogs(null, null, null, null, null, null, null);
     Assert.assertThat(logs.size(), CoreMatchers.is(3));
     Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
     Assert.assertThat(logs.get(1).getEvent().name(), CoreMatchers.is("VIEW_PATIENT"));
@@ -216,8 +209,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getAllConceptAnswers_shouldReturnConceptsFromAnswers() {
     Assert.assertNotNull(Context.getService(MSFCoreService.class));
-    List<Concept> answers = Context.getService(MSFCoreService.class).getAllConceptAnswers(
-        Context.getConceptService().getConcept(4));
+    List<Concept> answers = Context.getService(MSFCoreService.class).getAllConceptAnswers(Context.getConceptService().getConcept(4));
     Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(5)));
     Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(6)));
   }
@@ -226,12 +218,18 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
   public void getAllConceptAnswerNames_shouldReturnRightDropDownOptions() {
     Assert.assertNotNull(Context.getService(MSFCoreService.class));
     Concept concept = Context.getConceptService().getConcept(4);
-    List<DropDownFieldOption> options = Context.getService(MSFCoreService.class)
-        .getAllConceptAnswerNames(concept.getUuid());
+    List<DropDownFieldOption> options = Context.getService(MSFCoreService.class).getAllConceptAnswerNames(concept.getUuid());
     Assert.assertEquals("CIVIL STATUS", concept.getName().getName());
     Assert.assertEquals("5", options.get(0).getValue());
     Assert.assertEquals("SINGLE", options.get(0).getLabel());
     Assert.assertEquals("6", options.get(1).getValue());
     Assert.assertEquals("MARRIED", options.get(1).getLabel());
+  }
+
+  @Test
+  public void getDateAtNDaysFromData_shouldEvalueteCorrectly() throws ParseException {
+    Date date = Context.getService(MSFCoreService.class)
+        .getDateAtNDaysFromData(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-30 20:29:59"), 30);
+    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-30 20:29:59"), date);
   }
 }

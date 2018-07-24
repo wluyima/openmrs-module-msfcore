@@ -40,7 +40,7 @@ public interface MSFCoreService extends OpenmrsService {
 
   public void deleteMSFCoreLog(MSFCoreLog msfCoreLog);
 
-  public void deleteMSFCoreLogsInLastNMonths(Date startDate);
+  public void deleteMSFCoreFromDate(Date startDate);
 
   public List<Concept> getAllConceptAnswers(Concept question);
 
@@ -49,4 +49,6 @@ public interface MSFCoreService extends OpenmrsService {
   public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
 
   public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
+
+  public Date getDateAtNDaysFromData(Date date, Integer nDays);
 }
