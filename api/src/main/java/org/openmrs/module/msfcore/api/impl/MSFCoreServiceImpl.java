@@ -9,9 +9,18 @@
  */
 package org.openmrs.module.msfcore.api.impl;
 
+import java.util.Date;
+import java.util.List;
+
+import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
+import org.openmrs.module.msfcore.audit.MSFCoreLog;
+import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 	
@@ -24,4 +33,22 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 		this.dao = dao;
 	}
 	
+	public List<MSFCoreLog> getMSFCoreLogs(Date startDate, List<Event> events, User creator, List<Patient> patients,
+	        List<User> users, List<Provider> providers, List<Location> locations) {
+		return dao.getMSFCoreLogs(startDate, events, creator, patients, users, providers, locations);
+	}
+	
+	public MSFCoreLog getMSFCoreLogByUuid(String uuid) {
+		return dao.getMSFCoreLogByUuid(uuid);
+	}
+	
+	public void deleteMSFCoreLog(MSFCoreLog msfCoreLog) {
+		dao.deleteMSFCoreLog(msfCoreLog);
+	}
+	
+	public void deleteMSFCoreLogsInLastNMonths(Date startDate) {
+		for (MSFCoreLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null)) {
+			deleteMSFCoreLog(log);
+		}
+	}
 }

@@ -43,12 +43,12 @@ public class MSFCoreLog implements Serializable {
 	private Event event;
 	
 	@ManyToOne(optional = true)
-	@JoinColumn(name = "patient_id", updatable = false)
-	private Patient patient;
-	
-	@ManyToOne(optional = true)
 	@JoinColumn(name = "user_id", updatable = false)
 	private User user;
+	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "patient_id", updatable = false)
+	private Patient patient;
 	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "provider_id", updatable = false)
@@ -59,7 +59,7 @@ public class MSFCoreLog implements Serializable {
 	private Location location;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(updatable = false, nullable = false)
+	@JoinColumn(name = "creator", referencedColumnName = "user_id", updatable = false, nullable = false)
 	private User creator;
 	
 	@Column(unique = true, nullable = false, length = 38, updatable = false)

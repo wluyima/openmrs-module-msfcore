@@ -9,7 +9,16 @@
  */
 package org.openmrs.module.msfcore.api;
 
+import java.util.Date;
+import java.util.List;
+
+import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.msfcore.audit.MSFCoreLog;
+import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -17,4 +26,12 @@ import org.openmrs.api.OpenmrsService;
  */
 public interface MSFCoreService extends OpenmrsService {
 	
+	public List<MSFCoreLog> getMSFCoreLogs(Date startDate, List<Event> events, User creator, List<Patient> patients,
+	        List<User> users, List<Provider> providers, List<Location> locations);
+	
+	public MSFCoreLog getMSFCoreLogByUuid(String uuid);
+	
+	public void deleteMSFCoreLog(MSFCoreLog msfCoreLog);
+	
+	public void deleteMSFCoreLogsInLastNMonths(Date startDate);
 }
