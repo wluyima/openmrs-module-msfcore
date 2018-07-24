@@ -33,7 +33,6 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -50,6 +49,19 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+					<artifactId>maven-java-formatter-plugin</artifactId>
+					<version>0.3</version>
+					<configuration>
+						<configFile>../api/src/main/resources/jembi-formatter.xml</configFile>
+						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
