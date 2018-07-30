@@ -46,12 +46,15 @@ public class MSFCoreDao {
   }
 
   @SuppressWarnings("unchecked")
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, List<Event> events, User creator, List<Patient> patients,
+  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
     Criteria criteria = getSession().createCriteria(MSFCoreLog.class);
 
     if (startDate != null) {
       criteria.add(Restrictions.ge("date", startDate));
+    }
+    if (endDate != null) {
+      criteria.add(Restrictions.le("date", endDate));
     }
     if (events != null) {
       criteria.add(Restrictions.in("event", events));

@@ -43,9 +43,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     this.dao = dao;
   }
 
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, List<Event> events, User creator, List<Patient> patients,
+  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
-    return dao.getMSFCoreLogs(startDate, events, creator, patients, users, providers, locations);
+    return dao.getMSFCoreLogs(startDate, endDate, events, creator, patients, users, providers, locations);
   }
 
   public MSFCoreLog getMSFCoreLogByUuid(String uuid) {
@@ -57,7 +57,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
   }
 
   public void deleteMSFCoreFromDate(Date startDate) {
-    for (MSFCoreLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null)) {
+    for (MSFCoreLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null, null)) {
       deleteMSFCoreLog(log);
     }
   }

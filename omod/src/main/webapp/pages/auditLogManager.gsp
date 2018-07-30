@@ -11,13 +11,15 @@
     
     jQuery(function() {
     	jQuery("#start-time-display").val("${startTime}");
+    	jQuery("#end-time-display").val("${endTime}");
     });
 </script>
 
 <h2>${ ui.message("msfcore.filters")}</h2>
 
 <form method="post">
-	${ui.message("msfcore.starttime")}: ${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: '', formFieldName: 'startTime', useTime: true ]) }
+	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: 'msfcore.starttime', formFieldName: 'startTime', useTime: true ]) }
+	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'end-time', label: 'msfcore.endtime', formFieldName: 'endTime', useTime: true ]) }
 
 	<p align="right"><input type="submit" value="${ ui.message('general.submit')}"/></p>
 </form>

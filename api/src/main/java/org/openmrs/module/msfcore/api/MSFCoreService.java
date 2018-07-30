@@ -33,7 +33,7 @@ import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
  */
 public interface MSFCoreService extends OpenmrsService {
 
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, List<Event> events, User creator, List<Patient> patients,
+  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations);
 
   public MSFCoreLog getMSFCoreLogByUuid(String uuid);

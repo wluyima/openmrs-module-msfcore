@@ -15,18 +15,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuditLogManagerPageController {
 
   public void controller(PageModel model, @SpringBean("msfCoreService") MSFCoreService msfCoreService,
-      @RequestParam(value = "startTime", required = false) String startTime) {
+      @RequestParam(value = "startTime", required = false) String startTime,
+      @RequestParam(value = "endTime", required = false) String endTime) {
     Date startDate = null;
+    Date endDate = null;
     try {
       SimpleDateFormat dateISOFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      if(StringUtils.isNotBlank(startTime)) {
+      if (StringUtils.isNotBlank(startTime)) {
         startDate = dateISOFormatted.parse(startTime.replaceAll(",", ""));
+      }
+      if (StringUtils.isNotBlank(endTime)) {
+        endDate = dateISOFormatted.parse(endTime.replaceAll(",", ""));
       }
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, null, null, null, null, null, null);
+    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, null, null, null, null, null, null);
     model.addAttribute("msfCoreLogs", msfCoreLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
+    model.addAttribute("endTime", startTime.replaceAll(",", ""));
   }
 }
