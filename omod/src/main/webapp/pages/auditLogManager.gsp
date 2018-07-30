@@ -16,6 +16,12 @@
     	});
     }
     
+    function resetFiltersForm() {
+    	jQuery("#start-time-display").val("");
+    	jQuery("#end-time-display").val("");
+    	jQuery("#events option:selected").prop("selected", false);
+    }
+    
     jQuery(function() {
     	jQuery("#start-time-display").val("${startTime}");
     	jQuery("#end-time-display").val("${endTime}");
@@ -38,7 +44,7 @@
         	<option value="${event}">${event}</option>
         <% } %>
     </select>
-	<p align="right"><input type="submit" value="${ ui.message('msfcore.filter')}"/></p>
+	<p><input class="left" type="submit" value="${ ui.message('msfcore.filter')}"/> <input type="button" onclick="resetFiltersForm()" class="right" value="${ ui.message('msfcore.reset')}"/></p>
 </form>
 
 <h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
