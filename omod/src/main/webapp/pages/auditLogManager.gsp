@@ -9,19 +9,27 @@
         { label: "${ ui.message("msfcore.auditlogs.manager.label")}"}
     ];
     
+    function toggleFiltersDisplay() {
+    	jQuery("#filters").toggle(500, function() {
+    		jQuery("#filters-icon").toggleClass("icon-angle-down")
+    		jQuery("#filters-icon").toggleClass("icon-angle-up")
+    	});
+    }
+    
     jQuery(function() {
     	jQuery("#start-time-display").val("${startTime}");
     	jQuery("#end-time-display").val("${endTime}");
+    	toggleFiltersDisplay();
     });
 </script>
 
-<h2>${ ui.message("msfcore.filters")}</h2>
+<h2 style="background-color:#f3f3f3;" onclick="toggleFiltersDisplay()">${ui.message("msfcore.filters")}<i id="filters-icon" class="icon-angle-down right"></i></h2>
 
-<form method="post">
+<form id="filters" method="post">
 	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: 'msfcore.starttime', formFieldName: 'startTime', useTime: true ]) }
 	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'end-time', label: 'msfcore.endtime', formFieldName: 'endTime', useTime: true ]) }
 
-	<p align="right"><input type="submit" value="${ ui.message('general.submit')}"/></p>
+	<p align="right"><input type="submit" value="${ ui.message('msfcore.filter')}"/></p>
 </form>
 <table>
     <thead>
