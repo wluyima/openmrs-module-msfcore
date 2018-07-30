@@ -20,6 +20,9 @@
     	jQuery("#start-time-display").val("${startTime}");
     	jQuery("#end-time-display").val("${endTime}");
     	toggleFiltersDisplay();
+    	jQuery.each("${selectedEvents}".replace('[', '').replace(']', '').split(","), function(i,e) {
+    		jQuery("#events option[value=" + e + "]").prop("selected", true);
+		});
     });
 </script>
 
@@ -28,9 +31,18 @@
 <form id="filters" method="post">
 	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: 'msfcore.starttime', formFieldName: 'startTime', useTime: true ]) }
 	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'end-time', label: 'msfcore.endtime', formFieldName: 'endTime', useTime: true ]) }
-
+	
+	<br />${ui.message("msfcore.events")}<br />
+	<select id="events" name="events" multiple="true">
+		<% events.each { event -> %>
+        	<option value="${event}">${event}</option>
+        <% } %>
+    </select>
 	<p align="right"><input type="submit" value="${ ui.message('msfcore.filter')}"/></p>
 </form>
+
+<h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
+
 <table>
     <thead>
 	    <tr>
