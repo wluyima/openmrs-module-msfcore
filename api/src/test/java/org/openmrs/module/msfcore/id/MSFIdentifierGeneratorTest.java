@@ -3,7 +3,7 @@ package org.openmrs.module.msfcore.id;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 
@@ -11,10 +11,7 @@ public class MSFIdentifierGeneratorTest {
 
   @Test
   public void getIdentifierForSeed_shouldGenerateAnIdentifierWithinMinLengthAndMaxLengthBounds() throws Exception {
-    Calendar date = Calendar.getInstance();
-    date.set(Calendar.MONTH, 5);
-    date.set(Calendar.YEAR, 2018);
-    MSFIdentifierGenerator msfIdentifierGenerator = new MSFIdentifierGenerator("UK", "AB", date.getTime());
+    MSFIdentifierGenerator msfIdentifierGenerator = new MSFIdentifierGenerator("UK", "AB", new SimpleDateFormat("yyyyMM").parse("201806"));
     msfIdentifierGenerator.setFirstIdentifierBase("1");
     msfIdentifierGenerator.setCountryCode("UK");
     msfIdentifierGenerator.setLocationCode("AB");
