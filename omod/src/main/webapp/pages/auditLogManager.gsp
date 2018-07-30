@@ -8,8 +8,19 @@
         { label: "${ ui.message("coreapps.app.systemAdministration.label")}", link: '/' + OPENMRS_CONTEXT_PATH + '/coreapps/systemadministration/systemAdministration.page'},
         { label: "${ ui.message("msfcore.auditlogs.manager.label")}"}
     ];
+    
+    jQuery(function() {
+    	jQuery("#start-time-display").val("${startTime}");
+    });
 </script>
 
+<h2>${ ui.message("msfcore.filters")}</h2>
+
+<form method="post">
+	${ui.message("msfcore.starttime")}: ${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: '', formFieldName: 'startTime', useTime: true ]) }
+
+	<p align="right"><input type="submit" value="${ ui.message('general.submit')}"/></p>
+</form>
 <table>
     <thead>
 	    <tr>
