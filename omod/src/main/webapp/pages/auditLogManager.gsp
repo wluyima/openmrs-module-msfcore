@@ -20,6 +20,7 @@
     	jQuery("#start-time-display").val("");
     	jQuery("#end-time-display").val("");
     	jQuery("#events option:selected").prop("selected", false);
+    	jQuery("#creator").val("");
     }
     
     jQuery(function() {
