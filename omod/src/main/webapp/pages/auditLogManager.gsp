@@ -29,6 +29,9 @@
     	jQuery.each("${selectedEvents}".replace('[', '').replace(']', '').split(","), function(i,e) {
     		jQuery("#events option[value=" + e + "]").prop("selected", true);
 		});
+		jQuery("#creator").autocomplete({
+	      source: "${userSuggestions}".replace('[', '').replace(']', '').split(",")
+	    });
     });
 </script>
 
@@ -44,6 +47,9 @@
         	<option value="${event}">${event}</option>
         <% } %>
     </select>
+    ${ui.message("msfcore.creator")}<br />
+	<input type="text" id="creator" name="creator" class="field-display ui-autocomplete-input" value="${selectedUser}">
+	
 	<p><input class="left" type="submit" value="${ ui.message('msfcore.filter')}"/> <input type="button" onclick="resetFiltersForm()" class="right" value="${ ui.message('msfcore.reset')}"/></p>
 </form>
 

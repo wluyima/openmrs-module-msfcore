@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.User;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.audit.MSFCoreLog;
 import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
@@ -21,7 +24,8 @@ public class AuditLogManagerPageController {
 
   public void controller(PageModel model, @SpringBean("msfCoreService") MSFCoreService msfCoreService,
       @RequestParam(value = "startTime", required = false) String startTime,
-      @RequestParam(value = "endTime", required = false) String endTime, HttpServletRequest request) {
+      @RequestParam(value = "endTime", required = false) String endTime, HttpServletRequest request,
+      @RequestParam(value = "creator", required = false) String userNameOrSystemId) {
     Date startDate = null;
     Date endDate = null;
     String[] selectedEvents = request.getParameterValues("events");
@@ -44,11 +48,34 @@ public class AuditLogManagerPageController {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, logEvents, null, null, null, null, null);
+    User creator = null;
+    if (StringUtils.isNotBlank(userNameOrSystemId)) {
+      creator = Context.getUserService().getUserByUsername(userNameOrSystemId.trim());
+      if (creator == null) {
+        userNameOrSystemId = "";
+      }
+    }
+    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, logEvents, creator, null, null, null, null);
     model.addAttribute("msfCoreLogs", msfCoreLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", startTime.replaceAll(",", ""));
     model.addAttribute("events", Arrays.asList(Event.values()));
     model.addAttribute("selectedEvents", selectedEvents);
+    model.addAttribute("userSuggestions", userSuggestions());
+    model.addAttribute("selectedUser", userNameOrSystemId.trim());
+  }
+
+  private List<String> userSuggestions() {
+    List<String> suggestions = new ArrayList<String>();
+
+    for (User u : Context.getUserService().getAllUsers()) {
+      if (StringUtils.isNotBlank(u.getUsername())) {
+        suggestions.add(u.getUsername());
+      }
+      if (StringUtils.isNotBlank(u.getSystemId())) {
+        suggestions.add(u.getSystemId());
+      }
+    }
+    return new ArrayList<String>(new HashSet<String>(suggestions));
   }
 }
