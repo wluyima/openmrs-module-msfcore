@@ -22,8 +22,8 @@ public class ViewPatientAdvice implements AfterReturningAdvice {
     if (method.getName().equals("patientViewed") && args.length == 2 && args[0].getClass().equals(Patient.class)
         && args[1].getClass().equals(User.class)) {
       Patient patient = (Patient) args[0];
-      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.VIEW_PATIENT, "loaded/viewed patient#" + patient.getId(), Context
-          .getAuthenticatedUser());
+      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.VIEW_PATIENT,
+          "loaded/viewed patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser((User) args[1]);
       Context.getService(MSFCoreService.class).saveMSFCoreLog(viewPatientLog);

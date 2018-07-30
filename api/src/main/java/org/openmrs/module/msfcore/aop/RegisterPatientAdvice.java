@@ -15,8 +15,8 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
   public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
     if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
       Patient patient = (Patient) returnValue;
-      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.REGISTER_PATIENT, "registered patient#" + patient.getId(), Context
-          .getAuthenticatedUser());
+      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.REGISTER_PATIENT,
+          "registered patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser(Context.getAuthenticatedUser());
       Context.getService(MSFCoreService.class).saveMSFCoreLog(viewPatientLog);
