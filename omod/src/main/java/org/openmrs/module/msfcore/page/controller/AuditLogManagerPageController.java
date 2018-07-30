@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.api.MSFCoreService;
@@ -25,11 +26,18 @@ public class AuditLogManagerPageController {
   public void controller(PageModel model, @SpringBean("msfCoreService") MSFCoreService msfCoreService,
       @RequestParam(value = "startTime", required = false) String startTime,
       @RequestParam(value = "endTime", required = false) String endTime, HttpServletRequest request,
-      @RequestParam(value = "creator", required = false) String userNameOrSystemId) {
+      @RequestParam(value = "creator", required = false) String userNameOrSystemId,
+      @RequestParam(value = "patientId", required = false) Patient patient) {
     Date startDate = null;
     Date endDate = null;
     String[] selectedEvents = request.getParameterValues("events");
     List<Event> logEvents = new ArrayList<Event>();
+    List<Patient> patients = null;
+    if (patient != null) { // msfcore.quickFilters.usersPatientView quick filter
+      restDatesAndCreator(startTime, endTime, userNameOrSystemId);
+      selectedEvents = new String[]{Event.VIEW_PATIENT.name()};
+      patients = Arrays.asList(patient);
+    }
     if (selectedEvents != null) {
       for (String event : selectedEvents) {
         logEvents.add(Event.valueOf(event));
@@ -55,7 +63,7 @@ public class AuditLogManagerPageController {
         userNameOrSystemId = "";
       }
     }
-    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, logEvents, creator, null, null, null, null);
+    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, null, null, null);
     model.addAttribute("msfCoreLogs", msfCoreLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", startTime.replaceAll(",", ""));
@@ -63,6 +71,17 @@ public class AuditLogManagerPageController {
     model.addAttribute("selectedEvents", selectedEvents);
     model.addAttribute("userSuggestions", userSuggestions());
     model.addAttribute("selectedUser", userNameOrSystemId.trim());
+    String patientDisplay = "";
+    if (patient != null) {
+      patientDisplay = patient.getPersonName().getFullName() + " #" + patient.getPatientIdentifier().getIdentifier();
+    }
+    model.addAttribute("patientDisplay", patientDisplay);
+  }
+
+  private void restDatesAndCreator(String startTime, String endTime, String userNameOrSystemId) {
+    startTime = "";
+    endTime = "";
+    userNameOrSystemId = "";
   }
 
   private List<String> userSuggestions() {

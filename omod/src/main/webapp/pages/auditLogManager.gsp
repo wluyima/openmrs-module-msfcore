@@ -13,17 +13,16 @@
     	jQuery("#filters").toggle(500, function() {
     		jQuery("#filters-icon").toggleClass("icon-angle-down")
     		jQuery("#filters-icon").toggleClass("icon-angle-up")
+    		jQuery("#patient-dialog").toggle();
     	});
     }
     
-    function resetFiltersForm() {
-    	jQuery("#start-time-display").val("");
-    	jQuery("#end-time-display").val("");
-    	jQuery("#events option:selected").prop("selected", false);
-    	jQuery("#creator").val("");
-    }
-    
     jQuery(function() {
+	    jQuery.urlParam = function(param){
+			var result = new RegExp(param + "=([^&]*)", "i").exec(window.location.search); 
+			return result && unescape(result[1]) || ""; 
+		};
+		
     	jQuery("#start-time-display").val("${startTime}");
     	jQuery("#end-time-display").val("${endTime}");
     	toggleFiltersDisplay();
@@ -51,8 +50,17 @@
     ${ui.message("msfcore.creator")}<br />
 	<input type="text" id="creator" name="creator" class="field-display ui-autocomplete-input" value="${selectedUser}">
 	
-	<p><input class="left" type="submit" value="${ ui.message('msfcore.filter')}"/> <input type="button" onclick="resetFiltersForm()" class="right" value="${ ui.message('msfcore.reset')}"/></p>
+	<h3>${ui.message("msfcore.quickFilters")}</h3>
+	${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
+	<div class="dialog" id="patient-dialog">
+		<div class="dialog-content">
+			${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
+	        [ afterSelectedUrl: '/msfcore/auditLogManager.page?patientId={{patientId}}', showLastViewedPatients: false ]) }
+    	</div>
+    </div>     
+	<p><input class="left" type="submit" value="${ ui.message('msfcore.filter')}"/> <input type="button" onclick=window.location.href='auditLogManager.page' class="right" value="${ ui.message('msfcore.reset')}"/></p>
 </form>
+<br/><br/>
 
 <h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
 
