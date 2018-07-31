@@ -73,7 +73,7 @@
 	    </div>
 	</div>
 	<input type="button" onclick=window.location.href='auditLogManager.page' class="right" value="${ ui.message('msfcore.reset')}"/>
-	<br />
+	<br /><br />
 </div>
 
 <h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
