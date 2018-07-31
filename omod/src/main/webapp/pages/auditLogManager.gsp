@@ -32,35 +32,49 @@
 		jQuery("#creator").autocomplete({
 	      source: "${userSuggestions}".replace('[', '').replace(']', '').split(",")
 	    });
+	    jQuery("#viewer").autocomplete({
+		    source: "${userSuggestions}".replace('[', '').replace(']', '').split(","),
+		    close: function(e, ui) {
+		    	jQuery("#patient-viewed-by-user").submit();
+		    }
+		});
     });
 </script>
 
 <h2 style="background-color:#f3f3f3;" onclick="toggleFiltersDisplay()">${ui.message("msfcore.filters")}<i id="filters-icon" class="icon-angle-down right"></i></h2>
 
-<form id="filters" method="post">
-	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: 'msfcore.starttime', formFieldName: 'startTime', useTime: true ]) }
-	${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'end-time', label: 'msfcore.endtime', formFieldName: 'endTime', useTime: true ]) }
-	
-	<br />${ui.message("msfcore.events")}<br />
-	<select id="events" name="events" multiple="true">
-		<% events.each { event -> %>
-        	<option value="${event}">${event}</option>
-        <% } %>
-    </select>
-    ${ui.message("msfcore.creator")}<br />
-	<input type="text" id="creator" name="creator" class="field-display ui-autocomplete-input" value="${selectedUser}">
-	
+<div id="filters">
+	<form method="post">
+		${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'start-time', label: 'msfcore.starttime', formFieldName: 'startTime', useTime: true ]) }
+		${ ui.includeFragment("uicommons", "field/datetimepicker", [id: 'end-time', label: 'msfcore.endtime', formFieldName: 'endTime', useTime: true ]) }
+		
+		<br />${ui.message("msfcore.events")}<br />
+		<select id="events" name="events" multiple="true">
+			<% events.each { event -> %>
+	        	<option value="${event}">${event}</option>
+	        <% } %>
+	    </select>
+	    ${ui.message("msfcore.creator")}<br />
+		<input type="text" id="creator" name="creator" class="field-display ui-autocomplete-input" value="${selectedUser}">
+		
+		<input class="right" type="submit" value="${ ui.message('msfcore.filter')}"/>
+	</form>
 	<h3>${ui.message("msfcore.quickFilters")}</h3>
-	${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
+	<form id="patient-viewed-by-user" method="post">
+		${ui.message("msfcore.quickFilters.patientViewedByUser")}<b>${selectedViewer}</b><br/>
+		<input type="text" id="viewer" name="viewer" class="field-display ui-autocomplete-input">
+	</form>
+		
+	<br />${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
 	<div class="dialog" id="patient-dialog">
 		<div class="dialog-content">
 			${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-	        [ afterSelectedUrl: '/msfcore/auditLogManager.page?patientId={{patientId}}', showLastViewedPatients: false ]) }
-    	</div>
-    </div>     
-	<p><input class="left" type="submit" value="${ ui.message('msfcore.filter')}"/> <input type="button" onclick=window.location.href='auditLogManager.page' class="right" value="${ ui.message('msfcore.reset')}"/></p>
-</form>
-<br/><br/>
+		       [ afterSelectedUrl: '/msfcore/auditLogManager.page?patientId={{patientId}}', showLastViewedPatients: false ]) }
+	    </div>
+	</div>
+	<input type="button" onclick=window.location.href='auditLogManager.page' class="right" value="${ ui.message('msfcore.reset')}"/>
+	<br />
+</div>
 
 <h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
 
