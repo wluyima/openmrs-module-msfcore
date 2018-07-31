@@ -11,9 +11,8 @@
     
     function toggleFiltersDisplay() {
     	jQuery("#filters").toggle(500, function() {
-    		jQuery("#filters-icon").toggleClass("icon-angle-down")
-    		jQuery("#filters-icon").toggleClass("icon-angle-up")
-    		jQuery("#patient-dialog").toggle();
+    		jQuery("#filters-icon").toggleClass("icon-angle-down");
+    		jQuery("#filters-icon").toggleClass("icon-angle-up");
     	});
     }
     
@@ -66,7 +65,7 @@
 	</form>
 		
 	<br />${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
-	<div class="dialog" id="patient-dialog">
+	<div class="dialog">
 		<div class="dialog-content">
 			${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
 		       [ afterSelectedUrl: '/msfcore/auditLogManager.page?patientId={{patientId}}', showLastViewedPatients: false ]) }
