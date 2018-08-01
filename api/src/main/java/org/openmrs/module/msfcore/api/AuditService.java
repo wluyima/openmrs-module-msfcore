@@ -35,8 +35,6 @@ public interface AuditService extends OpenmrsService {
 
   public void deleteAuditLogsFromDate(Date startDate);
 
-  public Date getDateAtNDaysFromData(Date date, Integer nDays);
-
   public Integer saveAuditLog(AuditLog auditLog);
 
   public AuditLog getAuditLog(Integer auditLogId);

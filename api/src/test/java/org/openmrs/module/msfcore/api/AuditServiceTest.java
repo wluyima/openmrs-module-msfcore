@@ -182,13 +182,6 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getDateAtNDaysFromData_shouldEvalueteCorrectly() throws ParseException {
-    Date date = Context.getService(AuditService.class)
-        .getDateAtNDaysFromData(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-30 20:29:59"), 30);
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-30 20:29:59"), date);
-  }
-
-  @Test
   public void getAuditLog_shouldRetrieveRightLog() throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
     AuditLog log = Context.getService(AuditService.class).getAuditLog(1);

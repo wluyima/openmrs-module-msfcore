@@ -53,13 +53,6 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     }
   }
 
-  public Date getDateAtNDaysFromData(Date date, Integer nDays) {
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(date);
-    calendar.add(Calendar.DAY_OF_YEAR, -nDays);
-    return calendar.getTime();
-  }
-
   public Integer saveAuditLog(AuditLog auditLog) {
     return dao.saveAuditLog(auditLog);
   }
