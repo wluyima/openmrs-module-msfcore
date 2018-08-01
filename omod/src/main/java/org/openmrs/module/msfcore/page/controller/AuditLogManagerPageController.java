@@ -54,7 +54,7 @@ public class AuditLogManagerPageController {
         logEvents.add(Event.valueOf(event));
       }
     } else {
-      logEvents = Arrays.asList(Event.values());
+      logEvents = null;
     }
     try {
       SimpleDateFormat dateISOFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -77,7 +77,7 @@ public class AuditLogManagerPageController {
     List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
     model.addAttribute("auditLogs", auditLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
-    model.addAttribute("endTime", startTime.replaceAll(",", ""));
+    model.addAttribute("endTime", endTime.replaceAll(",", ""));
     model.addAttribute("events", Arrays.asList(Event.values()));
     model.addAttribute("selectedEvents", selectedEvents);
     model.addAttribute("userSuggestions", userSuggestions());
