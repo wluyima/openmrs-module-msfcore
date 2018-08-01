@@ -53,6 +53,12 @@
 				<version>${idgenVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>htmlformentry-api-2.0</artifactId>
+				<version>${htmlformentryVersion}</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -87,5 +93,6 @@
 		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
 		<idgenVersion>4.4.1</idgenVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<htmlformentryVersion>3.7.0</htmlformentryVersion>
 	</properties>
 </project>

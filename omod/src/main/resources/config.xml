@@ -30,6 +30,8 @@
 		<require_module>org.openmrs.module.serialization.xstream</require_module>
 		<require_module>org.openmrs.module.providermanagement</require_module>
 		<require_module>org.openmrs.module.referencemetadata</require_module>
+		<require_module>org.openmrs.module.htmlformentry</require_module>
+		<require_module>org.openmrs.module.htmlformentryui</require_module>
 	</require_modules>
 	
 	<aware_of_modules>

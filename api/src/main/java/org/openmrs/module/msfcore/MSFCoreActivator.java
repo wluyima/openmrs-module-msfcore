@@ -9,6 +9,11 @@
  */
 package org.openmrs.module.msfcore;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.PatientIdentifierType;
@@ -16,6 +21,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.htmlformentry.HtmlFormEntryService;
+import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -82,6 +89,9 @@ public class MSFCoreActivator extends BaseModuleActivator {
       Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
           String.valueOf(msfIdSource.getId()));
     }
+
+    log.info("Installing MSF Forms");
+    installMsfForms();
   }
 
   private void removeMSFMeta() {
@@ -132,6 +142,30 @@ public class MSFCoreActivator extends BaseModuleActivator {
   public void willStop() {
     removeMSFMeta();
     super.willStop();
+  }
+
+  /**
+   * Installing MSF Forms
+   */
+  private void installMsfForms() {
+    try {
+      for (File form : getFormsResourceFiles()) {
+        HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class),
+            new Scanner(form).useDelimiter("\\Z").next());
+      }
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
+
+  private File[] getFormsResourceFiles() {
+    List<File> formXmls = new ArrayList<File>();
+    for (File file : new File(getClass().getClassLoader().getResource("htmlforms").getPath()).listFiles()) {
+      if (file.exists() && file.getName().endsWith("Form.xml")) {
+        formXmls.add(file.getAbsoluteFile());
+      }
+    }
+    return formXmls.toArray(new File[formXmls.size()]);
   }
 
 }
