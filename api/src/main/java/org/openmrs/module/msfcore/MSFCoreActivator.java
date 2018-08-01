@@ -48,7 +48,6 @@ public class MSFCoreActivator extends BaseModuleActivator {
     log.info("Started MSF Core Module");
 
     installMSFMeta();
-
   }
 
   private void installMSFMeta() {
