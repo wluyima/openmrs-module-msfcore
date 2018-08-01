@@ -9,11 +9,9 @@
  */
 package org.openmrs.module.msfcore.api;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -50,17 +48,16 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
   public void getAuditLogs_shouldRetrieveLogsMatchingDateRange() throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs = Context.getService(AuditService.class).getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-23"),
-        new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
+        new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2018-07-23 20:59"),
         null, null, null, null, null, null);
 
-    Assert.assertThat(logs.size(), CoreMatchers.is(6));
+    Assert.assertThat(logs.size(), CoreMatchers.is(5));
     Assert.assertThat(logs.get(0).getEvent().name(), CoreMatchers.is("VIEW_PATIENT"));
     Assert.assertThat(logs.get(1).getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00003"));
     Assert.assertThat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(logs.get(2).getDate()),
         CoreMatchers.is("2018-07-23 20:30:00.0"));
     Assert.assertThat(logs.get(3).getId(), CoreMatchers.is(5));
     Assert.assertThat(logs.get(4).getCreator(), CoreMatchers.is(Context.getUserService().getUser(501)));
-    Assert.assertThat(logs.get(5).getDetail(), CoreMatchers.is("basic login log2"));
   }
 
   @Test
@@ -173,12 +170,12 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
     Assert.assertThat(Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, null).size(),
         CoreMatchers.is(7));
     Context.getService(AuditService.class)
-        .deleteAuditLogsFromDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-23 20:29:59"));
+        .deleteAuditLogsToDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-23 20:39:59"));
     List<AuditLog> logs = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, null);
     Assert.assertThat(logs.size(), CoreMatchers.is(3));
-    Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
-    Assert.assertThat(logs.get(1).getEvent().name(), CoreMatchers.is("VIEW_PATIENT"));
-    Assert.assertThat(logs.get(2).getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00003"));
+    Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic register patient log3"));
+    Assert.assertThat(logs.get(1).getEvent().name(), CoreMatchers.is("REGISTER_PATIENT"));
+    Assert.assertThat(logs.get(2).getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00007"));
   }
 
   @Test

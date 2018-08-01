@@ -9,7 +9,6 @@
  */
 package org.openmrs.module.msfcore.api.impl;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -47,8 +46,8 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     dao.deleteAuditLog(auditLog);
   }
 
-  public void deleteAuditLogsFromDate(Date startDate) {
-    for (AuditLog log : getAuditLogs(startDate, null, null, null, null, null, null, null)) {
+  public void deleteAuditLogsToDate(Date endDate) {
+    for (AuditLog log : getAuditLogs(null, endDate, null, null, null, null, null, null)) {
       deleteAuditLog(log);
     }
   }

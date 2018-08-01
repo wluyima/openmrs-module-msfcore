@@ -88,4 +88,26 @@
 		<comment>rename msfcore_log to msfcore_audit_log</comment>
 		<renameTable newTableName="msfcore_audit_log" oldTableName="msfcore_log"/>
 	</changeSet>
+	<changeSet author="k-joseph" id="20180801-1838">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sqlCheck expectedResult="0">
+					SELECT COUNT(*) FROM scheduler_task_config
+					WHERE schedulable_class = 'org.openmrs.module.msfcore.tasks.ClearOutDatedLogs'
+				</sqlCheck>
+			</not>
+		</preConditions>
+		<update tableName="scheduler_task_config">
+			<column name="schedulable_class" value="org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler"/>
+			<where>schedulable_class='org.openmrs.module.msfcore.tasks.ClearOutDatedLogs'</where>
+		</update>
+		<update tableName="scheduler_task_config">
+			<column name="start_on_startup" valueNumeric="1"/>
+			<where>schedulable_class='org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler'</where>
+		</update>
+		<update tableName="scheduler_task_config">
+			<column name="start_time" value="2018-07-24T13:30:59"/>
+			<where>schedulable_class='org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler'</where>
+		</update>
+	</changeSet>
 </databaseChangeLog>

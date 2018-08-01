@@ -33,7 +33,7 @@ public interface AuditService extends OpenmrsService {
 
   public void deleteAuditLog(AuditLog auditLog);
 
-  public void deleteAuditLogsFromDate(Date startDate);
+  public void deleteAuditLogsToDate(Date endDate);
 
   public Integer saveAuditLog(AuditLog auditLog);
 
