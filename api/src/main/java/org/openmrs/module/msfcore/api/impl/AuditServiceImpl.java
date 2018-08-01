@@ -34,22 +34,22 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     this.dao = dao;
   }
 
-  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
-    return dao.getMSFCoreLogs(startDate, endDate, events, creator, patients, users, providers, locations);
+    return dao.getAuditLogs(startDate, endDate, events, creator, patients, users, providers, locations);
   }
 
-  public AuditLog getMSFCoreLogByUuid(String uuid) {
-    return dao.getMSFCoreLogByUuid(uuid);
+  public AuditLog getAuditLogByUuid(String uuid) {
+    return dao.getAuditLogByUuid(uuid);
   }
 
-  public void deleteMSFCoreLog(AuditLog msfCoreLog) {
-    dao.deleteMSFCoreLog(msfCoreLog);
+  public void deleteAuditLog(AuditLog auditLog) {
+    dao.deleteAuditLog(auditLog);
   }
 
-  public void deleteMSFCoreFromDate(Date startDate) {
-    for (AuditLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null, null)) {
-      deleteMSFCoreLog(log);
+  public void deleteAuditLogsFromDate(Date startDate) {
+    for (AuditLog log : getAuditLogs(startDate, null, null, null, null, null, null, null)) {
+      deleteAuditLog(log);
     }
   }
 
@@ -60,11 +60,11 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     return calendar.getTime();
   }
 
-  public Integer saveMSFCoreLog(AuditLog msfCoreLog) {
-    return dao.saveMSFCoreLog(msfCoreLog);
+  public Integer saveAuditLog(AuditLog auditLog) {
+    return dao.saveAuditLog(auditLog);
   }
 
-  public AuditLog getMSFCoreLog(Integer msfCoreLogId) {
-    return dao.getMSFCoreLog(msfCoreLogId);
+  public AuditLog getAuditLog(Integer auditLogId) {
+    return dao.getAuditLog(auditLogId);
   }
 }

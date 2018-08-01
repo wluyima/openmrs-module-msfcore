@@ -26,7 +26,7 @@ public class ViewPatientAdvice implements AfterReturningAdvice {
           "loaded/viewed patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser((User) args[1]);
-      Context.getService(AuditService.class).saveMSFCoreLog(viewPatientLog);
+      Context.getService(AuditService.class).saveAuditLog(viewPatientLog);
     }
   }
 

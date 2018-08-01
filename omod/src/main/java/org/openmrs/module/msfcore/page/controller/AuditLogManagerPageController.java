@@ -74,8 +74,8 @@ public class AuditLogManagerPageController {
         userNameOrSystemId = "";
       }
     }
-    List<AuditLog> msfCoreLogs = auditService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
-    model.addAttribute("msfCoreLogs", msfCoreLogs);
+    List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
+    model.addAttribute("auditLogs", auditLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", startTime.replaceAll(",", ""));
     model.addAttribute("events", Arrays.asList(Event.values()));

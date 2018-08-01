@@ -86,7 +86,7 @@
 	        <th>${ ui.message("msfcore.detail")}</th>
 	    </tr>
     </thead>
-    <% msfCoreLogs.each { log -> %>
+    <% auditLogs.each { log -> %>
 	    <tbody>
 	    	<tr>
 	    		<td>${log.event}</td>

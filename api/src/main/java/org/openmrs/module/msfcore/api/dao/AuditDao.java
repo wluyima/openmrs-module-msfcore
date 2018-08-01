@@ -36,7 +36,7 @@ public class AuditDao {
   }
 
   @SuppressWarnings("unchecked")
-  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
     Criteria criteria = getSession().createCriteria(AuditLog.class);
 
@@ -67,20 +67,20 @@ public class AuditDao {
     return criteria.list();
   }
 
-  public AuditLog getMSFCoreLogByUuid(String uuid) {
+  public AuditLog getAuditLogByUuid(String uuid) {
     return (AuditLog) getSession().createQuery("from AuditLog where uuid = :uuid").setString("uuid", uuid)
             .uniqueResult();
   }
 
-  public void deleteMSFCoreLog(AuditLog msfCoreLog) {
-    getSession().delete(msfCoreLog);
+  public void deleteAuditLog(AuditLog auditLog) {
+    getSession().delete(auditLog);
   }
 
-  public Integer saveMSFCoreLog(AuditLog msfCoreLog) {
-    return (Integer) getSession().save(msfCoreLog);
+  public Integer saveAuditLog(AuditLog auditLog) {
+    return (Integer) getSession().save(auditLog);
   }
 
-  public AuditLog getMSFCoreLog(Integer msfCoreLogId) {
-    return (AuditLog) getSession().get(AuditLog.class, msfCoreLogId);
+  public AuditLog getAuditLog(Integer auditLogId) {
+    return (AuditLog) getSession().get(AuditLog.class, auditLogId);
   }
 }

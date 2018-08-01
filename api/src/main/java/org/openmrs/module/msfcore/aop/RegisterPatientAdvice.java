@@ -19,7 +19,7 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
           "registered patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser(Context.getAuthenticatedUser());
-      Context.getService(AuditService.class).saveMSFCoreLog(viewPatientLog);
+      Context.getService(AuditService.class).saveAuditLog(viewPatientLog);
     }
   }
 

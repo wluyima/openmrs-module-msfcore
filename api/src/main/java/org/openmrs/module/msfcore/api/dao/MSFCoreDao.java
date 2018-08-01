@@ -15,23 +15,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
-import org.openmrs.Patient;
-import org.openmrs.Provider;
-import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
-import org.openmrs.module.msfcore.audit.AuditLog;
-import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -43,47 +37,6 @@ public class MSFCoreDao {
 
   private DbSession getSession() {
     return sessionFactory.getCurrentSession();
-  }
-
-  @SuppressWarnings("unchecked")
-  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
-          List<User> users, List<Provider> providers, List<Location> locations) {
-    Criteria criteria = getSession().createCriteria(AuditLog.class);
-
-    if (startDate != null) {
-      criteria.add(Restrictions.ge("date", startDate));
-    }
-    if (endDate != null) {
-      criteria.add(Restrictions.le("date", endDate));
-    }
-    if (events != null) {
-      criteria.add(Restrictions.in("event", events));
-    }
-    if (creator != null) {
-      criteria.add(Restrictions.eq("creator", creator));
-    }
-    if (users != null) {
-      criteria.add(Restrictions.in("user", users));
-    }
-    if (patients != null) {
-      criteria.add(Restrictions.in("patient", patients));
-    }
-    if (providers != null) {
-      criteria.add(Restrictions.in("provider", providers));
-    }
-    if (locations != null) {
-      criteria.add(Restrictions.in("location", locations));
-    }
-    return criteria.list();
-  }
-
-  public AuditLog getMSFCoreLogByUuid(String uuid) {
-    return (AuditLog) getSession().createQuery("from MSFCoreLog where uuid = :uuid").setString("uuid", uuid)
-            .uniqueResult();
-  }
-
-  public void deleteMSFCoreLog(AuditLog msfCoreLog) {
-    getSession().delete(msfCoreLog);
   }
 
   @SuppressWarnings("unchecked")
@@ -115,13 +68,5 @@ public class MSFCoreDao {
     source.setDateChanged(new Date());
     currentSession.update(identifierSource);
     return identifierSource;
-  }
-
-  public Integer saveMSFCoreLog(AuditLog msfCoreLog) {
-    return (Integer) getSession().save(msfCoreLog);
-  }
-
-  public AuditLog getMSFCoreLog(Integer msfCoreLogId) {
-    return (AuditLog) getSession().get(AuditLog.class, msfCoreLogId);
   }
 }

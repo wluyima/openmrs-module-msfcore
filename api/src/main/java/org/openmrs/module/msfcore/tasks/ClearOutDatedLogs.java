@@ -12,7 +12,7 @@ public class ClearOutDatedLogs extends AbstractTask {
   @Override
   public void execute() {
     Context.getService(AuditService.class)
-        .deleteMSFCoreFromDate(Context.getService(AuditService.class).getDateAtNDaysFromData(Calendar.getInstance().getTime(),
+        .deleteAuditLogsFromDate(Context.getService(AuditService.class).getDateAtNDaysFromData(Calendar.getInstance().getTime(),
             Integer.parseInt(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DAYS_TO_KEEP_LOGS))));
   }
 
