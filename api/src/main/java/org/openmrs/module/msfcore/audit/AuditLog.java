@@ -21,12 +21,12 @@ import org.openmrs.Provider;
 import org.openmrs.User;
 
 @Entity
-@Table(name = MSFCoreLog.TABLE_NAME)
-public class MSFCoreLog implements Serializable {
+@Table(name = AuditLog.TABLE_NAME)
+public class AuditLog implements Serializable {
 
   private static final long serialVersionUID = 1144489098510052829L;
 
-  protected static final String TABLE_NAME = "msfcore_log";
+  protected static final String TABLE_NAME = "msfcore_audit_log";
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,10 +65,10 @@ public class MSFCoreLog implements Serializable {
   @Column(unique = true, nullable = false, length = 38, updatable = false)
   private String uuid = UUID.randomUUID().toString();
 
-  public MSFCoreLog() {
+  public AuditLog() {
   }
 
-  public MSFCoreLog(Event event, String detail, User creator) {
+  public AuditLog(Event event, String detail, User creator) {
     setDate(new Date());
     setDetail(detail);
     setEvent(event);

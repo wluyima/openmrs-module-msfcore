@@ -15,8 +15,8 @@ import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.api.AuditService;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +74,7 @@ public class AuditLogManagerPageController {
         userNameOrSystemId = "";
       }
     }
-    List<MSFCoreLog> msfCoreLogs = auditService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
+    List<AuditLog> msfCoreLogs = auditService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
     model.addAttribute("msfCoreLogs", msfCoreLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", startTime.replaceAll(",", ""));

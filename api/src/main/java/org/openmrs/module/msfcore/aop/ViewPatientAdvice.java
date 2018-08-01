@@ -6,8 +6,8 @@ import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.api.AuditService;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.springframework.aop.AfterReturningAdvice;
 
 public class ViewPatientAdvice implements AfterReturningAdvice {
@@ -22,7 +22,7 @@ public class ViewPatientAdvice implements AfterReturningAdvice {
     if (method.getName().equals("patientViewed") && args.length == 2 && args[0].getClass().equals(Patient.class)
         && args[1].getClass().equals(User.class)) {
       Patient patient = (Patient) args[0];
-      MSFCoreLog viewPatientLog = new MSFCoreLog(Event.VIEW_PATIENT,
+      AuditLog viewPatientLog = new AuditLog(Event.VIEW_PATIENT,
           "loaded/viewed patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser((User) args[1]);

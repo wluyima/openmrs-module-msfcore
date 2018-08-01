@@ -81,4 +81,11 @@
 			baseTableName="msfcore_log" baseColumnNames="location_id"
 			referencedTableName="location" referencedColumnNames="location_id"/>
 	</changeSet>
+	<changeSet author="k-joseph" id="20180801-0946">
+		<preConditions>
+			<tableExists tableName="msfcore_log"/>
+		</preConditions>
+		<comment>rename msfcore_log to msfcore_audit_log</comment>
+		<renameTable newTableName="msfcore_audit_log" oldTableName="msfcore_log"/>
+	</changeSet>
 </databaseChangeLog>

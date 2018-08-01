@@ -21,8 +21,8 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -32,8 +32,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveAllWhenNoFiltersAreSpecified() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null);
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null);
 
     Assert.assertThat(logs.size(), CoreMatchers.is(7));
     Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
@@ -48,8 +48,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingDateRange() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         null, null, null, null, null, null);
 
@@ -65,8 +65,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingEvents() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null, null);
 
@@ -78,8 +78,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingCreator() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         null, Context.getUserService().getUser(501), null, null, null, null);
 
@@ -96,8 +96,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingPatients() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         new ArrayList<Event>(EnumSet.allOf(Event.class)), Context.getUserService().getUser(501),
         Arrays.asList(Context.getPatientService().getPatient(6)), null, null, null);
@@ -111,8 +111,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingUsers() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, Arrays.asList(Context.getUserService().getUser(501)), null, null);
 
@@ -122,8 +122,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingProviders() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, null, Arrays.asList(Context.getProviderService().getProvider(1)),
         null);
@@ -136,8 +136,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogs_shouldRetrieveLogsMatchingLocation() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
+    executeDataSet("MSFCoreAuditLogs.xml");
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-23"),
         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"),
         new ArrayList<Event>(EnumSet.allOf(Event.class)), null, null, null, Arrays.asList(Context.getProviderService().getProvider(1)),
         Arrays.asList(Context.getLocationService().getLocation(1)));
@@ -148,18 +148,18 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLogByUuid_shouldReturnRightLog() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    MSFCoreLog msfCoreLog = Context.getService(AuditService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
+    executeDataSet("MSFCoreAuditLogs.xml");
+    AuditLog msfCoreLog = Context.getService(AuditService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
     Assert.assertThat(msfCoreLog.getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00001"));
     Assert.assertThat(msfCoreLog.getEvent(), CoreMatchers.is(Event.LOGIN));
   }
 
   @Test
   public void deleteMSFCoreLog_shouldCompletelyDeleteLog() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
+    executeDataSet("MSFCoreAuditLogs.xml");
     Assert.assertThat(Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null).size(),
         CoreMatchers.is(7));
-    MSFCoreLog msfCoreLog = Context.getService(AuditService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
+    AuditLog msfCoreLog = Context.getService(AuditService.class).getMSFCoreLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
     Assert.assertThat(msfCoreLog.getUuid(), CoreMatchers.is("9e663d66-6b78-11e0-93c3-18a905e00001"));
     Assert.assertThat(msfCoreLog.getEvent(), CoreMatchers.is(Event.LOGIN));
     Context.getService(AuditService.class).deleteMSFCoreLog(msfCoreLog);
@@ -169,12 +169,12 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void deleteMSFCoreLogsInLastNMonths_shouldCompletelyDeleteRangedLogs() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
+    executeDataSet("MSFCoreAuditLogs.xml");
     Assert.assertThat(Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null).size(),
         CoreMatchers.is(7));
     Context.getService(AuditService.class)
         .deleteMSFCoreFromDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-23 20:29:59"));
-    List<MSFCoreLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null);
+    List<AuditLog> logs = Context.getService(AuditService.class).getMSFCoreLogs(null, null, null, null, null, null, null, null);
     Assert.assertThat(logs.size(), CoreMatchers.is(3));
     Assert.assertThat(logs.get(0).getDetail(), CoreMatchers.is("basic login log"));
     Assert.assertThat(logs.get(1).getEvent().name(), CoreMatchers.is("VIEW_PATIENT"));
@@ -190,8 +190,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getMSFCoreLog_shouldRetrieveRightLog() throws Exception {
-    executeDataSet("MSFCoreLogs.xml");
-    MSFCoreLog log = Context.getService(AuditService.class).getMSFCoreLog(1);
+    executeDataSet("MSFCoreAuditLogs.xml");
+    AuditLog log = Context.getService(AuditService.class).getMSFCoreLog(1);
     Assert.assertEquals("9e663d66-6b78-11e0-93c3-18a905e00001", log.getUuid());
     Assert.assertEquals("basic login log", log.getDetail());
     Assert.assertEquals(Context.getUserService().getUser(501), log.getCreator());
@@ -200,8 +200,8 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void saveMSFCoreLog_shouldPersistLogWithMandetoryFields() {
-    MSFCoreLog savedLog = Context.getService(AuditService.class).getMSFCoreLog(Context.getService(AuditService.class).saveMSFCoreLog(
-        new MSFCoreLog(Event.LOGIN, "user logging in", Context.getUserService().getUser(501))));
+    AuditLog savedLog = Context.getService(AuditService.class).getMSFCoreLog(Context.getService(AuditService.class).saveMSFCoreLog(
+        new AuditLog(Event.LOGIN, "user logging in", Context.getUserService().getUser(501))));
     Assert.assertEquals("user logging in", savedLog.getDetail());
     Assert.assertNotNull(savedLog.getId());
     Assert.assertNotNull(savedLog.getUuid());
@@ -213,9 +213,9 @@ public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void saveMSFCoreLog_shouldPersistLogWithNonMandetoryFields() {
-    MSFCoreLog log = new MSFCoreLog(Event.REGISTER_PATIENT, "Registering a patient", Context.getUserService().getUser(501));
+    AuditLog log = new AuditLog(Event.REGISTER_PATIENT, "Registering a patient", Context.getUserService().getUser(501));
     log.setPatient(Context.getPatientService().getPatient(6));
-    MSFCoreLog savedLog = Context.getService(AuditService.class).getMSFCoreLog(
+    AuditLog savedLog = Context.getService(AuditService.class).getMSFCoreLog(
         Context.getService(AuditService.class).saveMSFCoreLog(log));
     Assert.assertEquals("Registering a patient", savedLog.getDetail());
     Assert.assertNotNull(savedLog.getId());

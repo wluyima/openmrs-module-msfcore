@@ -20,8 +20,8 @@ import org.openmrs.User;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.api.dao.AuditDao;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 
 public class AuditServiceImpl extends BaseOpenmrsService implements AuditService {
 
@@ -34,21 +34,21 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     this.dao = dao;
   }
 
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
     return dao.getMSFCoreLogs(startDate, endDate, events, creator, patients, users, providers, locations);
   }
 
-  public MSFCoreLog getMSFCoreLogByUuid(String uuid) {
+  public AuditLog getMSFCoreLogByUuid(String uuid) {
     return dao.getMSFCoreLogByUuid(uuid);
   }
 
-  public void deleteMSFCoreLog(MSFCoreLog msfCoreLog) {
+  public void deleteMSFCoreLog(AuditLog msfCoreLog) {
     dao.deleteMSFCoreLog(msfCoreLog);
   }
 
   public void deleteMSFCoreFromDate(Date startDate) {
-    for (MSFCoreLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null, null)) {
+    for (AuditLog log : getMSFCoreLogs(startDate, null, null, null, null, null, null, null)) {
       deleteMSFCoreLog(log);
     }
   }
@@ -60,11 +60,11 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     return calendar.getTime();
   }
 
-  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog) {
+  public Integer saveMSFCoreLog(AuditLog msfCoreLog) {
     return dao.saveMSFCoreLog(msfCoreLog);
   }
 
-  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId) {
+  public AuditLog getMSFCoreLog(Integer msfCoreLogId) {
     return dao.getMSFCoreLog(msfCoreLogId);
   }
 }

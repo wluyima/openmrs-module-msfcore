@@ -20,8 +20,8 @@ import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,9 +36,9 @@ public class AuditDao {
   }
 
   @SuppressWarnings("unchecked")
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
-    Criteria criteria = getSession().createCriteria(MSFCoreLog.class);
+    Criteria criteria = getSession().createCriteria(AuditLog.class);
 
     if (startDate != null) {
       criteria.add(Restrictions.ge("date", startDate));
@@ -67,20 +67,20 @@ public class AuditDao {
     return criteria.list();
   }
 
-  public MSFCoreLog getMSFCoreLogByUuid(String uuid) {
-    return (MSFCoreLog) getSession().createQuery("from MSFCoreLog where uuid = :uuid").setString("uuid", uuid)
+  public AuditLog getMSFCoreLogByUuid(String uuid) {
+    return (AuditLog) getSession().createQuery("from AuditLog where uuid = :uuid").setString("uuid", uuid)
             .uniqueResult();
   }
 
-  public void deleteMSFCoreLog(MSFCoreLog msfCoreLog) {
+  public void deleteMSFCoreLog(AuditLog msfCoreLog) {
     getSession().delete(msfCoreLog);
   }
 
-  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog) {
+  public Integer saveMSFCoreLog(AuditLog msfCoreLog) {
     return (Integer) getSession().save(msfCoreLog);
   }
 
-  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId) {
-    return (MSFCoreLog) getSession().get(MSFCoreLog.class, msfCoreLogId);
+  public AuditLog getMSFCoreLog(Integer msfCoreLogId) {
+    return (AuditLog) getSession().get(AuditLog.class, msfCoreLogId);
   }
 }

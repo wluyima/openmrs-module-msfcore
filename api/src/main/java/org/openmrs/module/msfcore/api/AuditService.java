@@ -17,8 +17,8 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.msfcore.audit.MSFCoreLog;
-import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -26,18 +26,18 @@ import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
  */
 public interface AuditService extends OpenmrsService {
 
-  public List<MSFCoreLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getMSFCoreLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations);
 
-  public MSFCoreLog getMSFCoreLogByUuid(String uuid);
+  public AuditLog getMSFCoreLogByUuid(String uuid);
 
-  public void deleteMSFCoreLog(MSFCoreLog msfCoreLog);
+  public void deleteMSFCoreLog(AuditLog msfCoreLog);
 
   public void deleteMSFCoreFromDate(Date startDate);
 
   public Date getDateAtNDaysFromData(Date date, Integer nDays);
 
-  public Integer saveMSFCoreLog(MSFCoreLog msfCoreLog);
+  public Integer saveMSFCoreLog(AuditLog msfCoreLog);
 
-  public MSFCoreLog getMSFCoreLog(Integer msfCoreLogId);
+  public AuditLog getMSFCoreLog(Integer msfCoreLogId);
 }
