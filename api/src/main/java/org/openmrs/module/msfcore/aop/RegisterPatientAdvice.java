@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.audit.MSFCoreLog;
 import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 import org.springframework.aop.AfterReturningAdvice;
@@ -19,7 +19,7 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
           "registered patient#" + patient.getPatientIdentifier().getIdentifier(), Context.getAuthenticatedUser());
       viewPatientLog.setPatient(patient);
       viewPatientLog.setUser(Context.getAuthenticatedUser());
-      Context.getService(MSFCoreService.class).saveMSFCoreLog(viewPatientLog);
+      Context.getService(AuditService.class).saveMSFCoreLog(viewPatientLog);
     }
   }
 

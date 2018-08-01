@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.audit.MSFCoreLog;
 import org.openmrs.module.msfcore.audit.MSFCoreLog.Event;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class AuditLogManagerPageController {
 
-  public void controller(PageModel model, @SpringBean("msfCoreService") MSFCoreService msfCoreService,
+  public void controller(PageModel model, @SpringBean("auditService") AuditService auditService,
       @RequestParam(value = "startTime", required = false) String startTime,
       @RequestParam(value = "endTime", required = false) String endTime, HttpServletRequest request,
       @RequestParam(value = "creator", required = false) String userNameOrSystemId,
@@ -74,7 +74,7 @@ public class AuditLogManagerPageController {
         userNameOrSystemId = "";
       }
     }
-    List<MSFCoreLog> msfCoreLogs = msfCoreService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
+    List<MSFCoreLog> msfCoreLogs = auditService.getMSFCoreLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
     model.addAttribute("msfCoreLogs", msfCoreLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", startTime.replaceAll(",", ""));
