@@ -16,7 +16,8 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
     if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
       Patient patient = (Patient) returnValue;
       AuditLog viewPatientLog = AuditLog.builder().event(Event.REGISTER_PATIENT)
-          .detail(Context.getMessageSourceService().getMessage("msfcore.registerPatient") + "#"
+          .detail(Context.getMessageSourceService().getMessage("msfcore.registerPatient")
+              + patient.getPersonName().getFullName() + " - "
               + patient.getPatientIdentifier().getIdentifier())
           .user(Context.getAuthenticatedUser()).patient(patient).user(Context.getAuthenticatedUser()).build();
       Context.getService(AuditService.class).saveAuditLog(viewPatientLog);
