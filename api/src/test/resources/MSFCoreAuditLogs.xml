@@ -8,11 +8,11 @@
     graphic logo is a trademark of OpenMRS Inc.
 -->
 <dataset>
-  <msfcore_audit_log id="1" date="2018-05-23 10:50:00.0" detail="basic login log" event="LOGIN" user_id="501" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00001"/>
-  <msfcore_audit_log id="2" date="2018-07-23 11:00:00.0" detail="basic view patient log" event="VIEW_PATIENT" patient_id="2" creator="501"  uuid="9e663d66-6b78-11e0-93c3-18a905e00002"/>
-  <msfcore_audit_log id="3" date="2018-07-23 20:20:00.0" detail="basic register patient log" event="REGISTER_PATIENT" patient_id="6" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00003"/>
-  <msfcore_audit_log id="4" date="2018-07-23 20:30:00.0" detail="basic register patient log2" event="REGISTER_PATIENT" patient_id="6" provider_id="1" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00004"/>
-  <msfcore_audit_log id="5" date="2018-07-23 20:40:00.0" detail="basic register patient log3" event="REGISTER_PATIENT" patient_id="6" location_id="1" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00005"/>
-  <msfcore_audit_log id="6" date="2018-07-23 20:50:00.0" detail="basic register patient log4" event="REGISTER_PATIENT" patient_id="6" provider_id="1" location_id="1" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00006"/>
+  <msfcore_audit_log id="1" date="2018-03-23 10:50:00.0" detail="basic login log" event="LOGIN" user_id="501" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00001"/>
+  <msfcore_audit_log id="2" date="2018-03-23 11:00:00.0" detail="basic view patient log" event="VIEW_PATIENT" patient_id="2" creator="501"  uuid="9e663d66-6b78-11e0-93c3-18a905e00002"/>
+  <msfcore_audit_log id="3" date="2018-04-23 20:20:00.0" detail="basic register patient log" event="REGISTER_PATIENT" patient_id="6" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00003"/>
+  <msfcore_audit_log id="4" date="2018-04-23 20:30:00.0" detail="basic register patient log2" event="REGISTER_PATIENT" patient_id="6" provider_id="1" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00004"/>
+  <msfcore_audit_log id="5" date="2018-05-23 20:40:00.0" detail="basic register patient log3" event="REGISTER_PATIENT" patient_id="2" provider_id="1" location_id="1" creator="502" user_id="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00005"/>
+  <msfcore_audit_log id="6" date="2018-05-23 20:50:00.0" detail="basic register patient log4" event="REGISTER_PATIENT" patient_id="6" location_id="1" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00006"/>
   <msfcore_audit_log id="7" date="2018-07-23 20:60:00.0" detail="basic login log2" event="LOGIN" creator="501" uuid="9e663d66-6b78-11e0-93c3-18a905e00007"/>
 </dataset>

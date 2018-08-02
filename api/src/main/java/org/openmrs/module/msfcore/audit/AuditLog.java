@@ -20,6 +20,15 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = AuditLog.TABLE_NAME)
 public class AuditLog implements Serializable {
@@ -33,7 +42,8 @@ public class AuditLog implements Serializable {
   private Integer id;
 
   @Column(nullable = false, updatable = false)
-  private Date date;
+  @Builder.Default
+  private Date date = new Date();
 
   @Column(nullable = false, updatable = false)
   private String detail;
@@ -63,97 +73,8 @@ public class AuditLog implements Serializable {
   private User creator;
 
   @Column(unique = true, nullable = false, length = 38, updatable = false)
+  @Builder.Default
   private String uuid = UUID.randomUUID().toString();
-
-  public AuditLog() {
-  }
-
-  public AuditLog(Event event, String detail, User creator) {
-    setDate(new Date());
-    setDetail(detail);
-    setEvent(event);
-    setCreator(creator);
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
-  public String getDetail() {
-    return detail;
-  }
-
-  public void setDetail(String detail) {
-    this.detail = detail;
-  }
-
-  public Event getEvent() {
-    return event;
-  }
-
-  public void setEvent(Event event) {
-    this.event = event;
-  }
-
-  public Patient getPatient() {
-    return patient;
-  }
-
-  public void setPatient(Patient patient) {
-    this.patient = patient;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  public Provider getProvider() {
-    return provider;
-  }
-
-  public void setProvider(Provider provider) {
-    this.provider = provider;
-  }
-
-  public Location getLocation() {
-    return location;
-  }
-
-  public void setLocation(Location location) {
-    this.location = location;
-  }
-
-  public User getCreator() {
-    return creator;
-  }
-
-  public void setCreator(User creator) {
-    this.creator = creator;
-  }
-
-  public String getUuid() {
-    return uuid;
-  }
-
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
 
   public enum Event {
     LOGIN, VIEW_PATIENT, REGISTER_PATIENT

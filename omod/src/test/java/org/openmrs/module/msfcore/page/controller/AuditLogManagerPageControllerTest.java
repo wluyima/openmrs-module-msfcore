@@ -23,6 +23,7 @@ import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.msfcore.api.AuditService;
+import org.openmrs.module.msfcore.api.util.DateUtils;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.ui.framework.page.PageModel;
@@ -72,15 +73,13 @@ public class AuditLogManagerPageControllerTest {
     user = new User(1);
     user.setUsername("hacker");
     patient = Mockito.mock(Patient.class);
-    viewPatient = new AuditLog(Event.VIEW_PATIENT, "viewed patient dashboard", user);
-    viewPatient.setPatient(patient);
-    viewPatient.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-01"));
-    registerPatient = new AuditLog(Event.REGISTER_PATIENT, "registered patient", user);
-    registerPatient.setPatient(new Patient(2));
-    registerPatient.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-25"));
-    login = new AuditLog(Event.LOGIN, "user logged in", user);
-    login.setUser(user);
-    login.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-01"));
+    viewPatient = AuditLog.builder().event(Event.VIEW_PATIENT).detail("viewed patient dashboard")
+        .creator(user).patient(patient).date(DateUtils.parse("2018-07-01", "yyyy-MM-dd")).build();
+    registerPatient =
+        AuditLog.builder().event(Event.REGISTER_PATIENT).detail("registered patient").creator(user)
+            .patient(new Patient(2)).date(DateUtils.parse("2018-07-25", "yyyy-MM-dd")).build();
+    login = AuditLog.builder().event(Event.LOGIN).detail("user logged in").creator(user).user(user)
+        .date(DateUtils.parse("2018-08-01", "yyyy-MM-dd")).build();
   }
 
   @SuppressWarnings("unchecked")

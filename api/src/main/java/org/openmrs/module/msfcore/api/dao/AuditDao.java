@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -64,6 +65,8 @@ public class AuditDao {
     if (locations != null) {
       criteria.add(Restrictions.in("location", locations));
     }
+
+    criteria.addOrder(Order.desc("id"));
     return criteria.list();
   }
 
