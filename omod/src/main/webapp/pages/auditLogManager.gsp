@@ -28,14 +28,8 @@
     	jQuery.each("${selectedEvents}".replace('[', '').replace(']', '').split(","), function(i,e) {
     		jQuery("#events option[value=" + e + "]").prop("selected", true);
 		});
-		jQuery("#creator").autocomplete({
-	      source: "${userSuggestions}".replace('[', '').replace(']', '').split(",")
-	    });
 	    jQuery("#viewer").autocomplete({
-		    source: "${userSuggestions}".replace('[', '').replace(']', '').split(","),
-		    close: function(e, ui) {
-		    	jQuery("#patient-viewed-by-user").submit();
-		    }
+		    source: "${userSuggestions}".replace('[', '').replace(']', '').split(",")
 		});
     });
 </script>
@@ -53,16 +47,13 @@
 	        	<option value="${event}">${event}</option>
 	        <% } %>
 	    </select>
+	    <input type="text" id="viewer" name="viewer" class="field-display ui-autocomplete-input">
 	    
-		<input class="right" type="submit" value="${ ui.message('msfcore.filter')}"/>
+		<input type="submit" value="${ ui.message('msfcore.filter')}"/>
 	</form>
 	<h3>${ui.message("msfcore.quickFilters")}</h3>
-	<form id="patient-viewed-by-user" method="post">
-		${ui.message("msfcore.quickFilters.patientViewedByUser")}<b>${selectedViewer}</b><br/>
-		<input type="text" id="viewer" name="viewer" class="field-display ui-autocomplete-input">
-	</form>
 		
-	<br />${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
+	${ui.message("msfcore.quickFilters.usersPatientView")}<b>${patientDisplay}</b>
 	<div class="dialog">
 		<div class="dialog-content">
 			${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
@@ -80,7 +71,7 @@
 	    <tr>
 	        <th>${ ui.message("msfcore.event")}</th>
 	        <th>${ ui.message("msfcore.time")}</th>
-	        <th>${ ui.message("msfcore.creator")}</th>
+	        <th>${ ui.message("msfcore.user")}</th>
 	        <th>${ ui.message("msfcore.detail")}</th>
 	    </tr>
     </thead>
@@ -89,7 +80,7 @@
 	    	<tr>
 	    		<td>${log.event}</td>
 	    		<td>${ui.formatDatetimePretty(log.date)}</td>
-	    		<td>${log.creator}</td>
+	    		<td>${log.user}</td>
 	    		<td>${log.detail}</td>
 	    	</tr>
 	    </tbody>

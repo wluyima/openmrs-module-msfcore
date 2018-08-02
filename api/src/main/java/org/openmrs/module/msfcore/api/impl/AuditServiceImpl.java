@@ -42,14 +42,8 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     return dao.getAuditLogByUuid(uuid);
   }
 
-  public void deleteAuditLog(AuditLog auditLog) {
-    dao.deleteAuditLog(auditLog);
-  }
-
   public void deleteAuditLogsToDate(Date endDate) {
-    for (AuditLog log : getAuditLogs(null, endDate, null, null, null, null, null)) {
-      deleteAuditLog(log);
-    }
+    dao.deleteAuditLogsToDate(endDate);
   }
 
   public Integer saveAuditLog(AuditLog auditLog) {

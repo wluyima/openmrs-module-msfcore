@@ -72,15 +72,15 @@ public class AuditDao {
             .uniqueResult();
   }
 
-  public void deleteAuditLog(AuditLog auditLog) {
-    getSession().delete(auditLog);
-  }
-
   public Integer saveAuditLog(AuditLog auditLog) {
     return (Integer) getSession().save(auditLog);
   }
 
   public AuditLog getAuditLog(Integer auditLogId) {
     return (AuditLog) getSession().get(AuditLog.class, auditLogId);
+  }
+
+  public void deleteAuditLogsToDate(Date endDate) {
+    getSession().createQuery("delete from AuditLog where date <= :date").setTimestamp("date", endDate).executeUpdate();
   }
 }

@@ -9,11 +9,12 @@
  */
 package org.openmrs.module.msfcore.api.dao;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.msfcore.api.util.DateUtils.parse;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -140,18 +141,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void deleteAuditLog_shouldDeleteLog() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
-    AuditLog auditLog = auditDao.getAuditLog(1);
-    assertThat(auditLog.getId(), is(1));
-
-    auditDao.deleteAuditLog(auditLog);
-    auditLog = auditDao.getAuditLog(1);
-
-    assertThat(auditLog, is(nullValue()));
-  }
-
-  @Test
   public void getAuditLog_shouldRetrieveRightLog() throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
     AuditLog log = auditDao.getAuditLog(1);
@@ -222,5 +211,14 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
         .event(Event.REGISTER_PATIENT)
         .build();
     auditDao.saveAuditLog(log);
+  }
+
+  @Test
+  public void deleteAuditLogsToDate_shouldCompletelyDeleteRangedLogs() throws Exception {
+    executeDataSet("MSFCoreAuditLogs.xml");
+    auditDao.deleteAuditLogsToDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-03-23 11:00:00"));
+
+    assertNull(auditDao.getAuditLog(1));
+    assertNull(auditDao.getAuditLog(2));
   }
 }

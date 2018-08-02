@@ -31,8 +31,6 @@ public interface AuditService extends OpenmrsService {
 
   public AuditLog getAuditLogByUuid(String uuid);
 
-  public void deleteAuditLog(AuditLog auditLog);
-
   public void deleteAuditLogsToDate(Date endDate);
 
   public Integer saveAuditLog(AuditLog auditLog);
