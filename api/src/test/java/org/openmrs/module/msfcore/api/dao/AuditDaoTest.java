@@ -19,12 +19,18 @@ import java.util.List;
 
 import org.hamcrest.CoreMatchers;
 import org.hibernate.PropertyValueException;
+import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.terracotta.modules.ehcache.wan.IllegalConfigurationException;
 
 /**
  * This is a unit test, which verifies logic in MSFCoreService.
@@ -34,10 +40,30 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   @Autowired
   AuditDao auditDao;
 
+  Patient patient;
+  Patient anotherPatient;
+  User user;
+  User anotherUser;
+  Provider provider;
+  Location location;
+
+  @Before
+  public void setup() {
+    try {
+      executeDataSet("MSFCoreAuditLogs.xml");
+    } catch (Exception e) {
+      throw new IllegalConfigurationException("MSFCoreAuditLogs.xml not found");
+    }
+    patient = Context.getPatientService().getPatient(2);
+    anotherPatient = Context.getPatientService().getPatient(6);
+    user = Context.getUserService().getUser(501);
+    anotherUser = Context.getUserService().getUser(502);
+    provider = Context.getProviderService().getProvider(1);
+    location = Context.getLocationService().getLocation(1);
+  }
+
   @Test
-  public void getAuditLogs_shouldRetrieveAllLogsOrderByIdDescWhenNoFiltersAreSet()
-      throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveAllLogsOrderByIdDescWhenNoFiltersAreSet() {
     List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null);
 
     assertThat(logs.size(), CoreMatchers.is(7));
@@ -51,9 +77,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsOrderByIdInDateRangeWhenStartAndEndDateIsSet()
-      throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsOrderByIdInDateRangeWhenStartAndEndDateIsSet() {
     List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-04-20", "yyyy-MM-dd"),
         parse("2018-05-25", "yyyy-MM-dd"), null, null, null, null, null);
 
@@ -65,9 +89,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingEventsWhenEventsAreSet()
-      throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsMatchingEventsWhenEventsAreSet() {
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-05-25", "yyyy-MM-dd"),
             Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null);
@@ -78,70 +100,57 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingPatientsWhenPatientsAreSet() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsMatchingPatientsWhenPatientsAreSet() {
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT),
-            Arrays.asList(Context.getPatientService().getPatient(2)), null, null, null);
+            Arrays.asList(Event.REGISTER_PATIENT), Arrays.asList(patient), null, null, null);
 
     assertThat(logs.size(), is(1));
     assertThat(logs.get(0).getId(), is(5));
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingUsersWhenUsersAreSet() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsMatchingUsersWhenUsersAreSet() {
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT),
-            Arrays.asList(Context.getPatientService().getPatient(2)),
-            Arrays.asList(Context.getUserService().getUser(501)), null, null);
+            Arrays.asList(Event.REGISTER_PATIENT), Arrays.asList(patient),
+            Arrays.asList(anotherUser), null, null);
+
 
     assertThat(logs.size(), is(1));
     assertThat(logs.get(0).getId(), is(5));
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingProvidersWhenProvidersAreSet()
-      throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsMatchingProvidersWhenProvidersAreSet() {
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT),
-            Arrays.asList(Context.getPatientService().getPatient(2)),
-            Arrays.asList(Context.getUserService().getUser(501)),
-            Arrays.asList(Context.getProviderService().getProvider(1)), null);
+            Arrays.asList(Event.REGISTER_PATIENT), Arrays.asList(patient),
+            Arrays.asList(anotherUser), Arrays.asList(provider), null);
 
     assertThat(logs.size(), is(1));
     assertThat(logs.get(0).getId(), is(5));
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingLocation() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogs_shouldRetrieveLogsMatchingLocation() {
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT),
-            Arrays.asList(Context.getPatientService().getPatient(2)),
-            Arrays.asList(Context.getUserService().getUser(501)),
-            Arrays.asList(Context.getProviderService().getProvider(1)),
-            Arrays.asList(Context.getLocationService().getLocation(1)));
+            Arrays.asList(Event.REGISTER_PATIENT), Arrays.asList(patient),
+            Arrays.asList(anotherUser), Arrays.asList(provider), Arrays.asList(location));
 
     assertThat(logs.size(), is(1));
     assertThat(logs.get(0).getId(), is(5));
   }
 
   @Test
-  public void getAuditLogByUuid_shouldRetrieveRightLog() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLogByUuid_shouldRetrieveRightLog() {
     AuditLog auditLog = auditDao.getAuditLogByUuid("9e663d66-6b78-11e0-93c3-18a905e00001");
     assertThat(auditLog.getUuid(), is("9e663d66-6b78-11e0-93c3-18a905e00001"));
   }
 
   @Test
-  public void deleteAuditLog_shouldDeleteLog() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void deleteAuditLog_shouldDeleteLog() {
     AuditLog auditLog = auditDao.getAuditLog(1);
     assertThat(auditLog.getId(), is(1));
 
@@ -152,21 +161,20 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getAuditLog_shouldRetrieveRightLog() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
+  public void getAuditLog_shouldRetrieveRightLog() {
     AuditLog log = auditDao.getAuditLog(1);
     assertThat(log.getId(), is(1));
   }
 
   @Test
-  public void saveAuditLog_shouldPersistLog() throws Exception {
+  public void saveAuditLog_shouldPersistLog() {
     AuditLog log = AuditLog.builder()
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .patient(Context.getPatientService().getPatient(6))
-        .user(Context.getAuthenticatedUser())
+        .patient(anotherPatient)
+        .user(user)
         .location(Context.getLocationService().getDefaultLocation())
-        .provider(Context.getProviderService().getProvider(1))
+        .provider(provider)
         .build();
 
     Integer id = auditDao.saveAuditLog(log);
@@ -178,17 +186,17 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
         .date(log.getDate())
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .patient(Context.getPatientService().getPatient(6))
-        .user(Context.getAuthenticatedUser())
+        .patient(anotherPatient)
+        .user(user)
         .location(Context.getLocationService().getDefaultLocation())
-        .provider(Context.getProviderService().getProvider(1))
+        .provider(provider)
         .build();
 
     assertThat(savedLog, is(expected));
   }
 
   @Test
-  public void saveAuditLog_shouldPersistLogWithNonMandatoryFields() throws Exception {
+  public void saveAuditLog_shouldPersistLogWithNonMandatoryFields() {
     AuditLog log = AuditLog.builder()
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
