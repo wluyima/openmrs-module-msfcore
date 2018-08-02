@@ -26,7 +26,6 @@ public class AuditLogManagerPageController {
   public void controller(PageModel model, @SpringBean("auditService") AuditService auditService,
       @RequestParam(value = "startTime", required = false) String startTime,
       @RequestParam(value = "endTime", required = false) String endTime, HttpServletRequest request,
-      @RequestParam(value = "creator", required = false) String userNameOrSystemId,
       @RequestParam(value = "patientId", required = false) Patient patient,
       @RequestParam(value = "viewer", required = false) String selectedViewer) {
     Date startDate = null;
@@ -36,12 +35,12 @@ public class AuditLogManagerPageController {
     List<Patient> patients = null;
     List<User> users = null;
     if (patient != null) { // msfcore.quickFilters.usersPatientView quick filter
-      restDatesAndCreator(startTime, endTime, userNameOrSystemId);
+      restDatesAndCreator(startTime, endTime);
       selectedEvents = new String[]{Event.VIEW_PATIENT.name()};
       patients = Arrays.asList(patient);
     } else if (StringUtils.isNotBlank(selectedViewer)) { // msfcore.quickFilters.patientViewedByUser quick filter
       users = new ArrayList<User>();
-      restDatesAndCreator(startTime, endTime, userNameOrSystemId);
+      restDatesAndCreator(startTime, endTime);
       selectedEvents = new String[]{Event.VIEW_PATIENT.name()};
       User viewer = Context.getUserService().getUserByUsername(selectedViewer.trim());
       if (viewer == null) {
@@ -67,21 +66,14 @@ public class AuditLogManagerPageController {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    User creator = null;
-    if (StringUtils.isNotBlank(userNameOrSystemId)) {
-      creator = Context.getUserService().getUserByUsername(userNameOrSystemId.trim());
-      if (creator == null) {
-        userNameOrSystemId = "";
-      }
-    }
-    List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, creator, patients, users, null, null);
+
+    List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, patients, users, null, null);
     model.addAttribute("auditLogs", auditLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
     model.addAttribute("endTime", endTime.replaceAll(",", ""));
     model.addAttribute("events", Arrays.asList(Event.values()));
     model.addAttribute("selectedEvents", selectedEvents);
     model.addAttribute("userSuggestions", userSuggestions());
-    model.addAttribute("selectedUser", userNameOrSystemId.trim());
     model.addAttribute("selectedViewer", selectedViewer.trim());
     String patientDisplay = "";
     if (patient != null) {
@@ -90,10 +82,9 @@ public class AuditLogManagerPageController {
     model.addAttribute("patientDisplay", patientDisplay);
   }
 
-  private void restDatesAndCreator(String startTime, String endTime, String userNameOrSystemId) {
+  private void restDatesAndCreator(String startTime, String endTime) {
     startTime = "";
     endTime = "";
-    userNameOrSystemId = "";
   }
 
   private List<String> userSuggestions() {

@@ -9,9 +9,8 @@
  */
 package org.openmrs.module.msfcore.api.dao;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.msfcore.api.util.DateUtils.parse;
 
@@ -39,7 +38,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   public void getAuditLogs_shouldRetrieveAllLogsOrderByIdDescWhenNoFiltersAreSet()
       throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
-    List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null, null);
+    List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null);
 
     assertThat(logs.size(), CoreMatchers.is(7));
     assertThat(logs.get(0).getId(), is(7));
@@ -56,7 +55,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
       throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-04-20", "yyyy-MM-dd"),
-        parse("2018-05-25", "yyyy-MM-dd"), null, null, null, null, null, null);
+        parse("2018-05-25", "yyyy-MM-dd"), null, null, null, null, null);
 
     assertThat(logs.size(), is(4));
     assertThat(logs.get(0).getId(), is(6));
@@ -71,7 +70,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-05-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null, null);
+            Arrays.asList(Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null);
 
     assertThat(logs.size(), is(2));
     assertThat(logs.get(0).getId(), is(2));
@@ -79,22 +78,11 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   }
 
   @Test
-  public void getAuditLogs_shouldRetrieveLogsMatchingCreatorWhenCreatorIsSet() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
-    List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"),
-        parse("2018-08-25", "yyyy-MM-dd"), Arrays.asList(Event.REGISTER_PATIENT),
-        Context.getUserService().getUser(502), null, null, null, null);
-
-    assertThat(logs.size(), is(1));
-    assertThat(logs.get(0).getId(), is(5));
-  }
-
-  @Test
   public void getAuditLogs_shouldRetrieveLogsMatchingPatientsWhenPatientsAreSet() throws Exception {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT), Context.getUserService().getUser(502),
+            Arrays.asList(Event.REGISTER_PATIENT),
             Arrays.asList(Context.getPatientService().getPatient(2)), null, null, null);
 
     assertThat(logs.size(), is(1));
@@ -106,7 +94,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT), Context.getUserService().getUser(502),
+            Arrays.asList(Event.REGISTER_PATIENT),
             Arrays.asList(Context.getPatientService().getPatient(2)),
             Arrays.asList(Context.getUserService().getUser(501)), null, null);
 
@@ -120,7 +108,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT), Context.getUserService().getUser(502),
+            Arrays.asList(Event.REGISTER_PATIENT),
             Arrays.asList(Context.getPatientService().getPatient(2)),
             Arrays.asList(Context.getUserService().getUser(501)),
             Arrays.asList(Context.getProviderService().getProvider(1)), null);
@@ -134,7 +122,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     executeDataSet("MSFCoreAuditLogs.xml");
     List<AuditLog> logs =
         auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"),
-            Arrays.asList(Event.REGISTER_PATIENT), Context.getUserService().getUser(502),
+            Arrays.asList(Event.REGISTER_PATIENT),
             Arrays.asList(Context.getPatientService().getPatient(2)),
             Arrays.asList(Context.getUserService().getUser(501)),
             Arrays.asList(Context.getProviderService().getProvider(1)),
@@ -175,7 +163,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     AuditLog log = AuditLog.builder()
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .creator(Context.getAuthenticatedUser())
         .patient(Context.getPatientService().getPatient(6))
         .user(Context.getAuthenticatedUser())
         .location(Context.getLocationService().getDefaultLocation())
@@ -191,7 +178,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
         .date(log.getDate())
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .creator(Context.getAuthenticatedUser())
         .patient(Context.getPatientService().getPatient(6))
         .user(Context.getAuthenticatedUser())
         .location(Context.getLocationService().getDefaultLocation())
@@ -206,7 +192,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     AuditLog log = AuditLog.builder()
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .creator(Context.getAuthenticatedUser())
         .build();
 
     Integer id = auditDao.saveAuditLog(log);
@@ -218,7 +203,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
         .date(log.getDate())
         .event(Event.REGISTER_PATIENT)
         .detail("registered patient#")
-        .creator(Context.getAuthenticatedUser())
         .build();
 
     assertThat(savedLog, is(expected));
@@ -228,7 +212,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   public void saveAuditLog_shouldThrowWhenNoEventIsSet() {
     AuditLog log = AuditLog.builder()
         .detail("registered patient#")
-        .creator(Context.getAuthenticatedUser())
         .build();
     auditDao.saveAuditLog(log);
   }
@@ -237,16 +220,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   public void saveAuditLog_shouldThrowWhenNoDetailIsSet() {
     AuditLog log = AuditLog.builder()
         .event(Event.REGISTER_PATIENT)
-        .creator(Context.getAuthenticatedUser())
-        .build();
-    auditDao.saveAuditLog(log);
-  }
-
-  @Test(expected = PropertyValueException.class)
-  public void saveAuditLog_shouldThrowWhenNoCreatorIsSet() {
-    AuditLog log = AuditLog.builder()
-        .event(Event.REGISTER_PATIENT)
-        .detail("registered patient#")
         .build();
     auditDao.saveAuditLog(log);
   }

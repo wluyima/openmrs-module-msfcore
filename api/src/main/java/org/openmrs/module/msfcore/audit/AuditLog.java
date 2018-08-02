@@ -68,10 +68,6 @@ public class AuditLog implements Serializable {
   @JoinColumn(name = "location_id", updatable = false)
   private Location location;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "creator", referencedColumnName = "user_id", updatable = false, nullable = false)
-  private User creator;
-
   @Column(unique = true, nullable = false, length = 38, updatable = false)
   @Builder.Default
   private String uuid = UUID.randomUUID().toString();

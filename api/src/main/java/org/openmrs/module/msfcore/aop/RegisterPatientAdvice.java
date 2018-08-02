@@ -15,13 +15,10 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
   public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
     if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
       Patient patient = (Patient) returnValue;
-      AuditLog viewPatientLog = AuditLog.builder()
-          .event(Event.REGISTER_PATIENT)
-          .detail("registered patient#" + patient.getPatientIdentifier().getIdentifier())
-          .creator(Context.getAuthenticatedUser())
-          .patient(patient)
-          .user(Context.getAuthenticatedUser())
-          .build();
+      AuditLog viewPatientLog = AuditLog.builder().event(Event.REGISTER_PATIENT)
+          .detail(Context.getMessageSourceService().getMessage("msfcore.registerPatient") + "#"
+              + patient.getPatientIdentifier().getIdentifier())
+          .user(Context.getAuthenticatedUser()).patient(patient).user(Context.getAuthenticatedUser()).build();
       Context.getService(AuditService.class).saveAuditLog(viewPatientLog);
     }
   }

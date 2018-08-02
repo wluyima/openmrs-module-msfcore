@@ -37,7 +37,7 @@ public class AuditDao {
   }
 
   @SuppressWarnings("unchecked")
-  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
     Criteria criteria = getSession().createCriteria(AuditLog.class);
 
@@ -49,9 +49,6 @@ public class AuditDao {
     }
     if (events != null) {
       criteria.add(Restrictions.in("event", events));
-    }
-    if (creator != null) {
-      criteria.add(Restrictions.eq("creator", creator));
     }
     if (users != null) {
       criteria.add(Restrictions.in("user", users));

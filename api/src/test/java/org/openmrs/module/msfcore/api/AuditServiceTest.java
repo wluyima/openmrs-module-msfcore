@@ -43,7 +43,7 @@ public class AuditServiceTest extends BaseContextMockTest {
     AuditLog auditLog2 = AuditLog.builder().id(2).build();
     AuditLog auditLog3 = AuditLog.builder().id(3).build();
 
-    when(auditDao.getAuditLogs(null, endDate, null, null, null, null, null, null))
+    when(auditDao.getAuditLogs(null, endDate, null, null, null, null, null))
         .thenReturn(Arrays.asList(auditLog1, auditLog2, auditLog3));
 
     auditService.deleteAuditLogsToDate(endDate);

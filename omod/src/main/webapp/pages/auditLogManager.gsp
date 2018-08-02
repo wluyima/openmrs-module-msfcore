@@ -53,9 +53,7 @@
 	        	<option value="${event}">${event}</option>
 	        <% } %>
 	    </select>
-	    ${ui.message("msfcore.creator")}<br />
-		<input type="text" id="creator" name="creator" class="field-display ui-autocomplete-input" value="${selectedUser}">
-		
+	    
 		<input class="right" type="submit" value="${ ui.message('msfcore.filter')}"/>
 	</form>
 	<h3>${ui.message("msfcore.quickFilters")}</h3>

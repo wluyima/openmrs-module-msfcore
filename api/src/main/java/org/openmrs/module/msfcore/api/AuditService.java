@@ -26,7 +26,7 @@ import org.openmrs.module.msfcore.audit.AuditLog.Event;
  */
 public interface AuditService extends OpenmrsService {
 
-  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations);
 
   public AuditLog getAuditLogByUuid(String uuid);

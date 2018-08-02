@@ -33,12 +33,12 @@
 	</changeSet>
 	<changeSet id="20180724-1551" author="k-joseph">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="msfcore_log" /></not>
+			<not><tableExists tableName="msfcore_audit_log" /></not>
 		</preConditions>
 		<comment>
-			Create msfcore_log table
+			Create msfcore_audit_log table
 		</comment>
-		<createTable tableName="msfcore_log">
+		<createTable tableName="msfcore_audit_log">
 			<column name="id" type="int" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
@@ -51,9 +51,6 @@
 			<column name="event" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
-			<column name="creator" type="int">
-				<constraints nullable="false" />
-			</column>
 			<column name="user_id" type="int" />
 			<column name="patient_id" type="int" />
 			<column name="provider_id" type="int" />
@@ -63,30 +60,19 @@
 			</column>
 		</createTable>
 
-		<addForeignKeyConstraint constraintName="msfcore_log_creator_fk"
-			baseTableName="msfcore_log"
-			baseColumnNames="creator" referencedTableName="users"
-			referencedColumnNames="user_id" />
-		<addForeignKeyConstraint constraintName="msfcore_log_user_fk"
-			baseTableName="msfcore_log"
+		<addForeignKeyConstraint constraintName="msfcore_audit_log_user_fk"
+			baseTableName="msfcore_audit_log"
 			baseColumnNames="user_id" referencedTableName="users"
 			referencedColumnNames="user_id" />
-		<addForeignKeyConstraint constraintName="msfcore_log_patient_fk"
-			baseTableName="msfcore_log" baseColumnNames="patient_id"
+		<addForeignKeyConstraint constraintName="msfcore_audit_log_patient_fk"
+			baseTableName="msfcore_audit_log" baseColumnNames="patient_id"
 			referencedTableName="patient" referencedColumnNames="patient_id" />
-		<addForeignKeyConstraint constraintName="msfcore_log_provider_fk"
-			baseTableName="msfcore_log" baseColumnNames="provider_id"
+		<addForeignKeyConstraint constraintName="msfcore_audit_log_provider_fk"
+			baseTableName="msfcore_audit_log" baseColumnNames="provider_id"
             referencedTableName="provider" referencedColumnNames="provider_id" />
-       <addForeignKeyConstraint constraintName="msfcore_log_location_fk"
-			baseTableName="msfcore_log" baseColumnNames="location_id"
+       <addForeignKeyConstraint constraintName="msfcore_audit_log_location_fk"
+			baseTableName="msfcore_audit_log" baseColumnNames="location_id"
 			referencedTableName="location" referencedColumnNames="location_id"/>
-	</changeSet>
-	<changeSet author="k-joseph" id="20180801-0946">
-		<preConditions>
-			<tableExists tableName="msfcore_log"/>
-		</preConditions>
-		<comment>rename msfcore_log to msfcore_audit_log</comment>
-		<renameTable newTableName="msfcore_audit_log" oldTableName="msfcore_log"/>
 	</changeSet>
 	<changeSet author="k-joseph" id="20180801-1838">
 		<preConditions onFail="MARK_RAN">

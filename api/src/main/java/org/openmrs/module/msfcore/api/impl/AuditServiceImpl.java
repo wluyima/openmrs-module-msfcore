@@ -33,9 +33,9 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     this.dao = dao;
   }
 
-  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, User creator, List<Patient> patients,
+  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients,
           List<User> users, List<Provider> providers, List<Location> locations) {
-    return dao.getAuditLogs(startDate, endDate, events, creator, patients, users, providers, locations);
+    return dao.getAuditLogs(startDate, endDate, events, patients, users, providers, locations);
   }
 
   public AuditLog getAuditLogByUuid(String uuid) {
@@ -47,7 +47,7 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
   }
 
   public void deleteAuditLogsToDate(Date endDate) {
-    for (AuditLog log : getAuditLogs(null, endDate, null, null, null, null, null, null)) {
+    for (AuditLog log : getAuditLogs(null, endDate, null, null, null, null, null)) {
       deleteAuditLog(log);
     }
   }
