@@ -13,7 +13,7 @@ public class StandardEmrPageFragmentRequestMapper implements FragmentRequestMapp
   public boolean mapRequest(FragmentRequest request) {
     if ("true".equals(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_ENABLE_MSF_UI))
         && request.getProviderName().equals("appui")) {
-      if (request.getFragmentId().equals("standardEmrPage")) {
+      if (request.getFragmentId().equals("decorator/standardEmrPage")) {
         request.setProviderNameOverride("msfcore");
         return true;
       }

@@ -7,7 +7,7 @@
         }
         return it
     }
-    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("uicommons", "images/logo/openmrs-with-title-small.png")
+    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("msfcore", "images/msf_logo.png")
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${ org.openmrs.ui.framework.WebConstants.CONTEXT_PATH }/"
     def multipleLoginLocations = (loginLocations.size > 1);
     def enableUserAccountExt = userAccountMenuItems.size > 0;
