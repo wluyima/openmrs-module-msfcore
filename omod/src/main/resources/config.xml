@@ -32,6 +32,8 @@
 		<require_module>org.openmrs.module.referencemetadata</require_module>
 		<require_module>org.openmrs.module.htmlformentry</require_module>
 		<require_module>org.openmrs.module.htmlformentryui</require_module>
+		<require_module>org.openmrs.module.appframework</require_module>
+		<require_module>org.openmrs.module.appui</require_module>
 	</require_modules>
 	
 	<aware_of_modules>
@@ -59,6 +61,11 @@
 		<property>msfcore.daysToKeepLogs</property>
 		<defaultValue>30</defaultValue>
 		<description>Number of days the EMR should keep MSFCore logs</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.enableMSFUI</property>
+		<defaultValue>true</defaultValue>
+		<description>Set to true to enable MSF Custom User interface</description>
 	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
