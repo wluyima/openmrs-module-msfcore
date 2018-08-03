@@ -16,8 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PersonName;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
@@ -209,46 +207,4 @@ public class AuditLogManagerPageControllerTest {
     Assert.assertEquals("", (String) model.getAttribute("patientDisplay"));
   }
 
-  @SuppressWarnings("unchecked")
-  @Test
-  public void post_filter_quick_patientViewedByUser() {
-    Mockito.when(Context.getUserService().getUserByUsername("hacker")).thenReturn(user);
-    Mockito.when(auditService.getAuditLogs(null, null, Arrays.asList(Event.VIEW_PATIENT), null, Arrays.asList(user), null, null))
-        .thenReturn(Arrays.asList(viewPatient));
-    controller.controller(model, auditService, "", "", request, null, "hacker");
-    List<AuditLog> logs = (List<AuditLog>) model.getAttribute("auditLogs");
-    Assert.assertThat(logs.size(), CoreMatchers.is(1));
-    Assert.assertThat(logs.get(0), CoreMatchers.is(viewPatient));
-    Assert.assertEquals("", (String) model.getAttribute("startTime"));
-    Assert.assertEquals("", (String) model.getAttribute("endTime"));
-    Assert.assertEquals(Arrays.asList(Event.values()), (List<Event>) model.getAttribute("events"));
-    String[] events = (String[]) model.getAttribute("selectedEvents");
-    Assert.assertThat(events.length, CoreMatchers.is(1));
-    Assert.assertThat(events[0], CoreMatchers.is(Event.VIEW_PATIENT.name()));
-    Assert.assertEquals("hacker", (String) model.getAttribute("selectedViewer"));
-    Assert.assertEquals("", (String) model.getAttribute("patientDisplay"));
-  }
-
-  @SuppressWarnings("unchecked")
-  @Test
-  public void post_filter_quick_usersViewedAPatient() {
-    PatientIdentifier id = new PatientIdentifier();
-    id.setIdentifier("MSF_ID_1");
-    Mockito.when(patient.getPersonName()).thenReturn(new PersonName("John", "D", "Patient"));
-    Mockito.when(patient.getPatientIdentifier()).thenReturn(id);
-    Mockito.when(auditService.getAuditLogs(null, null, Arrays.asList(Event.VIEW_PATIENT), Arrays.asList(patient), null, null, null))
-        .thenReturn(Arrays.asList(viewPatient));
-    controller.controller(model, auditService, "", "", request, patient, "");
-    List<AuditLog> logs = (List<AuditLog>) model.getAttribute("auditLogs");
-    Assert.assertThat(logs.size(), CoreMatchers.is(1));
-    Assert.assertThat(logs.get(0), CoreMatchers.is(viewPatient));
-    Assert.assertEquals("", (String) model.getAttribute("startTime"));
-    Assert.assertEquals("", (String) model.getAttribute("endTime"));
-    Assert.assertEquals(Arrays.asList(Event.values()), (List<Event>) model.getAttribute("events"));
-    String[] events = (String[]) model.getAttribute("selectedEvents");
-    Assert.assertThat(events.length, CoreMatchers.is(1));
-    Assert.assertThat(events[0], CoreMatchers.is(Event.VIEW_PATIENT.name()));
-    Assert.assertEquals("", (String) model.getAttribute("selectedViewer"));
-    Assert.assertEquals("John D Patient #MSF_ID_1", (String) model.getAttribute("patientDisplay"));
-  }
 }

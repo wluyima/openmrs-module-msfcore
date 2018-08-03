@@ -34,14 +34,12 @@ public class AuditLogManagerPageController {
     List<Event> logEvents = new ArrayList<Event>();
     List<Patient> patients = null;
     List<User> users = null;
-    if (patient != null) { // msfcore.quickFilters.usersPatientView quick filter
-      restDatesAndCreator(startTime, endTime);
-      selectedEvents = new String[]{Event.VIEW_PATIENT.name()};
+
+    if (patient != null) {
       patients = Arrays.asList(patient);
-    } else if (StringUtils.isNotBlank(selectedViewer)) { // msfcore.quickFilters.patientViewedByUser quick filter
+    }
+    if (StringUtils.isNotBlank(selectedViewer)) {
       users = new ArrayList<User>();
-      restDatesAndCreator(startTime, endTime);
-      selectedEvents = new String[]{Event.VIEW_PATIENT.name()};
       User viewer = Context.getUserService().getUserByUsername(selectedViewer.trim());
       if (viewer == null) {
         selectedViewer = "";
@@ -66,7 +64,6 @@ public class AuditLogManagerPageController {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-
     List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, patients, users, null, null);
     model.addAttribute("auditLogs", auditLogs);
     model.addAttribute("startTime", startTime.replaceAll(",", ""));
@@ -76,15 +73,13 @@ public class AuditLogManagerPageController {
     model.addAttribute("userSuggestions", userSuggestions());
     model.addAttribute("selectedViewer", selectedViewer.trim());
     String patientDisplay = "";
+    String patientId = "";
     if (patient != null) {
+      patientId = patient.getUuid();
       patientDisplay = patient.getPersonName().getFullName() + " #" + patient.getPatientIdentifier().getIdentifier();
     }
+    model.addAttribute("patientId", patientId);
     model.addAttribute("patientDisplay", patientDisplay);
-  }
-
-  private void restDatesAndCreator(String startTime, String endTime) {
-    startTime = "";
-    endTime = "";
   }
 
   private List<String> userSuggestions() {
