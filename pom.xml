@@ -94,5 +94,6 @@
 		<idgenVersion>4.4.1</idgenVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<htmlformentryVersion>3.7.0</htmlformentryVersion>
+        <lombokVersion>1.18.0</lombokVersion>
 	</properties>
 </project>

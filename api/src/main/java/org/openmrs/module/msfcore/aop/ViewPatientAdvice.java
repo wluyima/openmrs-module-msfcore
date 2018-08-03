@@ -22,9 +22,9 @@ public class ViewPatientAdvice implements AfterReturningAdvice {
     if (method.getName().equals("patientViewed") && args.length == 2 && args[0].getClass().equals(Patient.class)
         && args[1].getClass().equals(User.class)) {
       Patient patient = (Patient) args[0];
-      AuditLog viewPatientLog = AuditLog.builder().event(Event.VIEW_PATIENT)
-          .detail(
-              Context.getMessageSourceService().getMessage("msfcore.viewPatient") + "#" + patient.getPatientIdentifier().getIdentifier())
+      AuditLog viewPatientLog = AuditLog.builder()
+          .event(Event.VIEW_PATIENT).detail(Context.getMessageSourceService().getMessage("msfcore.viewPatient")
+              + patient.getPersonName().getFullName() + " - " + patient.getPatientIdentifier().getIdentifier())
           .patient(patient).user((User) args[1]).build();
       Context.getService(AuditService.class).saveAuditLog(viewPatientLog);
     }
