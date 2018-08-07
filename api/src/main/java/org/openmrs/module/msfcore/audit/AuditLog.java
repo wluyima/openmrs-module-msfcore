@@ -73,7 +73,7 @@ public class AuditLog implements Serializable {
   private String uuid = UUID.randomUUID().toString();
 
   public enum Event {
-    LOGIN, VIEW_PATIENT, REGISTER_PATIENT
+    LOGIN, VIEW_PATIENT, REGISTER_PATIENT, LOGOUT
   }
 
 }

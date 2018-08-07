@@ -14,6 +14,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.msfcore.api.util.DateUtils.parse;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -66,7 +68,10 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
   @Test
   public void getAuditLogs_shouldRetrieveAllLogsOrderByIdDescWhenNoFiltersAreSet() {
     List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null);
-
+    assertThat(logs.size(), CoreMatchers.is(8));
+    assertThat(logs.get(0).getEvent(), CoreMatchers.is(Event.LOGIN));
+    assertThat(logs.get(0).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
+    logs.remove(0);
     assertThat(logs.size(), CoreMatchers.is(7));
     assertThat(logs.get(0).getId(), is(7));
     assertThat(logs.get(1).getId(), is(6));
@@ -144,7 +149,6 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
 
   @Test
   public void getAuditLog_shouldRetrieveRightLog() throws Exception {
-    executeDataSet("MSFCoreAuditLogs.xml");
     AuditLog log = auditDao.getAuditLog(1);
     assertThat(log.getId(), is(1));
   }
@@ -196,5 +200,38 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
 
     assertNull(auditDao.getAuditLog(1));
     assertNull(auditDao.getAuditLog(2));
+  }
+
+  @Test
+  public void getAuditLogs_shouldRetrieveAllLoginAndLogoutLogs() throws ParseException, InterruptedException {
+    Context.logout();
+    try {
+      Context.authenticate("admin", "wrongPass");
+    } catch (ContextAuthenticationException e) {
+    }
+    try {
+      Context.authenticate("wrongUser", "test");
+    } catch (ContextAuthenticationException e) {
+    }
+    Context.authenticate("admin", "test");//success
+    List<AuditLog> logs = auditDao.getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null, null);
+
+    assertThat(logs.size(), CoreMatchers.is(5));
+    assertThat(logs.get(0).getEvent(), CoreMatchers.is(Event.LOGIN));
+    assertThat(logs.get(0).getUser(), CoreMatchers.is(Context.getAuthenticatedUser()));
+    assertThat(logs.get(0).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
+    assertThat(logs.get(1).getEvent(), CoreMatchers.is(Event.LOGIN));
+    assertNull(logs.get(1).getUser());
+    assertThat(logs.get(1).getDetail(), CoreMatchers.is("User: wrongUser: FAIL"));
+    assertThat(logs.get(2).getEvent(), CoreMatchers.is(Event.LOGIN));
+    assertThat(logs.get(2).getDetail(), CoreMatchers.is("User: admin: FAIL"));
+    assertNull(logs.get(2).getUser());
+    assertThat(logs.get(3).getEvent(), CoreMatchers.is(Event.LOGOUT));
+    assertThat(logs.get(3).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
+    assertThat(logs.get(3).getUser(), CoreMatchers.is(Context.getAuthenticatedUser()));
+    assertThat(logs.get(4).getEvent(), CoreMatchers.is(Event.LOGIN));
+    assertThat(logs.get(4).getUser(), CoreMatchers.is(Context.getAuthenticatedUser()));
+    assertThat(logs.get(4).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
+
   }
 }
