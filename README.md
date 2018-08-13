@@ -3,6 +3,8 @@ openmrs-module-msftcore
 
 This module contains core functionality and customisations for the OpenMRS MSF distribution such as;
 
+> MSF UI Customisations
+
 > MSF Primary & other Identifiers
 
 > Registration App
