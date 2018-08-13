@@ -14,6 +14,8 @@
 
 	<activator>org.openmrs.module.msfcore.MSFCoreActivator</activator>
 	
+	<mandatory>true</mandatory>
+	
 	<require_version>${openmrsPlatformVersion}</require_version>
 
 	<require_modules>

@@ -32,6 +32,7 @@ import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
 import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;
+import org.openmrs.scheduler.TaskDefinition;
 
 /**
  * This class contains the logic that is run every time this module is either
@@ -48,6 +49,13 @@ public class MSFCoreActivator extends BaseModuleActivator {
     log.info("Started MSF Core Module");
 
     installMSFMeta();
+
+    //ensure 'Auto Close Visits Task' is started
+    TaskDefinition autoCloseVisits = Context.getSchedulerService().getTaskByName(MSFCoreConfig.TASK_AUTO_CLOSE_VISIT);
+    if (autoCloseVisits != null && !autoCloseVisits.getStartOnStartup()) {
+      autoCloseVisits.setStartOnStartup(true);
+      Context.getSchedulerService().saveTaskDefinition(autoCloseVisits);
+    }
   }
 
   private void installMSFMeta() {
@@ -140,7 +148,14 @@ public class MSFCoreActivator extends BaseModuleActivator {
   @Override
   public void willStop() {
     removeMSFMeta();
+    Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_MANADATORY, "false");
     super.willStop();
+  }
+
+  @Override
+  public void willStart() {
+    Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_MANADATORY, "true");
+    super.willStart();
   }
 
   /**
