@@ -210,8 +210,9 @@ public class MSFCoreConfig {
 
   public final static String GP_DAYS_TO_KEEP_LOGS = "msfcore.daysToKeepLogs";
 
+  public final static String GP_ENABLE_MSF_UI = "msfcore.enableMSFUI";
+
   public final static String GP_MANADATORY = "msfcore.mandatory";
 
   public final static String TASK_AUTO_CLOSE_VISIT = "Auto Close Visits Task";
-
 }
