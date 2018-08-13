@@ -17,6 +17,9 @@
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
 
+	<developers>
+		<developer><name>Jembi Health Systems NPC</name></developer>
+	</developers>
 	<scm>
 		<connection>scm:git:git@github.com:openmrs/openmrs-module-msfcore.git</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-msfcore.git</developerConnection>
@@ -34,10 +37,28 @@
             <dependency>
                 <groupId>org.openmrs.distro</groupId>
                 <artifactId>referenceapplication</artifactId>
-                <version>2.4</version>
+                <version>${referenceApplicationVersion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>appframework-api</artifactId>
+				<version>${appframeworkVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>idgen-api</artifactId>
+				<version>${idgenVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>htmlformentry-api-2.0</artifactId>
+				<version>${htmlformentryVersion}</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -66,6 +87,13 @@
 	</pluginRepositories>
 
 	<properties>
-		<openmrsPlatformVersion>1.11.6</openmrsPlatformVersion>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
+		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
+		<idgenVersion>4.4.1</idgenVersion>
+		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<htmlformentryVersion>3.7.0</htmlformentryVersion>
+        <lombokVersion>1.18.0</lombokVersion>
 	</properties>
 </project>

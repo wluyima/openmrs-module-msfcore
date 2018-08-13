@@ -42,12 +42,38 @@
             <ref bean="transactionAttributeSource" />
         </property>
     </bean>
+    <bean id="auditService"
+            class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="target">
+            <bean class="org.openmrs.module.msfcore.api.impl.AuditServiceImpl">
+                <property name="dao" ref="msfcore.AuditDao" />
+            </bean>
+        </property>
+        <property name="preInterceptors">
+            <ref bean="serviceInterceptors" />
+        </property>
+        <property name="transactionAttributeSource">
+            <ref bean="transactionAttributeSource" />
+        </property>
+    </bean>
 
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
                 <value>org.openmrs.module.msfcore.api.MSFCoreService</value>
                 <ref bean="msfCoreService" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.msfcore.api.AuditService</value>
+                <ref bean="auditService" />
             </list>
         </property>
     </bean>

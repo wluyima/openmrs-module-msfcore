@@ -1,0 +1,16 @@
+[
+  {
+    "id":"msfcore.auditlogsapp",
+    "extensions":[
+      {
+        "id":"msfcore.auditlogsapp.page",
+        "extensionPointId":"systemAdministration.apps",
+        "type":"link",
+        "label":"msfcore.auditlogs.label",
+        "order":20,
+        "url":"msfcore/auditLogManager.page",
+        "icon":"icon-book"
+      }
+    ]
+  }
+]
