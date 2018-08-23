@@ -85,6 +85,11 @@ ${ ui.includeFragment("appui", "header") }
     <% featureToggles.getToggleMap().each { %>
         featureToggles["${it.key}"] = ${ Boolean.parseBoolean(it.value)};
     <% } %>
+
+    // remove the second edit link on patient dashboard
+    jq(function() {
+        jq("#contact-info-inline-edit").detach();
+    });
 </script>
 
     </body>
