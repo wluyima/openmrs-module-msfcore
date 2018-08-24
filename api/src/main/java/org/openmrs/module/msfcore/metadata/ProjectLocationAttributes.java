@@ -9,7 +9,7 @@ public class ProjectLocationAttributes {
   public static LocationAttributeDescriptor BEKAA_VALLEY = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.BEKAA_VALLEY_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_BEKAA_VALLEY_UUID;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ProjectLocationAttributes {
   public static LocationAttributeDescriptor TRIPOLI = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.TRIPOLI_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_TRIPOLI_UUID;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ProjectLocationAttributes {
   public static LocationAttributeDescriptor WEST_DONETSK = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.WEST_DONETSK_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_WEST_DONETSK_UUID;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ProjectLocationAttributes {
   public static LocationAttributeDescriptor MARIUPOL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.MARIUPOL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_MARIUPOL_UUID;
     }
 
     @Override

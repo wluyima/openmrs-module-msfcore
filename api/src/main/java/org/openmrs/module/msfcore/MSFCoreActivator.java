@@ -91,7 +91,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
     log.info("Setting primary identifier source");
     IdentifierSource msfIdSource = Context.getService(IdentifierSourceService.class)
-        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
+        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_UUID);
     if (msfIdSource != null) {
       Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
           String.valueOf(msfIdSource.getId()));

@@ -29,7 +29,7 @@ public class PersonAttributeTypes {
     }
 
     public String uuid() {
-      return MSFCoreConfig.NATIONALITY_PERSON_ATTRIBUTE_UUID;
+      return MSFCoreConfig.PERSON_ATTRIBUTE_NATIONALITY_UUID;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class PersonAttributeTypes {
     }
   };
 
-  public static PersonAttributeTypeDescriptor OTHER_NATIONALITY = new PersonAttributeTypeDescriptor() {
+  public static PersonAttributeTypeDescriptor PROVENANCE = new PersonAttributeTypeDescriptor() {
     @Override
     public double sortWeight() {
       return 0;
@@ -51,16 +51,16 @@ public class PersonAttributeTypes {
 
     @Override
     public String name() {
-      return "Other Nationality";
+      return "Provenance";
     }
 
     @Override
     public String description() {
-      return "Nationality - if other, specify: of a person";
+      return "Provenance";
     }
 
     public String uuid() {
-      return MSFCoreConfig.OTHER_NATIONALITY_PERSON_ATTRIBUTE_UUID;
+      return MSFCoreConfig.PERSON_ATTRIBUTE_PROVENANCE_UUID;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PersonAttributeTypes {
     }
 
     public String uuid() {
-      return MSFCoreConfig.MARITAL_STATUS_PERSON_ATTRIBUTE_UUID;
+      return MSFCoreConfig.PERSON_ATTRIBUTE_MARITAL_STATUS_UUID;
     }
 
     @Override
@@ -122,7 +122,7 @@ public class PersonAttributeTypes {
     }
 
     public String uuid() {
-      return MSFCoreConfig.EMPLOYMENT_STATUS_PERSON_ATTRIBUTE_UUID;
+      return MSFCoreConfig.PERSON_ATTRIBUTE_EMPLOYMENT_STATUS_UUID;
     }
 
     @Override
@@ -153,7 +153,69 @@ public class PersonAttributeTypes {
     }
 
     public String uuid() {
-      return MSFCoreConfig.DATE_OF_ARRIVAL_PERSON_ATTRIBUTE_UUID;
+      return MSFCoreConfig.PERSON_ATTRIBUTE_DATE_OF_ARRIVAL_UUID;
+    }
+
+    @Override
+    public boolean searchable() {
+      return true;
+    }
+  };
+
+  public static PersonAttributeTypeDescriptor OLD_FACILITY_CODE = new PersonAttributeTypeDescriptor() {
+    @Override
+    public double sortWeight() {
+      return 0;
+    }
+
+    @Override
+    public Class<?> format() {
+      return Concept.class;
+    }
+
+    @Override
+    public String name() {
+      return "Old Facility Code";
+    }
+
+    @Override
+    public String description() {
+      return "Old Facility Code";
+    }
+
+    public String uuid() {
+      return MSFCoreConfig.PERSON_ATTRIBUTE_OLD_FACILITY_CODE_UUID;
+    }
+
+    @Override
+    public boolean searchable() {
+      return true;
+    }
+  };
+
+  public static PersonAttributeTypeDescriptor MSF_OTHER_ID_NAME = new PersonAttributeTypeDescriptor() {
+    @Override
+    public double sortWeight() {
+      return 0;
+    }
+
+    @Override
+    public Class<?> format() {
+      return String.class;
+    }
+
+    @Override
+    public String name() {
+      return "Other ID name";
+    }
+
+    @Override
+    public String description() {
+      return "Other ID name";
+    }
+
+    public String uuid() {
+      return MSFCoreConfig.PERSON_ATTRIBUTE_OTHER_ID_NAME_UUID;
     }
 
     @Override

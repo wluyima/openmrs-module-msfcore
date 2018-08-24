@@ -9,7 +9,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor AARSAL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.AARSAL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_AARSAL_UUID;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor BAALBAK = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.BAALBAK_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_BAALBAK_UUID;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor HERMEL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.HERMEL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_HERMEL_UUID;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor MAJDAL_ANJAR = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.MAJDAL_ANJAR_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_MAJDAL_ANJAR_UUID;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor ABDEH = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.ABDEH_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_ABDEH_UUID;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor DAZ = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.DAZ_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_DAZ_UUID;
     }
 
     @Override
@@ -141,7 +141,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor BEREZOVE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.BEREZOVE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_BEREZOVE_UUID;
     }
 
     @Override
@@ -163,7 +163,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor KAMIANKA_2 = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.KAMIANKA_2_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_KAMIANKA_2_UUID;
     }
 
     @Override
@@ -185,7 +185,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor KURAKHOVE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.KURAKHOVE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_KURAKHOVE_UUID;
     }
 
     @Override
@@ -207,7 +207,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor MAXIMILIANOVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.MAXIMILIANOVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_MAXIMILIANOVKA_UUID;
     }
 
     @Override
@@ -229,7 +229,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor GRANITNE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.GRANITNE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_GRANITNE_UUID;
     }
 
     @Override
@@ -251,7 +251,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor HOSPITAL_N_1_MARIUPOL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.HOSPITAL_N_1_MARIUPOL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_HOSPITAL_N_1_MARIUPOL_UUID;
     }
 
     @Override
@@ -273,7 +273,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor HOSPITAL_N_3_MARIUPOL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.HOSPITAL_N_3_MARIUPOL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_HOSPITAL_N_3_MARIUPOL_UUID;
     }
 
     @Override
@@ -295,7 +295,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor KAMIANKA_1 = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.KAMIANKA_1_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_KAMIANKA_1_UUID;
     }
 
     @Override
@@ -317,7 +317,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor LEBEDINSKOE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.LEBEDINSKOE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_LEBEDINSKOE_UUID;
     }
 
     @Override
@@ -339,7 +339,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor MIKOLAIVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.MIKOLAIVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_MIKOLAIVKA_UUID;
     }
 
     @Override
@@ -361,7 +361,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor NOVOSELIVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.NOVOSELIVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_NOVOSELIVKA_UUID;
     }
 
     @Override
@@ -383,7 +383,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor ORLOVSKE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.ORLOVSKE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_ORLOVSKE_UUID;
     }
 
     @Override
@@ -405,7 +405,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor PASHKOVSKOGO = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.PASHKOVSKOGO_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_PASHKOVSKOGO_UUID;
     }
 
     @Override
@@ -427,7 +427,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor PAVLOPIL = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.PAVLOPIL_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_PAVLOPIL_UUID;
     }
 
     @Override
@@ -449,7 +449,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor PIONERSKE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.PIONERSKE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_PIONERSKE_UUID;
     }
 
     @Override
@@ -471,7 +471,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor PROHOROVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.PROHOROVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_PROHOROVKA_UUID;
     }
 
     @Override
@@ -493,7 +493,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor STAROGNATIVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.STAROGNATIVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_STAROGNATIVKA_UUID;
     }
 
     @Override
@@ -515,7 +515,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor STEPANIVKA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.STEPANIVKA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_STEPANIVKA_UUID;
     }
 
     @Override
@@ -537,7 +537,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor BERDIANSKOE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.BERDIANSKOE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_BERDIANSKOE_UUID;
     }
 
     @Override
@@ -559,7 +559,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor NETAILOVE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.NETAILOVE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_NETAILOVE_UUID;
     }
 
     @Override
@@ -581,7 +581,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor NOVOSELIVKA_DRUHA = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.NOVOSELIVKA_DRUHA_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_NOVOSELIVKA_DRUHA_UUID;
     }
 
     @Override
@@ -603,7 +603,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor OPYTNE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.OPYTNE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_OPYTNE_UUID;
     }
 
     @Override
@@ -625,7 +625,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor TARAMCHUK = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.TARAMCHUK_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_TARAMCHUK_UUID;
     }
 
     @Override
@@ -647,7 +647,7 @@ public class ClinicLocationAttributes {
   public static LocationAttributeDescriptor VODYANE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.VODYANE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_VODYANE_UUID;
     }
 
     @Override

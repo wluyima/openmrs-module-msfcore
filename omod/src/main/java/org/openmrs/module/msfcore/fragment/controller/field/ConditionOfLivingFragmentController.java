@@ -5,10 +5,10 @@ import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
-public class OtherNationalityFragmentController {
+public class ConditionOfLivingFragmentController {
 
   public void controller(FragmentModel model) {
-    model.addAttribute("otherNationalities",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.OTHER_NATIONALITY_CONCEPT_UUID));
+    model.addAttribute("conditionsOfLiving",
+        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_CONDITION_OF_LIVING_UUID));
   }
 }
