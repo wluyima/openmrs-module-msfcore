@@ -9,6 +9,6 @@ public class EmploymentStatusFragmentController {
 
   public void controller(FragmentModel model) {
     model.addAttribute("employmentStatuses",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.EMPLOYMENT_STATUS_CONCEPT_UUID));
+        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_EMPLOYMENT_STATUS_UUID));
   }
 }

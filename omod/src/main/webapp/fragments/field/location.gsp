@@ -1,0 +1,1 @@
+${ ui.includeFragment("uicommons", "field/location", [initialValue: defaultLocation] << config) }

@@ -10,10 +10,12 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
   public void install() throws Exception {
     log.info("Installing PersonAttributeTypes");
     install(PersonAttributeTypes.NATIONALITY);
-    install(PersonAttributeTypes.OTHER_NATIONALITY);
+    install(PersonAttributeTypes.PROVENANCE);
     install(PersonAttributeTypes.MARITAL_STATUS);
     install(PersonAttributeTypes.EMPLOYMENT_STATUS);
     install(PersonAttributeTypes.DATE_OF_ARRIVAL);
+    install(PersonAttributeTypes.OLD_FACILITY_CODE);
+    install(PersonAttributeTypes.MSF_OTHER_ID_NAME);
 
     log.info("Installing LocationAttributeTypes");
     install(LocationAttributeTypes.LOCATION_CODE);
@@ -67,6 +69,13 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
 
     log.info("Installing PatientIdentifierTypes");
     install(PatientIdentifierTypes.MSF_PRIMARY_ID_TYPE);
+    install(PatientIdentifierTypes.MSF_DRIVER_LICENSE_TYPE);
+    install(PatientIdentifierTypes.MSF_NATIONAL_ID_TYPE);
+    install(PatientIdentifierTypes.MSF_INSURANCE_CARD_TYPE);
+    install(PatientIdentifierTypes.MSF_PASSPORT_TYPE);
+    install(PatientIdentifierTypes.MSF_UNHCR_ID_TYPE);
+    install(PatientIdentifierTypes.MSF_UNRWA_ID_TYPE);
+    install(PatientIdentifierTypes.OLD_PATIENT_ID);
   }
 
 }

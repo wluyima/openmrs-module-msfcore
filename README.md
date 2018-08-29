@@ -1,9 +1,11 @@
-openmrs-module-msftcore
+openmrs-module-msfcore
 ==========================
 
-This module contains core functionality and customisations for the OpenMRS MSF distribution such as;
+This module contains core functionality and customisations for the OpenMRS Médecins Sans Frontières(MSF) distribution such as;
 
-> MSF Primary & other Identifiers
+> UI Customisations
+
+> Primary & other Patient Identifiers
 
 > Registration App
 

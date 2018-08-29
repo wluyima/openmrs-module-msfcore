@@ -18,10 +18,10 @@
 				WHERE schedulable_class = 'org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler'
 			</sqlCheck>
 		</preConditions>
-		<comment>Inserting Auto Deletion of outdated msfcore logs into 'schedule_task_config' table</comment>
+		<comment>Inserting Auto Deletion of outdated audit logs task into 'schedule_task_config' table</comment>
 		<insert tableName="scheduler_task_config">
-			<column name="name" value="Clear OutDated MSFCore Logs" />
-			<column name="description" value="Deletes outdated msfcore log basing on Global property: msfcore.daysToKeepLogs" />
+			<column name="name" value="Clear OutDated Audit Logs" />
+			<column name="description" value="Deletes outdated audit logs basing on Global property: msfcore.daysToKeepLogs" />
 			<column name="schedulable_class" value="org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler" />
 			<column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
 			<column name="start_time" valueDate="2018-07-24T13:30:59" />

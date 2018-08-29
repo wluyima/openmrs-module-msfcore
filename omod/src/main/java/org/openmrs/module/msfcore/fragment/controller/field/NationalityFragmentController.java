@@ -9,6 +9,6 @@ public class NationalityFragmentController {
 
   public void controller(FragmentModel model) {
     model.addAttribute("nationalities",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.NATIONALITY_CONCEPT_UUID));
+        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_NATIONALITY_UUID));
   }
 }
