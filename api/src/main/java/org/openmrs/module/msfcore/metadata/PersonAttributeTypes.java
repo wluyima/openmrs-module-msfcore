@@ -100,6 +100,68 @@ public class PersonAttributeTypes {
     }
   };
 
+  public static PersonAttributeTypeDescriptor EDUCATION = new PersonAttributeTypeDescriptor() {
+    @Override
+    public double sortWeight() {
+      return 0;
+    }
+
+    @Override
+    public Class<?> format() {
+      return Concept.class;
+    }
+
+    @Override
+    public String name() {
+      return "Education";
+    }
+
+    @Override
+    public String description() {
+      return "Education of this person";
+    }
+
+    public String uuid() {
+      return MSFCoreConfig.PERSON_ATTRIBUTE_EDUCATION_UUID;
+    }
+
+    @Override
+    public boolean searchable() {
+      return true;
+    }
+  };
+
+  public static PersonAttributeTypeDescriptor CONDITION_OF_LIVING = new PersonAttributeTypeDescriptor() {
+    @Override
+    public double sortWeight() {
+      return 0;
+    }
+
+    @Override
+    public Class<?> format() {
+      return Concept.class;
+    }
+
+    @Override
+    public String name() {
+      return "Condition of living";
+    }
+
+    @Override
+    public String description() {
+      return "Condition of living of this person";
+    }
+
+    public String uuid() {
+      return MSFCoreConfig.PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID;
+    }
+
+    @Override
+    public boolean searchable() {
+      return true;
+    }
+  };
+
   public static PersonAttributeTypeDescriptor EMPLOYMENT_STATUS = new PersonAttributeTypeDescriptor() {
     @Override
     public double sortWeight() {

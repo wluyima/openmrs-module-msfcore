@@ -12,6 +12,8 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
     install(PersonAttributeTypes.NATIONALITY);
     install(PersonAttributeTypes.PROVENANCE);
     install(PersonAttributeTypes.MARITAL_STATUS);
+    install(PersonAttributeTypes.EDUCATION);
+    install(PersonAttributeTypes.CONDITION_OF_LIVING);
     install(PersonAttributeTypes.EMPLOYMENT_STATUS);
     install(PersonAttributeTypes.DATE_OF_ARRIVAL);
     install(PersonAttributeTypes.OLD_FACILITY_CODE);
