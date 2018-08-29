@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class EmploymentStatusFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("employmentStatuses",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_EMPLOYMENT_STATUS_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("employmentStatuses", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_EMPLOYMENT_STATUS_UUID));
+    }
 }

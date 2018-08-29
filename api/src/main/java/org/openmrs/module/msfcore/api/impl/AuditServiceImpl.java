@@ -24,33 +24,33 @@ import org.openmrs.module.msfcore.audit.AuditLog.Event;
 
 public class AuditServiceImpl extends BaseOpenmrsService implements AuditService {
 
-  AuditDao dao;
+    AuditDao dao;
 
-  /**
-   * Injected in moduleApplicationContext.xml
-   */
-  public void setDao(AuditDao dao) {
-    this.dao = dao;
-  }
+    /**
+     * Injected in moduleApplicationContext.xml
+     */
+    public void setDao(AuditDao dao) {
+        this.dao = dao;
+    }
 
-  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients,
-          List<User> users, List<Provider> providers, List<Location> locations) {
-    return dao.getAuditLogs(startDate, endDate, events, patients, users, providers, locations);
-  }
+    public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients, List<User> users,
+                    List<Provider> providers, List<Location> locations) {
+        return dao.getAuditLogs(startDate, endDate, events, patients, users, providers, locations);
+    }
 
-  public AuditLog getAuditLogByUuid(String uuid) {
-    return dao.getAuditLogByUuid(uuid);
-  }
+    public AuditLog getAuditLogByUuid(String uuid) {
+        return dao.getAuditLogByUuid(uuid);
+    }
 
-  public void deleteAuditLogsToDate(Date endDate) {
-    dao.deleteAuditLogsToDate(endDate);
-  }
+    public void deleteAuditLogsToDate(Date endDate) {
+        dao.deleteAuditLogsToDate(endDate);
+    }
 
-  public Integer saveAuditLog(AuditLog auditLog) {
-    return dao.saveAuditLog(auditLog);
-  }
+    public Integer saveAuditLog(AuditLog auditLog) {
+        return dao.saveAuditLog(auditLog);
+    }
 
-  public AuditLog getAuditLog(Integer auditLogId) {
-    return dao.getAuditLog(auditLogId);
-  }
+    public AuditLog getAuditLog(Integer auditLogId) {
+        return dao.getAuditLog(auditLogId);
+    }
 }

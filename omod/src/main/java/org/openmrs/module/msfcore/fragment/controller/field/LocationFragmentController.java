@@ -5,7 +5,7 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class LocationFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("defaultLocation", Context.getLocationService().getDefaultLocation());
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("defaultLocation", Context.getLocationService().getDefaultLocation());
+    }
 }

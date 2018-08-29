@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class ConditionOfLivingFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("conditionsOfLiving",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_CONDITION_OF_LIVING_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("conditionsOfLiving", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_CONDITION_OF_LIVING_UUID));
+    }
 }

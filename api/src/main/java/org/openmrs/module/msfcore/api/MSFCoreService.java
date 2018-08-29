@@ -27,12 +27,12 @@ import org.openmrs.module.msfcore.DropDownFieldOption;
  */
 public interface MSFCoreService extends OpenmrsService {
 
-  public List<Concept> getAllConceptAnswers(Concept question);
+    public List<Concept> getAllConceptAnswers(Concept question);
 
-  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
+    public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
 
-  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
+    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
 
-  public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
+    public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
 }

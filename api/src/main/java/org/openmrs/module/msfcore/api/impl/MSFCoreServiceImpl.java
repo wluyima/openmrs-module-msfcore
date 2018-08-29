@@ -27,32 +27,32 @@ import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 
-  MSFCoreDao dao;
+    MSFCoreDao dao;
 
-  /**
-   * Injected in moduleApplicationContext.xml
-   */
-  public void setDao(MSFCoreDao dao) {
-    this.dao = dao;
-  }
-
-  public List<Concept> getAllConceptAnswers(Concept question) {
-    return dao.getAllConceptAnswers(question);
-  }
-
-  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
-    return dao.getLocationAttributeByTypeAndLocation(type, location);
-  }
-
-  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
-    return dao.updateIdentifierSource(identifierSource);
-  }
-
-  public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
-    List<DropDownFieldOption> answerNames = new ArrayList<DropDownFieldOption>();
-    for (Concept answer : getAllConceptAnswers(Context.getConceptService().getConceptByUuid(uuid))) {
-      answerNames.add(new DropDownFieldOption(String.valueOf(answer.getId()), answer.getName().getName()));
+    /**
+     * Injected in moduleApplicationContext.xml
+     */
+    public void setDao(MSFCoreDao dao) {
+        this.dao = dao;
     }
-    return answerNames;
-  }
+
+    public List<Concept> getAllConceptAnswers(Concept question) {
+        return dao.getAllConceptAnswers(question);
+    }
+
+    public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
+        return dao.getLocationAttributeByTypeAndLocation(type, location);
+    }
+
+    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
+        return dao.updateIdentifierSource(identifierSource);
+    }
+
+    public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
+        List<DropDownFieldOption> answerNames = new ArrayList<DropDownFieldOption>();
+        for (Concept answer : getAllConceptAnswers(Context.getConceptService().getConceptByUuid(uuid))) {
+            answerNames.add(new DropDownFieldOption(String.valueOf(answer.getId()), answer.getName().getName()));
+        }
+        return answerNames;
+    }
 }

@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class NationalityFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("nationalities",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_NATIONALITY_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("nationalities", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_NATIONALITY_UUID));
+    }
 }
