@@ -19,21 +19,18 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.AuditDao")
 public class AuditDao {
 
-  @Autowired
-  DbSessionFactory sessionFactory;
-
   private DbSession getSession() {
-    return sessionFactory.getCurrentSession();
+    return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
   }
 
   @SuppressWarnings("unchecked")
