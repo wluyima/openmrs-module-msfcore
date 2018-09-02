@@ -77,6 +77,7 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
     install(PatientIdentifierTypes.MSF_PASSPORT_TYPE);
     install(PatientIdentifierTypes.MSF_UNHCR_ID_TYPE);
     install(PatientIdentifierTypes.MSF_UNRWA_ID_TYPE);
+    install(PatientIdentifierTypes.MSF_OTHER_ID);
     install(PatientIdentifierTypes.OLD_PATIENT_ID);
   }
 
