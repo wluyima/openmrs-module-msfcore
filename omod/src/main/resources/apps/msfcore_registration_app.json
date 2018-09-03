@@ -193,7 +193,7 @@
               "legend":"msfcore.oldPatientInfo",
               "fields":[
                 {
-                  "type":"personAttribute",
+                  "type":"patientIdentifier",
                   "label":"msfcore.oldPatientId",
                   "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5s",
                   "formFieldName":"oldPatientId",
