@@ -55,9 +55,9 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<globalProperty>
-		<property>msfcore.countryCode</property>
-		<defaultValue>UK</defaultValue>
-		<description>MSF Country code</description>
+		<property>msfcore.instanceId</property>
+		<defaultValue>MSF</defaultValue>
+		<description>A unique server/instance identifier</description>
 	</globalProperty>
 	<globalProperty>
 		<property>msfcore.daysToKeepLogs</property>

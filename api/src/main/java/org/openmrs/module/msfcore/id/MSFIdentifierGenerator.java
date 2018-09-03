@@ -17,15 +17,26 @@ import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 
 /**
- * MSF ID generator, format: UK-AB18.06.026 where UK is a country's code and AB
+ * MSF ID generator, format: MSF-AB18.06.026 where MSF is an instance id and AB
  * location initial/code, 18 year(yy), 06 month(MM) and 026 is the increasing
  * number
  */
 public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     private String locationCode;
-    private String countryCode;
     private Date date;
+    private String instanceId;
+
+    public String getInstanceId() {
+        if (StringUtils.isBlank(instanceId)) {
+            instanceId = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID);
+        }
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
 
     public MSFIdentifierGenerator() {
         setBasicProperties();
@@ -42,15 +53,15 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
         setSuffix("");
     }
 
-    public MSFIdentifierGenerator(String countryCode, String locationCode) {
+    public MSFIdentifierGenerator(String instanceId, String locationCode) {
         setLocationCode(locationCode);
-        setCountryCode(countryCode);
+        setInstanceId(instanceId);
         setBasicProperties();
     }
 
-    public MSFIdentifierGenerator(String countryCode, String locationCode, Date date) {
+    public MSFIdentifierGenerator(String instanceId, String locationCode, Date date) {
         setLocationCode(locationCode);
-        setCountryCode(countryCode);
+        setInstanceId(instanceId);
         setDate(date);
         setBasicProperties();
     }
@@ -77,17 +88,6 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
         this.locationCode = locationCode;
     }
 
-    public String getCountryCode() {
-        if (StringUtils.isBlank(countryCode)) {
-            countryCode = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_COUNTRY_CODE);
-        }
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
     public Date getDate() {
         if (date == null) {
             date = new Date();
@@ -103,7 +103,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
      * Format: UK-AB18.06.
      */
     public String msfPrefix() {
-        return getCountryCode() + "-" + getLocationCode() + new SimpleDateFormat("yy.MM.").format(getDate());
+        return getInstanceId() + "-" + getLocationCode() + new SimpleDateFormat("yy.MM.").format(getDate());
     }
 
     public void evaluatePrefix() {
