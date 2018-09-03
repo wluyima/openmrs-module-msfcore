@@ -19,12 +19,27 @@
     "config":{
       "afterCreatedUrl":"/coreapps/clinicianfacing/patient.page?patientId={{patientId}}",
       "sections":[
+
         {
+          "id":"provenance",
           "questions":[
             {
-              "id":"demographics",
-              "legend":"msfcore.ncd.variableList",
+              "id":"provenanceInfo",
+              "legend":"msfcore.provenance",
               "fields":[
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.provenance",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5p",
+                  "formFieldName":"provenance",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/provenance"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
                 {
                   "type":"personAttribute",
                   "label":"msfcore.nationality",
@@ -39,13 +54,201 @@
                   ]
                 },
                 {
-                  "type":"personAttribute",
-                  "label":"msfcore.otherNationality",
-                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5p",
-                  "formFieldName":"otherNationality",
+                  "type":"navigationChanges",
+                  "label":"",
+                  "uuid":"e913ca4b-f27b-4dba-99e2-3c3fbc5cdcf6",
                   "widget":{
                     "providerName":"msfcore",
-                    "fragmentId":"field/otherNationality"
+                    "fragmentId":"field/navigationChanges"
+                  },
+                  "cssClasses":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "id":"patientIdentification",
+          "questions":[
+            {
+              "id":"patientIdentificationInfo",
+              "legend":"msfcore.patientIdentification",
+              "fields":[
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.driverLicense",
+                  "uuid":"fc734d22-8362-47bf-a1c3-bd69cdd3413e",
+                  "formFieldName":"driverLicense",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/driverLicense"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.nationalID",
+                  "uuid":"2b3549ad-2e41-4795-b1de-171164856639",
+                  "formFieldName":"nationalID",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.insuranceCard",
+                  "uuid":"2d6b5bfd-fb7a-40c6-b0eb-1c879878c052",
+                  "formFieldName":"insuranceCard",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.passport",
+                  "uuid":"c4222c2e-d30c-4417-8152-d08ca8809beb",
+                  "formFieldName":"passport",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.unhcr",
+                  "uuid":"b324339f-1505-4e98-b699-92326cdb3102",
+                  "formFieldName":"unhcrID",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.unrwa",
+                  "uuid":"c964a3cc-9431-468d-92c7-e62da43dd088",
+                  "formFieldName":"unrwaID",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.patientIDType.otherIdName",
+                  "uuid":"63a75b39-de46-4c53-b7c3-53e07fa3ec9e",
+                  "formFieldName":"otherIdName",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"patientIdentifier",
+                  "label":"msfcore.patientIDType.otherIdCode",
+                  "uuid":"ed4a08db-ad66-4873-aa15-9b1c4b2b9fd5",
+                  "formFieldName":"otherIdCode",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id":"oldPatient",
+          "questions":[
+            {
+              "id":"oldPatientInfo",
+              "legend":"msfcore.oldPatientInfo",
+              "fields":[
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.oldPatientId",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5s",
+                  "formFieldName":"oldPatientId",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/oldPatientId"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.oldFacilityCode",
+                  "uuid":"4a504478-1701-49da-9d8b-3e1d12ab6c5t",
+                  "formFieldName":"oldFacilityCode",
+                  "widget":{
+                    "providerName":"uicommons",
+                    "fragmentId":"field/text"
+                  },
+                  "cssClasses":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id":"lifestyleInfo",
+          "questions":[
+            {
+              "legend":"msfcore.lifestyle",
+              "fields":[
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.education",
+                  "uuid":"15ab4723-ca8e-4b60-8366-9cc859195f89",
+                  "formFieldName":"education",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/education"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.conditionOfLiving",
+                  "uuid":"b6eddbee-1721-4dfa-a79a-8d545043da35",
+                  "formFieldName":"conditionOfLiving",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/conditionOfLiving"
                   },
                   "cssClasses":[
 
@@ -152,7 +355,7 @@
                   "formFieldName":"healthCentre",
                   "uuid":"8d87236c-c2cc-11de-8d13-0010c6dffd0f",
                   "widget":{
-                    "providerName":"uicommons",
+                    "providerName":"msfcore",
                     "fragmentId":"field/location"
                   }
                 }
@@ -168,8 +371,8 @@
                   "formFieldName":"dateOfArrival",
                   "uuid":"d03313d1-12fc-4b0b-ba6c-c4873bee3be6",
                   "widget":{
-                    "providerName":"uicommons",
-                    "fragmentId":"field/multipleInputDate"
+                    "providerName":"msfcore",
+                    "fragmentId":"utils/currentDate"
                   }
                 }
               ]

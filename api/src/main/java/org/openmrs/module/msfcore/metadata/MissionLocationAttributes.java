@@ -9,7 +9,7 @@ public class MissionLocationAttributes {
   public static LocationAttributeDescriptor LEBANON = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.LEBANON_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_LEBANON_UUID;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MissionLocationAttributes {
   public static LocationAttributeDescriptor UKRAINE = new LocationAttributeDescriptor() {
     @Override
     public String uuid() {
-      return MSFCoreConfig.UKRAINE_LOCATION_ATTRIBUTE_UUID;
+      return MSFCoreConfig.LOCATION_ATTRIBUTE_UKRAINE_UUID;
     }
 
     @Override

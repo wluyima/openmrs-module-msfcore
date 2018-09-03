@@ -34,7 +34,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
   private void setBasicProperties() {
     evaluatePrefix();
     setName("MSF ID Source");
-    setUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
+    setUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_UUID);
     setDescription("Used to generate MSF default patient indentifiers");
     setBaseCharacterSet(MSFCoreConfig.MSF_ID_BASE_CHARACTER_SET);
     setRetired(false);
@@ -114,12 +114,12 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
   private void install() {
     SequentialIdentifierGenerator msfIdGenerator = tranformType(this);
     PatientIdentifierType msfIdType = Context.getPatientService()
-        .getPatientIdentifierTypeByUuid(MSFCoreConfig.PATIENT_ID_TYPE_MSF_UUID);
+        .getPatientIdentifierTypeByUuid(MSFCoreConfig.PATIENT_ID_TYPE_PRIMARY_UUID);
 
     msfIdGenerator.setIdentifierType(msfIdType);
     SequentialIdentifierGenerator retrivedMsfIdGenerator = (SequentialIdentifierGenerator) Context
         .getService(IdentifierSourceService.class)
-        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_MSF_UUID);
+        .getIdentifierSourceByUuid(MSFCoreConfig.PATIENT_ID_TYPE_SOURCE_UUID);
     // reset next sequency if dynamic prefix changes
     if (retrivedMsfIdGenerator != null) {
       if (!retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
