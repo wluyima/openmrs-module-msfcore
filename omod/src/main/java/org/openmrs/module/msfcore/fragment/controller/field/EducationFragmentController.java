@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class EducationFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("educations",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_EDUCATION_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("educations", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_EDUCATION_UUID));
+    }
 }

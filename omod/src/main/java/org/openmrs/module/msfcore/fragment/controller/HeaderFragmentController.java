@@ -29,43 +29,43 @@ import java.util.Map;
  */
 public class HeaderFragmentController {
 
-  // RA-592: don't use PrivilegeConstants.VIEW_LOCATIONS
-  private static final String GET_LOCATIONS = "Get Locations";
-  private static final String VIEW_LOCATIONS = "View Locations";
+    // RA-592: don't use PrivilegeConstants.VIEW_LOCATIONS
+    private static final String GET_LOCATIONS = "Get Locations";
+    private static final String VIEW_LOCATIONS = "View Locations";
 
-  public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel) {
-    try {
-      Context.addProxyPrivilege(GET_LOCATIONS);
-      Context.addProxyPrivilege(VIEW_LOCATIONS);
-      fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
+    public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel) {
+        try {
+            Context.addProxyPrivilege(GET_LOCATIONS);
+            Context.addProxyPrivilege(VIEW_LOCATIONS);
+            fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
 
-      List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
-      Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
-      Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
-      fragmentModel.addAttribute("configSettings", configSettings);
-      List<Extension> userAccountMenuItems = appFrameworkService
-          .getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
-      fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
-    } finally {
-      Context.removeProxyPrivilege(GET_LOCATIONS);
-      Context.removeProxyPrivilege(VIEW_LOCATIONS);
+            List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
+            Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
+            Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
+            fragmentModel.addAttribute("configSettings", configSettings);
+            List<Extension> userAccountMenuItems = appFrameworkService
+                            .getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
+            fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
+        } finally {
+            Context.removeProxyPrivilege(GET_LOCATIONS);
+            Context.removeProxyPrivilege(VIEW_LOCATIONS);
+        }
     }
-  }
 
-  public Extension getLowestOrderExtenstion(List<Extension> exts) {
-    Extension lowestOrderExtension = exts.size() > 0 ? exts.get(0) : null;
-    for (Extension ext : exts) {
-      if (lowestOrderExtension.getOrder() > ext.getOrder()) {
-        lowestOrderExtension = ext;
-      }
+    public Extension getLowestOrderExtenstion(List<Extension> exts) {
+        Extension lowestOrderExtension = exts.size() > 0 ? exts.get(0) : null;
+        for (Extension ext : exts) {
+            if (lowestOrderExtension.getOrder() > ext.getOrder()) {
+                lowestOrderExtension = ext;
+            }
+        }
+        return lowestOrderExtension;
     }
-    return lowestOrderExtension;
-  }
 
-  public void logout(HttpServletRequest request) throws IOException {
-    Context.logout();
-    request.getSession().invalidate();
-    request.getSession().setAttribute(AppUiConstants.SESSION_ATTRIBUTE_MANUAL_LOGOUT, "true");
-  }
+    public void logout(HttpServletRequest request) throws IOException {
+        Context.logout();
+        request.getSession().invalidate();
+        request.getSession().setAttribute(AppUiConstants.SESSION_ATTRIBUTE_MANUAL_LOGOUT, "true");
+    }
 
 }

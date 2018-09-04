@@ -22,51 +22,46 @@ import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.MSFCoreDao")
 public class MSFCoreDao {
 
-  @Autowired
-  DbSessionFactory sessionFactory;
-
-  private DbSession getSession() {
-    return sessionFactory.getCurrentSession();
-  }
-
-  @SuppressWarnings("unchecked")
-  public List<Concept> getAllConceptAnswers(Concept question) {
-    List<Concept> answers = null;
-    if (question != null && question.getDatatype().isCoded()) {
-      answers = new ArrayList<Concept>();
-      for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class)
-          .add(Restrictions.eq("concept", question)).list()) {
-        answers.add(answer.getAnswerConcept());
-      }
+    private DbSession getSession() {
+        return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
     }
-    return answers;
-  }
 
-  @SuppressWarnings("unchecked")
-  public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type,
-      Location location) {
-    return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location))
-        .add(Restrictions.eq("attributeType", type)).list();
-  }
+    @SuppressWarnings("unchecked")
+    public List<Concept> getAllConceptAnswers(Concept question) {
+        List<Concept> answers = null;
+        if (question != null && question.getDatatype().isCoded()) {
+            answers = new ArrayList<Concept>();
+            for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class).add(
+                            Restrictions.eq("concept", question)).list()) {
+                answers.add(answer.getAnswerConcept());
+            }
+        }
+        return answers;
+    }
 
-  @Transactional
-  public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
-    DbSession currentSession = sessionFactory.getCurrentSession();
-    SequentialIdentifierGenerator source = (SequentialIdentifierGenerator) currentSession
-        .load(SequentialIdentifierGenerator.class, identifierSource.getId());
-    source.setPrefix(identifierSource.getPrefix());
-    source.setDateChanged(new Date());
-    currentSession.update(identifierSource);
-    return identifierSource;
-  }
+    @SuppressWarnings("unchecked")
+    public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
+        return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location)).add(
+                        Restrictions.eq("attributeType", type)).list();
+    }
+
+    @Transactional
+    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
+        SequentialIdentifierGenerator source = (SequentialIdentifierGenerator) getSession().load(SequentialIdentifierGenerator.class,
+                        identifierSource.getId());
+        source.setPrefix(identifierSource.getPrefix());
+        source.setDateChanged(new Date());
+        getSession().update(identifierSource);
+        return identifierSource;
+    }
 }

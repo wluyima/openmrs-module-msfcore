@@ -5,24 +5,24 @@ import org.openmrs.module.metadatadeploy.descriptor.LocationAttributeTypeDescrip
 import org.openmrs.module.msfcore.MSFCoreConfig;
 
 public class LocationAttributeTypes {
-  public static LocationAttributeTypeDescriptor LOCATION_CODE = new LocationAttributeTypeDescriptor() {
-    @Override
-    public String name() {
-      return "Location Code";
-    }
+    public static LocationAttributeTypeDescriptor LOCATION_CODE = new LocationAttributeTypeDescriptor() {
+        @Override
+        public String name() {
+            return "Location Code";
+        }
 
-    @Override
-    public String description() {
-      return "Location code (initials or acronym) e.g: AB = Abia Clinic";
-    }
+        @Override
+        public String description() {
+            return "Location code (initials or acronym) e.g: AB = Abia Clinic";
+        }
 
-    public String uuid() {
-      return MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID;
-    }
+        public String uuid() {
+            return MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID;
+        }
 
-    @Override
-    public Class<?> datatype() {
-      return FreeTextDatatype.class;
-    }
-  };
+        @Override
+        public Class<?> datatype() {
+            return FreeTextDatatype.class;
+        }
+    };
 }

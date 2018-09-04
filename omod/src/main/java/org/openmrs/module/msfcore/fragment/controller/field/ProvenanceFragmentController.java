@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class ProvenanceFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("provenances",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_PROVENANCE_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("provenances", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_PROVENANCE_UUID));
+    }
 }

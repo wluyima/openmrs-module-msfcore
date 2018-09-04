@@ -89,7 +89,7 @@
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	    <maven.compiler.source>1.8</maven.compiler.source>
-		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
+		<openmrsPlatformVersion>2.2.0-SNAPSHOT</openmrsPlatformVersion>
 		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
 		<idgenVersion>4.4.1</idgenVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>

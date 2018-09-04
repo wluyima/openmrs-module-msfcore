@@ -7,8 +7,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 
 public class MaritalStatusFragmentController {
 
-  public void controller(FragmentModel model) {
-    model.addAttribute("maritalStatuses",
-        Context.getService(MSFCoreService.class).getAllConceptAnswerNames(MSFCoreConfig.CONCEPT_MARITAL_STATUS_UUID));
-  }
+    public void controller(FragmentModel model) {
+        model.addAttribute("maritalStatuses", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_MARITAL_STATUS_UUID));
+    }
 }
