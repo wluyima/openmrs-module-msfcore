@@ -26,8 +26,6 @@ public class MSFCoreConfig {
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
 
-    public final static String GP_DEFAULT_LOCATION = "default_location";
-
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
 
     public final static String PATIENT_ID_TYPE_PRIMARY_UUID = "0t504478-1701-49da-9d8b-3e1d12ab6c5b";

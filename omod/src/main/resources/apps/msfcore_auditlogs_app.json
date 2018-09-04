@@ -12,5 +12,19 @@
         "icon":"icon-book"
       }
     ]
+  },
+  {
+    "id":"msfcore.configurationapp",
+    "extensions":[
+      {
+        "id":"msfcore.configurationapp.page",
+        "extensionPointId":"systemAdministration.apps",
+        "type":"link",
+        "label":"msfcore.configurations",
+        "order":21,
+        "url":"msfcore/configuration.page",
+        "icon":" icon-wrench"
+      }
+    ]
   }
 ]

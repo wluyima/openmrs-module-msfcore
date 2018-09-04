@@ -56,7 +56,7 @@
 	</messages>
 	<globalProperty>
 		<property>msfcore.instanceId</property>
-		<defaultValue>MSF</defaultValue>
+		<defaultValue></defaultValue>
 		<description>A unique server/instance identifier</description>
 	</globalProperty>
 	<globalProperty>

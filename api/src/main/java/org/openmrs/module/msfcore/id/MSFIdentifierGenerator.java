@@ -2,12 +2,10 @@ package org.openmrs.module.msfcore.id;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
-import org.openmrs.LocationAttribute;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
@@ -29,7 +27,8 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     public String getInstanceId() {
         if (StringUtils.isBlank(instanceId)) {
-            instanceId = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID);
+            String setInstanceID = Context.getService(MSFCoreService.class).instanceId();
+            instanceId = StringUtils.isBlank(setInstanceID) ? "MSF" : setInstanceID;
         }
         return instanceId;
     }
@@ -69,16 +68,10 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
     public String getLocationCode() {
         if (StringUtils.isBlank(locationCode)) {
             locationCode = "MSF";
-            Location defaultLocation = Context.getLocationService().getLocation(
-                            Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DEFAULT_LOCATION));
-
-            if (defaultLocation != null) {
-                List<LocationAttribute> codes = Context.getService(MSFCoreService.class).getLocationAttributeByTypeAndLocation(
-                                Context.getLocationService().getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID),
-                                defaultLocation);
-                if (codes.size() > 0) {
-                    locationCode = codes.get(0).getValue().toString();
-                }
+            Location defaultLocation = Context.getLocationService().getDefaultLocation();
+            String code = Context.getService(MSFCoreService.class).getLocationCode(defaultLocation);
+            if (StringUtils.isNotBlank(code)) {
+                locationCode = code;
             }
         }
         return locationCode;

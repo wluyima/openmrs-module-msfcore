@@ -23,7 +23,7 @@
 
 <% ui.includeJavascript("msfcore", "auditLogsManager.js") %>
 
-<h2 style="background-color:#f3f3f3;" onclick="toggleFiltersDisplay()">${ui.message("msfcore.filters")}<i id="filters-icon" class="icon-angle-down right"></i></h2>
+<h2 style="background-color:#f3f3f3;cursor:pointer;" onclick="toggleFiltersDisplay()">${ui.message("msfcore.filters")}<i id="filters-icon" class="icon-angle-down right"></i></h2>
 
 <div id="filters">
 	<form method="post" id="filter-form" onsubmit="return true">
@@ -50,7 +50,7 @@
 	</form>
 </div>
 
-<h2 style="background-color:#f3f3f3;">${ui.message("msfcore.logsDisplay")}</h2>
+<h2 style="background-color:#f3f3f3;cursor:pointer;">${ui.message("msfcore.logsDisplay")}</h2>
 
 <table>
     <thead>

@@ -35,4 +35,17 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
+    public boolean configured();
+
+    public String instanceId();
+
+    public List<Location> getMSFLocations();
+
+    public String getLocationCode(Location location);
+
+    public void saveInstanceId(String instanceId);
+
+    public LocationAttribute getLocationCodeAttribute(Location location);
+
+    public void saveDefaultLocation(Location location);
 }

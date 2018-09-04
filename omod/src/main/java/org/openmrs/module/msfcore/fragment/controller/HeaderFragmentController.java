@@ -11,21 +11,28 @@
  */
 package org.openmrs.module.msfcore.fragment.controller;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.AppUiConstants;
 import org.openmrs.module.appui.AppUiExtensions;
+import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 /**
- * cloned from https://github.com/openmrs/openmrs-module-appui/blob/master/omod/src/main/java/org/openmrs/module/appui/fragment/controller/HeaderFragmentController.java
+ * cloned from
+ * https://github.com/openmrs/openmrs-module-appui/blob/master/omod/src/main/
+ * java/org/openmrs/module/appui/fragment/controller/HeaderFragmentController.
+ * java
  */
 public class HeaderFragmentController {
 
@@ -33,22 +40,29 @@ public class HeaderFragmentController {
     private static final String GET_LOCATIONS = "Get Locations";
     private static final String VIEW_LOCATIONS = "View Locations";
 
-    public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel) {
-        try {
-            Context.addProxyPrivilege(GET_LOCATIONS);
-            Context.addProxyPrivilege(VIEW_LOCATIONS);
-            fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
+    public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel,
+                    @SpringBean("msfCoreService") MSFCoreService msfCoreService, HttpServletRequest request, HttpServletResponse response,
+                    UiUtils ui) throws IOException {
+        if (!Context.getAuthenticatedUser().isSuperUser() || request.getRequestURI().contains("msfcore/configuration")
+                        || msfCoreService.configured()) {
+            try {
+                Context.addProxyPrivilege(GET_LOCATIONS);
+                Context.addProxyPrivilege(VIEW_LOCATIONS);
+                fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
 
-            List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
-            Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
-            Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
-            fragmentModel.addAttribute("configSettings", configSettings);
-            List<Extension> userAccountMenuItems = appFrameworkService
-                            .getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
-            fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
-        } finally {
-            Context.removeProxyPrivilege(GET_LOCATIONS);
-            Context.removeProxyPrivilege(VIEW_LOCATIONS);
+                List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
+                Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
+                Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
+                fragmentModel.addAttribute("configSettings", configSettings);
+                List<Extension> userAccountMenuItems = appFrameworkService
+                                .getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
+                fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
+            } finally {
+                Context.removeProxyPrivilege(GET_LOCATIONS);
+                Context.removeProxyPrivilege(VIEW_LOCATIONS);
+            }
+        } else {
+            response.sendRedirect(ui.pageLink("msfcore", "configuration"));
         }
     }
 
