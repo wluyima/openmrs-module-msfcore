@@ -29,7 +29,6 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
-import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
 import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;

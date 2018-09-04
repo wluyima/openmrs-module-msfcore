@@ -2,7 +2,6 @@ package org.openmrs.module.msfcore.listener;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import org.openmrs.User;
 import org.openmrs.UserSessionListener;
@@ -43,9 +42,7 @@ public class LogInOrOutEventListener implements UserSessionListener {
      * @return canLogLogin event
      */
     private boolean acceptableToLogLogin() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        List<StackTraceElement> list = Arrays.asList(stackTrace);
-        for (StackTraceElement element : list) {
+        for (StackTraceElement element : Arrays.asList(Thread.currentThread().getStackTrace())) {
             if (element.getClassName().startsWith("org.junit.") || element.getClassName().endsWith("LoginPageController")) {
                 return true;
             }
