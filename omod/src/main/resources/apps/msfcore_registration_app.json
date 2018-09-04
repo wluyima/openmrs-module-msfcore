@@ -372,7 +372,7 @@
                   "uuid":"d03313d1-12fc-4b0b-ba6c-c4873bee3be6",
                   "widget":{
                     "providerName":"msfcore",
-                    "fragmentId":"utils/currentDate"
+                    "fragmentId":"field/dateOfArrival"
                   }
                 }
               ]
