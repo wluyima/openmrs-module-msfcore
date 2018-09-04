@@ -88,6 +88,10 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                         Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
         locations.addAll(Context.getLocationService().getLocationsByTag(
                         Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
+        Location defaultLocation = Context.getLocationService().getDefaultLocation();
+        if (!locations.contains(defaultLocation)) {
+            locations.add(defaultLocation);
+        }
         return locations;
     }
 

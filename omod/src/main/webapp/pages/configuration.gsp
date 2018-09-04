@@ -9,10 +9,15 @@
         { label: "${ ui.message("msfcore.configurations")}"}
     ];
     jQuery(function() {
-    	jQuery('#location-codes').toggle();
+    	jQuery('#location-codes').slideToggle("slow");
     });
 </script>
 
+<div class="note-container">
+	<div class="note warning">
+		${ui.message("msfcore.configurations.info")}
+	</div>
+</div>
 <form method="post">
 	<h2 style="background-color:#f3f3f3;">${ui.message("msfcore.mandatory")}</h2>
 	${ui.message("msfcore.instanceId")}<br />
