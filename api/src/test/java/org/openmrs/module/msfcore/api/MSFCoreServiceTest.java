@@ -23,24 +23,24 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
  */
 public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
 
-  @Test
-  public void getAllConceptAnswers_shouldReturnConceptsFromAnswers() {
-    Assert.assertNotNull(Context.getService(MSFCoreService.class));
-    List<Concept> answers = Context.getService(MSFCoreService.class).getAllConceptAnswers(Context.getConceptService().getConcept(4));
-    Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(5)));
-    Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(6)));
-  }
+    @Test
+    public void getAllConceptAnswers_shouldReturnConceptsFromAnswers() {
+        Assert.assertNotNull(Context.getService(MSFCoreService.class));
+        List<Concept> answers = Context.getService(MSFCoreService.class).getAllConceptAnswers(Context.getConceptService().getConcept(4));
+        Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(5)));
+        Assert.assertTrue(answers.contains(Context.getConceptService().getConcept(6)));
+    }
 
-  @Test
-  public void getAllConceptAnswerNames_shouldReturnRightDropDownOptions() {
-    Assert.assertNotNull(Context.getService(MSFCoreService.class));
-    Concept concept = Context.getConceptService().getConcept(4);
-    List<DropDownFieldOption> options = Context.getService(MSFCoreService.class).getAllConceptAnswerNames(concept.getUuid());
-    Assert.assertEquals("CIVIL STATUS", concept.getName().getName());
-    Assert.assertEquals("5", options.get(0).getValue());
-    Assert.assertEquals("SINGLE", options.get(0).getLabel());
-    Assert.assertEquals("6", options.get(1).getValue());
-    Assert.assertEquals("MARRIED", options.get(1).getLabel());
-  }
+    @Test
+    public void getAllConceptAnswerNames_shouldReturnRightDropDownOptions() {
+        Assert.assertNotNull(Context.getService(MSFCoreService.class));
+        Concept concept = Context.getConceptService().getConcept(4);
+        List<DropDownFieldOption> options = Context.getService(MSFCoreService.class).getAllConceptAnswerNames(concept.getUuid());
+        Assert.assertEquals("CIVIL STATUS", concept.getName().getName());
+        Assert.assertEquals("5", options.get(0).getValue());
+        Assert.assertEquals("SINGLE", options.get(0).getLabel());
+        Assert.assertEquals("6", options.get(1).getValue());
+        Assert.assertEquals("MARRIED", options.get(1).getLabel());
+    }
 
 }

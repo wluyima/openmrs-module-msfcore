@@ -11,17 +11,17 @@ import org.springframework.aop.AfterReturningAdvice;
 
 public class RegisterPatientAdvice implements AfterReturningAdvice {
 
-  @Override
-  public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
-    if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
-      Patient patient = (Patient) returnValue;
+    @Override
+    public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
+        if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
+            Patient patient = (Patient) returnValue;
 
-      AuditLog registerPatientLog = AuditLog.builder()
-          .event(Event.REGISTER_PATIENT).detail(Context.getMessageSourceService().getMessage("msfcore.registerPatient")
-              + patient.getPersonName().getFullName() + " - " + patient.getPatientIdentifier().getIdentifier())
-          .user(Context.getAuthenticatedUser()).patient(patient).build();
-      Context.getService(AuditService.class).saveAuditLog(registerPatientLog);
+            AuditLog registerPatientLog = AuditLog.builder().event(Event.REGISTER_PATIENT).detail(
+                            Context.getMessageSourceService().getMessage("msfcore.registerPatient") + patient.getPersonName().getFullName()
+                                            + " - " + patient.getPatientIdentifier().getIdentifier()).user(Context.getAuthenticatedUser())
+                            .patient(patient).build();
+            Context.getService(AuditService.class).saveAuditLog(registerPatientLog);
+        }
     }
-  }
 
 }

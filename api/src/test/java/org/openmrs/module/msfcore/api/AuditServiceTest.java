@@ -20,8 +20,8 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
  */
 public class AuditServiceTest extends BaseModuleContextSensitiveTest {
 
-  @Test
-  public void serviceInitilisation() {
-    assertNotNull(Context.getService(AuditService.class));
-  }
+    @Test
+    public void serviceInitilisation() {
+        assertNotNull(Context.getService(AuditService.class));
+    }
 }

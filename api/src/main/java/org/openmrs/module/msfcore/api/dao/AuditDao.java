@@ -29,55 +29,54 @@ import org.springframework.stereotype.Repository;
 @Repository("msfcore.AuditDao")
 public class AuditDao {
 
-  private DbSession getSession() {
-    return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
-  }
-
-  @SuppressWarnings("unchecked")
-  public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients,
-          List<User> users, List<Provider> providers, List<Location> locations) {
-    Criteria criteria = getSession().createCriteria(AuditLog.class);
-
-    if (startDate != null) {
-      criteria.add(Restrictions.ge("date", startDate));
-    }
-    if (endDate != null) {
-      criteria.add(Restrictions.le("date", endDate));
-    }
-    if (events != null) {
-      criteria.add(Restrictions.in("event", events));
-    }
-    if (users != null) {
-      criteria.add(Restrictions.in("user", users));
-    }
-    if (patients != null) {
-      criteria.add(Restrictions.in("patient", patients));
-    }
-    if (providers != null) {
-      criteria.add(Restrictions.in("provider", providers));
-    }
-    if (locations != null) {
-      criteria.add(Restrictions.in("location", locations));
+    private DbSession getSession() {
+        return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
     }
 
-    criteria.addOrder(Order.desc("id"));
-    return criteria.list();
-  }
+    @SuppressWarnings("unchecked")
+    public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients, List<User> users,
+                    List<Provider> providers, List<Location> locations) {
+        Criteria criteria = getSession().createCriteria(AuditLog.class);
 
-  public AuditLog getAuditLogByUuid(String uuid) {
-    return (AuditLog) getSession().createQuery("from AuditLog where uuid = :uuid").setString("uuid", uuid)
-            .uniqueResult();
-  }
+        if (startDate != null) {
+            criteria.add(Restrictions.ge("date", startDate));
+        }
+        if (endDate != null) {
+            criteria.add(Restrictions.le("date", endDate));
+        }
+        if (events != null) {
+            criteria.add(Restrictions.in("event", events));
+        }
+        if (users != null) {
+            criteria.add(Restrictions.in("user", users));
+        }
+        if (patients != null) {
+            criteria.add(Restrictions.in("patient", patients));
+        }
+        if (providers != null) {
+            criteria.add(Restrictions.in("provider", providers));
+        }
+        if (locations != null) {
+            criteria.add(Restrictions.in("location", locations));
+        }
 
-  public Integer saveAuditLog(AuditLog auditLog) {
-    return (Integer) getSession().save(auditLog);
-  }
+        criteria.addOrder(Order.desc("id"));
+        return criteria.list();
+    }
 
-  public AuditLog getAuditLog(Integer auditLogId) {
-    return (AuditLog) getSession().get(AuditLog.class, auditLogId);
-  }
+    public AuditLog getAuditLogByUuid(String uuid) {
+        return (AuditLog) getSession().createQuery("from AuditLog where uuid = :uuid").setString("uuid", uuid).uniqueResult();
+    }
 
-  public void deleteAuditLogsToDate(Date endDate) {
-    getSession().createQuery("delete from AuditLog where date <= :date").setTimestamp("date", endDate).executeUpdate();
-  }
+    public Integer saveAuditLog(AuditLog auditLog) {
+        return (Integer) getSession().save(auditLog);
+    }
+
+    public AuditLog getAuditLog(Integer auditLogId) {
+        return (AuditLog) getSession().get(AuditLog.class, auditLogId);
+    }
+
+    public void deleteAuditLogsToDate(Date endDate) {
+        getSession().createQuery("delete from AuditLog where date <= :date").setTimestamp("date", endDate).executeUpdate();
+    }
 }

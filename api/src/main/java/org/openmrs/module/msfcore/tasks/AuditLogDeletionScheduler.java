@@ -10,11 +10,11 @@ import org.openmrs.scheduler.tasks.AbstractTask;
 
 public class AuditLogDeletionScheduler extends AbstractTask {
 
-  @Override
-  public void execute() {
-    Context.getService(AuditService.class).deleteAuditLogsToDate(
-        DateUtils.getDateAtNDaysFromDate(new Date(), Integer.parseInt(Context
-            .getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DAYS_TO_KEEP_LOGS))));
-  }
+    @Override
+    public void execute() {
+        Context.getService(AuditService.class).deleteAuditLogsToDate(
+                        DateUtils.getDateAtNDaysFromDate(new Date(), Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                        MSFCoreConfig.GP_DAYS_TO_KEEP_LOGS))));
+    }
 
 }
