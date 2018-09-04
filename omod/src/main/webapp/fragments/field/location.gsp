@@ -1,1 +1,1 @@
-${ ui.includeFragment("uicommons", "field/location", [initialValue: defaultLocation] << config) }
+${ ui.includeFragment("uicommons", "field/location", [initialValue: uiUtils.getLocation(patient) ] << config) }

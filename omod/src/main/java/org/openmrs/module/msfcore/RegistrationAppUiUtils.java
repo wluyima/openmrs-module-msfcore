@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PersonAddress;
@@ -59,5 +60,11 @@ public class RegistrationAppUiUtils {
         } catch (ParseException e) {
             return new Date();
         }
+    }
+
+    public Location getLocation(Patient patient) {
+        String locationId = getAttribute(patient, MSFCoreConfig.PERSON_ATTRIBUTE_HEALTH_CENTER_UUID);
+        return locationId != null ? Context.getLocationService().getLocation(Integer.valueOf(locationId)) : Context.getLocationService()
+                        .getDefaultLocation();
     }
 }

@@ -64,6 +64,10 @@ public class MSFCoreConfig {
 
     public final static String CONCEPT_EMPLOYMENT_STATUS_UUID = "82494b0f-0049-44ba-b166-13ab352fa408";
 
+    public final static String PERSON_ATTRIBUTE_PHONE_NUMBER_UUID = "14d4f066-15f5-102d-96e4-000c29c2a5d7";
+
+    public final static String PERSON_ATTRIBUTE_HEALTH_CENTER_UUID = "8d87236c-c2cc-11de-8d13-0010c6dffd0f";
+
     public final static String PERSON_ATTRIBUTE_NATIONALITY_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5o";
 
     public final static String PERSON_ATTRIBUTE_PROVENANCE_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5p";

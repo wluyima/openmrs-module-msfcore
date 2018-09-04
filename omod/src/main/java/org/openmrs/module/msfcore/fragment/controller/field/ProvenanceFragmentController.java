@@ -45,7 +45,6 @@ public class ProvenanceFragmentController {
 
         model.addAttribute("oldFacilityCodeUuid", MSFCoreConfig.PERSON_ATTRIBUTE_OLD_FACILITY_CODE_UUID);
         model.addAttribute("otherIdNameUui", MSFCoreConfig.PERSON_ATTRIBUTE_OTHER_ID_NAME_UUID);
-        model.put("phoneNumberUuid", "14d4f066-15f5-102d-96e4-000c29c2a5d7");
-        model.addAttribute("defaultLocation", Context.getLocationService().getDefaultLocation());
+        model.put("phoneNumberUuid", MSFCoreConfig.PERSON_ATTRIBUTE_PHONE_NUMBER_UUID);
     }
 }
