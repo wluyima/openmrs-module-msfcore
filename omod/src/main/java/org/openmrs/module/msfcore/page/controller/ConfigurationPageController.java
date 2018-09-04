@@ -32,14 +32,16 @@ public class ConfigurationPageController {
         }
         if (StringUtils.isNotBlank(instanceId)) {
             isPostRequest = true;
-            msfCoreService.saveInstanceId(instanceId);
+            msfCoreService.saveInstanceId(instanceId.trim());
         }
         saveLocationCodes(request, msfCoreService, locationService, isPostRequest);
         model.addAttribute("defaultLocation", locationService.getDefaultLocation());
         model.addAttribute("allLocations", locationService.getAllLocations());
         model.addAttribute("msfLocations", getSimplifiedMSFLocations(msfCoreService));
         model.addAttribute("instanceId", msfCoreService.instanceId());
-        if (isPostRequest) {
+        if (isPostRequest && msfCoreService.configured()) {
+            //reload msfIDgenerator installation
+            msfCoreService.msfIdentifierGeneratorInstallation();
             response.sendRedirect(ui.pageLink("referenceapplication", "home"));
         }
     }
@@ -58,11 +60,11 @@ public class ConfigurationPageController {
             SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc
                             .getUuid());
             String code = request.getParameter(simplifiedLocation.getUuid());
-            if (StringUtils.isNotBlank(code) && !code.equals(simplifiedLocation.getCode())) {
+            if (StringUtils.isNotBlank(code) && !code.trim().equals(simplifiedLocation.getCode())) {
                 Location location = locationService.getLocationByUuid(simplifiedLocation.getUuid());
                 LocationAttribute locationAttribute = msfCoreService.getLocationCodeAttribute(location);
                 if (locationAttribute != null) {
-                    locationAttribute.setValue(code);
+                    locationAttribute.setValue(code.trim());
                     location.setAttribute(locationAttribute);
                     locationService.saveLocation(location);
                     isPostRequest = true;

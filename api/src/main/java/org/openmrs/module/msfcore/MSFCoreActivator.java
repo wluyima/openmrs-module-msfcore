@@ -28,6 +28,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
@@ -67,7 +68,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
 
         log.info("Installation and configuration of default MSF Identifier");
-        MSFIdentifierGenerator.installation();
+        Context.getService(MSFCoreService.class).msfIdentifierGeneratorInstallation();
 
         log.info("Un requiring OpenMRS ID if not done");
         PatientIdentifierType openmrsIdType = Context.getPatientService().getPatientIdentifierTypeByName(

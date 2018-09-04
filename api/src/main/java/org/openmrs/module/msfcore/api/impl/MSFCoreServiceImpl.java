@@ -26,6 +26,7 @@ import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
+import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
@@ -118,4 +119,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         setGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCATION_NAME, location.getName());
     }
 
+    public void msfIdentifierGeneratorInstallation() {
+        MSFIdentifierGenerator.installation();
+    }
 }

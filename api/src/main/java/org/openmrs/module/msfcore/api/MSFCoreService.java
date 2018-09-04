@@ -48,4 +48,6 @@ public interface MSFCoreService extends OpenmrsService {
     public LocationAttribute getLocationCodeAttribute(Location location);
 
     public void saveDefaultLocation(Location location);
+
+    public void msfIdentifierGeneratorInstallation();
 }
