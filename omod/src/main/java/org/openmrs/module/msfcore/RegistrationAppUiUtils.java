@@ -21,8 +21,7 @@ public class RegistrationAppUiUtils {
      */
     public String getAttribute(Patient patient, String attributeTypeUuid) {
         if (patient != null) {
-            PersonAttribute attr = patient.getAttribute(
-                    Context.getPersonService().getPersonAttributeTypeByUuid(attributeTypeUuid));
+            PersonAttribute attr = patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(attributeTypeUuid));
             if (attr != null) {
                 return attr.getValue();
             }
@@ -44,9 +43,19 @@ public class RegistrationAppUiUtils {
         return null;
     }
 
-    public Set<PersonAddress> getAddress(Patient patient) {
+    public PersonAddress getAddress(Patient patient) {
         if (patient != null) {
-            return patient.getAddresses();
+            Set<PersonAddress> addresses = patient.getAddresses();
+            if (addresses != null) {
+                for (PersonAddress address : addresses) {
+                    if (!address.getVoided()) {
+                        return address;
+                    }
+                }
+                return null;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
