@@ -15,10 +15,7 @@ import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
-import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.idgen.IdentifierSource;
-import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 
 /**
@@ -30,8 +27,6 @@ public interface MSFCoreService extends OpenmrsService {
     public List<Concept> getAllConceptAnswers(Concept question);
 
     public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
-
-    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
