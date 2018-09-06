@@ -16,6 +16,7 @@ import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 
 /**
@@ -45,4 +46,6 @@ public interface MSFCoreService extends OpenmrsService {
     public void saveDefaultLocation(Location location);
 
     public void msfIdentifierGeneratorInstallation();
+
+    public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
 }

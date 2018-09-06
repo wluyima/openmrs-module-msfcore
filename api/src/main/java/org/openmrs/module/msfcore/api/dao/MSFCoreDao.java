@@ -55,13 +55,11 @@ public class MSFCoreDao {
                         Restrictions.eq("attributeType", type)).list();
     }
 
-    @Transactional
-    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException {
-        SequentialIdentifierGenerator source = (SequentialIdentifierGenerator) getSession().load(SequentialIdentifierGenerator.class,
-                        identifierSource.getId());
-        source.setPrefix(identifierSource.getPrefix());
-        source.setDateChanged(new Date());
-        getSession().update(identifierSource);
-        return identifierSource;
+    public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
+        int updated = getSession().createSQLQuery("update idgen_seq_id_gen set prefix = :val where id = :id").setParameter("val",
+                        generator.getPrefix()).setParameter("id", generator.getId()).executeUpdate();
+        if (updated != 1) {
+            throw new APIException("Expected to update 1 row but updated " + updated + " rows instead!");
+        }
     }
 }

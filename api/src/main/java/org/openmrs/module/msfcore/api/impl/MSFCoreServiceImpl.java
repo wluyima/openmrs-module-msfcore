@@ -19,6 +19,7 @@ import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
@@ -115,5 +116,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     public void msfIdentifierGeneratorInstallation() {
         MSFIdentifierGenerator.installation();
+    }
+
+    public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
+        dao.saveSequencyPrefix(generator);
     }
 }

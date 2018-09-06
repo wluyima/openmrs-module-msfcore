@@ -116,11 +116,11 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
             if (!retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
                 Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
                 retrivedMsfIdGenerator.setPrefix(msfIdGenerator.getPrefix());
-                Context.evictFromSession(retrivedMsfIdGenerator);
-                msfIdGenerator = retrivedMsfIdGenerator;
+                Context.getService(MSFCoreService.class).saveSequencyPrefix(retrivedMsfIdGenerator);
             }
+        } else {
+            Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);
         }
-        Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);
 
         AutoGenerationOption option = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(msfIdType);
         if (option == null) {
