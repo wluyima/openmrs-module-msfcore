@@ -86,9 +86,25 @@ ${ ui.includeFragment("appui", "header") }
         featureToggles["${it.key}"] = ${ Boolean.parseBoolean(it.value)};
     <% } %>
 
-    // remove the second edit link on patient dashboard
     jq(function() {
+    	// remove the second edit link on patient dashboard
         jq("#contact-info-inline-edit").detach();
+
+        // Update the main edit link
+        var extractPatientIdFromUrl = function(url) {
+        	if (url && url.startsWith("/openmrs/registrationapp/editSection.page?patientId=")) {
+        		return url.split("?")[1].split("&")[0].split("=")[1];
+        	} else {
+        		return null;
+        	}
+        }
+
+		var previousUrl = jq("#edit-patient-demographics > small > a").attr("href");
+		var patientId = extractPatientIdFromUrl(previousUrl);
+		if (patientId) {
+			var newUrl = "/openmrs/registrationapp/registerPatient.page?appId=msfcore.registrationapp&patientId=" + patientId;
+	        jq("#edit-patient-demographics > small > a").attr("href", newUrl);
+		}
     });
 </script>
 
