@@ -3,6 +3,7 @@ package org.openmrs.module.msfcore.listener;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.User;
 import org.openmrs.UserSessionListener;
 import org.openmrs.api.context.Context;
@@ -16,9 +17,11 @@ public class LogInOrOutEventListener implements UserSessionListener {
     @Override
     public void loggedInOrOut(User user, Event event, Status status) {
         if (event != null && user != null) {
-            AuditLog logInOrOut = AuditLog.builder().detail(
-                            Context.getMessageSourceService().getMessage("msfcore.logInOrOut", new Object[]{user.getUsername(), status},
-                                            null)).date(new Date()).build();
+            AuditLog logInOrOut = AuditLog.builder().detail(Context.getMessageSourceService().getMessage("msfcore.logInOrOut",
+                            new Object[]{StringUtils.isNotBlank(user.getUsername())
+                                            ? user.getUsername()
+                                            : user.getSystemId(), status},
+                            null)).date(new Date()).build();
             if (UserSessionListener.Event.LOGIN.equals(event)) {
                 if (acceptableToLogLogin()) {
                     logInOrOut.setEvent(AuditLog.Event.LOGIN);
