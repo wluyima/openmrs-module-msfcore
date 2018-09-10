@@ -43,8 +43,10 @@ public class HeaderFragmentController {
     public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel,
                     @SpringBean("msfCoreService") MSFCoreService msfCoreService, HttpServletRequest request, HttpServletResponse response,
                     UiUtils ui) throws IOException {
-        if (!Context.getAuthenticatedUser().isSuperUser() || request.getRequestURI().contains("msfcore/configuration")
-                        || msfCoreService.configured()) {
+        if (Context.getAuthenticatedUser().isSuperUser() && !request.getRequestURI().contains("msfcore/configuration")
+                        && !msfCoreService.configured()) {
+            response.sendRedirect(ui.pageLink("msfcore", "configuration"));
+        } else {
             try {
                 Context.addProxyPrivilege(GET_LOCATIONS);
                 Context.addProxyPrivilege(VIEW_LOCATIONS);
@@ -61,8 +63,6 @@ public class HeaderFragmentController {
                 Context.removeProxyPrivilege(GET_LOCATIONS);
                 Context.removeProxyPrivilege(VIEW_LOCATIONS);
             }
-        } else {
-            response.sendRedirect(ui.pageLink("msfcore", "configuration"));
         }
     }
 
