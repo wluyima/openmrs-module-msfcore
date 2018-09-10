@@ -14,7 +14,7 @@ public class MSFIdentifierGeneratorTest {
         MSFIdentifierGenerator msfIdentifierGenerator = new MSFIdentifierGenerator("UK", "AB", new SimpleDateFormat("yyyyMM")
                         .parse("201806"));
         msfIdentifierGenerator.setFirstIdentifierBase("1");
-        msfIdentifierGenerator.setCountryCode("UK");
+        msfIdentifierGenerator.setInstanceId("UK");
         msfIdentifierGenerator.setLocationCode("AB");
         msfIdentifierGenerator.evaluatePrefix();
         assertThat(msfIdentifierGenerator.getIdentifierForSeed(1), is("UK-AB18.06.1"));
@@ -26,7 +26,7 @@ public class MSFIdentifierGeneratorTest {
         msfIdentifierGenerator.evaluatePrefix();
         assertThat(msfIdentifierGenerator.getIdentifierForSeed(26980), is("UK-ABC18.06.26980"));
 
-        msfIdentifierGenerator.setCountryCode("UGANDA");
+        msfIdentifierGenerator.setInstanceId("UGANDA");
         msfIdentifierGenerator.evaluatePrefix();
         assertThat(msfIdentifierGenerator.getIdentifierForSeed(26980), is("UGANDA-ABC18.06.26980"));
     }

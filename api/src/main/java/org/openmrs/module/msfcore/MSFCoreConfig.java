@@ -24,9 +24,7 @@ public class MSFCoreConfig {
 
     public final static String MSF_REGISTRATION_APP_EXTENSION_ID = "msfcore.registrationapp";
 
-    public final static String GP_COUNTRY_CODE = "msfcore.countryCode";
-
-    public final static String GP_DEFAULT_LOCATION = "default_location";
+    public final static String GP_INSTANCE_ID = "msfcore.instanceId";
 
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
 

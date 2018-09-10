@@ -2,12 +2,10 @@ package org.openmrs.module.msfcore.id;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
-import org.openmrs.LocationAttribute;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
@@ -17,15 +15,27 @@ import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 
 /**
- * MSF ID generator, format: UK-AB18.06.026 where UK is a country's code and AB
+ * MSF ID generator, format: MSF-AB18.06.026 where MSF is an instance id and AB
  * location initial/code, 18 year(yy), 06 month(MM) and 026 is the increasing
  * number
  */
 public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     private String locationCode;
-    private String countryCode;
     private Date date;
+    private String instanceId;
+
+    public String getInstanceId() {
+        if (StringUtils.isBlank(instanceId)) {
+            String setInstanceID = Context.getService(MSFCoreService.class).instanceId();
+            instanceId = StringUtils.isBlank(setInstanceID) ? "MSF" : setInstanceID;
+        }
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
 
     public MSFIdentifierGenerator() {
         setBasicProperties();
@@ -42,15 +52,15 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
         setSuffix("");
     }
 
-    public MSFIdentifierGenerator(String countryCode, String locationCode) {
+    public MSFIdentifierGenerator(String instanceId, String locationCode) {
         setLocationCode(locationCode);
-        setCountryCode(countryCode);
+        setInstanceId(instanceId);
         setBasicProperties();
     }
 
-    public MSFIdentifierGenerator(String countryCode, String locationCode, Date date) {
+    public MSFIdentifierGenerator(String instanceId, String locationCode, Date date) {
         setLocationCode(locationCode);
-        setCountryCode(countryCode);
+        setInstanceId(instanceId);
         setDate(date);
         setBasicProperties();
     }
@@ -58,16 +68,10 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
     public String getLocationCode() {
         if (StringUtils.isBlank(locationCode)) {
             locationCode = "MSF";
-            Location defaultLocation = Context.getLocationService().getLocation(
-                            Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DEFAULT_LOCATION));
-
-            if (defaultLocation != null) {
-                List<LocationAttribute> codes = Context.getService(MSFCoreService.class).getLocationAttributeByTypeAndLocation(
-                                Context.getLocationService().getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID),
-                                defaultLocation);
-                if (codes.size() > 0) {
-                    locationCode = codes.get(0).getValue().toString();
-                }
+            Location defaultLocation = Context.getLocationService().getDefaultLocation();
+            String code = Context.getService(MSFCoreService.class).getLocationCode(defaultLocation);
+            if (StringUtils.isNotBlank(code)) {
+                locationCode = code;
             }
         }
         return locationCode;
@@ -75,17 +79,6 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
-    }
-
-    public String getCountryCode() {
-        if (StringUtils.isBlank(countryCode)) {
-            countryCode = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_COUNTRY_CODE);
-        }
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public Date getDate() {
@@ -103,7 +96,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
      * Format: UK-AB18.06.
      */
     public String msfPrefix() {
-        return getCountryCode() + "-" + getLocationCode() + new SimpleDateFormat("yy.MM.").format(getDate());
+        return getInstanceId() + "-" + getLocationCode() + new SimpleDateFormat("yy.MM.").format(getDate());
     }
 
     public void evaluatePrefix() {
@@ -123,7 +116,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
             if (!retrivedMsfIdGenerator.getPrefix().equals(msfIdGenerator.getPrefix())) {
                 Context.getService(IdentifierSourceService.class).saveSequenceValue(retrivedMsfIdGenerator, 1L);
                 retrivedMsfIdGenerator.setPrefix(msfIdGenerator.getPrefix());
-                Context.getService(MSFCoreService.class).updateIdentifierSource(retrivedMsfIdGenerator);
+                Context.getService(MSFCoreService.class).saveSequencyPrefix(retrivedMsfIdGenerator);
             }
         } else {
             Context.getService(IdentifierSourceService.class).saveIdentifierSource(msfIdGenerator);

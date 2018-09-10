@@ -15,9 +15,7 @@ import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
-import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 
@@ -31,8 +29,23 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
 
-    public IdentifierSource updateIdentifierSource(SequentialIdentifierGenerator identifierSource) throws APIException;
-
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
+    public boolean configured();
+
+    public String instanceId();
+
+    public List<Location> getMSFLocations();
+
+    public String getLocationCode(Location location);
+
+    public void saveInstanceId(String instanceId);
+
+    public LocationAttribute getLocationCodeAttribute(Location location);
+
+    public void saveDefaultLocation(Location location);
+
+    public void msfIdentifierGeneratorInstallation();
+
+    public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
 }

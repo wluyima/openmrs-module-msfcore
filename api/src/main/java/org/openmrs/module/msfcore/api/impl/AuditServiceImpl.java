@@ -12,6 +12,8 @@ package org.openmrs.module.msfcore.api.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Provider;
@@ -46,6 +48,7 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
         dao.deleteAuditLogsToDate(endDate);
     }
 
+    @Transactional
     public Integer saveAuditLog(AuditLog auditLog) {
         return dao.saveAuditLog(auditLog);
     }
