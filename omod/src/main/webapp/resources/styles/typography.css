@@ -1,0 +1,53 @@
+/* TYPOGRAPHY */
+
+html {
+    color: #333;
+}
+@font-face {
+    font-family: OpenSansLight;
+    src: url(fonts/OpenSans-Light.ttf);
+}
+
+@font-face {
+    font-family: OpenSansSemiBold;
+    src: url(fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: OpenSansBold;
+    src: url(fonts/OpenSans-Bold.ttf);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333;
+    font-family: "OpenSansLight", Arial, sans-serif;
+}
+
+h1,h2:first-of-type {
+    font-size: 2.5rem;
+}
+
+h1.name {
+    font-size:1.5rem;
+}
+
+.patient-header .demographics h1 span em {display:none;}
+
+.patient-header .demographics .gender-age span:nth-of-type(1) {
+    font-family:'OpenSansBold';
+    color; #333;
+}
+
+#home-container h4,
+#content h3 {
+    font-size: 1.5rem;
+}
+
+h6 i::before {
+    width:20px;
+}
