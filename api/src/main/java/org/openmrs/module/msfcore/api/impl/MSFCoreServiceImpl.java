@@ -78,12 +78,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     public List<Location> getMSFLocations() {
         List<Location> locations = new ArrayList<Location>();
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         if (!locations.contains(defaultLocation)) {
             locations.add(defaultLocation);
@@ -98,13 +98,29 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
         return "";
     }
+    
+    public String getLocationDHISUid(Location location) {
+        LocationAttribute locationUid = getLocationAttribute(location, MSFCoreConfig.LOCATION_ATTR_TYPE_UID_UUID);
+        if (locationUid != null) {
+            return locationUid.getValue().toString();
+        }
+        return "";
+    }
 
     public LocationAttribute getLocationCodeAttribute(Location location) {
+        return getLocationAttribute(location, MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID);
+    }
+    
+    public LocationAttribute getLocationUidAttribute(Location location) {
+        return getLocationAttribute(location, MSFCoreConfig.LOCATION_ATTR_TYPE_UID_UUID);
+    }
+
+    private LocationAttribute getLocationAttribute(Location location, String attributeTypeUuid) {
         if (location != null) {
-            List<LocationAttribute> codes = getLocationAttributeByTypeAndLocation(Context.getLocationService()
-                            .getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID), location);
-            if (codes.size() > 0) {
-                return codes.get(0);
+            List<LocationAttribute> attrributes = getLocationAttributeByTypeAndLocation(
+                            Context.getLocationService().getLocationAttributeTypeByUuid(attributeTypeUuid), location);
+            if (attrributes.size() > 0) {
+                return attrributes.get(0);
             }
         }
         return null;
@@ -121,4 +137,5 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
         dao.saveSequencyPrefix(generator);
     }
+
 }

@@ -32,7 +32,7 @@ public class ProjectLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ProjectLocationAttributes.BEKAA_VALLEY);
+            return Arrays.asList(ProjectLocationAttributes.BEKAA_VALLEY_CODE, ProjectLocationAttributes.BEKAA_VALLEY_UID);
         }
 
         @Override
@@ -64,7 +64,7 @@ public class ProjectLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ProjectLocationAttributes.TRIPOLI);
+            return Arrays.asList(ProjectLocationAttributes.TRIPOLI_CODE, ProjectLocationAttributes.TRIPOLI_UID);
         }
 
         @Override
@@ -96,7 +96,7 @@ public class ProjectLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ProjectLocationAttributes.WEST_DONETSK);
+            return Arrays.asList(ProjectLocationAttributes.WEST_DONETSK_CODE, ProjectLocationAttributes.WEST_DONETSK_UID);
         }
 
         @Override
@@ -128,7 +128,7 @@ public class ProjectLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ProjectLocationAttributes.MARIUPOL);
+            return Arrays.asList(ProjectLocationAttributes.MARIUPOL_CODE, ProjectLocationAttributes.MARIUPOL_UID);
         }
 
         @Override

@@ -48,4 +48,9 @@ public interface MSFCoreService extends OpenmrsService {
     public void msfIdentifierGeneratorInstallation();
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
+
+    public String getLocationDHISUid(Location location);
+    
+    public LocationAttribute getLocationUidAttribute(Location location);
+
 }

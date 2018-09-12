@@ -40,7 +40,7 @@ public class ConfigurationPageController {
         model.addAttribute("msfLocations", getSimplifiedMSFLocations(msfCoreService));
         model.addAttribute("instanceId", msfCoreService.instanceId());
         if (isPostRequest && msfCoreService.configured()) {
-            //reload msfIDgenerator installation
+            // reload msfIDgenerator installation
             msfCoreService.msfIdentifierGeneratorInstallation();
             response.sendRedirect(ui.pageLink("referenceapplication", "home"));
         }
@@ -49,7 +49,8 @@ public class ConfigurationPageController {
     private List<SimplifiedLocation> getSimplifiedMSFLocations(MSFCoreService msfCoreService) {
         List<SimplifiedLocation> locations = new ArrayList<SimplifiedLocation>();
         for (Location loc : msfCoreService.getMSFLocations()) {
-            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid()));
+            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid(),
+                            msfCoreService.getLocationDHISUid(loc)));
         }
         return locations;
     }
@@ -57,19 +58,31 @@ public class ConfigurationPageController {
     private void saveLocationCodes(HttpServletRequest request, MSFCoreService msfCoreService, LocationService locationService,
                     boolean isPostRequest) {
         for (Location loc : msfCoreService.getMSFLocations()) {
-            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc
-                            .getUuid());
+            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc),
+                            loc.getUuid(), null);
+            Location location = locationService.getLocationByUuid(simplifiedLocation.getUuid());
             String code = request.getParameter(simplifiedLocation.getUuid());
+            String uid = request.getParameter(simplifiedLocation.getUuid() + "_uid");
             if (StringUtils.isNotBlank(code) && !StringUtils.deleteWhitespace(code).toUpperCase().equals(simplifiedLocation.getCode())) {
-                Location location = locationService.getLocationByUuid(simplifiedLocation.getUuid());
                 LocationAttribute locationAttribute = msfCoreService.getLocationCodeAttribute(location);
-                if (locationAttribute != null) {
-                    locationAttribute.setValue(StringUtils.deleteWhitespace(code).toUpperCase());
-                    location.setAttribute(locationAttribute);
-                    locationService.saveLocation(location);
-                    isPostRequest = true;
-                }
+                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute,
+                                location);
             }
+            if (StringUtils.isNotBlank(uid) && !StringUtils.deleteWhitespace(uid).toUpperCase().equals(simplifiedLocation.getUid())) {
+                LocationAttribute locationAttribute = msfCoreService.getLocationUidAttribute(location);
+                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute,
+                                location);
+            }
+        }
+    }
+
+    private void saveLocationAttribute(boolean isPostRequest, MSFCoreService msfCoreService, LocationService locationService,
+                    SimplifiedLocation simplifiedLocation, String value, LocationAttribute locationAttribute, Location location) {
+        if (locationAttribute != null) {
+            locationAttribute.setValue(StringUtils.deleteWhitespace(value).toUpperCase());
+            location.setAttribute(locationAttribute);
+            locationService.saveLocation(location);
+            isPostRequest = true;
         }
     }
 

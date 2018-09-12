@@ -25,4 +25,25 @@ public class LocationAttributeTypes {
             return FreeTextDatatype.class;
         }
     };
+    
+    public static LocationAttributeTypeDescriptor LOCATION_UID = new LocationAttributeTypeDescriptor() {
+        @Override
+        public String name() {
+            return "Location uid";
+        }
+
+        @Override
+        public String description() {
+            return "Location dhis2 uid";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.LOCATION_ATTR_TYPE_UID_UUID;
+        }
+
+        @Override
+        public Class<?> datatype() {
+            return FreeTextDatatype.class;
+        }
+    };
 }

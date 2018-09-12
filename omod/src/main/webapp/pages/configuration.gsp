@@ -35,6 +35,7 @@
 			    <tr>
 			        <th>${ ui.message("Location.title")}</th>
 			        <th>${ ui.message("msfcore.code")}</th>
+			        <th>${ ui.message("msfcore.uid")}</th>
 			    </tr>
 		    </thead>
 		    <% msfLocations.each { mLoc -> %>
@@ -42,6 +43,7 @@
 			    	<tr>
 			    		<td>${mLoc.display}</td>
 			    		<td><input type="text" name="${mLoc.uuid}" value="${mLoc.code}" /></td>
+			    		<td><input type="text" name="${mLoc.uuid}_uid" value="${mLoc.uid}" /></td>
 			    	</tr>
 			    </tbody>
 		    <% } %>
