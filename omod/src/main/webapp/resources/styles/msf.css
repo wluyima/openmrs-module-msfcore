@@ -13,9 +13,16 @@ Medium Turquoise: 55D6BE
 Aero Blue: D0FEF5
 
 BRANDING:
+
 MSF Red: FF0000
+
 Dark grey: 424C55
+    Darker: 373F46 (Body Text)
+    Lighter: 646C73
+    lightest: 757C83
+
 White: FFFFFF
+    Darker: 
 
 */
 
@@ -35,7 +42,7 @@ body {
     -webkit-font-smoothing: subpixel-antialiased;
     max-width: 100%;
     margin: 0px auto;
-    color: #333;
+    color: #373F46;
     font-size: 16px;
 }
 
@@ -44,8 +51,8 @@ header {
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     width: 100%;
     border-radius: 0;
-    color: #333;
-    border-top: 10px solid #000;
+    color: #373F46;
+    border-top: 10px solid #424C55;
     padding: 8px;
     position: fixed;
     z-index: 9999;
@@ -117,7 +124,7 @@ table {
 #patient-search-results #patient-search-results-table tbody tr:hover {
     background: #D0FEF5;
     cursor: pointer;
-    color: #333;
+    color: #373F46;
 }
 
 .ui-state-default, 
@@ -125,7 +132,7 @@ table {
 .ui-widget-header .ui-state-default,
 table thead th {
     border:none;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #373F46;
     background: #fff;
     font-family: "OpenSans";
     font-size:1rem;
@@ -160,7 +167,7 @@ table td:last-child {
 }
 
 .dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
-    background: #333;
+    background: #373F46;
 }
 
 .dialog .dialog-content li.info, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-content li.info {

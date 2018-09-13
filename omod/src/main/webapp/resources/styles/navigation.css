@@ -5,7 +5,7 @@ header .user-options {
 
 #user-account-menu {
     position: absolute;
-    background-color: #333;
+    background-color: #373F46;
     z-index: 50;
     border-radius: 4px;
 }
@@ -33,7 +33,7 @@ header .user-options li.logout a {
 header .user-options li.logout a,
 header .user-options li.change-location a span,
 header .user-options li.change-location a i {
-    color: #333;
+    color: #373F46;
 }
 
 header .user-options li.change-location:hover,
@@ -66,7 +66,7 @@ header #session-location ul.select {
 
 header #session-location li {
     width:100%;
-    color:#333;
+    color:#373F46;
     margin-left:-10px;
     padding:8px;
 }
