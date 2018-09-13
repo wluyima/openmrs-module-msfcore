@@ -65,7 +65,8 @@ public class ConfigurationPageController {
             String uid = request.getParameter(simplifiedLocation.getUuid() + "_uid");
             if (StringUtils.isNotBlank(code) && !StringUtils.deleteWhitespace(code).toUpperCase().equals(simplifiedLocation.getCode())) {
                 LocationAttribute locationAttribute = msfCoreService.getLocationCodeAttribute(location);
-                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute, location);
+                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code.toUpperCase(),
+                                locationAttribute, location);
             }
             if (StringUtils.isNotBlank(uid) && !StringUtils.deleteWhitespace(uid).equals(simplifiedLocation.getUid())) {
                 LocationAttribute locationAttribute = msfCoreService.getLocationUidAttribute(location);
@@ -77,7 +78,7 @@ public class ConfigurationPageController {
     private void saveLocationAttribute(boolean isPostRequest, MSFCoreService msfCoreService, LocationService locationService,
                     SimplifiedLocation simplifiedLocation, String value, LocationAttribute locationAttribute, Location location) {
         if (locationAttribute != null) {
-            locationAttribute.setValue(StringUtils.deleteWhitespace(value).toUpperCase());
+            locationAttribute.setValue(StringUtils.deleteWhitespace(value));
             location.setAttribute(locationAttribute);
             locationService.saveLocation(location);
             isPostRequest = true;

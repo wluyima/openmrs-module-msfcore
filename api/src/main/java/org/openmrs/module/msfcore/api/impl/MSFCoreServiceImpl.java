@@ -266,11 +266,11 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
         String UNHCR = getPatientIdentifierValue(patient, MSFCoreConfig.PATIENT_ID_TYPE_UNHCR_ID_UUID);
         if (StringUtils.isNotBlank(UNHCR)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.REFUGEE_UNHCR.name()), UNHCR);
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.REFUGEE_UNHCR.name()), "true");
         }
         String UNRWA = getPatientIdentifierValue(patient, MSFCoreConfig.PATIENT_ID_TYPE_UNRWA_ID_UUID);
         if (StringUtils.isNotBlank(UNRWA)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.REFUGEE_UNRWA.name()), UNRWA);
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.REFUGEE_UNRWA.name()), "true");
         }
         String oldPatientId = getPatientIdentifierValue(patient, MSFCoreConfig.PATIENT_ID_TYPE_OLD_PATIENT_ID_UUID);
         if (StringUtils.isNotBlank(oldPatientId)) {
@@ -281,13 +281,15 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     private void setPersonAttributes(Patient patient, Map<String, String> attributes) {
         String provenance = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PROVENANCE_UUID);
         if (provenance != null) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PROVENANCE.name()), Context.getConceptService()
-                            .getConcept(Integer.parseInt(provenance)).getName().getName());
+            // TODO fix Value 'Buffer Zone resident' is not a valid option for attribute NdCX1An92BP and option set zZhDsRgO0tJ
+            /*attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PROVENANCE.name()),
+                            Context.getConceptService().getConcept(Integer.parseInt(provenance)).getName().getName());*/
         }
         String nationality = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_NATIONALITY_UUID);
         if (StringUtils.isNotBlank(nationality)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.NATIONALITY.name()), Context.getConceptService()
-                            .getConcept(Integer.parseInt(nationality)).getName().getName());
+            //TODO fix "Value 'Belarus' is not a valid option for attribute hLYUwDODGZf and option set OPrxrevD0xp
+            /*attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.NATIONALITY.name()),
+                            Context.getConceptService().getConcept(Integer.parseInt(nationality)).getName().getName());*/
         }
         String conditionOfLiving = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID);
         if (StringUtils.isNotBlank(conditionOfLiving)) {
@@ -296,8 +298,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
         String maritalStatus = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_MARITAL_STATUS_UUID);
         if (StringUtils.isNotBlank(maritalStatus)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.MARITAL_STATUS.name()), Context.getConceptService()
-                            .getConcept(Integer.parseInt(maritalStatus)).getName().getName());
+            //TODO fix Value 'Single' is not a valid option for attribute Ym6qbECXEZt and option set v7xyRqfrzBQ
+            /*attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.MARITAL_STATUS.name()),
+                           Context.getConceptService().getConcept(Integer.parseInt(maritalStatus)).getName().getName());*/
         }
         String phoneNumber = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PHONENUMBER_UUID);
         if (StringUtils.isNotBlank(phoneNumber)) {
@@ -335,7 +338,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.LAST_NAME.name()), patient.getFamilyName());
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
-        attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), patient.getGender());
+        //TODO fix Value 'F' is not a valid option for attribute BIrTkunTimU and option set R1iJ6BKkufb
+        //attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), patient.getGender());
         setIdentifiers(patient, attributes);
         setPersonAttributes(patient, attributes);
         data.setAttributes(attributes);
@@ -348,8 +352,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         TrackerInstance trackerInstance = generateTrackerInstanceForPatient(patient);
         DefaultHttpClient client = null;
         String payload = "";
+        String url = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL);
         try {
-            URL dhisURL = new URL(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL));
+            URL dhisURL = new URL(url);
             HttpHost targetHost = new HttpHost(dhisURL.getHost(), dhisURL.getPort(), dhisURL.getProtocol());
             client = new DefaultHttpClient();
             BasicHttpContext localcontext = new BasicHttpContext();
@@ -364,9 +369,10 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
             HttpEntity entity = response.getEntity();
             if (entity != null && response.getStatusLine().getStatusCode() == 200) {
                 payload = EntityUtils.toString(entity);
-                log.info(payload);
+                log.info("POST: to " + url + " returned " + payload);
             }
         } catch (Exception ex) {
+            log.error("POST: to " + url + " returned " + ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (client != null) {

@@ -76,7 +76,7 @@
 	</globalProperty>
 	<globalProperty>
 		<property>msfcore.openhimTrackerUrl</property>
-		<defaultValue>https://146.185.183.146/5000/tracker</defaultValue>
+		<defaultValue>http://146.185.183.146:5001/tracker</defaultValue>
 		<description>OpenHIM Channel URL appended by tracker endpoint</description>
 	</globalProperty>
 	<globalProperty>

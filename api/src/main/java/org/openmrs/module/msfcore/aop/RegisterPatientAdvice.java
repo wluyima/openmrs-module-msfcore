@@ -9,6 +9,7 @@ import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
+import org.openmrs.module.msfcore.tasks.PostTrackerInstanceForPatientRunnable;
 import org.springframework.aop.AfterReturningAdvice;
 
 public class RegisterPatientAdvice implements AfterReturningAdvice {
@@ -16,7 +17,7 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
     @Override
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
         if (method.getName().equals("registerPatient") && args[0] != null && returnValue != null) {
-            Patient patient = (Patient) returnValue;
+            final Patient patient = (Patient) returnValue;
 
             AuditLog registerPatientLog = AuditLog.builder().event(Event.REGISTER_PATIENT).detail(
                             Context.getMessageSourceService().getMessage("msfcore.registerPatient") + patient.getPersonName().getFullName()
@@ -24,8 +25,8 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
                             .patient(patient).build();
             Context.getService(AuditService.class).saveAuditLog(registerPatientLog);
             if ("true".equals(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_WITH_DHIS2))) {
-                //TODO added this for MSF testing/demo, also fix conflicts
-                Context.getService(MSFCoreService.class).postTrackerInstanceThroughOpenHimForAPatient(patient);
+                // TODO added this for MSF testing/demo, also fix conflicts
+                new PostTrackerInstanceForPatientRunnable(patient).run();
             }
         }
     }

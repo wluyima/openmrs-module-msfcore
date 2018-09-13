@@ -43,8 +43,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         String url = "https://localhost/5000/tracker";
         Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL, url);
         assertThat(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL), is(url));
-        assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_OPENHIM_USERNAME), is("user"));
-        assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_OPENHIM_PASSWORD), is("pass"));
         assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_USERNAME), is("admin"));
         assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_PASSWORD), is("password"));
     }
