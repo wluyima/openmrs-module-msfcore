@@ -1,0 +1,1 @@
+${ ui.includeFragment("uicommons", "field/multipleInputDate", [initialValue: uiUtils.getDateOfArrival(patient) ] << config) }
