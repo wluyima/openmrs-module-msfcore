@@ -1,0 +1,169 @@
+/* PATIENT DASHBOARD */
+
+/* Hidden Elements */
+
+.patient-header .identifiers em,
+.patient-header .demographics h1 span em,
+#patient-header-contactInfo {
+    display: none;
+}
+
+/* PATIENT DASHBOARD > Patient Header  */
+
+.patient-header {
+    position: relative;
+    overflow: hidden;
+    background: #424C55;
+    z-index: 0;
+    border-bottom: 1px solid #fff;
+    margin: 0 0 -8px 0;
+    padding: 16px;
+    border-radius: 8px 8px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
+}
+
+.patient-header .demographics h1.name {
+    font-family: 'OpenSansSemiBold';
+    color:#fff;
+    font-size:2rem;
+    margin-left: 24px;
+}
+
+.patient-header .demographics .name span:nth-of-type(1),
+.patient-header .demographics .name span:nth-of-type(2),
+.patient-header .demographics .name span:nth-of-type(3) {
+    margin-right: 0px;
+}
+
+.patient-header .demographics .name span.gender-age {
+    font-family:'OpenSans';
+}
+
+#edit-patient-demographics {
+    background: none;
+}
+
+.patient-header .identifiers {
+    float:left;
+    margin: 16px;
+}
+
+.patient-header .identifiers span {
+    background: #757C83;
+}
+
+.secondLineFragments {
+    display:none;
+}
+
+/* PATIENT DASHBOARD > Main Container */
+
+.dashboard {
+    border-radius: 8px;
+    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
+    padding:16px 16px 16px 0;
+    display:flex;
+    flex-direction: row-reverse;
+}
+
+/* PATIENT DASHBOARD > Menu */
+
+.dashboard .info-container {
+    float:right;
+    width:33%;
+}
+
+.dashboard .action-container {
+    background: #55D6BE;
+    margin: -8px 0 -16px 0;
+    width:30%
+}
+
+.dashboard .action-section {
+    margin-top:0;
+    border: none;
+    background:none;
+}
+
+.dashboard .action-section h3,
+.dashboard .action-section a:not(.button),
+.dashboard .action-section ul li a {
+    color:#fff;
+    padding: 4px;
+    font-family: 'OpenSansSemiBold';
+    font-size:1.1em;
+}
+
+.dashboard .action-section h3 {
+    margin-top:0px;
+}
+
+.dashboard .action-section ul {
+    background: none ;
+    padding: 16px 32px;
+}
+
+.dashboard .action-section li a i {
+    display:none;
+}
+.dashboard .action-section a:not(.button):hover {
+    color: #55D6BE;
+    text-decoration: none;
+}
+.dashboard .action-section li:hover {
+    color: #55D6BE;
+    background: #fff;
+}
+
+
+
+
+/* PATIENT DASHBOARD > Widgets */
+
+.dashboard .info-section {
+    margin: 16px 8px 16px 8px;
+}
+
+.dashboard .info-header {
+    background: #538CAC;
+    padding: 8px;
+    opacity: 1;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #ccc;
+    color: #fff;
+}
+
+.dashboard .info-header h3 {
+    font-family: "OpenSansSemiBold";
+    font-size: 1rem !important;
+    padding-left: 6px;
+    color: #fff;
+}
+
+.dashboard .info-header i:first-of-type {
+    display: none;
+}
+
+.dashboard .info-header i:nth-of-type(2) {
+    font-size:12px;
+    color:#373F46;
+    margin-top: -2px;
+}
+
+.dashboard .info-body {
+    color:#373F46;
+    border-radius: 0 0 8px 8px;
+    padding: 16px;
+}
+
+#content .dashboard .info-body h3 {
+    font-size: 0.9em;
+}
+
+section#vitals .title {
+    text-align: center;
+    padding: 8px;
+    background: #eee;
+    display: block;
+    margin: -6px -4px 16px -4px;
+}
