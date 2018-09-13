@@ -74,6 +74,8 @@ public class MSFCoreConfig {
 
     public final static String PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID = "b6eddbee-1721-4dfa-a79a-8d545043da35";
 
+    public final static String PERSON_ATTRIBUTE_EDUCATION_UUID = "15ab4723-ca8e-4b60-8366-9cc859195f89";
+
     public final static String PERSON_ATTRIBUTE_EMPLOYMENT_STATUS_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5r";
 
     public final static String PERSON_ATTRIBUTE_DATE_OF_ARRIVAL_UUID = "d03313d1-12fc-4b0b-ba6c-c4873bee3be6";
