@@ -1,0 +1,93 @@
+/* PATIENT DASH */
+
+.patient-header {
+    position: relative;
+    overflow: hidden;
+    background: #F9F9F9;
+    z-index: 0;
+    border-bottom: 1px solid #fff;
+    margin: 0 0 -8px 0;
+    padding: 16px;
+    /* min-height: 60px; */
+    border-radius: 8px 8px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
+
+}
+
+.secondLineFragments {
+    display:none;
+}
+
+.dashboard {
+    border-radius: 8px;
+    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
+    padding:16px;
+}
+
+.dashboard .info-container {
+    float:right;
+}
+
+.dashboard .info-header {
+    background: #424C55;
+    padding: 8px;
+    opacity: 1;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #ccc;
+    color: #fff;
+}
+
+.dashboard .info-header h3 {
+    font-family: "OpenSans";
+    font-size: 1rem !important;
+    color: #333;
+}
+
+.dashboard .info-header i:first-of-type {
+    display: none;
+}
+
+.dashboard .info-header i:nth-of-type(2) {
+    font-size:12px;
+    color:#333;
+    margin-top: -8px;
+}
+
+.dashboard .info-body {
+    color:#333;
+    border-radius: 0 0 8px 8px;
+}
+
+.dashboard .action-section {
+    margin-top:0;
+    border: none;
+    background:none;
+}
+
+.dashboard .action-section h3,
+.dashboard .action-section a:not(.button),
+.dashboard .action-section ul li a {
+    color:#333;
+    padding: 4px;
+}
+
+.dashboard .action-section h3 {
+    margin-top:0px;
+}
+
+.dashboard .action-section ul {
+    background: none ;
+    border-right: 1px solid #ccc;
+}
+
+.dashboard .action-section li a i {
+    display:none;
+}
+.dashboard .action-section a:not(.button):hover {
+    color: #55D6BE;
+    text-decoration: none;
+}
+.dashboard .action-section li:hover {
+    color: #55D6BE;
+    background: #fff;
+}
