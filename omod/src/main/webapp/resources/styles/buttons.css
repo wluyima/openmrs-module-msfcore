@@ -138,7 +138,7 @@ input[type="submit"]:disabled:hover {
 .icon-pencil.edit-action:hover,
 .icon-pencil:hover,
 .ui-state-default.ui-button:hover {
-    color: #007fff;
+    color: #55D6BE;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
 }
 

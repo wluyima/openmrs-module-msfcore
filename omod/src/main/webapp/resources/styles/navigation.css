@@ -71,11 +71,11 @@ header #session-location li {
     padding:8px;
 }
 header #session-location li:hover {
-    color: #007fff;
+    color: #55D6BE;
     background: #fff;
 }
 header #session-location li.selected {
-    color: #007fff;
+    color: #55D6BE;
     font-family:'OpenSansSemiBold';
     background: #fff;
 }
@@ -100,7 +100,7 @@ header #session-location li.selected {
     background: #fff;
     border-radius: 16px;
     box-shadow:rgba(0, 0, 0, 0.1) 0 0 8px;
-    color: #007fff;
+    color: #55D6BE;
     opacity:0.8;
     font-family:'OpenSansSemiBold';
     padding:8px 16px;
@@ -109,7 +109,7 @@ header #session-location li.selected {
 
 #breadcrumbs a:hover,
 #breadcrumbs a:link:hover {
-    color: #007fff;
+    color: #55D6BE;
     opacity:1;
     box-shadow:rgba(0, 0, 0, 0.2) 0 0 16px;
 }

@@ -116,11 +116,11 @@ header {
     display:none;
 }
 .dashboard .action-section a:not(.button):hover {
-    color: #007fff;
+    color: #55D6BE;
     text-decoration: none;
 }
 .dashboard .action-section li:hover {
-    color: #007fff;
+    color: #55D6BE;
     background: #fff;
 }
 
@@ -170,7 +170,7 @@ form ul.select:focus,
 .form textarea:focus, 
 .form ul.select:focus {
     outline: none;
-    border-bottom: 2px solid #007fff;
+    border-bottom: 2px solid #55D6BE;
     background: #fff;
 }
 
@@ -179,6 +179,12 @@ form ul.select:focus,
 table {
     margin-bottom: 24px;
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+#patient-search-results #patient-search-results-table tbody tr:hover {
+    background: #55D6BE;
+    cursor: pointer;
+    color: #fff;
 }
 
 .ui-state-default, 
