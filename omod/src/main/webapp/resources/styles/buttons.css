@@ -148,7 +148,6 @@ input[type="submit"]:disabled:hover {
 
 .edit-info,
 .edit-action,
-#patient-search-clear-button::after,
 #patient-search-clear-button,
 .delete-item {
     position: relative;
