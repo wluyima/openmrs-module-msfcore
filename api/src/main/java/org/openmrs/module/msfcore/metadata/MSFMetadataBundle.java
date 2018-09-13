@@ -12,6 +12,8 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.NATIONALITY);
         install(PersonAttributeTypes.PROVENANCE);
         install(PersonAttributeTypes.MARITAL_STATUS);
+        install(PersonAttributeTypes.EDUCATION);
+        install(PersonAttributeTypes.CONDITION_OF_LIVING);
         install(PersonAttributeTypes.EMPLOYMENT_STATUS);
         install(PersonAttributeTypes.DATE_OF_ARRIVAL);
         install(PersonAttributeTypes.OLD_FACILITY_CODE);
@@ -75,6 +77,7 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PatientIdentifierTypes.MSF_PASSPORT_TYPE);
         install(PatientIdentifierTypes.MSF_UNHCR_ID_TYPE);
         install(PatientIdentifierTypes.MSF_UNRWA_ID_TYPE);
+        install(PatientIdentifierTypes.MSF_OTHER_ID);
         install(PatientIdentifierTypes.OLD_PATIENT_ID);
     }
 
