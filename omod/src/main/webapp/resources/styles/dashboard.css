@@ -68,10 +68,15 @@
 
 /* PATIENT DASHBOARD > Menu */
 
+.dashboard .info-container {
+    float:right;
+    width:33%;
+}
+
 .dashboard .action-container {
     background: #55D6BE;
     margin: -8px 0 -16px 0;
-    width:27%
+    width:30%
 }
 
 .dashboard .action-section {
@@ -111,10 +116,7 @@
 }
 
 
-.dashboard .info-container {
-    float:right;
-    width:34%;
-}
+
 
 /* PATIENT DASHBOARD > Widgets */
 
@@ -151,6 +153,7 @@
 .dashboard .info-body {
     color:#373F46;
     border-radius: 0 0 8px 8px;
+    padding: 16px;
 }
 
 #content .dashboard .info-body h3 {
