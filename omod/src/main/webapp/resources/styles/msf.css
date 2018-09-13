@@ -1,3 +1,188 @@
+@import url('buttons.css');
+@import url('navigation.css');
+@import url('typography.css');
+@import url('dashboard.css');
+
+
+/* COLORS 
+
+This can be converted to custom propterties / variables at a later stage. A build process may be needed to ensure compatibility with all browsers.
+
+INTERACTION:
+Medium Turquoise: 55D6BE
+Aero Blue: D0FEF5
+
+BRANDING:
+
+MSF Red: FF0000
+
+Dark grey: 424C55
+    Darker: 373F46 (Body Text)
+    Lighter: 646C73
+    lightest: 757C83
+
+White: FFFFFF
+    Darker: 
+
+*/
+
+
+/* STRUCTURE */
+
+a, a:visited, a.visited, a:hover {
+    color: #55D6BE;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 100%;
+    margin: 0px auto;
+    color: #373F46;
+    font-size: 16px;
+}
+
 header {
-    background-color: #363463;
+    background-color: #ffff;
+    box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
+    width: 100%;
+    border-radius: 0;
+    color: #373F46;
+    border-top: 10px solid #424C55;
+    padding: 8px;
+    position: fixed;
+    z-index: 9999;
+}
+
+#body-wrapper {
+    background: none;
+    max-width: 1200px;
+    margin: 8px auto;
+}
+
+/* TOASTS */
+
+.toast-item {
+    font-family: "OpenSans", Arial, sans-serif;
+    font-size: 16px;
+    background ;
+    box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
+    border: none;
+    order-radius: 8px;
+}
+
+/* FORMS */
+
+#login-form ul.select,
+#login-form #sessionLocation {
+    width:60%;
+}
+
+form, .form {
+    overflow: visible
+}
+
+form input, 
+form select, 
+form textarea, 
+form ul.select, 
+.form input, 
+.form select, 
+.form textarea, 
+.form ul.select {
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    background: #fff;
+    padding: 8px 16px;
+    border-radius:4px;
+}
+
+form input:focus, 
+form select:focus, 
+form textarea:focus, 
+form ul.select:focus, 
+.form input:focus, 
+.form select:focus, 
+.form textarea:focus, 
+.form ul.select:focus {
+    outline: none;
+    border-bottom: 2px solid #55D6BE;
+    background: #fff;
+}
+
+/* TABLES */
+
+table {
+    margin-bottom: 24px;
+    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+#patient-search-results #patient-search-results-table tbody tr:hover {
+    background: #D0FEF5;
+    cursor: pointer;
+    color: #373F46;
+}
+
+.ui-state-default, 
+.ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default,
+table thead th {
+    border:none;
+    border-bottom: 2px solid #373F46;
+    background: #fff;
+    font-family: "OpenSans";
+    font-size:1rem;
+    padding: 0.75rem;
+}
+
+table tr:nth-child(even) {
+    background:rgba(250,250,250,1);
+}
+
+table td:last-child {
+    padding:5px;
+}
+
+.fg-toolbar {
+    padding: 8px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+}
+
+.dataTables_info {
+    padding-top: 12px;
+    padding-left: 8px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* MODALS */
+
+.dialog, .ngdialog.ngdialog-theme-default .ngdialog-content {
+    box-shadow:rgba(0, 0, 0, 0.3) 0 16px 32px;
+}
+
+.dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
+    background: #373F46;
+}
+
+.dialog .dialog-content li.info, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-content li.info {
+    border:none;
+}
+
+.dialog > .button {
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
+}
+
+#modal-overlay.simplemodal-overlay {
+    background: #fff;
+}
+
+/* HIDDEN */
+#filter-tags {
+    display: none;
 }
