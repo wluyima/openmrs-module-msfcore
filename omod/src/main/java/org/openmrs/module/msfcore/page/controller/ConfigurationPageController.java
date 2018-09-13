@@ -49,8 +49,8 @@ public class ConfigurationPageController {
     private List<SimplifiedLocation> getSimplifiedMSFLocations(MSFCoreService msfCoreService) {
         List<SimplifiedLocation> locations = new ArrayList<SimplifiedLocation>();
         for (Location loc : msfCoreService.getMSFLocations()) {
-            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid(),
-                            msfCoreService.getLocationDHISUid(loc)));
+            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid(), msfCoreService
+                            .getLocationDHISUid(loc)));
         }
         return locations;
     }
@@ -58,20 +58,18 @@ public class ConfigurationPageController {
     private void saveLocationCodes(HttpServletRequest request, MSFCoreService msfCoreService, LocationService locationService,
                     boolean isPostRequest) {
         for (Location loc : msfCoreService.getMSFLocations()) {
-            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc),
-                            loc.getUuid(), null);
+            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc
+                            .getUuid(), msfCoreService.getLocationDHISUid(loc));
             Location location = locationService.getLocationByUuid(simplifiedLocation.getUuid());
             String code = request.getParameter(simplifiedLocation.getUuid());
             String uid = request.getParameter(simplifiedLocation.getUuid() + "_uid");
             if (StringUtils.isNotBlank(code) && !StringUtils.deleteWhitespace(code).toUpperCase().equals(simplifiedLocation.getCode())) {
                 LocationAttribute locationAttribute = msfCoreService.getLocationCodeAttribute(location);
-                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute,
-                                location);
+                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute, location);
             }
-            if (StringUtils.isNotBlank(uid) && !StringUtils.deleteWhitespace(uid).toUpperCase().equals(simplifiedLocation.getUid())) {
+            if (StringUtils.isNotBlank(uid) && !StringUtils.deleteWhitespace(uid).equals(simplifiedLocation.getUid())) {
                 LocationAttribute locationAttribute = msfCoreService.getLocationUidAttribute(location);
-                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code, locationAttribute,
-                                location);
+                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, uid, locationAttribute, location);
             }
         }
     }

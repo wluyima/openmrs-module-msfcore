@@ -10,11 +10,13 @@
 package org.openmrs.module.msfcore.api;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.Patient;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
@@ -50,7 +52,12 @@ public interface MSFCoreService extends OpenmrsService {
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
 
     public String getLocationDHISUid(Location location);
-    
+
     public LocationAttribute getLocationUidAttribute(Location location);
 
+    public void transferDHISMappingsToDataDirectory();
+
+    public Properties getDHISMappings();
+
+    public String postTrackerInstanceThroughOpenHimForAPatient(Patient patient);
 }

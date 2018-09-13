@@ -68,8 +68,6 @@ public class MSFCoreConfig {
 
     public final static String PERSON_ATTRIBUTE_MARITAL_STATUS_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5q";
 
-    public final static String PERSON_ATTRIBUTE_EDUCATION_UUID = "15ab4723-ca8e-4b60-8366-9cc859195f89";
-
     public final static String PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID = "b6eddbee-1721-4dfa-a79a-8d545043da35";
 
     public final static String PERSON_ATTRIBUTE_EMPLOYMENT_STATUS_UUID = "4a504478-1701-49da-9d8b-3e1d12ab6c5r";
@@ -315,4 +313,26 @@ public class MSFCoreConfig {
     public final static String LOCATION_UID_ATTRIBUTE_TARAMCHUK_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0035";
 
     public final static String LOCATION_UID_ATTRIBUTE_VODYANE_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0036";
+
+    public final static String GP_DHIS_HOST = "msfcore.dhisHost";
+
+    public final static String GP_OPENHIM_TRACKER_URL = "msfcore.openhimTrackerUrl";
+
+    public final static String PROP_OPENHIM_USERNAME = "msfcore.openhimUsername";
+
+    public final static String PROP_OPENHIM_PASSWORD = "msfcore.openhimPassword";
+
+    public final static String PROP_DHIS2_USERNAME = "msfcore.dhis2Username";
+
+    public final static String PROP_DHIS2_PASSWORD = "msfcore.dhis2Password";
+
+    public final static String GP_DHIS_NCD_PROGRAM_UID = "msfcore.dhis.ncdPRogramUid";
+
+    public final static String GP_DHIS_NCD_PROGRAMSTAGE_UID = "msfcore.dhis.ncdPRogramStageUid";
+
+    public final static String GP_DHIS_TRACKENTITYTYPE_UID = "msfcore.dhis.ncdTrackEntityTypeUid";
+
+    public final static String PERSON_ATTRIBUTE_PHONENUMBER_UUID = "14d4f066-15f5-102d-96e4-000c29c2a5d7";
+
+    public final static String GP_SYNC_WITH_DHIS2 = "msfcore.syncWithDHISOnPatientRegistration";
 }

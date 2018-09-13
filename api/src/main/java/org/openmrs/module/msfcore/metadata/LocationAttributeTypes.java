@@ -25,7 +25,7 @@ public class LocationAttributeTypes {
             return FreeTextDatatype.class;
         }
     };
-    
+
     public static LocationAttributeTypeDescriptor LOCATION_UID = new LocationAttributeTypeDescriptor() {
         @Override
         public String name() {

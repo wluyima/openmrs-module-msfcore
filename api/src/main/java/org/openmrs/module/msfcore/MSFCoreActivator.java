@@ -48,9 +48,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
     public void started() {
         log.info("Started MSF Core Module");
 
+        Context.getService(MSFCoreService.class).transferDHISMappingsToDataDirectory();
+
         installMSFMeta();
 
-        //ensure 'Auto Close Visits Task' is started
+        // ensure 'Auto Close Visits Task' is started
         TaskDefinition autoCloseVisits = Context.getSchedulerService().getTaskByName(MSFCoreConfig.TASK_AUTO_CLOSE_VISIT);
         if (autoCloseVisits != null && !autoCloseVisits.getStartOnStartup()) {
             autoCloseVisits.setStartOnStartup(true);

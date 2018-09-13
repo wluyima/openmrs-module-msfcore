@@ -69,6 +69,37 @@
 		<defaultValue>true</defaultValue>
 		<description>Set to true to enable MSF Custom User interface</description>
 	</globalProperty>
+	<globalProperty>
+		<property>msfcore.dhisHost</property>
+		<defaultValue>146.185.183.146</defaultValue>
+		<description>DHIS host</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.openhimTrackerUrl</property>
+		<defaultValue>https://146.185.183.146/5000/tracker</defaultValue>
+		<description>OpenHIM Channel URL appended by tracker endpoint</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.dhis.ncdPRogramUid</property>
+		<defaultValue>vYTIxQVqbjr</defaultValue>
+		<description>DHIS2 program uid for NCD</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.dhis.ncdPRogramStageUid</property>
+		<defaultValue>xSgs2Acybhy</defaultValue>
+		<description>DHIS2 program stage uid defaults to active cohort</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.dhis.ncdTrackEntityTypeUid</property>
+		<defaultValue>oZR9WrqUKCG</defaultValue>
+		<description>DHIS2 track entity type uid defaults to NCD added</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>msfcore.syncWithDHISOnPatientRegistration</property>
+		<defaultValue>false</defaultValue>
+		<description>Set to true only if you want sync patient with configured DHIS2</description>
+	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
 	

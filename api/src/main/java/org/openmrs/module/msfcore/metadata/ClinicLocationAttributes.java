@@ -1043,7 +1043,7 @@ public class ClinicLocationAttributes {
             return "STE";
         }
     };
-    
+
     public static LocationAttributeDescriptor STEPANIVKA_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1087,7 +1087,7 @@ public class ClinicLocationAttributes {
             return "BERD";
         }
     };
-    
+
     public static LocationAttributeDescriptor BERDIANSKOE_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1131,7 +1131,7 @@ public class ClinicLocationAttributes {
             return "NET";
         }
     };
-    
+
     public static LocationAttributeDescriptor NETAILOVE_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1175,7 +1175,7 @@ public class ClinicLocationAttributes {
             return "ND";
         }
     };
-    
+
     public static LocationAttributeDescriptor NOVOSELIVKA_DRUHA_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1219,7 +1219,7 @@ public class ClinicLocationAttributes {
             return "OPY";
         }
     };
-    
+
     public static LocationAttributeDescriptor OPYTNE_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1243,7 +1243,6 @@ public class ClinicLocationAttributes {
         }
     };
 
-
     public static LocationAttributeDescriptor TARAMCHUK_CODE = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1265,7 +1264,7 @@ public class ClinicLocationAttributes {
             return "TAR";
         }
     };
-    
+
     public static LocationAttributeDescriptor TARAMCHUK_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
@@ -1309,7 +1308,7 @@ public class ClinicLocationAttributes {
             return "VOD";
         }
     };
-    
+
     public static LocationAttributeDescriptor VODYANE_UID = new LocationAttributeDescriptor() {
         @Override
         public String uuid() {
