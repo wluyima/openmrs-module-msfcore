@@ -236,7 +236,9 @@ a.button:hover,
 .ui-state-default.ui-button,
 .ui-state-default.ui-button:hover,
 .delete-item,
-.delete-item:hover {
+.delete-item:hover,
+#patient-search-results #patient-search-results-table tbody tr:hover, 
+#patient-search-results #patient-search-results-table tbody tr {
     -webkit-transition-property: all;
     transition-property: all;
     -webkit-transition-duration: .35s;

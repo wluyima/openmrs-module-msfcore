@@ -115,9 +115,9 @@ table {
 }
 
 #patient-search-results #patient-search-results-table tbody tr:hover {
-    background: #55D6BE;
+    background: #D0FEF5;
     cursor: pointer;
-    color: #fff;
+    color: #333;
 }
 
 .ui-state-default, 
