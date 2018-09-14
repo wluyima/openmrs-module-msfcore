@@ -1,8 +1,37 @@
 @import url('buttons.css');
 @import url('navigation.css');
 @import url('typography.css');
+@import url('dashboard.css');
+
+
+/* COLORS 
+
+This can be converted to custom propterties / variables at a later stage. A build process may be needed to ensure compatibility with all browsers.
+
+INTERACTION:
+Medium Turquoise: 55D6BE
+Aero Blue: D0FEF5
+
+BRANDING:
+
+MSF Red: FF0000
+
+Dark grey: 424C55
+    Darker: 373F46 (Body Text)
+    Lighter: 646C73
+    lightest: 757C83
+
+White: FFFFFF
+    Darker: 
+
+*/
+
 
 /* STRUCTURE */
+
+a, a:visited, a.visited, a:hover {
+    color: #55D6BE;
+}
 
 html {
     box-sizing: border-box;
@@ -13,7 +42,7 @@ body {
     -webkit-font-smoothing: subpixel-antialiased;
     max-width: 100%;
     margin: 0px auto;
-    color: #333;
+    color: #373F46;
     font-size: 16px;
 }
 
@@ -22,8 +51,8 @@ header {
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     width: 100%;
     border-radius: 0;
-    color: #333;
-    border-top: 10px solid #000;
+    color: #373F46;
+    border-top: 10px solid #424C55;
     padding: 8px;
     position: fixed;
     z-index: 9999;
@@ -35,104 +64,14 @@ header {
     margin: 8px auto;
 }
 
-/* PATIENT DASH */
-
-.patient-header {
-    position: relative;
-    overflow: hidden;
-    background: #F9F9F9;
-    z-index: 0;
-    border-bottom: 1px solid #fff;
-    margin: 0 0 -8px 0;
-    padding: 16px;
-    /* min-height: 60px; */
-    border-radius: 8px 8px 0 0;
-    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
-
-}
-
-.secondLineFragments {
-    display:none;
-}
-
-.dashboard {
-    border-radius: 8px;
-    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
-    padding:16px;
-}
-
-.dashboard .info-container {
-    float:right;
-}
-
-.dashboard .info-header {
-    border-bottom: 1px solid #ccc;
-}
-
-.dashboard .info-header h3 {
-    font-family: "OpenSans";
-    font-size: 1rem !important;
-    color: #333;
-}
-
-.dashboard .info-header i:first-of-type {
-    display: none;
-}
-
-.dashboard .info-header i:nth-of-type(2) {
-    font-size:12px;
-    color:#333;
-    margin-top: -8px;
-}
-
-.dashboard .info-body {
-    color:#333;
-    border-radius: 0 0 8px 8px;
-}
-
-.dashboard .action-section {
-    margin-top:0;
-    border: none;
-    background:none;
-}
-
-.dashboard .action-section h3,
-.dashboard .action-section a:not(.button),
-.dashboard .action-section ul li a {
-    color:#333;
-    padding: 4px;
-}
-
-.dashboard .action-section h3 {
-    margin-top:0px;
-}
-
-.dashboard .action-section ul {
-    background: none ;
-    border-right: 1px solid #ccc;
-}
-
-.dashboard .action-section li a i {
-    display:none;
-}
-.dashboard .action-section a:not(.button):hover {
-    color: #007fff;
-    text-decoration: none;
-}
-.dashboard .action-section li:hover {
-    color: #007fff;
-    background: #fff;
-}
-
 /* TOASTS */
 
 .toast-item {
     font-family: "OpenSans", Arial, sans-serif;
     font-size: 16px;
-    background ;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
-    order-radius: 8px;
+    border-radius: 8px;
 }
 
 /* FORMS */
@@ -170,7 +109,7 @@ form ul.select:focus,
 .form textarea:focus, 
 .form ul.select:focus {
     outline: none;
-    border-bottom: 2px solid #007fff;
+    border-bottom: 2px solid #55D6BE;
     background: #fff;
 }
 
@@ -181,12 +120,18 @@ table {
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
 }
 
+#patient-search-results #patient-search-results-table tbody tr:hover {
+    background: #D0FEF5;
+    cursor: pointer;
+    color: #373F46;
+}
+
 .ui-state-default, 
 .ui-widget-content .ui-state-default, 
 .ui-widget-header .ui-state-default,
 table thead th {
     border:none;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #373F46;
     background: #fff;
     font-family: "OpenSans";
     font-size:1rem;
@@ -221,7 +166,7 @@ table td:last-child {
 }
 
 .dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
-    background: #333;
+    background: #373F46;
 }
 
 .dialog .dialog-content li.info, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-content li.info {

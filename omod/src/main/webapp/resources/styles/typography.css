@@ -1,7 +1,11 @@
 /* TYPOGRAPHY */
 
 html {
+<<<<<<< HEAD
     color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
 }
 @font-face {
     font-family: OpenSansLight;
@@ -24,7 +28,11 @@ h3,
 h4,
 h5,
 h6 {
+<<<<<<< HEAD
     color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
     font-family: "OpenSansLight", Arial, sans-serif;
 }
 
@@ -32,6 +40,7 @@ h1,h2:first-of-type {
     font-size: 2.5rem;
 }
 
+<<<<<<< HEAD
 h1.name {
     font-size:1.5rem;
 }
@@ -43,6 +52,8 @@ h1.name {
     color; #333;
 }
 
+=======
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
 #home-container h4,
 #content h3 {
     font-size: 1.5rem;

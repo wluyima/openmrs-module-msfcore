@@ -1,0 +1,1 @@
+${ ui.includeFragment("uicommons", "field/personAddress", [ initialValue: uiUtils.getAddress(patient) ] << config) }

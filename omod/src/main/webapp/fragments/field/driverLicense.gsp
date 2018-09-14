@@ -1,2 +1,2 @@
 <h3>${ui.message("msfcore.patientIdentification.question")}</h3>
-${ ui.includeFragment("uicommons", "field/text", config) }
+${ ui.includeFragment("uicommons", "field/text", ["initialValue" : ui.escapeAttribute(uiUtils.getIdentifier(patient, "Driver's License Identifier type"))  ] << config) }
