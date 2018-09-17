@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SimpleJSON extends LinkedHashMap<String, Object> {
-    
+
     private static final long serialVersionUID = 8610995586264168328L;
 
     public SimpleJSON() {

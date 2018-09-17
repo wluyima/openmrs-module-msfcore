@@ -270,8 +270,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
         if (optionSets != null && StringUtils.isNotBlank(patient.getGender())) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(optionSets,
-                            patient.getGender()));
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(
+                            optionSets, patient.getGender()));
         }
         setIdentifiers(patient, attributes);
         setPersonAttributes(patient, attributes, optionSets);

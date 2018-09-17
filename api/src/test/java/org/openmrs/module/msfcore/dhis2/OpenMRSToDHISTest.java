@@ -57,7 +57,8 @@ public class OpenMRSToDHISTest {
 
     @Test
     public void getMatchedConcept_shouldRetrieveRightOptionValue() throws JsonParseException, JsonMappingException, IOException {
-        assertThat(OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(json, "Provenance", "Buffer Zone resident"), is("buffer_zone_resident"));
+        assertThat(OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(json, "Provenance", "Buffer Zone resident"),
+                        is("buffer_zone_resident"));
         assertThat(OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(json, "Provenance", "Local"), is("local"));
         assertThat(OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(json, "Provenance", "IDP"), is("idp"));
         assertThat(OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(json, "Nationality", "Afghanistan"), is("afghanistan"));
