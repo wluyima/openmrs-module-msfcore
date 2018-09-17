@@ -21,7 +21,6 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
-import org.openmrs.module.msfcore.dhis2.PatientTrackableAttributes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * This is a unit test, which verifies logic in MSFCoreService.
@@ -65,14 +64,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals("SINGLE", options.get(0).getLabel());
         Assert.assertEquals("6", options.get(1).getValue());
         Assert.assertEquals("MARRIED", options.get(1).getLabel());
-    }
-
-    @Test
-    public void getDHISMappings_shouldLoadPropertiesWell() {
-        Properties props = Context.getService(MSFCoreService.class).getDHISMappings();
-        assertThat(props.getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), is("ad4FRjjhWlG"));
-        assertThat(props.getProperty(PatientTrackableAttributes.INITIALS_OF_CASE_MANAGER.name()), is("zurgr3r74AF"));
-        assertThat(props.getProperty(PatientTrackableAttributes.SEX.name()), is("BIrTkunTimU"));
     }
 
 }

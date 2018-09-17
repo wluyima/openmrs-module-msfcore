@@ -2,10 +2,10 @@ package org.openmrs.module.msfcore.tasks;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.api.DHISService;
 
 /**
- * Posting to DHIS2 should be wrapped into a thread since it has delays and
+ * Posting to DHIS2 should be wrapped into a separate thread since it has delays and
  * failures that maynot have to chock other functionality
  */
 public class PostTrackerInstanceForPatientRunnable implements Runnable {
@@ -17,7 +17,7 @@ public class PostTrackerInstanceForPatientRunnable implements Runnable {
 
     @Override
     public void run() {
-        Context.getService(MSFCoreService.class).postTrackerInstanceThroughOpenHimForAPatient(this.patient);
+        Context.getService(DHISService.class).postTrackerInstanceThroughOpenHimForAPatient(this.patient);
     }
 
 }
