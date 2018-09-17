@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class OpenMRSToDHIS {
 
-    public static String getGender(SimpleJSON optionSets, String openmrsGender) {
+    public static String getGenderFromOptionSets(SimpleJSON optionSets, String openmrsGender) {
         if (StringUtils.isNotBlank(openmrsGender) && optionSets != null) {
             if (openmrsGender.toUpperCase().matches("F|FEMALE")) {
                 return getCodeFromOptionSets(optionSets, "Sex", "Female");
@@ -32,7 +32,7 @@ public class OpenMRSToDHIS {
      * @param conceptAnswerName
      * @return matched code of option/concept answer for conceptName
      */
-    public static String getMatchedConceptCode(SimpleJSON optionSets, String conceptName, String conceptAnswerName) {
+    public static String getMatchedConceptCodeFromOptionSets(SimpleJSON optionSets, String conceptName, String conceptAnswerName) {
         if (StringUtils.isNotBlank(conceptName) && optionSets != null) {
             return getCodeFromOptionSets(optionSets, conceptName, conceptAnswerName);
         }

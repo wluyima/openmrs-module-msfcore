@@ -211,25 +211,25 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         String provenance = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PROVENANCE_UUID);
         if (provenance != null && optionSets != null) {
             attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PROVENANCE.name()), OpenMRSToDHIS
-                            .getMatchedConceptCode(optionSets, "Provenance", Context.getConceptService().getConcept(
+                            .getMatchedConceptCodeFromOptionSets(optionSets, "Provenance", Context.getConceptService().getConcept(
                                             Integer.parseInt(provenance)).getName().getName()));
         }
         String nationality = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_NATIONALITY_UUID);
         if (StringUtils.isNotBlank(nationality) && optionSets != null) {
             attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.NATIONALITY.name()), OpenMRSToDHIS
-                            .getMatchedConceptCode(optionSets, "Nationality", Context.getConceptService().getConcept(
+                            .getMatchedConceptCodeFromOptionSets(optionSets, "Nationality", Context.getConceptService().getConcept(
                                             Integer.parseInt(nationality)).getName().getName()));
         }
         String conditionOfLiving = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID);
         if (StringUtils.isNotBlank(conditionOfLiving)) {
             attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.CONDITION_OF_LIVING.name()), OpenMRSToDHIS
-                            .getMatchedConceptCode(optionSets, "Condition of living", Context.getConceptService().getConcept(
+                            .getMatchedConceptCodeFromOptionSets(optionSets, "Condition of living", Context.getConceptService().getConcept(
                                             Integer.parseInt(conditionOfLiving)).getName().getName()));
         }
         String maritalStatus = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_MARITAL_STATUS_UUID);
         if (StringUtils.isNotBlank(maritalStatus) && optionSets != null) {
             attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.MARITAL_STATUS.name()), OpenMRSToDHIS
-                            .getMatchedConceptCode(optionSets, "Marital status", Context.getConceptService().getConcept(
+                            .getMatchedConceptCodeFromOptionSets(optionSets, "Marital status", Context.getConceptService().getConcept(
                                             Integer.parseInt(maritalStatus)).getName().getName()));
         }
         String phoneNumber = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PHONENUMBER_UUID);
@@ -270,7 +270,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
         if (optionSets != null && StringUtils.isNotBlank(patient.getGender())) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGender(optionSets,
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(optionSets,
                             patient.getGender()));
         }
         setIdentifiers(patient, attributes);

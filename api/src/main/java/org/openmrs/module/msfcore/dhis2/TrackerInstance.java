@@ -15,9 +15,6 @@ public class TrackerInstance {
     private String trackedEntity;
     private Data data;
 
-    public TrackerInstance() {
-    }
-
     public String getUrl() {
         return url;
     }
