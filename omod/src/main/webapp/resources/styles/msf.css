@@ -2,9 +2,9 @@
 @import url('navigation.css');
 @import url('typography.css');
 @import url('dashboard.css');
+@import url('ncd.css');
 
-
-/* COLORS 
+/* COLORS
 
 This can be converted to custom propterties / variables at a later stage. A build process may be needed to ensure compatibility with all browsers.
 
@@ -22,7 +22,7 @@ Dark grey: 424C55
     lightest: 757C83
 
 White: FFFFFF
-    Darker: 
+    Darker:
 
 */
 
@@ -86,13 +86,13 @@ form, .form {
     overflow: visible
 }
 
-form input, 
-form select, 
-form textarea, 
-form ul.select, 
-.form input, 
-.form select, 
-.form textarea, 
+form input,
+form select,
+form textarea,
+form ul.select,
+.form input,
+.form select,
+.form textarea,
 .form ul.select {
     outline: none;
     border-bottom: 2px solid #ccc;
@@ -101,13 +101,13 @@ form ul.select,
     border-radius:4px;
 }
 
-form input:focus, 
-form select:focus, 
-form textarea:focus, 
-form ul.select:focus, 
-.form input:focus, 
-.form select:focus, 
-.form textarea:focus, 
+form input:focus,
+form select:focus,
+form textarea:focus,
+form ul.select:focus,
+.form input:focus,
+.form select:focus,
+.form textarea:focus,
 .form ul.select:focus {
     outline: none;
     border-bottom: 2px solid #55D6BE;
@@ -127,8 +127,8 @@ table {
     color: #373F46;
 }
 
-.ui-state-default, 
-.ui-widget-content .ui-state-default, 
+.ui-state-default,
+.ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
 table thead th {
     border:none;

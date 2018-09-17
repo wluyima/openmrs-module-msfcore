@@ -1,0 +1,195 @@
+/* NCD Forms styling */
+
+html, body{
+    height:100%;
+}
+
+#htmlform {
+  background: #fff;
+  height: 100%;
+
+}
+
+#htmlform h4 {
+  font-family: "OpenSansSemiBold", Arial, sans-serif;
+}
+
+#htmlform h4,
+#htmlform h5,
+#htmlform h6 {
+  color: #618696;
+}
+
+.wrapper {
+  overflow: hidden;
+  height: 100%;
+  clear: both;
+  margin-top:7px;
+}
+
+.left-column {
+  background: #55D6BE;
+  width: 30%;
+  height:100%;
+  overflow: hidden;
+  float: left;
+}
+
+.left-column h3{
+  margin-top:0
+}
+
+.left-column .left-navigation {
+  margin: 30px
+}
+
+.left-column .left-navigation ol {
+  margin-left:20px;
+  margin-top:20px;
+  margin-bottom: 20px;
+  width: 103%;
+  color: #fff;
+}
+
+.left-column .left-navigation ol li {
+  padding-left: 5px;
+  color: #fff;
+}
+
+.left-column .left-navigation ol li:hover {
+  background: #4EC3AD;
+}
+
+.left-column .left-navigation ol li a{
+  color: #fff;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 7px 0px;
+  display:inline-block;
+  width: 100%;
+}
+
+.left-column .left-navigation ol li a:hover{
+  text-decoration: none;
+}
+
+.left-column .left-navigation .nav-button.save,
+.left-column .left-navigation .nav-button.cancel {
+  width: 48%;
+  padding: 7px 24px;
+  font-size: 90%;
+}
+.left-column .left-navigation .nav-button.save {
+  margin-right: 3%;
+  float: left;
+}
+.left-column .left-navigation .nav-button.final i {
+  margin-right: 10px;
+  font-size: 99%
+}
+
+#htmlform .right-form-display {
+  color: #6D7378;
+}
+
+.right-form-display {
+  width: 70%;
+  float: right;
+}
+.right-form-display .sections-container {
+  margin:30px;
+}
+
+.right-form-display .sections-container .section {
+  margin-bottom:30px
+}
+
+.right-form-display .sections-container .section .add-box {
+  background: #F1F9FE;
+  border-radius: 20px;
+  border:none;
+  padding: 30px;
+
+}
+.right-form-display .sections-container .section .add-box h4 {
+  margin-top:0;
+  border-bottom: 1px solid #EBF6FE;
+}
+
+.right-form-display .sections-container h3 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.right-form-display .sections-container h3 a {
+  text-decoration: none;
+  color: #373F46;
+}
+
+
+.nav-button {
+  width: 100%;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.section {
+  border: 1px solid $headerColor;
+  padding: 2px;
+  text-align: left;
+  margin-bottom: 1em;
+}
+.sectionHeader {
+  background-color: $headerColor;
+  color: $fontOnHeaderColor;
+  display: block;
+  padding: 2px;
+  font-weight: bold;
+}
+table.baseline-aligned td {
+  vertical-align: baseline;
+}
+.btn:active
+{
+  background-color:yellow;
+}
+
+.btn.active
+{
+  color: #white;
+  background-color:darkgrey;
+}
+
+
+form label, .form label {
+  margin-top: 0;
+  float:left;
+  margin-left: 24px;
+  margin-right: 20px;
+  font-size: 14px;
+  line-height: 19px;
+
+}
+form input[type="radio"], .form input[type="radio"] {
+  width: 13px;
+}
+form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
+  float: left;
+  display: initial;
+  margin-right: -24px;
+}
+form input[type="checkbox"], .form input[type="checkbox"] {
+  padding: 6px;
+
+}
+form input[type="checkbox"]:checked:after, .form input[type="checkbox"]:checked:after {
+  font-size: 11px;
+}
+table th, table td {
+  border: 0;
+  padding:5px;
+}
+form input, form select, form textarea, form ul.select, .form input, .form select, .form textarea, .form ul.select {
+  min-width: 10%;
+}
