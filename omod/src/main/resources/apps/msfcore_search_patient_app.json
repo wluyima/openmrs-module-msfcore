@@ -17,7 +17,8 @@
     ],
     "config": {
       "registrationAppLink": "registrationapp/registerPatient.page?appId=msfcore.registrationapp",
-      "afterSelectedUrl": "/coreapps/clinicianfacing/patient.page?patientId={{ patientId }}&app=msfcore.app.clinicianDashboard"
+      "afterSelectedUrl": "/coreapps/clinicianfacing/patient.page?patientId={{ patientId }}&app=msfcore.app.clinicianDashboard",
+      "hideFilters": false
     }
   }
 ]

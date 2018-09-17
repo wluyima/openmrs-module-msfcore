@@ -18,9 +18,6 @@
         text: ko.observable()
     };
     jq(function () {
-        // toggle patient search filter
-        jQuery("#patient-search-filter").toggle();
-
         ko.applyBindings(sessionLocationModel, jq('.change-location').get(0));
         sessionLocationModel.id(${ sessionContext.sessionLocationId });
         sessionLocationModel.text("${ ui.escapeJs(ui.encodeHtmlContent(ui.format(sessionContext.sessionLocation))) }");
