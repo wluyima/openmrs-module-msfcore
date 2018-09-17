@@ -43,6 +43,8 @@ public class ConfigurationPageController {
         if (isPostRequest && msfCoreService.configured()) {
             // reload msfIDgenerator installation
             msfCoreService.msfIdentifierGeneratorInstallation();
+            // reload dhis2 metadata
+            dhisService.installDHIS2Metadata();
             response.sendRedirect(ui.pageLink("referenceapplication", "home"));
         }
     }

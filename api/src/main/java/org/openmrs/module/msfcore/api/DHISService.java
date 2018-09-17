@@ -15,11 +15,16 @@ import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Patient;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.msfcore.dhis2.SimpleJSON;
 
 /**
  * This is a DSHI2 synchronisation service
  */
 public interface DHISService extends OpenmrsService {
+    public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
+
+    public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
+
     public String getLocationDHISUid(Location location);
 
     public LocationAttribute getLocationUidAttribute(Location location);
@@ -29,4 +34,12 @@ public interface DHISService extends OpenmrsService {
     public Properties getDHISMappings();
 
     public String postTrackerInstanceThroughOpenHimForAPatient(Patient patient);
+
+    /**
+     * @return optionSets from DHIS2 live instance else if issues happen from
+     *         local storage
+     */
+    public SimpleJSON getOptionSets();
+
+    public void installDHIS2Metadata();
 }

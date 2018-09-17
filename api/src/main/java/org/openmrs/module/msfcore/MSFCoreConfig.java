@@ -324,8 +324,14 @@ public class MSFCoreConfig {
 
     public final static String GP_OPENHIM_TRACKER_URL = "msfcore.openhimTrackerUrl";
 
+    /**
+     * OpenHIM client id
+     */
     public final static String PROP_OPENHIM_USERNAME = "msfcore.openhimUsername";
 
+    /**
+     * OpenHIM client password
+     */
     public final static String PROP_OPENHIM_PASSWORD = "msfcore.openhimPassword";
 
     public final static String PROP_DHIS2_USERNAME = "msfcore.dhis2Username";
@@ -341,4 +347,6 @@ public class MSFCoreConfig {
     public final static String PERSON_ATTRIBUTE_PHONENUMBER_UUID = "14d4f066-15f5-102d-96e4-000c29c2a5d7";
 
     public final static String GP_SYNC_WITH_DHIS2 = "msfcore.syncWithDHISOnPatientRegistration";
+
+    public final static String URL_POSTFIX_OPTIONSETS = "/api/optionSets.json?paging=false&fields=name,options[:code,name]";
 }

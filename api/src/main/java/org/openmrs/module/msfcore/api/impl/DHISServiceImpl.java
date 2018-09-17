@@ -11,6 +11,7 @@ package org.openmrs.module.msfcore.api.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -51,12 +54,17 @@ import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.dhis2.Data;
+import org.openmrs.module.msfcore.dhis2.OpenMRSToDHIS;
 import org.openmrs.module.msfcore.dhis2.Parameters;
 import org.openmrs.module.msfcore.dhis2.PatientTrackableAttributes;
+import org.openmrs.module.msfcore.dhis2.SimpleJSON;
 import org.openmrs.module.msfcore.dhis2.TrackerInstance;
 import org.openmrs.util.OpenmrsUtil;
 
 public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
+    private static final String ADMIN = "admin";
+    private static final String MSF = "msf";
+    private static final String MSFCORE = "msfcore";
 
     MSFCoreDao dao;
 
@@ -96,22 +104,26 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         }
         return "";
     }
+
     private File getDHIS2MappingsFile() {
-        File msfcoreStorage = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separator + "msfcore");
+        File msfcoreStorage = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separator + MSFCORE);
         if (!msfcoreStorage.exists()) {
             msfcoreStorage.mkdirs();
         }
-        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + "dhis-mappings.properties");
+        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + FILENAME_DHIS_MAPPINGS_PROPERTIES);
     }
 
     public void transferDHISMappingsToDataDirectory() {
-        File mappingDestination = getDHIS2MappingsFile();
-        if (mappingDestination.exists()) {
+        transferFileToDataDirectory(FILENAME_DHIS_MAPPINGS_PROPERTIES, getDHIS2MappingsFile());
+    }
+
+    private void transferFileToDataDirectory(String fileName, File destination) {
+        if (destination.exists()) {
             return;
         }
-        File mappingsFile = new File(getClass().getClassLoader().getResource("dhis-mappings.properties").getFile());
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
         try {
-            FileUtils.copyFile(mappingsFile, mappingDestination);
+            FileUtils.copyFile(file, destination);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,7 +133,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         Properties prop = new Properties();
         File mappingFile = getDHIS2MappingsFile();
         if (!mappingFile.exists()) {
-            mappingFile = new File(getClass().getClassLoader().getResource("dhis-mappings.properties").getFile());
+            mappingFile = new File(getClass().getClassLoader().getResource(FILENAME_DHIS_MAPPINGS_PROPERTIES).getFile());
         }
         try {
             prop.load(new FileInputStream(mappingFile));
@@ -133,17 +145,17 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
 
     String getOpenHIMClientUsername() {
         String username = Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_OPENHIM_USERNAME);
-        return StringUtils.isBlank(username) ? "msf" : username;
+        return StringUtils.isBlank(username) ? MSF : username;
     }
 
     String getOpenHIMClientPassword() {
         String pass = Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_OPENHIM_PASSWORD);
-        return StringUtils.isBlank(pass) ? "msf" : pass;
+        return StringUtils.isBlank(pass) ? MSF : pass;
     }
 
     String getDHIS2Username() {
         String username = Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_USERNAME);
-        return StringUtils.isBlank(username) ? "admin" : username;
+        return StringUtils.isBlank(username) ? ADMIN : username;
     }
 
     String getDHIS2Password() {
@@ -195,44 +207,30 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         }
     }
 
-    private void setPersonAttributes(Patient patient, Map<String, String> attributes) {
+    private void setPersonAttributes(Patient patient, Map<String, String> attributes, SimpleJSON optionSets) {
         String provenance = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PROVENANCE_UUID);
-        if (provenance != null) {
-            // TODO fix Value 'Buffer Zone resident' is not a valid option for
-            // attribute NdCX1An92BP and option set zZhDsRgO0tJ
-            /*
-             * attributes.put(getDHISMappings().getProperty(
-             * PatientTrackableAttributes.PROVENANCE.name()),
-             * Context.getConceptService().getConcept(Integer.parseInt(
-             * provenance)).getName().getName());
-             */
+        if (provenance != null && optionSets != null) {
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PROVENANCE.name()), OpenMRSToDHIS
+                            .getMatchedConceptCode(optionSets, "Provenance", Context.getConceptService().getConcept(
+                                            Integer.parseInt(provenance)).getName().getName()));
         }
         String nationality = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_NATIONALITY_UUID);
-        if (StringUtils.isNotBlank(nationality)) {
-            // TODO fix "Value 'Belarus' is not a valid option for attribute
-            // hLYUwDODGZf and option set OPrxrevD0xp
-            /*
-             * attributes.put(getDHISMappings().getProperty(
-             * PatientTrackableAttributes.NATIONALITY.name()),
-             * Context.getConceptService().getConcept(Integer.parseInt(
-             * nationality)).getName().getName());
-             */
+        if (StringUtils.isNotBlank(nationality) && optionSets != null) {
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.NATIONALITY.name()), OpenMRSToDHIS
+                            .getMatchedConceptCode(optionSets, "Nationality", Context.getConceptService().getConcept(
+                                            Integer.parseInt(nationality)).getName().getName()));
         }
         String conditionOfLiving = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID);
         if (StringUtils.isNotBlank(conditionOfLiving)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.CONDITION_OF_LIVING.name()), Context
-                            .getConceptService().getConcept(Integer.parseInt(conditionOfLiving)).getName().getName());
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.CONDITION_OF_LIVING.name()), OpenMRSToDHIS
+                            .getMatchedConceptCode(optionSets, "Condition of living", Context.getConceptService().getConcept(
+                                            Integer.parseInt(conditionOfLiving)).getName().getName()));
         }
         String maritalStatus = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_MARITAL_STATUS_UUID);
-        if (StringUtils.isNotBlank(maritalStatus)) {
-            // TODO fix Value 'Single' is not a valid option for attribute
-            // Ym6qbECXEZt and option set v7xyRqfrzBQ
-            /*
-             * attributes.put(getDHISMappings().getProperty(
-             * PatientTrackableAttributes.MARITAL_STATUS.name()),
-             * Context.getConceptService().getConcept(Integer.parseInt(
-             * maritalStatus)).getName().getName());
-             */
+        if (StringUtils.isNotBlank(maritalStatus) && optionSets != null) {
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.MARITAL_STATUS.name()), OpenMRSToDHIS
+                            .getMatchedConceptCode(optionSets, "Marital status", Context.getConceptService().getConcept(
+                                            Integer.parseInt(maritalStatus)).getName().getName()));
         }
         String phoneNumber = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PHONENUMBER_UUID);
         if (StringUtils.isNotBlank(phoneNumber)) {
@@ -253,6 +251,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         Data data = new Data();
         // TODO do we need set dataElements
         Parameters parameters = new Parameters();
+        SimpleJSON optionSets = getOptionSets();
         // TODO introduce programs for MSF and control when to enroll patient
         // etc then call this functionality there
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -270,12 +269,12 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.LAST_NAME.name()), patient.getFamilyName());
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
         attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
-        // TODO fix Value 'F' is not a valid option for attribute BIrTkunTimU
-        // and option set R1iJ6BKkufb
-        // attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()),
-        // patient.getGender());
+        if (optionSets != null && StringUtils.isNotBlank(patient.getGender())) {
+            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGender(optionSets,
+                            patient.getGender()));
+        }
         setIdentifiers(patient, attributes);
-        setPersonAttributes(patient, attributes);
+        setPersonAttributes(patient, attributes, optionSets);
         data.setAttributes(attributes);
 
         trackerInstance.setData(data);
@@ -312,12 +311,87 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         return payload;
     }
 
-    private void setHeaders(HttpPost httpPost, HttpContext localcontext) throws AuthenticationException {
+    private void setHeaders(HttpRequestBase httpRequesst, HttpContext localcontext) throws AuthenticationException {
         Credentials creds = new UsernamePasswordCredentials(getOpenHIMClientUsername(), getOpenHIMClientPassword());
-        Header bs = new BasicScheme().authenticate(creds, httpPost, localcontext);
-        httpPost.addHeader("Authorization", bs.getValue());
-        httpPost.addHeader("Content-Type", "application/json");
-        httpPost.addHeader("Accept", "application/json");
+        Header bs = new BasicScheme().authenticate(creds, httpRequesst, localcontext);
+        httpRequesst.addHeader("Authorization", bs.getValue());
+        httpRequesst.addHeader("Content-Type", "application/json");
+        httpRequesst.addHeader("Accept", "application/json");
     }
 
+    String generateDHISAPIUrl(String host) {
+        host = host.replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
+        return "http://" + host;
+    }
+
+    public void installDHIS2Metadata() {
+        try {
+            installOptionSets();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void installOptionSets() throws IOException {
+        transferFileToDataDirectory(FILENAME_OPTION_SETS_JSON, getDHIS2optionSetsFile());
+        overWriteFile(getDHIS2optionSetsFile(), getOptionSets().toString());
+    }
+
+    private File getDHIS2optionSetsFile() {
+        File msfcoreStorage = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separator + MSFCORE);
+        if (!msfcoreStorage.exists()) {
+            msfcoreStorage.mkdirs();
+        }
+        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + FILENAME_OPTION_SETS_JSON);
+    }
+
+    private void overWriteFile(File file, String content) throws IOException {
+        if (StringUtils.isNotBlank(content)) {
+            FileWriter fooWriter = new FileWriter(file, false);
+            fooWriter.write(content);
+            fooWriter.close();
+        }
+    }
+
+    public SimpleJSON getOptionSets() {
+        SimpleJSON optionSets = getDataFromDHISEndpoint(generateDHISAPIUrl(Context.getAdministrationService().getGlobalProperty(
+                        MSFCoreConfig.GP_DHIS_HOST))
+                        + Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.URL_POSTFIX_OPTIONSETS));
+        if (optionSets == null) {
+            try {
+                optionSets = SimpleJSON.readFromInputStream(new FileInputStream(getDHIS2optionSetsFile()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return optionSets;
+    }
+
+    SimpleJSON getDataFromDHISEndpoint(String endPointUrl) {
+        SimpleJSON payload = null;
+        DefaultHttpClient client = null;
+        if (StringUtils.isNotBlank(endPointUrl)) {
+            try {
+                URL dhisURL = new URL(endPointUrl);
+                HttpHost targetHost = new HttpHost(dhisURL.getHost(), dhisURL.getPort(), dhisURL.getProtocol());
+                client = new DefaultHttpClient();
+                BasicHttpContext localcontext = new BasicHttpContext();
+                HttpGet httpGet = new HttpGet(endPointUrl);
+                setHeaders(httpGet, localcontext);
+                HttpResponse response = client.execute(targetHost, httpGet, localcontext);
+                HttpEntity entity = response.getEntity();
+
+                if (entity != null && response.getStatusLine().getStatusCode() == 200) {
+                    payload = SimpleJSON.parseJson(EntityUtils.toString(entity));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                if (client != null) {
+                    client.getConnectionManager().shutdown();
+                }
+            }
+        }
+        return payload;
+    }
 }
