@@ -29,8 +29,16 @@ White: FFFFFF
 
 /* STRUCTURE */
 
-a, a:visited, a.visited, a:hover {
-    color: #55D6BE;
+a, a:hover,
+header a, 
+header a:hover, 
+header a:link {
+    color:#4EC3AD;
+}
+
+a:visited, a.visited {
+    color: #7272AB;
+    border-bottom: 1px dotted #7272AB;
 }
 
 html {
@@ -64,6 +72,12 @@ header {
     margin: 8px auto;
 }
 
+/* UTILITY CLASSES */
+
+.float-left {
+    width: 80%;
+}
+
 /* TOASTS */
 
 .toast-item {
@@ -93,11 +107,11 @@ form ul.select,
 .form select, 
 .form textarea, 
 .form ul.select {
-    outline: none;
-    border-bottom: 2px solid #ccc;
     background: #fff;
-    padding: 8px 16px;
+    border-bottom: 2px solid #ccc;
     border-radius:4px;
+    outline: none;
+    padding: 8px 16px;
 }
 
 form input:focus, 
@@ -108,15 +122,26 @@ form ul.select:focus,
 .form select:focus, 
 .form textarea:focus, 
 .form ul.select:focus {
-    outline: none;
-    border-bottom: 2px solid #55D6BE;
     background: #fff;
+    border-bottom: 2px solid #55D6BE;
+    outline: none;
+}
+
+form#patient-search-form {
+    background:#55D6BE;
+    border-radius: 8px 8px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
+    padding:16px;
+}
+
+#patient-search-results {
+    margin-top: 0;
 }
 
 /* TABLES */
 
 table {
-    margin-bottom: 24px;
+    /*margin-bottom: 24px;*/
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
 }
 
@@ -147,9 +172,12 @@ table td:last-child {
 }
 
 .fg-toolbar {
+    background: #424C55;
+    border-radius: 0 0 8px 8px;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    border-top: 8px solid #373F46;
+    color: #fff;
     padding: 8px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 8px;
 }
 
 .dataTables_info {
