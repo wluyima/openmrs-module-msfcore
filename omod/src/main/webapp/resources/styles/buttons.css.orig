@@ -1,0 +1,276 @@
+/* BUTTONS > Home Tiles */
+.button.app.big {
+    padding: 24px;
+    height: 96%;
+}
+
+.button.app.big:hover {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, .2) 0 4px 16px;
+    transform: scale(1.01);
+}
+
+.button.app.big i {
+    color: #acacac;
+    margin-bottom: 8px;
+    font-size:40px;
+}
+
+.button.app.big:hover i {
+    color: #24c2cb;
+}
+
+/* BUTTONS > Cancel & Confirm 
+
+- The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet. 
+- Avoid pruning.
+
+*/
+button,
+.button,
+a.button,
+a.button.confirm,
+.button.confirm,
+button.confirm,
+input[type="submit"],
+input[type="button"],
+input[type="submit"].confirm,
+input[type="button"].confirm,
+a.button.cancel .button.cancel,
+button.cancel,
+input[type="button"].cancel,
+input[type="submit"].cancel {
+    background: #fff;
+    border: none;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
+<<<<<<< HEAD
+    color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+    font-family: 'OpenSansSemiBold';
+    padding: 12px 24px;
+    margin: 8px 0;
+}
+
+input[type=button] [value=value],
+a.button.cancel .button.cancel,
+button.cancel,
+input[type="button"].cancel,
+input[type="submit"].cancel {
+    float:left;
+}
+
+button:hover,
+.button.cancel:hover,
+button.cancel:hover,
+input[type=button]:hover,
+input[type="submit"] .cancel:hover,
+input[type="button"].cancel:hover,
+input[type="submit"].cancel:hover,
+a.button.cancel:hover,
+.button.confirm:hover,
+button.confirm:hover,
+input[type="submit"] .confirm:hover,
+input[type="button"].confirm:hover,
+input[type="submit"].confirm:hover,
+a.button.confirm:hover {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 2px 8px;
+    transform: scale(1.01);
+}
+
+#patient-search-clear-button:hover,
+.icon-delete:hover,
+.icon-remove:hover,
+.button.cancel:hover,
+button.cancel:hover,
+input[type="submit"] .cancel:hover,
+input[type="button"].cancel:hover,
+input[type="submit"].cancel:hover,
+a.button.cancel:hover {
+    color: #ff4747;
+}
+
+.button.confirm:hover,
+button.confirm:hover,
+input[type="submit"] .confirm:hover,
+input[type="button"].confirm:hover,
+input[type="submit"].confirm:hover,
+a.button.confirm:hover {
+    background:#55D6BE;
+    /*color: rgb(24, 201, 30);*/
+}
+
+.button.confirm.disabled,
+.button.confirm:disabled,
+button.confirm.disabled,
+button.confirm:disabled,
+input[type="submit"].confirm.disabled,
+input[type="submit"].confirm:disabled,
+input[type="button"].confirm.disabled,
+input[type="button"].confirm:disabled,
+input[type="submit"].confirm.disabled,
+input[type="submit"].confirm:disabled,
+a.button.confirm.disabled,
+a.button.confirm:disabled,
+input[type="submit"]:disabled:hover {
+    color: rgb(190, 190, 190);
+    background: #f3f3f3;
+}
+
+/* BUTTONS > Pagination */
+.ui-state-default.ui-button {
+<<<<<<< HEAD
+    color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+    padding: 8px;
+    margin: 4px;
+    min-width: 40px;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 4px;
+}
+
+.ui-state-default.ui-button.ui-state-disabled {
+    opacity: 0.3;
+}
+
+.ui-state-default.ui-button.ui-state-disabled:hover {
+<<<<<<< HEAD
+    color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+}
+
+/* BUTTONS > Table Row Actions */
+.icon-pencil.edit-action:hover,
+.icon-pencil:hover,
+.ui-state-default.ui-button:hover {
+<<<<<<< HEAD
+    color: #007fff;
+=======
+    color: #55D6BE;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
+}
+
+.ui-state-default.ui-button:hover {
+    opacity: 1;
+}
+
+.edit-info,
+.edit-action,
+<<<<<<< HEAD
+#patient-search-clear-button::after,
+=======
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+#patient-search-clear-button,
+.delete-item {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #999;
+    font-size: 1em;
+    cursor: pointer;
+    min-width: 24px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
+    padding: 4px;
+}
+
+.edit-info { 
+    font-family: 'OpenSansSemiBold';
+}
+
+.edit-action { 
+    margin-bottom:4px;
+}
+
+#patient-search-clear-button {
+<<<<<<< HEAD
+    color: #333;
+=======
+    color: #373F46;
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+    margin-left: -36px;
+}
+
+.delete-item:first-of-type {
+    margin-right: 0;
+}
+
+#patient-search-clear-button::after,
+.delete-item.icon-remove::after,
+.delete-item.icon-pencil::after,
+.edit-action::after {
+    display: inline-block;
+    font-family: 'OpenSansSemiBold';
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+#patient-search-clear-button:after {
+    content: 'Clear';
+}
+
+.edit-action::after {
+    content: 'Open';
+}
+
+.delete-item.icon-pencil::after {
+    content: 'Edit';
+}
+
+.delete-item.icon-remove::after {
+    content: 'Delete';
+}
+
+/* BUTTONS > Transitions */
+form input,
+form select,
+form textarea,
+form ul.select,
+.form input,
+.form select,
+.form textarea,
+.form ul.select,
+form input:focus,
+form select:focus,
+form textarea:focus,
+form textarea:active,
+form ul.select:focus,
+.form input:focus,
+.form select:focus,
+.form textarea:focus,
+.form textarea:active,
+.form ul.select:focus .confirm,
+.confirm:hover,
+a.button,
+a.button:hover,
+#breadcrumbs a,
+#breadcrumbs a:hover,
+#patient-search-clear-button,
+#patient-search-clear-button:hover .button.app.big i .button.app.big:hover i,
+.change-location,
+.ui-state-default.ui-button,
+.ui-state-default.ui-button:hover,
+.delete-item,
+<<<<<<< HEAD
+.delete-item:hover {
+=======
+.delete-item:hover,
+#patient-search-results #patient-search-results-table tbody tr:hover, 
+#patient-search-results #patient-search-results-table tbody tr {
+>>>>>>> 4b0bbcdd62891de4ecc4e6f36d3693b7690ef605
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: .35s;
+    transition-duration: .35s;
+    -webkit-transition-timing-function: cubic-bezier(.455, .03, .515, .955);
+    transition-timing-function: cubic-bezier(.455, .03, .515, .955);
+}

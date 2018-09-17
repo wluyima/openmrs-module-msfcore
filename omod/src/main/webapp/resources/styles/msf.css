@@ -69,10 +69,9 @@ header {
 .toast-item {
     font-family: "OpenSans", Arial, sans-serif;
     font-size: 16px;
-    background ;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
-    order-radius: 8px;
+    border-radius: 8px;
 }
 
 /* FORMS */
