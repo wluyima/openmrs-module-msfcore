@@ -1,8 +1,9 @@
 @import url('buttons.css');
 @import url('navigation.css');
 @import url('typography.css');
+@import url('forms.css');
 @import url('dashboard.css');
-
+@import url('registration.css');
 
 /* COLORS 
 
@@ -12,7 +13,11 @@ INTERACTION:
 Medium Turquoise: 55D6BE
 Aero Blue: D0FEF5
 
-BRANDING:
+INFORMATION:
+Info blue: 538CAC
+    lightest: B0CAD9
+
+BRANDING:   
 
 MSF Red: FF0000
 
@@ -23,6 +28,7 @@ Dark grey: 424C55
 
 White: FFFFFF
     Darker: 
+
 
 */
 
@@ -37,8 +43,7 @@ header a:link {
 }
 
 a:visited, a.visited {
-    color: #7272AB;
-    border-bottom: 1px dotted #7272AB;
+    color: #4EC3AD;
 }
 
 html {
@@ -86,56 +91,6 @@ header {
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
     border-radius: 8px;
-}
-
-/* FORMS */
-
-#login-form ul.select,
-#login-form #sessionLocation {
-    width:60%;
-}
-
-form, .form {
-    overflow: visible
-}
-
-form input, 
-form select, 
-form textarea, 
-form ul.select, 
-.form input, 
-.form select, 
-.form textarea, 
-.form ul.select {
-    background: #fff;
-    border-bottom: 2px solid #ccc;
-    border-radius:4px;
-    outline: none;
-    padding: 8px 16px;
-}
-
-form input:focus, 
-form select:focus, 
-form textarea:focus, 
-form ul.select:focus, 
-.form input:focus, 
-.form select:focus, 
-.form textarea:focus, 
-.form ul.select:focus {
-    background: #fff;
-    border-bottom: 2px solid #55D6BE;
-    outline: none;
-}
-
-form#patient-search-form {
-    background:#55D6BE;
-    border-radius: 8px 8px 0 0;
-    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
-    padding:16px;
-}
-
-#patient-search-results {
-    margin-top: 0;
 }
 
 /* TABLES */

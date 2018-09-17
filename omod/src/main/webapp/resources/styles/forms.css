@@ -1,0 +1,85 @@
+/* FORMS */
+
+#login-form ul.select,
+#login-form #sessionLocation {
+    width:60%;
+}
+
+form, .form {
+    overflow: visible
+}
+
+form input, 
+form select, 
+form textarea, 
+form ul.select, 
+.form input, 
+.form select, 
+.form textarea, 
+.form ul.select {
+    background: #fff;
+    border-bottom: 2px solid #ccc;
+    border-radius:4px;
+    outline: none;
+    padding: 8px 16px;
+}
+
+form input {
+    margin-top: 0;
+}
+
+form input:focus, 
+form select:focus, 
+form textarea:focus, 
+form ul.select:focus, 
+.form input:focus, 
+.form select:focus, 
+.form textarea:focus, 
+.form ul.select:focus {
+    background: #fff;
+    border-bottom: 2px solid #55D6BE;
+    outline: none;
+}
+
+form#patient-search-form {
+    background:#55D6BE;
+    border-radius: 8px 8px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
+    padding:16px;
+}
+
+#patient-search-results {
+    margin-top: 0;
+}
+
+form input#patient-search {
+    min-width: 60%;
+    box-sizing: border-box;
+    margin-top:28px;
+}
+
+#patient-search-filter {
+    float:right;
+    min-width:38%;
+    box-sizing: border-box;
+}
+
+#patient-search-filter::before {
+    color: #fff;
+    content: "Filter search results by";
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+form input#filter-age, 
+form select#filter-gender {
+    min-width:45%;
+    float:left;
+    box-sizing: border-box;
+}
+
+form select#filter-gender {
+    margin:0 0 0 16px;
+    height:41px;
+}
