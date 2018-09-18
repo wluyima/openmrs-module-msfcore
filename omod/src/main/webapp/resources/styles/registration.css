@@ -33,6 +33,20 @@ ul#formBreadcrumb li.doing > span#lifestyleInfo_label
     float: none;
 }
 
+nobr {
+    margin-top:16px;
+    display: block;
+}
+
+input#checkbox-unknown-patient {
+    padding:12px;
+    margin: 8px 8px 0 4px;
+}
+
+label#checkbox-unknown-patient, nobr label {
+    padding:12px 0;
+}
+
 /* NCD.css overrides finished. */
 
 .simple-form-ui section, .simple-form-ui #confirmation, .simple-form-ui form section, .simple-form-ui form #confirmation,
