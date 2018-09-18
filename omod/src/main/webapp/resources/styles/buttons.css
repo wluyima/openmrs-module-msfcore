@@ -2,6 +2,7 @@
 .button.app.big {
     padding: 24px;
     height: 96%;
+    color: #424C55;
 }
 
 .button.app.big:hover {
@@ -194,7 +195,7 @@ input[type="submit"]:disabled:hover {
     content: 'Clear';
 }
 
-.edit-action::after {
+.edit-action.icon-share-alt:after {
     content: 'Open';
 }
 
@@ -231,14 +232,17 @@ a.button:hover,
 #breadcrumbs a,
 #breadcrumbs a:hover,
 #patient-search-clear-button,
-#patient-search-clear-button:hover .button.app.big i .button.app.big:hover i,
+#patient-search-clear-button:hover,
+.button.app.big i .button.app.big:hover i,
 .change-location,
 .ui-state-default.ui-button,
 .ui-state-default.ui-button:hover,
 .delete-item,
 .delete-item:hover,
 #patient-search-results #patient-search-results-table tbody tr:hover, 
-#patient-search-results #patient-search-results-table tbody tr {
+#patient-search-results #patient-search-results-table tbody tr,
+.dashboard .info-header i.edit-action,
+.dashboard .info-header i.edit-action:hover {
     -webkit-transition-property: all;
     transition-property: all;
     -webkit-transition-duration: .35s;
