@@ -60,3 +60,4 @@ h6 {
 h6 i::before {
     width:20px;
 }
+.bold {font-weight: 700}

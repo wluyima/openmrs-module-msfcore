@@ -9,16 +9,16 @@ html, body{
   height: 100%;
 
 }
-
 #htmlform h4 {
   font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
-
 #htmlform h4,
 #htmlform h5,
 #htmlform h6 {
   color: #618696;
 }
+
+.float-left {float: left;}
 
 .wrapper {
   overflow: hidden;
@@ -102,6 +102,14 @@ html, body{
 
 .right-form-display .sections-container .section {
   margin-bottom:30px
+}
+
+.right-form-display .sections-container .section table{
+  box-shadow: none;
+}
+
+.right-form-display .sections-container .section table td{
+  padding:12px 10px;
 }
 
 .right-form-display .sections-container .section .add-box {
@@ -192,4 +200,15 @@ table th, table td {
 }
 form input, form select, form textarea, form ul.select, .form input, .form select, .form textarea, .form ul.select {
   min-width: 10%;
+}
+td.left-th {
+  background: #618696;
+
+}
+td.left-th span{
+  margin-left: 5px;
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
 }
