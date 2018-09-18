@@ -188,7 +188,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         }
         return null;
     }
-    private void setIdentifiers(Patient patient, Map<String, String> attributes) {
+    private void setIdentifiers(Patient patient, Map<String, String> attributes, Properties dhisMappings) {
         String patientId = getPatientIdentifierValue(patient, MSFCoreConfig.PATIENT_ID_TYPE_PRIMARY_UUID);
         if (StringUtils.isNotBlank(patientId)) {
             attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PATIENT_NUMBER.name()), patientId);
@@ -207,40 +207,43 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         }
     }
 
-    private void setPersonAttributes(Patient patient, Map<String, String> attributes, SimpleJSON optionSets) {
+    private void setPersonAttributes(Patient patient, Map<String, String> attributes, SimpleJSON optionSets, Properties dhisMappings) {
         String provenance = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PROVENANCE_UUID);
         if (provenance != null && optionSets != null) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PROVENANCE.name()), OpenMRSToDHIS
-                            .getMatchedConceptCodeFromOptionSets(optionSets, "Provenance", Context.getConceptService().getConcept(
-                                            Integer.parseInt(provenance)).getName().getName()));
+            addMatchedConceptAttribute(attributes, optionSets, PatientTrackableAttributes.PROVENANCE, dhisMappings, "Provenance",
+                            provenance);
         }
         String nationality = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_NATIONALITY_UUID);
         if (StringUtils.isNotBlank(nationality) && optionSets != null) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.NATIONALITY.name()), OpenMRSToDHIS
-                            .getMatchedConceptCodeFromOptionSets(optionSets, "Nationality", Context.getConceptService().getConcept(
-                                            Integer.parseInt(nationality)).getName().getName()));
+            addMatchedConceptAttribute(attributes, optionSets, PatientTrackableAttributes.NATIONALITY, dhisMappings, "Nationality",
+                            nationality);
         }
         String conditionOfLiving = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_CONDITION_OF_LIVING_UUID);
         if (StringUtils.isNotBlank(conditionOfLiving)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.CONDITION_OF_LIVING.name()), OpenMRSToDHIS
-                            .getMatchedConceptCodeFromOptionSets(optionSets, "Condition of living", Context.getConceptService().getConcept(
-                                            Integer.parseInt(conditionOfLiving)).getName().getName()));
+            addMatchedConceptAttribute(attributes, optionSets, PatientTrackableAttributes.CONDITION_OF_LIVING, dhisMappings,
+                            "Condition of living", conditionOfLiving);
         }
         String maritalStatus = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_MARITAL_STATUS_UUID);
         if (StringUtils.isNotBlank(maritalStatus) && optionSets != null) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.MARITAL_STATUS.name()), OpenMRSToDHIS
-                            .getMatchedConceptCodeFromOptionSets(optionSets, "Marital status", Context.getConceptService().getConcept(
-                                            Integer.parseInt(maritalStatus)).getName().getName()));
+            addMatchedConceptAttribute(attributes, optionSets, PatientTrackableAttributes.MARITAL_STATUS, dhisMappings, "Marital status",
+                            maritalStatus);
         }
         String phoneNumber = getPersonAttributeValue(patient, MSFCoreConfig.PERSON_ATTRIBUTE_PHONENUMBER_UUID);
         if (StringUtils.isNotBlank(phoneNumber)) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.PHONE_NUMBER.name()), (String) phoneNumber);
+            attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.PHONE_NUMBER.name()), (String) phoneNumber);
         }
         // TODO add MOTHER_NAME, EDUCATION(???), PATIENT_TYPE?
 
     }
 
+    private void addMatchedConceptAttribute(Map<String, String> attributes, SimpleJSON optionSets, PatientTrackableAttributes attributeMap,
+                    Properties dhisMappings, String conceptName, String conceptAnserId) {
+        attributes.put(dhisMappings.getProperty(attributeMap.name()), OpenMRSToDHIS.getMatchedConceptCodeFromOptionSets(optionSets,
+                        conceptName, Context.getConceptService().getConcept(Integer.parseInt(conceptAnserId)).getName().getName()));
+    }
+
     private TrackerInstance generateTrackerInstanceForPatient(Patient patient) {
+        Properties dhisMappings = getDHISMappings();
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         TrackerInstance trackerInstance = new TrackerInstance();
         trackerInstance.setUrl(TrackerInstance.generateUrl(getDHIS2Username(), getDHIS2Password(), Context.getAdministrationService()
@@ -265,16 +268,16 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
 
         // add patient details
         Map<String, String> attributes = data.getAttributes();
-        attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.FIRST_NAME.name()), patient.getGivenName());
-        attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.LAST_NAME.name()), patient.getFamilyName());
-        attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
-        attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
+        attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.FIRST_NAME.name()), patient.getGivenName());
+        attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.LAST_NAME.name()), patient.getFamilyName());
+        attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
+        attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
         if (optionSets != null && StringUtils.isNotBlank(patient.getGender())) {
-            attributes.put(getDHISMappings().getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(
+            attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(
                             optionSets, patient.getGender()));
         }
-        setIdentifiers(patient, attributes);
-        setPersonAttributes(patient, attributes, optionSets);
+        setIdentifiers(patient, attributes, dhisMappings);
+        setPersonAttributes(patient, attributes, optionSets, dhisMappings);
         data.setAttributes(attributes);
 
         trackerInstance.setData(data);

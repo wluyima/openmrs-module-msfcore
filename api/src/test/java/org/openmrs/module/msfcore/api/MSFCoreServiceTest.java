@@ -39,7 +39,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void openHimPropertiesShouldGetInitialised() {
-        String url = "https://localhost/5000/tracker";
+        String url = "http://localhost/5001/tracker";
         Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL, url);
         assertThat(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL), is(url));
         assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_USERNAME), is("admin"));
