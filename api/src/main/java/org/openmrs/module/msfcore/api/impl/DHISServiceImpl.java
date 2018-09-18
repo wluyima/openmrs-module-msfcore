@@ -83,8 +83,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
 
     private LocationAttribute getLocationAttribute(Location location, String attributeTypeUuid) {
         if (location != null) {
-            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(Context.getLocationService()
-                            .getLocationAttributeTypeByUuid(attributeTypeUuid), location);
+            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(
+                            Context.getLocationService().getLocationAttributeTypeByUuid(attributeTypeUuid), location);
             if (!attrributes.isEmpty()) {
                 return attrributes.get(0);
             }
@@ -168,8 +168,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
     }
 
     private String getPersonAttributeValue(Person person, String personAttributeTypeUuid) {
-        List<PersonAttribute> attrs = getPersonAttributeByTypeAndPerson(Context.getPersonService().getPersonAttributeTypeByUuid(
-                        personAttributeTypeUuid), person);
+        List<PersonAttribute> attrs = getPersonAttributeByTypeAndPerson(
+                        Context.getPersonService().getPersonAttributeTypeByUuid(personAttributeTypeUuid), person);
         if (!attrs.isEmpty()) {
             return attrs.get(0).getValue();
         }
@@ -181,8 +181,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
     }
 
     private String getPatientIdentifierValue(Patient patient, String patientIndentifierTypeUuid) {
-        List<PatientIdentifier> ids = getPatientIdentifierByTypeAndPatient(Context.getPatientService().getPatientIdentifierTypeByUuid(
-                        patientIndentifierTypeUuid), patient);
+        List<PatientIdentifier> ids = getPatientIdentifierByTypeAndPatient(
+                        Context.getPatientService().getPatientIdentifierTypeByUuid(patientIndentifierTypeUuid), patient);
         if (!ids.isEmpty()) {
             return ids.get(0).getIdentifier();
         }
@@ -246,8 +246,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         Properties dhisMappings = getDHISMappings();
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         TrackerInstance trackerInstance = new TrackerInstance();
-        trackerInstance.setUrl(TrackerInstance.generateUrl(getDHIS2Username(), getDHIS2Password(), Context.getAdministrationService()
-                        .getGlobalProperty(MSFCoreConfig.GP_DHIS_HOST)));
+        trackerInstance.setUrl(TrackerInstance.generateUrl(getDHIS2Username(), getDHIS2Password(),
+                        Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DHIS_HOST)));
         trackerInstance.setProgram(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DHIS_NCD_PROGRAM_UID));
         trackerInstance.setProgramStage(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DHIS_NCD_PROGRAMSTAGE_UID));
         trackerInstance.setTrackedEntity(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DHIS_TRACKENTITYTYPE_UID));
@@ -273,8 +273,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.AGE_IN_YEARS.name()), String.valueOf(patient.getAge()));
         attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.DATE_OF_BIRTH.name()), sdf.format(patient.getBirthdate()));
         if (optionSets != null && StringUtils.isNotBlank(patient.getGender())) {
-            attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.SEX.name()), OpenMRSToDHIS.getGenderFromOptionSets(
-                            optionSets, patient.getGender()));
+            attributes.put(dhisMappings.getProperty(PatientTrackableAttributes.SEX.name()),
+                            OpenMRSToDHIS.getGenderFromOptionSets(optionSets, patient.getGender()));
         }
         setIdentifiers(patient, attributes, dhisMappings);
         setPersonAttributes(patient, attributes, optionSets, dhisMappings);
@@ -357,9 +357,9 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
     }
 
     public SimpleJSON getOptionSets() {
-        SimpleJSON optionSets = getDataFromDHISEndpoint(generateDHISAPIUrl(Context.getAdministrationService().getGlobalProperty(
-                        MSFCoreConfig.GP_DHIS_HOST))
-                        + Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.URL_POSTFIX_OPTIONSETS));
+        SimpleJSON optionSets = getDataFromDHISEndpoint(
+                        generateDHISAPIUrl(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_DHIS_HOST))
+                                        + MSFCoreConfig.URL_POSTFIX_OPTIONSETS);
         if (optionSets == null) {
             try {
                 optionSets = SimpleJSON.readFromInputStream(new FileInputStream(getDHIS2optionSetsFile()));
