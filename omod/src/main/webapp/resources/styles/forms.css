@@ -41,6 +41,12 @@ form ul.select:focus,
     outline: none;
 }
 
+/* This is the unit added next to an input e.g. Adding Vitals */
+.append-to-value {
+    margin-left: 0.25rem;
+}
+
+div#active-visits_filter.dataTables_filter,
 form#patient-search-form {
     background:#55D6BE;
     border-radius: 8px 8px 0 0;
@@ -82,4 +88,16 @@ form select#filter-gender {
 form select#filter-gender {
     margin:0 0 0 16px;
     height:41px;
+}
+
+ul#formBreadcrumb {
+    width:25%;
+    background: #55D6BE;
+    color:#fff;
+    border-radius: 0 0 0 8px;
+    padding: 1rem;
+}
+
+ul#formBreadcrumb li {
+    border:none;
 }

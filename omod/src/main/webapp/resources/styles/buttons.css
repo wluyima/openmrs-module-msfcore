@@ -44,13 +44,14 @@ input[type="button"].confirm,
 a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
-input[type="submit"].cancel {
+input[type="submit"].cancel,
+#form-actions-container a {
     background: #fff;
     border: none;
     border-radius: 24px;
     box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
     color: #373F46;
-    font-family: 'OpenSansSemiBold';
+    font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding: 12px 24px;
     margin: 8px 0;
 }
@@ -76,10 +77,12 @@ button.confirm:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover {
+a.button.confirm:hover,
+#form-actions-container a {
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.4) 0 2px 8px;
     transform: scale(1.01);
+    text-decoration: none;
 }
 
 #patient-search-clear-button:hover,
@@ -90,7 +93,8 @@ button.cancel:hover,
 input[type="submit"] .cancel:hover,
 input[type="button"].cancel:hover,
 input[type="submit"].cancel:hover,
-a.button.cancel:hover {
+a.button.cancel:hover,
+#form-actions-container a:nth-of-type(2):hover {
     color: #ff4747;
 }
 
@@ -99,9 +103,10 @@ button.confirm:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover {
+a.button.confirm:hover,
+#form-actions-container a:hover {
     color:#4EC3AD;
-    /*color: rgb(24, 201, 30);*/
+    cursor: pointer;
 }
 
 .button.confirm.disabled,
@@ -169,7 +174,7 @@ input[type="submit"]:disabled:hover {
 }
 
 .edit-info { 
-    font-family: 'OpenSansSemiBold';
+    font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
 
 .edit-action { 
@@ -190,7 +195,7 @@ input[type="submit"]:disabled:hover {
 .delete-item.icon-pencil::after,
 .edit-action::after {
     display: inline-block;
-    font-family: 'OpenSansSemiBold';
+    font-family: 'OpenSansSemiBold', Arial, sans-serif;
     font-size: 12px;
     margin-left: 4px;
 }
@@ -255,7 +260,9 @@ a.button:hover,
 #patient-search-results #patient-search-results-table tbody tr:hover, 
 #patient-search-results #patient-search-results-table tbody tr,
 .dashboard .info-header i.edit-action,
-.dashboard .info-header i.edit-action:hover {
+.dashboard .info-header i.edit-action:hover,
+#form-actions-container a,  
+#form-actions-container a:hover  {
     -webkit-transition-property: all;
     transition-property: all;
     -webkit-transition-duration: .35s;
