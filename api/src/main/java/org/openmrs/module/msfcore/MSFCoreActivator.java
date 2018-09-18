@@ -28,6 +28,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
@@ -48,9 +49,12 @@ public class MSFCoreActivator extends BaseModuleActivator {
     public void started() {
         log.info("Started MSF Core Module");
 
+        Context.getService(DHISService.class).transferDHISMappingsToDataDirectory();
+        Context.getService(DHISService.class).installDHIS2Metadata();
+
         installMSFMeta();
 
-        //ensure 'Auto Close Visits Task' is started
+        // ensure 'Auto Close Visits Task' is started
         TaskDefinition autoCloseVisits = Context.getSchedulerService().getTaskByName(MSFCoreConfig.TASK_AUTO_CLOSE_VISIT);
         if (autoCloseVisits != null && !autoCloseVisits.getStartOnStartup()) {
             autoCloseVisits.setStartOnStartup(true);

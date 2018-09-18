@@ -1,0 +1,1628 @@
+{
+  "optionSets":[
+    {
+      "name":"Blood glucose type (analysis type)",
+      "options":[
+        {
+          "code":"random",
+          "name":"Random"
+        },
+        {
+          "code":"fasting",
+          "name":"Fasting"
+        }
+      ]
+    },
+    {
+      "name":"Cardiovascular risk score",
+      "options":[
+        {
+          "code":"<=10%",
+          "name":"<=10%"
+        },
+        {
+          "code":"10_20%",
+          "name":">10% & <=20%"
+        },
+        {
+          "code":"20_30%",
+          "name":">20% & <=30%"
+        },
+        {
+          "code":"30_40%",
+          "name":">30% & <=40%"
+        },
+        {
+          "code":">40%",
+          "name":">40%"
+        }
+      ]
+    },
+    {
+      "name":"Category of consultation",
+      "options":[
+        {
+          "code":"planned_visit",
+          "name":"Planned visit"
+        },
+        {
+          "code":"unplanned_acute_episode",
+          "name":"Unplanned - acute illness"
+        },
+        {
+          "code":"unplanned_exacerbation",
+          "name":"Unplanned - exacerbation"
+        },
+        {
+          "code":"unplanned_patient_missed_last_appointment",
+          "name":"Unplanned - patient missed last appointment"
+        }
+      ]
+    },
+    {
+      "name":"Cause of referral in (Referral in criteria)",
+      "options":[
+        {
+          "code":"child_risk_abuse",
+          "name":"Child in risk of abuse or neglected"
+        },
+        {
+          "code":"child_therapeutic_failure",
+          "name":"Child in therapeutic failure"
+        },
+        {
+          "code":"phq9",
+          "name":"PHQ9+"
+        },
+        {
+          "code":"substance_abuse",
+          "name":"Substance abuse"
+        },
+        {
+          "code":"sexual_gender_violence",
+          "name":"Sexual gender violence"
+        },
+        {
+          "code":"pregnant_breastfeeding",
+          "name":"Pregnant / Breastfeeding"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Comorbidities",
+      "options":[
+        {
+          "code":"malaria",
+          "name":"Malaria"
+        },
+        {
+          "code":"hiv",
+          "name":"HIV"
+        },
+        {
+          "code":"dengue",
+          "name":"dengue"
+        },
+        {
+          "code":"chikungunya",
+          "name":"chikungunya"
+        },
+        {
+          "code":"malnutrition",
+          "name":"Malnutrition"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Complications (since last visit)",
+      "options":[
+        {
+          "code":"arrhythmias",
+          "name":"Arrhythmias"
+        },
+        {
+          "code":"copdasthma_hospitalisation",
+          "name":"COPD/asthma exacerbation"
+        },
+        {
+          "code":"episodes_of_hyperglycaemia_hosp_",
+          "name":"Episodes of hyperglycaemia"
+        },
+        {
+          "code":"episodes_of_hypoglycaemia_hosp_",
+          "name":"Episodes of hypoglycaemia"
+        },
+        {
+          "code":"heart_failure",
+          "name":"Heart failure"
+        },
+        {
+          "code":"hypertensive_emergencies",
+          "name":"Hypertensive emergencies"
+        },
+        {
+          "code":"hypertensive_nephrosclerosis",
+          "name":"Heart Attack"
+        },
+        {
+          "code":"intracerebral_haemorrhage",
+          "name":"Intracerebral haemorrhage"
+        },
+        {
+          "code":"ischaemic_heart_disease",
+          "name":"Angina"
+        },
+        {
+          "code":"ischaemic_stroke",
+          "name":"Ischaemic stroke"
+        },
+        {
+          "code":"ketoacidosis_coma_hyperosmolar",
+          "name":"Ketoacidosis / coma hyperosmolar"
+        },
+        {
+          "code":"nephropathy",
+          "name":"Chronic Renal Failure"
+        },
+        {
+          "code":"neuropathy",
+          "name":"Neuropathy"
+        },
+        {
+          "code":"peripheral_vascular_disease",
+          "name":"Peripheral vascular disease"
+        },
+        {
+          "code":"retinopathy",
+          "name":"Retinopathy"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Condition of living",
+      "options":[
+        {
+          "code":"in_a_house",
+          "name":"In a house"
+        },
+        {
+          "code":"collective_shelter_tent",
+          "name":"Collective shelter/tent"
+        },
+        {
+          "code":"in_a_tent_and_or_moskito_net",
+          "name":"In a tent and / or moskito net"
+        },
+        {
+          "code":"familyfriends_house",
+          "name":"Family/friends house"
+        },
+        {
+          "code":"shelter",
+          "name":"Shelter"
+        },
+        {
+          "code":"open_air",
+          "name":"Open air"
+        },
+        {
+          "code":"in_a_plastic_sheeting_shelter",
+          "name":"In a plastic sheeting shelter"
+        },
+        {
+          "code":"own_house",
+          "name":"Own house"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Consultation done by:",
+      "options":[
+        {
+          "code":"co_consultation",
+          "name":"Co-consultation"
+        },
+        {
+          "code":"doctor_moh",
+          "name":"Doctor MoH"
+        },
+        {
+          "code":"doctor_msf",
+          "name":"Doctor MSF"
+        },
+        {
+          "code":"medical_doctor",
+          "name":"Medical Doctor"
+        },
+        {
+          "code":"nurse",
+          "name":"Nurse"
+        },
+        {
+          "code":"nurse_moh",
+          "name":"Nurse MoH"
+        },
+        {
+          "code":"nurse_msf",
+          "name":"Nurse MSF"
+        },
+        {
+          "code":"specialist_moh",
+          "name":"Specialist MoH"
+        }
+      ]
+    },
+    {
+      "name":"Coordinates",
+      "options":[
+        {
+          "code":"29.02854 - 1.359532",
+          "name":"29.02854 ; 1.359532 - Bandengaido"
+        },
+        {
+          "code":"-72.62399 ; 18.51284 - Haiti",
+          "name":"-72.62399 ; 18.51284 - Haiti"
+        }
+      ]
+    },
+    {
+      "name":"Current status",
+      "options":[
+        {
+          "code":"displaced",
+          "name":"Displaced"
+        },
+        {
+          "code":"non_lebanese_refugee",
+          "name":"Non Lebanese refugee"
+        },
+        {
+          "code":"returnee",
+          "name":"Returnee"
+        },
+        {
+          "code":"asylum_seeker",
+          "name":"Asylum seeker"
+        },
+        {
+          "code":"lebanese",
+          "name":"Lebanese"
+        },
+        {
+          "code":"non_displaced",
+          "name":"Non displaced"
+        },
+        {
+          "code":"refugee",
+          "name":"Refugee"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Death cause",
+      "options":[
+        {
+          "code":"respiratory_distress",
+          "name":"Respiratory distress"
+        },
+        {
+          "code":"sepsis",
+          "name":"Sepsis"
+        },
+        {
+          "code":"severe_dehydration",
+          "name":"Severe dehydration"
+        },
+        {
+          "code":"neurological",
+          "name":"Neurological"
+        },
+        {
+          "code":"severe_anaemia",
+          "name":"Severe anaemia"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Education",
+      "options":[
+        {
+          "code":"none",
+          "name":"None"
+        },
+        {
+          "code":"university",
+          "name":"University"
+        },
+        {
+          "code":"secondary",
+          "name":"Secondary"
+        },
+        {
+          "code":"primary",
+          "name":"Primary"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Employment status",
+      "options":[
+        {
+          "code":"housewife",
+          "name":"Housewife"
+        },
+        {
+          "code":"occasional_employee",
+          "name":"Occasional employee"
+        },
+        {
+          "code":"pensionist",
+          "name":"Pensioner"
+        },
+        {
+          "code":"fixed_employee",
+          "name":"Fixed employee"
+        },
+        {
+          "code":"student",
+          "name":"Student"
+        },
+        {
+          "code":"fisherman",
+          "name":"Fisherman"
+        },
+        {
+          "code":"hunter",
+          "name":"Hunter"
+        },
+        {
+          "code":"health_worker",
+          "name":"Health worker"
+        },
+        {
+          "code":"miner",
+          "name":"Miner"
+        },
+        {
+          "code":"cattle_holder",
+          "name":"Cattle holder"
+        },
+        {
+          "code":"shopkeeper",
+          "name":"Shopkeeper"
+        },
+        {
+          "code":"childstudent",
+          "name":"Child/Student"
+        },
+        {
+          "code":"farmer",
+          "name":"Farmer"
+        },
+        {
+          "code":"unemployed",
+          "name":"Unemployed"
+        },
+        {
+          "code":"not_applicable",
+          "name":"Not applicable"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Marital status",
+      "options":[
+        {
+          "code":"concubine",
+          "name":"Concubine"
+        },
+        {
+          "code":"widowed",
+          "name":"Widowed"
+        },
+        {
+          "code":"divorced_separated",
+          "name":"Divorced / separated"
+        },
+        {
+          "code":"single",
+          "name":"Single"
+        },
+        {
+          "code":"married",
+          "name":"Married"
+        },
+        {
+          "code":"not_applicable",
+          "name":"Not applicable"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Nationality",
+      "options":[
+        {
+          "code":"afghanistan",
+          "name":"Afghanistan"
+        },
+        {
+          "code":"cameroon",
+          "name":"Cameroon"
+        },
+        {
+          "code":"chad",
+          "name":"Chad"
+        },
+        {
+          "code":"drc",
+          "name":"Democratic Republic of Congo"
+        },
+        {
+          "code":"greece",
+          "name":"Greece"
+        },
+        {
+          "code":"iraq",
+          "name":"Iraq"
+        },
+        {
+          "code":"lebanese",
+          "name":"Lebanon"
+        },
+        {
+          "code":"lebanese_returnee",
+          "name":"Lebanese returnee"
+        },
+        {
+          "code":"lebanon",
+          "name":"Lebanon"
+        },
+        {
+          "code":"libya",
+          "name":"Libya"
+        },
+        {
+          "code":"niger",
+          "name":"Niger"
+        },
+        {
+          "code":"nigeria",
+          "name":"Nigeria"
+        },
+        {
+          "code":"palestine",
+          "name":"Palestine"
+        },
+        {
+          "code":"palestinian_from_syria",
+          "name":"Palestinian from Syria"
+        },
+        {
+          "code":"syria",
+          "name":"Syria"
+        },
+        {
+          "code":"ukraine",
+          "name":"Ukraine"
+        },
+        {
+          "code":"albania",
+          "name":"Albania"
+        },
+        {
+          "code":"algeria",
+          "name":"Algeria"
+        },
+        {
+          "code":"angola",
+          "name":"Angola"
+        },
+        {
+          "code":"anguilla",
+          "name":"Anguilla"
+        },
+        {
+          "code":"argentina",
+          "name":"Argentina"
+        },
+        {
+          "code":"armenia",
+          "name":"Armenia"
+        },
+        {
+          "code":"aruba",
+          "name":"Aruba"
+        },
+        {
+          "code":"azerbaijan",
+          "name":"Azerbaijan"
+        },
+        {
+          "code":"bangladesh",
+          "name":"Bangladesh"
+        },
+        {
+          "code":"belarus",
+          "name":"Belarus"
+        },
+        {
+          "code":"benin",
+          "name":"Benin"
+        },
+        {
+          "code":"bhutan",
+          "name":"Bhutan"
+        },
+        {
+          "code":"bolivia",
+          "name":"Bolivia"
+        },
+        {
+          "code":"bosnia_and_herzegovina",
+          "name":"Bosnia and Herzegovina"
+        },
+        {
+          "code":"botswana",
+          "name":"Botswana"
+        },
+        {
+          "code":"brazil",
+          "name":"Brazil"
+        },
+        {
+          "code":"british_virgin_islands",
+          "name":"British Virgin Islands"
+        },
+        {
+          "code":"bulgaria",
+          "name":"Bulgaria"
+        },
+        {
+          "code":"burkina_faso",
+          "name":"Burkina Faso"
+        },
+        {
+          "code":"burundi",
+          "name":"Burundi"
+        },
+        {
+          "code":"cambodia",
+          "name":"Cambodia"
+        },
+        {
+          "code":"cape_verde",
+          "name":"Cape Verde"
+        },
+        {
+          "code":"central_african_republic",
+          "name":"Central African Republic"
+        },
+        {
+          "code":"chile",
+          "name":"Chile"
+        },
+        {
+          "code":"china",
+          "name":"China"
+        },
+        {
+          "code":"colombia",
+          "name":"Colombia"
+        },
+        {
+          "code":"comoros",
+          "name":"Comoros"
+        },
+        {
+          "code":"costa_rica",
+          "name":"Costa Rica"
+        },
+        {
+          "code":"cote_divoire",
+          "name":"Côte d'Ivoire"
+        },
+        {
+          "code":"cuba",
+          "name":"Cuba"
+        },
+        {
+          "code":"djibouti",
+          "name":"Djibouti"
+        },
+        {
+          "code":"dominica",
+          "name":"Dominica"
+        },
+        {
+          "code":"dominican_republic",
+          "name":"Dominican Republic"
+        },
+        {
+          "code":"drc_congo",
+          "name":"DRC Congo"
+        },
+        {
+          "code":"east_timor",
+          "name":"East Timor"
+        },
+        {
+          "code":"ecuador",
+          "name":"Ecuador"
+        },
+        {
+          "code":"egypt",
+          "name":"Egypt"
+        },
+        {
+          "code":"el_salvador",
+          "name":"El Salvador"
+        },
+        {
+          "code":"equatorial_guinea",
+          "name":"Equatorial Guinea"
+        },
+        {
+          "code":"eritrea",
+          "name":"Eritrea"
+        },
+        {
+          "code":"ethiopia",
+          "name":"Ethiopia"
+        },
+        {
+          "code":"gabon",
+          "name":"Gabon"
+        },
+        {
+          "code":"gambia",
+          "name":"Gambia"
+        },
+        {
+          "code":"georgia",
+          "name":"Georgia"
+        },
+        {
+          "code":"ghana",
+          "name":"Ghana"
+        },
+        {
+          "code":"guam",
+          "name":"Guam"
+        },
+        {
+          "code":"guatemala",
+          "name":"Guatemala"
+        },
+        {
+          "code":"guinea",
+          "name":"Guinea"
+        },
+        {
+          "code":"guinea_bissau",
+          "name":"Guinea-Bissau"
+        },
+        {
+          "code":"guyana",
+          "name":"Guyana"
+        },
+        {
+          "code":"haiti",
+          "name":"Haiti"
+        },
+        {
+          "code":"honduras",
+          "name":"Honduras"
+        },
+        {
+          "code":"india",
+          "name":"India"
+        },
+        {
+          "code":"indonesia",
+          "name":"Indonesia"
+        },
+        {
+          "code":"iran",
+          "name":"Iran"
+        },
+        {
+          "code":"jordan",
+          "name":"Jordan"
+        },
+        {
+          "code":"kazakhstan",
+          "name":"Kazakhstan"
+        },
+        {
+          "code":"kenya",
+          "name":"Kenya"
+        },
+        {
+          "code":"kyrgyzstan",
+          "name":"Kyrgyzstan"
+        },
+        {
+          "code":"laos",
+          "name":"Laos"
+        },
+        {
+          "code":"lesotho",
+          "name":"Lesotho"
+        },
+        {
+          "code":"liberia",
+          "name":"Liberia"
+        },
+        {
+          "code":"macedonia",
+          "name":"Macedonia"
+        },
+        {
+          "code":"madagascar",
+          "name":"Madagascar"
+        },
+        {
+          "code":"malawi",
+          "name":"Malawi"
+        },
+        {
+          "code":"malaysia",
+          "name":"Malaysia"
+        },
+        {
+          "code":"mali",
+          "name":"Mali"
+        },
+        {
+          "code":"martinique",
+          "name":"Martinique"
+        },
+        {
+          "code":"mauritania",
+          "name":"Mauritania"
+        },
+        {
+          "code":"mauritius",
+          "name":"Mauritius"
+        },
+        {
+          "code":"mayotte",
+          "name":"Mayotte"
+        },
+        {
+          "code":"mexico",
+          "name":"Mexico"
+        },
+        {
+          "code":"moldova",
+          "name":"Moldova"
+        },
+        {
+          "code":"mongolia",
+          "name":"Mongolia"
+        },
+        {
+          "code":"morocco",
+          "name":"Morocco"
+        },
+        {
+          "code":"mozambique",
+          "name":"Mozambique"
+        },
+        {
+          "code":"myanmar",
+          "name":"Myanmar"
+        },
+        {
+          "code":"namibia",
+          "name":"Namibia"
+        },
+        {
+          "code":"nauru",
+          "name":"Nauru"
+        },
+        {
+          "code":"nepal",
+          "name":"Nepal"
+        },
+        {
+          "code":"new_caledonia",
+          "name":"New Caledonia"
+        },
+        {
+          "code":"nicaragua",
+          "name":"Nicaragua"
+        },
+        {
+          "code":"north_korea",
+          "name":"North Korea"
+        },
+        {
+          "code":"oman",
+          "name":"Oman"
+        },
+        {
+          "code":"pakistan",
+          "name":"Pakistan"
+        },
+        {
+          "code":"panama",
+          "name":"Panama"
+        },
+        {
+          "code":"papua_new_guinea",
+          "name":"Papua New Guinea"
+        },
+        {
+          "code":"paraguay",
+          "name":"Paraguay"
+        },
+        {
+          "code":"peru",
+          "name":"Peru"
+        },
+        {
+          "code":"philippines",
+          "name":"Philippines"
+        },
+        {
+          "code":"puerto_rico",
+          "name":"Puerto Rico"
+        },
+        {
+          "code":"republic_of_congo",
+          "name":"Republic of Congo"
+        },
+        {
+          "code":"reunion",
+          "name":"Reunion"
+        },
+        {
+          "code":"romania",
+          "name":"Romania"
+        },
+        {
+          "code":"rwanda",
+          "name":"Rwanda"
+        },
+        {
+          "code":"samoa",
+          "name":"Samoa"
+        },
+        {
+          "code":"sao_tome_and_principe",
+          "name":"Sao Tome and Principe"
+        },
+        {
+          "code":"senegal",
+          "name":"Senegal"
+        },
+        {
+          "code":"serbia",
+          "name":"Serbia"
+        },
+        {
+          "code":"sierra_leone",
+          "name":"Sierra Leone"
+        },
+        {
+          "code":"somalia",
+          "name":"Somalia"
+        },
+        {
+          "code":"south_africa",
+          "name":"South Africa"
+        },
+        {
+          "code":"south_korea",
+          "name":"South Korea"
+        },
+        {
+          "code":"south_sudan",
+          "name":"South Sudan"
+        },
+        {
+          "code":"sri_lanka",
+          "name":"Sri Lanka"
+        },
+        {
+          "code":"sudan",
+          "name":"Sudan"
+        },
+        {
+          "code":"suriname",
+          "name":"Suriname"
+        },
+        {
+          "code":"swaziland",
+          "name":"Swaziland"
+        },
+        {
+          "code":"switzerland",
+          "name":"Switzerland"
+        },
+        {
+          "code":"tajikistan",
+          "name":"Tajikistan"
+        },
+        {
+          "code":"tanzania",
+          "name":"Tanzania"
+        },
+        {
+          "code":"thailand",
+          "name":"Thailand"
+        },
+        {
+          "code":"togo",
+          "name":"Togo"
+        },
+        {
+          "code":"tonga",
+          "name":"Tonga"
+        },
+        {
+          "code":"tunisia",
+          "name":"Tunisia"
+        },
+        {
+          "code":"turkmenistan",
+          "name":"Turkmenistan"
+        },
+        {
+          "code":"uganda",
+          "name":"Uganda"
+        },
+        {
+          "code":"uruguay",
+          "name":"Uruguay"
+        },
+        {
+          "code":"uzbekistan",
+          "name":"Uzbekistan"
+        },
+        {
+          "code":"venezuela",
+          "name":"Venezuela"
+        },
+        {
+          "code":"vietnam",
+          "name":"Vietnam"
+        },
+        {
+          "code":"western_sahara",
+          "name":"Western Sahara"
+        },
+        {
+          "code":"yemen",
+          "name":"Yemen"
+        },
+        {
+          "code":"zambia",
+          "name":"Zambia"
+        },
+        {
+          "code":"zimbabwe",
+          "name":"Zimbabwe"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Patient education",
+      "options":[
+        {
+          "code":"group_session",
+          "name":"Group session"
+        },
+        {
+          "code":"not_received",
+          "name":"Not received"
+        },
+        {
+          "code":"received_from_chw",
+          "name":"Received from CHW"
+        },
+        {
+          "code":"received_from_md",
+          "name":"Received from MD"
+        },
+        {
+          "code":"received_from_nurse",
+          "name":"Received from nurse"
+        },
+        {
+          "code":"received_from_psec_nurse",
+          "name":"Received from PSEC nurse"
+        }
+      ]
+    },
+    {
+      "name":"Patient type",
+      "options":[
+        {
+          "code":"late_presenter",
+          "name":"Late presenter"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        },
+        {
+          "code":"therapeutic_failure",
+          "name":"Therapeutic Failure (2nd line / third line)"
+        },
+        {
+          "code":"kaposi",
+          "name":"S. Kaposi"
+        },
+        {
+          "code":"hiv_complicated",
+          "name":"HIV complicated"
+        },
+        {
+          "code":"tb_mdr",
+          "name":"TB/MDR"
+        }
+      ]
+    },
+    {
+      "name":"Place of the visit",
+      "options":[
+        {
+          "code":"clinic",
+          "name":"Clinic"
+        },
+        {
+          "code":"home",
+          "name":"Home"
+        },
+        {
+          "code":"mobile_clinic",
+          "name":"Mobile clinic"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Prescribed medication",
+      "options":[
+        {
+          "code":"beclometasone_0_10mg",
+          "name":"BECLOMETASONE"
+        },
+        {
+          "code":"beclomethason_clenil_250_inh",
+          "name":"Beclomethason -- Clenil 250 inh"
+        },
+        {
+          "code":"bisoprolol_fumarate_biscor_5_mg",
+          "name":"Bisoprolol Fumarate -- Biscor 5 mg"
+        },
+        {
+          "code":"captopril_captace_25_mg",
+          "name":"Captopril -- Captace 25 mg"
+        },
+        {
+          "code":"captopril_captace_50_mg",
+          "name":"Captopril -- Captace 50 mg"
+        },
+        {
+          "code":"carbamazepine_400mg",
+          "name":"CARBAMAZEPINE, 400mg, tab"
+        },
+        {
+          "code":"carbamazepine_apo_carbamazepine_200",
+          "name":"Carbamazepine -- Apo-Carbamazepine 200"
+        },
+        {
+          "code":"carbamazepine_carbamazepine_suspension",
+          "name":"Carbamazepine -- Carbamazepine suspension"
+        },
+        {
+          "code":"carbidopa_sinemet",
+          "name":"Carbidopa -- Sinemet"
+        },
+        {
+          "code":"clopidogrel_apo_clopidogrel_75_mg",
+          "name":"Clopidogrel -- Apo-Clopidogrel 75 mg"
+        },
+        {
+          "code":"digoxin_lanoxin_0_25_mg",
+          "name":"Digoxin -- Lanoxin 0.25 mg"
+        },
+        {
+          "code":"diltiazem_zaldem_60_mg",
+          "name":"Diltiazem -- Zaldem 60 mg"
+        },
+        {
+          "code":"dipyridamole_apo_dipyridamol_75_mg",
+          "name":"Dipyridamole -- Apo-Dipyridamol 75 mg"
+        },
+        {
+          "code":"enalapril_10mg",
+          "name":"ENALAPRIL maleate, 10 mg, tab."
+        },
+        {
+          "code":"enalapril_enalapril_20mg",
+          "name":"Enalapril -- Enalapril 20mg"
+        },
+        {
+          "code":"enalapril_renitec_5_mg",
+          "name":"Enalapril -- Renitec 5 mg"
+        },
+        {
+          "code":"fenofibrate_apo_feno_micro_200_mg",
+          "name":"Fenofibrate -- Apo-Feno-Micro 200 mg"
+        },
+        {
+          "code":"flixotide_fluticasone_60_puffs_50mcgpuff",
+          "name":"Flixotide -- Fluticasone, 60 puffs, 50mcg/puff"
+        },
+        {
+          "code":"flixotide_fluticasone_60_puffs_125mcgpuff",
+          "name":"Flixotide -- Fluticasone, 60 puffs, 125mcg/puff"
+        },
+        {
+          "code":"flixotide_fluticasone_60_puffs_250mcgpuff",
+          "name":"Flixotide -- Fluticasone, 60 puffs, 250mcg/puff"
+        },
+        {
+          "code":"furosemide_20mg",
+          "name":"FUROSEMIDE, 10 mg/ml, 2 ml, amp."
+        },
+        {
+          "code":"furosemide_apo_furosemide_40_mg",
+          "name":"Furosemide -- Apo-Furosemide 40 mg"
+        },
+        {
+          "code":"glibenclamide_glybenclamide_5_mg",
+          "name":"Glibenclamide -- GlybenClamide 5 mg"
+        },
+        {
+          "code":"glibenclamidemetfornin_glystor_plus_5500_mg",
+          "name":"Glibenclamide/Metfornin -- Glystor plus 5/500 mg"
+        },
+        {
+          "code":"gliclazide_glyzid_60_mg",
+          "name":"Gliclazide -- Glyzid 60 mg"
+        },
+        {
+          "code":"glimepiride_diameril_1_mg",
+          "name":"Glimepiride -- Diameril 1 mg"
+        },
+        {
+          "code":"glimepiride_diameril_2_mg",
+          "name":"Glimepiride -- Diameril 2 mg"
+        },
+        {
+          "code":"glimepiride_diameril_3_mg",
+          "name":"Glimepiride -- Diameril 3 mg"
+        },
+        {
+          "code":"glimepiride_diameril_4_mg",
+          "name":"Glimepiride -- Diameril 4 mg"
+        },
+        {
+          "code":"hydrochlorothiazide_25mg",
+          "name":"HYDROCHLOROTHIAZIDE, 25 mg, tablets"
+        },
+        {
+          "code":"hydrochlorothiazide_esidrex_100_mg",
+          "name":"Hydrochlorothiazide -- Esidrex 100 mg"
+        },
+        {
+          "code":"indapamide_fludex_lp_1_5_mg",
+          "name":"Indapamide -- Fludex LP 1.5 mg"
+        },
+        {
+          "code":"insulin_100_iuml_biphasic_30_human_10_ml",
+          "name":"Insulin, 100 IU/ml, Biphasic 30, human, 10 ml"
+        },
+        {
+          "code":"insulin_regular_actrapid",
+          "name":"Insulin regular -- Actrapid"
+        },
+        {
+          "code":"insuline_nph",
+          "name":"Insuline NPH"
+        },
+        {
+          "code":"ipratropium_bromide_ipratropium_bromide",
+          "name":"Ipratropium bromide -- Ipratropium bromide"
+        },
+        {
+          "code":"isosorbide_dinitrate_isoket_10_mg_tab",
+          "name":"Isosorbide dinitrate -- Isoket 10 mg tab"
+        },
+        {
+          "code":"levodopa_250mg_cardibopa_25mg",
+          "name":"LEVODOPA, 250 mg / CARBIDOPA, 25 mg, tab."
+        },
+        {
+          "code":"levothyroxine_eltroxin_100_mcg",
+          "name":"Levothyroxine -- Eltroxin 100 mcg"
+        },
+        {
+          "code":"losartan_losanet_50_mg",
+          "name":"Losartan -- Losanet 50 mg"
+        },
+        {
+          "code":"losartan_losanet_100mg",
+          "name":"Losartan -- Losanet 100mg"
+        },
+        {
+          "code":"losartanhydrocholothiazide_losarnet_h_5012_5_mg",
+          "name":"Losartan/Hydrocholothiazide -- Losarnet H 50/12.5 mg"
+        },
+        {
+          "code":"metformin_glystor_500_mg",
+          "name":"Metformin -- Glystor 500 mg"
+        },
+        {
+          "code":"metformin_hydrochloride_1000_mg",
+          "name":"Metformin hydrochloride, 1000 mg"
+        },
+        {
+          "code":"methyldopa_aldomet_250_mg",
+          "name":"Methyldopa -- Aldomet 250 mg"
+        },
+        {
+          "code":"nifedipine_adalat_20_mg_nifedipine",
+          "name":"Nifedipine -- Adalat 20 mg - Nifedipine"
+        },
+        {
+          "code":"omeprazole_20mg",
+          "name":"OMEPRAZOLE 20 mg, enteric caps."
+        },
+        {
+          "code":"phenytoin_epanutin_100_mg",
+          "name":"Phenytoin -- Epanutin 100 mg"
+        },
+        {
+          "code":"pravastatin_pravastatin_20_mg",
+          "name":"Pravastatin -- Pravastatin 20 mg"
+        },
+        {
+          "code":"propranolol_probetol_40_mg",
+          "name":"Propranolol -- Probetol 40 mg"
+        },
+        {
+          "code":"salbutamol_salbuamol_2_mg",
+          "name":"Salbutamol -- Salbuamol 2 mg"
+        },
+        {
+          "code":"salbutamol_ventoline_100_mcg_inhaler",
+          "name":"Salbutamol -- Ventoline 100 mcg Inhaler"
+        },
+        {
+          "code":"salbutamol_ventoline_sol_5mgml",
+          "name":"Salbutamol -- Ventoline sol. 5mg/ml"
+        },
+        {
+          "code":"simvastatin_stavine_10_mg",
+          "name":"Simvastatin -- Stavine 10 mg"
+        },
+        {
+          "code":"simvastatin_stavine_20_mg",
+          "name":"Simvastatin -- Stavine 20 mg"
+        },
+        {
+          "code":"spironolactone_aldactone_25mg",
+          "name":"Spironolactone -- Aldactone 25mg"
+        },
+        {
+          "code":"telmisartan_telmicard_40",
+          "name":"Telmisartan -- Telmicard 40"
+        },
+        {
+          "code":"telmisartan_telmicard_80",
+          "name":"Telmisartan -- Telmicard 80"
+        },
+        {
+          "code":"telmisartanhydrochlorothiazide_telmicard_plus",
+          "name":"Telmisartan/Hydrochlorothiazide -- Telmicard Plus"
+        },
+        {
+          "code":"valproate_sodium_57_64mg",
+          "name":"VALPROATE SODIUM, 57.64 mg / ml, syrup, bottle 150 ml"
+        },
+        {
+          "code":"valproate_sodium_300mg",
+          "name":"VALPROATE SODIUM, 300 mg, enteric coated tab"
+        },
+        {
+          "code":"valproic_acid_depakine_200_mg",
+          "name":"Valproic acid -- Depakine 200 mg"
+        },
+        {
+          "code":"valproic_acid_valproic_acid_500mg",
+          "name":"Valproic acid -- Valproic acid 500mg"
+        },
+        {
+          "code":"verapamil_hydrochloride_isoptin_80mg",
+          "name":"Verapamil hydrochloride -- Isoptin 80mg"
+        },
+        {
+          "code":"acenocoumarol_sintrom_4",
+          "name":"Acenocoumarol -- Sintrom 4"
+        },
+        {
+          "code":"acetazolamide_apo_acetazolamid_250_mg",
+          "name":"Acetazolamide -- Apo- Acetazolamid 250 mg"
+        },
+        {
+          "code":"allopurinol_apo_allopurinol_300_mg",
+          "name":"Allopurinol -- Apo-Allopurinol 300 mg"
+        },
+        {
+          "code":"aminophylline_aminophylline_100_mg",
+          "name":"Aminophylline -- Aminophylline 100 mg"
+        },
+        {
+          "code":"amiodarone_cordarone_200_mg",
+          "name":"Amiodarone -- Cordarone 200 mg"
+        },
+        {
+          "code":"amlodipine_amlocard_5_mg",
+          "name":"Amlodipine -- Amlocard 5 mg"
+        },
+        {
+          "code":"aspirin_aspicot_100_mg",
+          "name":"Aspirin -- Aspicot 100 mg"
+        },
+        {
+          "code":"atenolol_apo_atenolol_50_mg",
+          "name":"Atenolol -- Apo-Atenolol 50 mg"
+        }
+      ]
+    },
+    {
+      "name":"Primary diagnosis",
+      "options":[
+        {
+          "code":"newly_diagnosed",
+          "name":"Newly diagnosed"
+        },
+        {
+          "code":"previously_diagnosed",
+          "name":"Previously diagnosed"
+        },
+        {
+          "code":"no",
+          "name":"No"
+        },
+        {
+          "code":"unknown",
+          "name":"Unknown"
+        }
+      ]
+    },
+    {
+      "name":"Provenance",
+      "options":[
+        {
+          "code":"buffer_zone_resident",
+          "name":"Buffer Zone resident"
+        },
+        {
+          "code":"local",
+          "name":"Local"
+        },
+        {
+          "code":"idp",
+          "name":"IDP"
+        }
+      ]
+    },
+    {
+      "name":"RESULTS OF LAB TESTS",
+      "options":[
+        {
+          "code":"abnormal",
+          "name":"Abnormal"
+        },
+        {
+          "code":"normal",
+          "name":"Normal"
+        }
+      ]
+    },
+    {
+      "name":"Sex",
+      "options":[
+        {
+          "code":"male",
+          "name":"Male"
+        },
+        {
+          "code":"female",
+          "name":"Female"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    },
+    {
+      "name":"Status",
+      "options":[
+        {
+          "code":"cured",
+          "name":"Cured"
+        },
+        {
+          "code":"transfer",
+          "name":"Transferred"
+        },
+        {
+          "code":"defaulter",
+          "name":"Defaulter"
+        },
+        {
+          "code":"arrived_dead",
+          "name":"Arrived dead"
+        },
+        {
+          "code":"dead",
+          "name":"Dead"
+        },
+        {
+          "code":"referred",
+          "name":"Referred"
+        }
+      ]
+    },
+    {
+      "name":"Synthesis",
+      "options":[
+        {
+          "code":"controlled",
+          "name":"Controlled"
+        },
+        {
+          "code":"uncontrolled_but_stable",
+          "name":"Uncontrolled, but stable"
+        },
+        {
+          "code":"uncontrolled_improving",
+          "name":"Uncontrolled, improving"
+        },
+        {
+          "code":"uncontrolled_worsening",
+          "name":"Uncontrolled, worsening"
+        }
+      ]
+    },
+    {
+      "name":"Treatment plan",
+      "options":[
+        {
+          "code":"treatement_plan_a",
+          "name":"Treatment Plan A"
+        },
+        {
+          "code":"treatement_plan_b",
+          "name":"Treatment Plan B"
+        },
+        {
+          "code":"treatement_plan_c",
+          "name":"Treatment Plan C"
+        }
+      ]
+    },
+    {
+      "name":"Type of exit",
+      "options":[
+        {
+          "code":"deceased",
+          "name":"Deceased"
+        },
+        {
+          "code":"defaulter",
+          "name":"Defaulter"
+        },
+        {
+          "code":"discharged",
+          "name":"Discharged"
+        },
+        {
+          "code":"moved_to_another_location",
+          "name":"Moved to another location"
+        },
+        {
+          "code":"transferred",
+          "name":"Transferred"
+        },
+        {
+          "code":"clinic_closed_handover",
+          "name":"Clinic closed/handed over"
+        }
+      ]
+    },
+    {
+      "name":"Type of malnutrition",
+      "options":[
+        {
+          "code":"kwashiorkor",
+          "name":"Kwashiorkor"
+        },
+        {
+          "code":"marasmus",
+          "name":"Marasmus"
+        },
+        {
+          "code":"other",
+          "name":"Other"
+        }
+      ]
+    }
+  ]
+}

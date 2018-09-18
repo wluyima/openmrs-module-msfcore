@@ -28,13 +28,14 @@
 	        	<option value="${loc.uuid}" <% if(defaultLocation.uuid.equals(loc.uuid)){ %>selected<% } %>>${loc.name}</option>
 	    <% } %>
 	</select>
-	<h2 style="background-color:#f3f3f3;cursor:pointer;" onclick="jQuery('#location-codes').toggle();">${ui.message("msfcore.locationCodes")}</h2>
+	<h2 style="background-color:#f3f3f3;cursor:pointer;" onclick="jQuery('#location-codes').toggle();">${ui.message("msfcore.locationConfigs")}</h2>
 	<div id="location-codes">
 		<table>
 		    <thead>
 			    <tr>
 			        <th>${ ui.message("Location.title")}</th>
 			        <th>${ ui.message("msfcore.code")}</th>
+			        <th>${ ui.message("msfcore.uid")}</th>
 			    </tr>
 		    </thead>
 		    <% msfLocations.each { mLoc -> %>
@@ -42,6 +43,7 @@
 			    	<tr>
 			    		<td>${mLoc.display}</td>
 			    		<td><input type="text" name="${mLoc.uuid}" value="${mLoc.code}" /></td>
+			    		<td><input type="text" name="${mLoc.uuid}_uid" value="${mLoc.uid}" /></td>
 			    	</tr>
 			    </tbody>
 		    <% } %>
