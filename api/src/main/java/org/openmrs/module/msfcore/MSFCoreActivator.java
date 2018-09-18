@@ -63,6 +63,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
 
+        // disable the default find patient app to provide one which allows searching for patients at the footer of the search for patients page
+        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
+        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
+
         log.info("Installing MSF metadata");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
 
@@ -135,6 +139,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
             Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_OPENMRS_IDENTIFIER_SOURCE_ID,
                             String.valueOf(sourceForPrimaryType.getId()));
         }
+
+        // disable the MSF find patient app and enable the default core apps one
+        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
+        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
     }
 
     /**

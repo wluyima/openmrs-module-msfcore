@@ -1,7 +1,9 @@
 @import url('buttons.css');
 @import url('navigation.css');
 @import url('typography.css');
+@import url('forms.css');
 @import url('dashboard.css');
+@import url('registration.css');
 @import url('ncd.css');
 
 /* COLORS
@@ -11,6 +13,10 @@ This can be converted to custom propterties / variables at a later stage. A buil
 INTERACTION:
 Medium Turquoise: 55D6BE
 Aero Blue: D0FEF5
+
+INFORMATION:
+Info blue: 538CAC
+    lightest: B0CAD9
 
 BRANDING:
 
@@ -29,8 +35,15 @@ White: FFFFFF
 
 /* STRUCTURE */
 
-a, a:visited, a.visited, a:hover {
-    color: #55D6BE;
+a, a:hover,
+header a, 
+header a:hover, 
+header a:link {
+    color:#4EC3AD;
+}
+
+a:visited, a.visited {
+    color: #4EC3AD;
 }
 
 html {
@@ -64,12 +77,17 @@ header {
     margin: 8px auto;
 }
 
+/* UTILITY CLASSES */
+
+.float-left {
+    width: 80%;
+}
+
 /* TOASTS */
 
 .toast-item {
     font-family: "OpenSans", Arial, sans-serif;
     font-size: 16px;
-    background ;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
     order-radius: 8px;
@@ -112,12 +130,13 @@ form ul.select:focus,
     outline: none;
     border-bottom: 2px solid #55D6BE;
     background: #fff;
+    border-radius: 8px;
 }
 
 /* TABLES */
 
 table {
-    margin-bottom: 24px;
+    /*margin-bottom: 24px;*/
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
 }
 
@@ -148,9 +167,12 @@ table td:last-child {
 }
 
 .fg-toolbar {
+    background: #424C55;
+    border-radius: 0 0 8px 8px;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    border-top: 8px solid #373F46;
+    color: #fff;
     padding: 8px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 8px;
 }
 
 .dataTables_info {

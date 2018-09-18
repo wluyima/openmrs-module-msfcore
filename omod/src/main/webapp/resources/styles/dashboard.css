@@ -4,7 +4,8 @@
 
 .patient-header .identifiers em,
 .patient-header .demographics h1 span em,
-#patient-header-contactInfo {
+#patient-header-contactInfo,
+.dashboard .info-header > i:first-of-type {
     display: none;
 }
 
@@ -54,6 +55,15 @@
 
 .secondLineFragments {
     display:none;
+}
+
+.tag {
+    background: #B0CAD9;
+    border-radius: 8px;
+}
+
+#edit-patient-demographics {
+    box-shadow: none;
 }
 
 /* PATIENT DASHBOARD > Main Container */
@@ -140,14 +150,22 @@
     color: #fff;
 }
 
-.dashboard .info-header i:first-of-type {
-    display: none;
+.dashboard .info-header i.edit-action {
+    background: none;
+    border: 1px solid transparent;
+    box-shadow: none;
+    color:#EFF4F7;
+    font-size:12px;
+    margin-top: -2px;
 }
 
-.dashboard .info-header i:nth-of-type(2) {
-    font-size:12px;
-    color:#373F46;
-    margin-top: -2px;
+.dashboard .info-header i.icon-pencil:after {
+    content: 'Edit';
+}
+
+.dashboard .info-header i.edit-action:hover {
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 .dashboard .info-body {
