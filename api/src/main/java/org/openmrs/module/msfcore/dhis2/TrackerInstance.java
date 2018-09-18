@@ -8,52 +8,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.NoArgsConstructor;
+
+@lombok.Data
+@NoArgsConstructor
 public class TrackerInstance {
     private String url;
     private String program;
     private String programStage;
     private String trackedEntity;
     private Data data;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getProgram() {
-        return program;
-    }
-
-    public void setProgram(String program) {
-        this.program = program;
-    }
-
-    public String getProgramStage() {
-        return programStage;
-    }
-
-    public void setProgramStage(String programStage) {
-        this.programStage = programStage;
-    }
-
-    public String getTrackedEntity() {
-        return trackedEntity;
-    }
-
-    public void setTrackedEntity(String trackedEntity) {
-        this.trackedEntity = trackedEntity;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
-    }
 
     /*
      * Generates a url that looks like; "http://admin:district@localhost/"
