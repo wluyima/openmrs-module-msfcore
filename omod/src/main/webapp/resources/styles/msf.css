@@ -77,6 +77,29 @@ header {
     margin: 8px auto;
 }
 
+/* Vitals Section */
+
+#content > .container.half-width {
+    background: #fff;
+    padding: 24px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
+    overflow: hidden;
+}
+
+#content > .container.half-width h1 {
+    text-align:center;
+}
+
+#content > .container.half-width #actions {
+    height: 60px;
+    width: 44%;
+    padding: 16px 30% 16px 31%;
+    margin: 0 -30px 0 -26px;
+    background: #55D6BE;
+    box-shadow: inset rgba(0,0,0,0.3) 0 0 8px;
+}
+
 /* UTILITY CLASSES */
 
 .float-left {

@@ -1,4 +1,8 @@
 /* BUTTONS > Home Tiles */
+
+button.big {
+    max-width:100%;
+}
 .button.app.big {
     padding: 24px;
     height: 96%;
@@ -18,7 +22,7 @@
 }
 
 .button.app.big:hover i {
-    color: #24c2cb;
+    color: #55D6BE;
 }
 
 /* BUTTONS > Cancel & Confirm 
@@ -96,7 +100,7 @@ input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
 a.button.confirm:hover {
-    background:#55D6BE;
+    color:#4EC3AD;
     /*color: rgb(24, 201, 30);*/
 }
 
@@ -139,7 +143,7 @@ input[type="submit"]:disabled:hover {
 .icon-pencil.edit-action:hover,
 .icon-pencil:hover,
 .ui-state-default.ui-button:hover {
-    color: #55D6BE;
+    color: #4EC3AD;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
 }
 
@@ -206,6 +210,15 @@ input[type="submit"]:disabled:hover {
 .delete-item.icon-remove::after {
     content: 'Delete';
 }
+/* On Add Vitals Page */
+button.cancel.big i.icon-arrow-left,
+button.confirm.big i.icon-arrow-right {
+    font-size: 1rem;
+    padding: 5px 8px 0 8px;
+}
+button.cancel.big i.icon-arrow-left {float: left;}
+button.confirm.big i.icon-arrow-right {float: right;}
+
 
 /* BUTTONS > Transitions */
 form input,
