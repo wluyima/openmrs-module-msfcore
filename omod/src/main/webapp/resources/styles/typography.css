@@ -3,9 +3,17 @@
 html {
     color: #373F46;
 }
+body {
+  font-family: "OpenSansRegular", Arial, sans-serif;
+}
 @font-face {
     font-family: OpenSansLight;
     src: url(fonts/OpenSans-Light.ttf);
+}
+
+@font-face {
+    font-family: OpenSansRegular;
+    src: url(fonts/OpenSans-Regular.ttf);
 }
 
 @font-face {
@@ -18,25 +26,38 @@ html {
     src: url(fonts/OpenSans-Bold.ttf);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1,h2,h3,h4 {
     color: #373F46;
     font-family: "OpenSansLight", Arial, sans-serif;
 }
 
-h1,h2:first-of-type {
-    font-size: 2.5rem;
+h5,h6 {
+  color: #373F46;
+  font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
 
-#home-container h4,
-#content h3 {
-    font-size: 1.5rem;
+h1 {
+    font-size: 2.5rem;
+}
+h2 {
+    font-size: 2.1rem;
+    line-height: 40px;
+}
+h3 {
+    font-size: 1.8rem;
+    line-height: 35px;
+}
+h4 {
+    font-size: 1.4rem;
+}
+h5 {
+    font-size: 1.1rem;
+}
+h6 {
+    font-size: 0.9rem;
 }
 
 h6 i::before {
     width:20px;
 }
+.bold {font-weight: 700}

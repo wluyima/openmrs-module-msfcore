@@ -1,0 +1,24 @@
+[
+  {
+    "id": "msfcore.findPatient",
+    "instanceOf": "coreapps.template.findPatient",
+    "description": "Basic patient search that goes to the patient dashboard",
+    "order": 2,
+    "extensions": [
+      {
+        "id": "msfcore.findPatientLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+        "type": "link",
+        "label": "coreapps.findPatient.app.label",
+        "url": "coreapps/findpatient/findPatient.page?app=msfcore.findPatient",
+        "icon": "icon-search",
+        "requiredPrivilege": "App: coreapps.findPatient"
+      }
+    ],
+    "config": {
+      "registrationAppLink": "registrationapp/registerPatient.page?appId=msfcore.registrationapp",
+      "afterSelectedUrl": "/coreapps/clinicianfacing/patient.page?patientId={{ patientId }}&app=msfcore.app.clinicianDashboard",
+      "hideFilters": false
+    }
+  }
+]
