@@ -16,6 +16,48 @@ ul#formBreadcrumb li.doing > span#lifestyleInfo_label
     border-radius: 8px;
 }
 
+/* NOTE: Overriding some styling from NCD.css */
+
+.simple-form-ui label {
+    float: none;
+    margin-left: 0;
+    line-height: 1.5rem;
+}
+
+.simple-form-ui form input[type="checkbox"] {
+    padding: 12px;
+}
+
+#patientIdentificationInfo p.left{ 
+    margin:1rem 0;
+    float: none;
+}
+
+nobr {
+    margin-top:16px;
+    display: block;
+}
+
+input#checkbox-unknown-patient {
+    padding:12px;
+    margin: 8px 8px 0 4px;
+}
+
+label#checkbox-unknown-patient, nobr label {
+    padding:12px 0;
+}
+
+/* NCD.css overrides finished. */
+
+.simple-form-ui section, .simple-form-ui #confirmation, .simple-form-ui form section, .simple-form-ui form #confirmation,
+section.focused {
+    padding: 64px;
+    box-sizing: border-box;
+    border-radius: 0 0 8px 0;
+    background: #fff;
+    min-width: 73%;
+}
+
 input#cancelSubmission {
     float: right;
     font-size: 1rem;
@@ -30,28 +72,9 @@ div#content div#content h2 {
     font-family: 'OpenSansSemiBold';
 }
 
-section.focused {
-    padding: 64px;
-    width: 75%;
-    box-sizing: border-box;
-    border-radius: 0 0 8px 0;
-    background: #fff;
-}
-
 section.focused h3 {
     font-size:2rem;
     font-family: 'OpenSansSemiBold'
-}
-
-ul#formBreadcrumb {
-    width:25%;
-    background: #55D6BE;
-    color:#fff;
-    border-radius: 0 0 0 8px;
-}
-
-ul#formBreadcrumb li {
-    border:none;
 }
 
 ul#formBreadcrumb li.question-legend {
