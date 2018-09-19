@@ -100,7 +100,7 @@
 						<configFile>src/main/resources/jembi-formatter.xml</configFile>
 						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
 					</configuration>
-				</plugin>
+		        </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

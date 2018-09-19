@@ -11,7 +11,8 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.msfcore.api.DHISService;
+import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.SimpleJSON;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,7 +23,7 @@ public class OpenMRSToDHISTest {
     @Before
     public void setup() throws JsonParseException, JsonMappingException, FileNotFoundException, IOException {
         json = SimpleJSON.readFromInputStream(new FileInputStream(new File(getClass().getClassLoader().getResource(
-                        DHISService.FILENAME_OPTION_SETS_JSON).getFile())));
+                        MSFCoreConfig.FILENAME_OPTION_SETS_JSON).getFile())));
     }
 
     @Test

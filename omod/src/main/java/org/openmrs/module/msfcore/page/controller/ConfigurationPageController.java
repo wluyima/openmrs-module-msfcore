@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.SimplifiedLocation;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
@@ -25,7 +28,9 @@ public class ConfigurationPageController {
                     @RequestParam(value = "instanceId", required = false) String instanceId,
                     @SpringBean("locationService") LocationService locationService,
                     @SpringBean("msfCoreService") MSFCoreService msfCoreService, @SpringBean("dhisService") DHISService dhisService,
-                    HttpServletRequest request, HttpServletResponse response, UiUtils ui) throws IOException {
+                    HttpServletRequest request, HttpServletResponse response, UiUtils ui,
+                    @RequestParam(value = "localFeedUrl", required = false) String localFeedUrl,
+                    @RequestParam(value = "parentFeedUrl", required = false) String parentFeedUrl) throws IOException {
         boolean isPostRequest = false;
         if (defaultLocation != null) {
             isPostRequest = true;
@@ -35,18 +40,45 @@ public class ConfigurationPageController {
             isPostRequest = true;
             msfCoreService.saveInstanceId(StringUtils.deleteWhitespace(instanceId).toUpperCase());
         }
+        if (StringUtils.isNotBlank(localFeedUrl)) {
+            isPostRequest = true;
+            Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL, localFeedUrl);
+        }
+        if (StringUtils.isNotBlank(parentFeedUrl)) {
+            isPostRequest = true;
+            Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL, parentFeedUrl);
+        }
+        String localFeedUrlString = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
+        String parentFeedUrlString = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
         saveLocationCodes(request, msfCoreService, dhisService, locationService, isPostRequest);
         model.addAttribute("defaultLocation", locationService.getDefaultLocation());
         model.addAttribute("allLocations", locationService.getAllLocations());
         model.addAttribute("msfLocations", getSimplifiedMSFLocations(msfCoreService, dhisService));
         model.addAttribute("instanceId", msfCoreService.instanceId());
+        model.addAttribute("localFeedUrl", StringUtils.isBlank(localFeedUrlString) ? "" : localFeedUrlString);
+        model.addAttribute("parentFeedUrl", StringUtils.isBlank(parentFeedUrlString) ? "" : parentFeedUrlString);
+        model.addAttribute("isClinic", isClinic(locationService));
         if (isPostRequest && msfCoreService.configured()) {
             // reload msfIDgenerator installation
             msfCoreService.msfIdentifierGeneratorInstallation();
             // reload dhis2 metadata
             dhisService.installDHIS2Metadata();
+            // overwriteSync2 configurations
+            msfCoreService.overwriteSync2Configuration();
             response.sendRedirect(ui.pageLink("referenceapplication", "home"));
         }
+    }
+
+    private boolean isClinic(LocationService locationService) {
+        Location def = locationService.getDefaultLocation();
+        if (def != null && !def.getTags().isEmpty()) {
+            for (LocationTag tag : def.getTags()) {
+                if (tag.getUuid().equals(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private List<SimplifiedLocation> getSimplifiedMSFLocations(MSFCoreService msfCoreService, DHISService dhisService) {
