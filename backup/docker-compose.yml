@@ -33,7 +33,7 @@ services:
       - /usr/local/tomcat/.OpenMRS/owa/     # used to mount persistent docker volume for owa
 
   backup:
-    image: msf-openmrs-backup:latest
+    image: jembi/openmrs-module-msfcore
     volumes:
       - db-data:/db_data
       - web-data:/web_data
