@@ -57,7 +57,7 @@ public class ConfigurationPageController {
         model.addAttribute("instanceId", msfCoreService.instanceId());
         model.addAttribute("localFeedUrl", StringUtils.isBlank(localFeedUrlString) ? "" : localFeedUrlString);
         model.addAttribute("parentFeedUrl", StringUtils.isBlank(parentFeedUrlString) ? "" : parentFeedUrlString);
-        model.addAttribute("isClinic", isClinic(locationService));
+        model.addAttribute("isClinic", isClinic(locationService.getDefaultLocation()));
         if (isPostRequest && msfCoreService.configured()) {
             // reload msfIDgenerator installation
             msfCoreService.msfIdentifierGeneratorInstallation();
@@ -69,10 +69,9 @@ public class ConfigurationPageController {
         }
     }
 
-    private boolean isClinic(LocationService locationService) {
-        Location def = locationService.getDefaultLocation();
-        if (def != null && !def.getTags().isEmpty()) {
-            for (LocationTag tag : def.getTags()) {
+    private boolean isClinic(Location location) {
+        if (location != null && !location.getTags().isEmpty()) {
+            for (LocationTag tag : location.getTags()) {
                 if (tag.getUuid().equals(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)) {
                     return true;
                 }
