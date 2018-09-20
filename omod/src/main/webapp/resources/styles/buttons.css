@@ -64,20 +64,23 @@ input[type="submit"].cancel {
     float:left;
 }
 
+.button:hover, 
+a.button:hover
 button:hover,
 .button.cancel:hover,
 button.cancel:hover,
-input[type=button]:hover,
-input[type="submit"] .cancel:hover,
-input[type="button"].cancel:hover,
-input[type="submit"].cancel:hover,
 a.button.cancel:hover,
 .button.confirm:hover,
 button.confirm:hover,
+a.button.confirm:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover
+input[type="submit"] .cancel:hover,
+input[type="button"].cancel:hover,
+input[type="submit"].cancel:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover,
 #form-actions-container a {
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.4) 0 2px 8px;
@@ -204,6 +207,11 @@ input[type="submit"]:disabled:hover {
 
 #patient-search-clear-button:after {
     content: 'Clear';
+}
+
+a#patient-search-register-patient {
+    float: right;
+    margin-bottom: 24px;
 }
 
 .edit-action.icon-share-alt:after {
