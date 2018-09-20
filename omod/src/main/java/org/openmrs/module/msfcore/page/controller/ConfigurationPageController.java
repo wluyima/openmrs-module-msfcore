@@ -44,7 +44,7 @@ public class ConfigurationPageController {
             isPostRequest = true;
             Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL, localFeedUrl);
         }
-        if (StringUtils.isNotBlank(parentFeedUrl)) {
+        if (parentFeedUrl != null) {
             isPostRequest = true;
             Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL, parentFeedUrl);
         }
