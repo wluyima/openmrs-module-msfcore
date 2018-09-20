@@ -37,7 +37,7 @@ services:
     volumes:
       - db-data:/db_data
       - web-data:/web_data
-      - backup-data:/backup
+      - ./backup:/backup
     environment:
       - DIRS=/db_data:mysql,/web_data:openmrs
       - SCHEDULE=0 0 * * *
@@ -45,5 +45,3 @@ services:
 volumes:
   db-data:
   web-data:
-  backup-data:
-
