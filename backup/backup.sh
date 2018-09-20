@@ -7,7 +7,8 @@ then
   for DIR in ${DIRS//,/ } 
     do
       DIR_PAIR=(${DIR//:/ })
-      7z a /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]} -pJembi123
+      #7z a /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]} -pJembi123 #Was having some corrupted files when working with 7z
+      zip --password Jembi123 -r /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]}
   done
 else
   echo "DIRS environment not defined!"
