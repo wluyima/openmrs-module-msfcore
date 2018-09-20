@@ -47,4 +47,6 @@ public interface MSFCoreService extends OpenmrsService {
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
 
     public void overwriteSync2Configuration();
+
+    public String getCurrentLocationIdentity();
 }

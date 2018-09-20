@@ -23,6 +23,7 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.AppUiConstants;
 import org.openmrs.module.appui.AppUiExtensions;
+import org.openmrs.module.msfcore.CurrentLocationIdentity;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -43,9 +44,10 @@ public class HeaderFragmentController {
     public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel,
                     @SpringBean("msfCoreService") MSFCoreService msfCoreService, HttpServletRequest request, HttpServletResponse response,
                     UiUtils ui) throws IOException {
+        String confUrl = ui.pageLink("msfcore", "configuration");
         if (Context.getAuthenticatedUser().isSuperUser() && !request.getRequestURI().contains("msfcore/configuration")
                         && !msfCoreService.configured()) {
-            response.sendRedirect(ui.pageLink("msfcore", "configuration"));
+            response.sendRedirect(confUrl);
         } else {
             try {
                 Context.addProxyPrivilege(GET_LOCATIONS);
@@ -59,6 +61,8 @@ public class HeaderFragmentController {
                 List<Extension> userAccountMenuItems = appFrameworkService
                                 .getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
                 fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
+                fragmentModel.addAttribute("currentLocationIdentity", new CurrentLocationIdentity(msfCoreService
+                                .getCurrentLocationIdentity(), confUrl));
             } finally {
                 Context.removeProxyPrivilege(GET_LOCATIONS);
                 Context.removeProxyPrivilege(VIEW_LOCATIONS);

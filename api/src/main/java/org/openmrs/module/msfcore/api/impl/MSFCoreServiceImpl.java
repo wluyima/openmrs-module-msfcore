@@ -170,4 +170,11 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
     }
 
+    public String getCurrentLocationIdentity() {
+        if (configured()) {
+            return Context.getMessageSourceService().getMessage("msfcore.currentLocationIdentity",
+                            new Object[]{Context.getLocationService().getDefaultLocation().getName(), instanceId()}, null);
+        }
+        return "";
+    }
 }
