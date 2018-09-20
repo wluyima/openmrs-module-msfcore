@@ -29,6 +29,7 @@ Dark grey: 424C55
     Darker: 373F46 (Body Text)
     Lighter: 646C73
     lightest: 757C83
+    Disabled: BABDC1
 
 White: FFFFFF
     Darker:
@@ -229,6 +230,7 @@ table td:last-child {
     border-top: 8px solid #373F46;
     color: #fff;
     padding: 8px;
+    margin-bottom: 64px;
 }
 
 .dataTables_info {
@@ -236,6 +238,11 @@ table td:last-child {
     padding-left: 8px;
     font-size: 18px;
     opacity: 0.8;
+    width: 38%;
+}
+
+.paging_full_numbers {
+    width: 60% !important;
 }
 
 /* MODALS */

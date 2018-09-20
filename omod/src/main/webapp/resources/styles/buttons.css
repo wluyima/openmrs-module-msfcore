@@ -136,12 +136,14 @@ input[type="submit"]:disabled:hover {
     box-shadow: rgba(0, 0, 0, 0.4) 0 0 4px;
 }
 
-.ui-state-default.ui-button.ui-state-disabled {
+/* BUTTONS > Disabled Pagination Buttons */
+.ui-state-default.ui-button.ui-state-disabled,
+.ui-state-default.ui-button.ui-state-disabled:hover {
     opacity: 0.3;
 }
 
 .ui-state-default.ui-button.ui-state-disabled:hover {
-    color: #373F46;
+    color: #BABDC1;
 }
 
 /* BUTTONS > Table Row Actions */
