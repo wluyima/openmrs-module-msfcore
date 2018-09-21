@@ -14,11 +14,11 @@
 	<script type="text/javascript">
 		if (jQuery) {
 			jq(document).ready(function () {
-				<ifMode mode="EDIT" include="true">
 					<!-- add the links to the actual forms -->
-					jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html());
-					jq("#allergies").attr("href", jq("#allergies-form-url").html());
-				</ifMode>
+					jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+					jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&amp;patientId='+ jq('input[name=personId]').val());
+					 jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+                    jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
 			});
 		}
 	</script>
@@ -30,22 +30,24 @@
 				<span>Paper Form ID: $paperFormId</span>
 				<ol>
 					<li>
-						<a href="#medicalhistory">Medical history</a>
-						<span class="hidden" id="medical-history-form-url"><lookup complexExpression="#set ($medicalhistory='/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d&amp;patientId=$patient.uuid&amp;') $medicalhistory" /></span>
+						<a id="medicalhistory" href="#medicalhistory">Medical history</a>
+						<span class="hidden" id="medical-history-form-url">enterHtmlFormWithStandardUi.page?formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d</span>
 					</li>
 					<li class="active">
-						<a href="#lifestyle">Lifestyle</a>
+						<a id="lifestyle" href="#lifestyle">Lifestyle</a>
 					</li>
 					<li>
-						<a href="#allergies">Allergies</a>
-						<span class="hidden" id="allergies-form-url"><lookup complexExpression="#set ($allergies='/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId=$patient.uuid&amp;') $allergies" /></span>
+						<a id="allergies" href="#allergies">Allergies</a>
+						<span class="hidden" id="allergies-form-url">enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6</span>
 					</li>
 					<li>
-						<a href="#diagnosis">Diagnosis</a>
-					</li>
-					<li>
-						<a href="#prescribemedication">Prescribe medication</a>
-					</li>
+                        <a id="diagnosis" href="#diagnosis">Diagnosis</a>
+                        <span class="hidden" id="diagnosis-form-url">enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746</span>
+                    </li>
+                    <li>
+                        <a id="prescribemedication" href="#prescribemedication">Prescribe medication</a>
+                        <span class="hidden" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
+                    </li>
 					<li>
 						<a href="#patienttargets">Patient targets</a>
 					</li>
@@ -133,7 +135,7 @@
             #foreach($encounter in $fn.allEncounters(null)) $encounter.form.uuid
                 #if( $encounter.form.uuid == '3209cd5f-656e-42f4-984e-ab466a5b77ef' )
                     &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
+                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
                     &lt;/script>
                 #end
             #end"/>
@@ -141,6 +143,5 @@
 	</ifMode>
 	<redirectOnSave
 			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
-
 
 </htmlform>
