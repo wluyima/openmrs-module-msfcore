@@ -220,22 +220,22 @@
                         <tr>
                             <td class="left-th" width="18%">
                                 <span>
-                                    <lookup expression="fn.getConcept('163603').name"/>
+                                    <lookup expression="fn.getConcept('463603').name"/>
                                 </span>
                             </td>
                             <td width="82%">
-                                <obs conceptId="163603" answerConceptIds="163605,163606,163607,163608,163609"
+                                <obs conceptId="463603" answerConceptIds="463605,463606,463607,463608,463609"
                                      style="radio"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="left-th">
                                 <span>
-                                    <lookup expression="fn.getConcept('163604').name"/>
+                                    <lookup expression="fn.getConcept('463604').name"/>
                                 </span>
                             </td>
                             <td>
-                                <obs conceptId="163604" answerConceptIds="163605,163606,163607,163608,163609"
+                                <obs conceptId="463604" answerConceptIds="463605,463606,463607,463608,463609"
                                      style="radio"/>
                             </td>
                         </tr>
@@ -243,7 +243,7 @@
 
 
                     <h5>Other past medical history</h5>
-                    <obs conceptId="163347" rows="4" cols="60"/>
+                    <obs conceptId="160221" rows="4" cols="60"/>
                     <!--<textarea cols="60" rows="6" placeholder="Write in as much details any other past medical history"></textarea>-->
 
 
@@ -251,25 +251,20 @@
                     <table width="90%">
                         <tr>
                             <td>
-                                <obs conceptId="163615" answerConceptId="163616" answerLabel="Diabetes"
+                                <obs conceptId="463615" answerConceptId="463616" answerLabel="Diabetes"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="163615" answerConceptId="163617" answerLabel="Premature CV Event &lt;50"
+                                <obs conceptId="463615" answerConceptId="463617" answerLabel="Premature CV Event &lt;50"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" id="activate-field" value="MH">Malignant hyperthermia
-                                    <span
-                                            style="background:purple;color:white">CONCEPT MISSING
-                                    </span>
-                                </input>
-                                <input type="text" id="field-to-activate" placeholder="Details about MH"
-                                       style="display:none"></input>
+                                <obs conceptId="463615" answerConceptId="135315" answerLabel="Malignant Hyperthermia"
+                                     style="checkbox"/>
                             </td>
                         </tr>
                     </table>
