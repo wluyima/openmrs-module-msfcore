@@ -13,15 +13,22 @@ header .user-options {
 .button.app.big header .user-options li a,
 header .user-options li.logout a {
     background: #fff;
-    border-radius: 16px;
+    border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, .2) 0 0 4px;
     padding: 24px;
 }
 
 header .user-options li.change-location {
     border: none;
-    border-radius: 16px;
+    border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, .2) 0 0 4px;
+    width:12rem;
+}
+
+#selected-location {
+    display:inline-block;
+    width: 125px;
+    animation: fadein 2s ease-in;
 }
 
 header .user-options li.change-location a,
@@ -84,6 +91,9 @@ header #session-location li.selected {
 #breadcrumbs {
     background: #f3f3f3;
     margin-top: 90px;
+    height: 60px;
+    padding: 2px 0 0 16px;
+    box-sizing: border-box;
 }
 
 #breadcrumbs li a {
@@ -100,7 +110,7 @@ header #session-location li.selected {
     box-shadow:rgba(0, 0, 0, 0.1) 0 0 8px;
     color: #55D6BE;
     opacity:0.8;
-    font-family:'OpenSansSemiBold';
+    font-family:'OpenSansSemiBold', Arial, Helvetica, sans-serif;
     padding:8px 16px;
     text-decoration: none;
 }
@@ -170,16 +180,16 @@ i.icon-home.small:after {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding-top: 8px;
 }
-
+#form-actions-container,
 .actions, #actions {
     background: #424C55;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 0.5rem 0.5rem;
     border-top: 8px solid #373F46;
     box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
     box-sizing: border-box;
-    height: 96px;
+    height: 6rem;
     margin-top: 0;
-    padding: 16px;
+    padding: 1rem;
     width: 100%;
 }
 

@@ -53,7 +53,7 @@ input[type="submit"].cancel,
     color: #373F46;
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding: 12px 24px;
-    margin: 8px 0;
+    margin: 8px;
 }
 
 input[type=button] [value=value],
@@ -154,7 +154,6 @@ input[type="submit"]:disabled:hover {
 .icon-pencil:hover,
 .ui-state-default.ui-button:hover {
     color: #4EC3AD;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
 }
 
 .ui-state-default.ui-button:hover {
@@ -164,7 +163,8 @@ input[type="submit"]:disabled:hover {
 .edit-info,
 .edit-action,
 #patient-search-clear-button,
-.delete-item {
+.delete-item,
+.delete-action {
     position: relative;
     display: inline-block;
     text-decoration: none;
@@ -196,6 +196,8 @@ input[type="submit"]:disabled:hover {
 }
 
 #patient-search-clear-button::after,
+.icon-pencil.edit-action::after,
+.icon-remove.delete-action::after,
 .delete-item.icon-remove::after,
 .delete-item.icon-pencil::after,
 .edit-action::after {
@@ -217,11 +219,11 @@ a#patient-search-register-patient {
 .edit-action.icon-share-alt:after {
     content: 'Open';
 }
-
+.icon-pencil.edit-action::after,
 .delete-item.icon-pencil::after {
     content: 'Edit';
 }
-
+.icon-remove.delete-action::after,
 .delete-item.icon-remove::after {
     content: 'Delete';
 }
@@ -233,6 +235,15 @@ button.confirm.big i.icon-arrow-right {
 }
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
+
+/* Attachments */
+
+.att_upload-container button.confirm, button#allergyui-addNewAllergy {
+    float:right;
+}
+
+/* Add New Allergy */ 
+
 
 
 /* BUTTONS > Transitions */
