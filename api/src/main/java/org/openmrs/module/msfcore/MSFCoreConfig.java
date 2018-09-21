@@ -27,6 +27,7 @@ public class MSFCoreConfig {
     public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
+    public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
 
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
 

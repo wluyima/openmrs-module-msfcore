@@ -43,8 +43,20 @@
             </dependency>
             <dependency>
 				<groupId>org.openmrs.module</groupId>
+				<artifactId>allergyui-web-2.0</artifactId>
+				<version>${allergyuiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+            <dependency>
+				<groupId>org.openmrs.module</groupId>
 				<artifactId>appframework-api</artifactId>
 				<version>${appframeworkVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>emrapi-omod</artifactId>
+				<version>${emrapiVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -90,10 +102,25 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	    <maven.compiler.source>1.8</maven.compiler.source>
 		<openmrsPlatformVersion>2.2.0-SNAPSHOT</openmrsPlatformVersion>
-		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
-		<idgenVersion>4.4.1</idgenVersion>
+
+		<allergyuiVersion>1.8.1</allergyuiVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
+		<emrapiVersion>1.25.0-SNAPSHOT</emrapiVersion>
+		<fhirVersion>1.14.0-SNAPSHOT</fhirVersion>
 		<htmlformentryVersion>3.7.0</htmlformentryVersion>
+		<idgenVersion>4.4.1</idgenVersion>
         <lombokVersion>1.18.0</lombokVersion>
+		<referenceApplicationVersion>2.9.0-SNAPSHOT</referenceApplicationVersion>
+		<referencedemodataVersion>1.4.5-SNAPSHOT</referencedemodataVersion>
+		<referencemetadataVersion>2.9.0-SNAPSHOT</referencemetadataVersion>
+		<uicommonsVersion>2.7.0-SNAPSHOT</uicommonsVersion>
+		<webservices.restVersion>2.23.0-SNAPSHOT</webservices.restVersion>
+		<swaggerCondeGenVersion>2.3.1</swaggerCondeGenVersion>
+
+		<!-- msf specific modules -->
+		<atomfeedVersion>1.0.5-SNAPSHOT</atomfeedVersion>
+		<sync2Version>1.2.0-SNAPSHOT</sync2Version>
+		<attachmentsVersion>2.1.0-SNAPSHOT</attachmentsVersion>
 	</properties>
 </project>

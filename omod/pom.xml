@@ -46,6 +46,14 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>appui-omod</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>allergyui-web-2.0</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>emrapi-omod</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -106,6 +106,13 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
         log.info("Installing MSF Forms");
         installMsfForms();
+
+        // create a map between visit types and encounter types to enable the autocreation of visits
+        // all encounters are mapped to the default Facility Visit Type - change this mapping to match encounter types to facility types
+        // see https://issues.openmrs.org/browse/EA-116 for more information
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
+                        "*=7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
     }
 
     private void removeMSFMeta() {
@@ -147,6 +154,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         // disable the MSF find patient app and enable the default core apps one
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
+
+        // remove a map between visit types and encounter types to enable the autocreation of visits
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP, "");
     }
 
     /**

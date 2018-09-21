@@ -1,0 +1,146 @@
+<htmlform
+	formUuid="3209cd5f-656e-42f4-984e-ab466a5b77ef"
+	formName="NCD Baseline Consultation - Lifestyle"
+	formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
+	formVersion="1.1"
+	formDescription="Lifestyle information for the NCD Baseline Consultation"
+	formAddMetadata="yes">
+	<macros>
+		paperFormId = (Fill this in)
+		headerColor =#009d8e
+		fontOnHeaderColor = white
+	</macros>
+
+	<script type="text/javascript">
+		if (jQuery) {
+			jq(document).ready(function () {
+				<ifMode mode="EDIT" include="true">
+					<!-- add the links to the actual forms -->
+					jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html());
+					jq("#allergies").attr("href", jq("#allergies-form-url").html());
+				</ifMode>
+			});
+		}
+	</script>
+
+	<div class="wrapper">
+		<div class="left-column">
+			<div class="left-navigation">
+				<h3>NCD Baseline Consultation Note - Lifestyle</h3>
+				<span>Paper Form ID: $paperFormId</span>
+				<ol>
+					<li>
+						<a href="#medicalhistory">Medical history</a>
+						<span class="hidden" id="medical-history-form-url"><lookup complexExpression="#set ($medicalhistory='/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d&amp;patientId=$patient.uuid&amp;') $medicalhistory" /></span>
+					</li>
+					<li class="active">
+						<a href="#lifestyle">Lifestyle</a>
+					</li>
+					<li>
+						<a href="#allergies">Allergies</a>
+						<span class="hidden" id="allergies-form-url"><lookup complexExpression="#set ($allergies='/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId=$patient.uuid&amp;') $allergies" /></span>
+					</li>
+					<li>
+						<a href="#diagnosis">Diagnosis</a>
+					</li>
+					<li>
+						<a href="#prescribemedication">Prescribe medication</a>
+					</li>
+					<li>
+						<a href="#patienttargets">Patient targets</a>
+					</li>
+					<li>
+						<a href="#regularpatientreview">Regular patient review</a>
+					</li>
+					<li>
+						<a href="#clinicalnote">Clinical note</a>
+					</li>
+					<li>
+						<a href="#investigationrequest">Request investigation</a>
+					</li>
+					<li>
+						<a href="#scheduleappointment">Schedule appointment</a>
+					</li>
+					<li>
+						<a href="#referpatient">Refer patient</a>
+					</li>
+
+				</ol>
+				<!--<button class="nav-button">Request investigation</button>
+                <button class="nav-button">Refer patient</button>
+                <button class="nav-button">Schedule appointment</button>-->
+
+
+				<button class="nav-button save">Save</button>
+				<button class="nav-button cancel">Cancel</button>
+				<button class="nav-button final">
+					<i class="fas fa-lock"></i>
+					Save final
+				</button>
+			</div>
+		</div>
+		<div class="right-form-display">
+
+			<div style="display:none;">
+				<section headerLabel="Encounter Details">
+					<table class="baseline-aligned">
+						<tr>
+							<td>Date:</td>
+							<td>
+								<encounterDate default="now"/>
+							</td>
+						</tr>
+						<tr>
+							<td>Location:</td>
+							<td>
+								<encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+							</td>
+						</tr>
+					</table>
+				</section>
+			</div>
+
+			<div class="sections-container">
+
+				<section><!--MEDICAL HISTORY-->
+
+					<h3>
+						<a name="medicalhistory">Lifestyle</a>
+					</h3>
+
+					<table class="baseline-aligned">
+						<tr>
+							<td><lookup expression="fn.getConcept('463611').name"/></td>
+							<td> <obs conceptId="463611" id="smoker"/></td>
+						</tr>
+						<tr>
+							<td>If a Smoker</td>
+							<td><lookup expression="fn.getConcept('463614').name"/> <obs conceptId="463614" id="number of packs per day" showUnits="true" /></td>
+						</tr>
+					</table>
+				</section>
+			</div>
+			<submit submitLabel="Next >"/>
+		</div>
+	</div>
+
+
+	<!-- Enusre that only one version of this form can exist at any one time -->
+	<ifMode mode="EDIT" include="false">
+		<lookup complexExpression="
+            #set( $encounter = 0 )
+            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
+            #foreach($encounter in $fn.allEncounters(null)) $encounter.form.uuid
+                #if( $encounter.form.uuid == '3209cd5f-656e-42f4-984e-ab466a5b77ef' )
+                    &lt;script type=&quot;text/javascript&quot;>
+                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?visitId=$encounter.visit.visitId&amp;formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
+                    &lt;/script>
+                #end
+            #end"/>
+
+	</ifMode>
+	<redirectOnSave
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+
+
+</htmlform>
