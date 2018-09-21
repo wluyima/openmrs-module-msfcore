@@ -101,3 +101,7 @@ ul#formBreadcrumb {
 ul#formBreadcrumb li {
     border:none;
 }
+/* Icon Addon */
+.add-on {
+    left: -40px;
+}

@@ -98,12 +98,14 @@ header {
 }
 
 #content > .container.half-width #actions {
-    height: 60px;
-    width: 44%;
-    padding: 16px 30% 16px 31%;
-    margin: 0 -30px 0 -26px;
     background: #55D6BE;
     box-shadow: inset rgba(0,0,0,0.3) 0 0 8px;
+    border: none;
+    border-radius: 0;
+    height: 96px;
+    padding: 16px 30% 16px 30%;
+    margin: 0 -40px 0 -40px;
+    width: 106%;
 }
 
 #form-actions-container {
@@ -272,3 +274,46 @@ table td:last-child {
 #filter-tags {
     display: none;
 }
+
+/* Conditions */
+
+.horizontal {
+    display: table;
+    padding: 16px;
+    background: #55D6BE;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.horizontal:first-of-type {
+    margin-top:16px;
+    border-radius: 8px 8px 0 0;
+}
+
+.horizontal > * {
+    display: inline-block;
+    text-transform: lowercase;
+}
+
+.concept input, 
+#concept-and-date span.date input { 
+    padding:8px;
+    border-radius: 4px;
+    border:none;
+    border-bottom: 2px solid #ccc;
+}
+
+#conceptId-input::before {
+    content: 'Type to find a Concept';
+    display: block;
+}
+/*
+html {
+    animation: fadein 0.25s ease-in;
+}
+
+@keyframes fadein {
+    0% { opacity: 0; }
+    75% { opacity: 0; }
+    100%   { opacity: 1; }
+}*/
