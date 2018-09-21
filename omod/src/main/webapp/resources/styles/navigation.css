@@ -134,3 +134,62 @@ i.icon-home.small:after {
     width: 60px;
     margin-right: 60px;
 }*/
+
+/* CONDITIONS PAGE */
+
+.ui-tabs .ui-tabs-panel {
+    padding: 16px;
+    border: none;
+    border-radius: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+    border-bottom: none;
+    background: #55D6BE;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    border-radius: 8px 8px 0 0;
+    border-color: #DDD;
+    background: #f7f7f7;
+    margin: 0 0 0 8px;
+    box-shadow: inset rgba(0,0,0,0.1) 0 -4px 8px, rgba(0,0,0,0.2) 0 -2px 4px;
+    height: 48px;
+    padding-top: 8px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    box-shadow: rgba(0,0,0,0.1) 0 -4px 8px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-tabs-active a:link, .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-state-default {
+    color: #4EC3AD;
+    border-top: #55D6BE;
+    margin:0;
+    height:24px;
+    font-family: 'OpenSansSemiBold', Arial, sans-serif;
+    padding-top: 8px;
+}
+
+.actions {
+    background: #424C55;
+    border-top: 8px solid #373F46;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    height: 56px;
+    margin-top: 0;
+    padding: 16px;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Targets the Heading 2 after a script tag on the Edit Conditions page */
+
+.patient-header ~ h2 {
+    background: #55D6BE;
+    padding: 16px;
+    margin-bottom: 0;
+    border-top: none;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0;
+}
