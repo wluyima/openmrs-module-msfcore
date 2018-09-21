@@ -1,5 +1,5 @@
 # Generated automatically by openmrs SDK
-version: '2'
+version: '3.3'
 
 services:
   db:
@@ -15,8 +15,7 @@ services:
       - db-data:/var/lib/mysql
 
   web:
-    build: web
-    image: referenceapplication:2.9.0-msf-snapshot
+    image: msf-openmrs-tomcat
     depends_on:
       - db
     environment:
@@ -27,6 +26,8 @@ services:
       DB_CREATE_TABLES: 'false'  # change to 'true' if using an empty database
       DB_AUTO_UPDATE: 'false'    # change to 'true' if using an empty database
       MODULE_WEB_ADMIN: 'true'   # allow web admin on OpenMRS
+    ports:
+      - "8080:8080"
     volumes:
       - web-data:/usr/local/tomcat/.OpenMRS
       - /usr/local/tomcat/.OpenMRS/modules/ # used to mount persistent docker volume for modules
@@ -34,6 +35,8 @@ services:
 
   backup:
     image: jembi/openmrs-module-msfcore
+    secrets:
+      - zip_file_password
     volumes:
       - db-data:/db_data
       - web-data:/web_data
@@ -45,3 +48,7 @@ services:
 volumes:
   db-data:
   web-data:
+
+secrets:
+  zip_file_password:
+    file: ./zip_file_password.txt

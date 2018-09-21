@@ -7,8 +7,13 @@ then
   for DIR in ${DIRS//,/ } 
     do
       DIR_PAIR=(${DIR//:/ })
-      #7z a /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]} -pJembi123 #Was having some corrupted files when working with 7z
-      zip --password Jembi123 -r /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]}
+      ZIP_FILE_PASSWORD=$(</run/secrets/zip_file_password)
+      if [ ! -z $ZIP_FILE_PASSWORD ]
+      then
+        zip --password $ZIP_FILE_PASSWORD -r /backup/${DIR_PAIR[1]}-$DATE.zip ${DIR_PAIR[0]}
+      else
+        echo "Zip file password cannot be empty"
+      fi
   done
 else
   echo "DIRS environment not defined!"
