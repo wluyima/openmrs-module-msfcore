@@ -33,6 +33,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.1.0</version>
+				<scope>test</scope>
+			</dependency>
+
 			<!-- Importing versions from refapp distro -->
             <dependency>
                 <groupId>org.openmrs.distro</groupId>
@@ -61,6 +68,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
+				<artifactId>formentryapp-omod</artifactId>
+				<version>${formentryappVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
 				<artifactId>idgen-api</artifactId>
 				<version>${idgenVersion}</version>
 				<scope>provided</scope>
@@ -70,6 +83,12 @@
 				<artifactId>htmlformentry-api-2.0</artifactId>
 				<version>${htmlformentryVersion}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-omod</artifactId>
+				<version>${legacyuiVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -108,8 +127,10 @@
 		<coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
 		<emrapiVersion>1.25.0-SNAPSHOT</emrapiVersion>
 		<fhirVersion>1.14.0-SNAPSHOT</fhirVersion>
+		<formentryappVersion>1.4.2</formentryappVersion>
 		<htmlformentryVersion>3.7.0</htmlformentryVersion>
 		<idgenVersion>4.4.1</idgenVersion>
+		<legacyuiVersion>1.4.0</legacyuiVersion>
         <lombokVersion>1.18.0</lombokVersion>
 		<referenceApplicationVersion>2.9.0-SNAPSHOT</referenceApplicationVersion>
 		<referencedemodataVersion>1.4.5-SNAPSHOT</referencedemodataVersion>

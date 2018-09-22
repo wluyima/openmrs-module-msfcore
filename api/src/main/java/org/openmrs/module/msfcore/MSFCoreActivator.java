@@ -9,11 +9,6 @@
  */
 package org.openmrs.module.msfcore;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.PatientIdentifierType;
@@ -21,13 +16,12 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.htmlformentry.HtmlFormEntryService;
-import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.msfcore.activator.HtmlFormsInitializer;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
@@ -185,23 +179,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
      */
     private void installMsfForms() {
         try {
-            for (File form : getFormsResourceFiles()) {
-                HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class),
-                                new Scanner(form).useDelimiter("\\Z").next());
-            }
+            HtmlFormsInitializer htmlFormsInitializer = new HtmlFormsInitializer("msfcore");
+            htmlFormsInitializer.started();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-    }
-
-    private File[] getFormsResourceFiles() {
-        List<File> formXmls = new ArrayList<File>();
-        for (File file : new File(getClass().getClassLoader().getResource("htmlforms").getPath()).listFiles()) {
-            if (file.exists() && file.getName().endsWith("Form.xml")) {
-                formXmls.add(file.getAbsoluteFile());
-            }
-        }
-        return formXmls.toArray(new File[formXmls.size()]);
     }
 
 }
