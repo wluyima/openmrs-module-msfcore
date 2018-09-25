@@ -46,7 +46,7 @@ public class HeaderFragmentController {
                     UiUtils ui) throws IOException {
         String confUrl = ui.pageLink("msfcore", "configuration");
         if (Context.getAuthenticatedUser().isSuperUser() && !request.getRequestURI().contains("msfcore/configuration")
-                        && !msfCoreService.configured()) {
+                        && !msfCoreService.isConfigured()) {
             response.sendRedirect(confUrl);
         } else {
             try {

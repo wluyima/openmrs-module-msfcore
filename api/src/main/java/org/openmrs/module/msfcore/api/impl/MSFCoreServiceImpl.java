@@ -57,16 +57,16 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return answerNames;
     }
 
-    public boolean configured() {
+    public boolean isConfigured() {
         boolean configured = false;
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
-        if (StringUtils.isNotBlank(instanceId()) && defaultLocation != null && getLocationCodeAttribute(defaultLocation) != null) {
+        if (StringUtils.isNotBlank(getInstanceId()) && defaultLocation != null && getLocationCodeAttribute(defaultLocation) != null) {
             configured = true;
         }
         return configured;
     }
 
-    public String instanceId() {
+    public String getInstanceId() {
         String instanceId = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID);
         return StringUtils.isBlank(instanceId) ? "" : instanceId;
     }
@@ -152,7 +152,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         try {
             SimpleJSON syncConfig = mapper.readValue(new FileInputStream(getClass().getClassLoader().getResource(
                             MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()), SimpleJSON.class);
-            if (configured()) {
+            if (isConfigured()) {
                 String localFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
                 String parentFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
                 if (StringUtils.isNotBlank(localFeedUrl)) {
@@ -161,7 +161,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 if (StringUtils.isNotBlank(parentFeedUrl)) {
                     setGeneralPropertyInConfigJson(syncConfig, "parentFeedLocation", parentFeedUrl);
                 }
-                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId", (instanceId() + "_" + getLocationCode(defaultLocation))
+                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId", (getInstanceId() + "_" + getLocationCode(defaultLocation))
                                 .toLowerCase());
             }
             MSFCoreUtils.overWriteFile(getSync2ConfigFile(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(syncConfig));
@@ -171,9 +171,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     public String getCurrentLocationIdentity() {
-        if (configured()) {
+        if (isConfigured()) {
             return Context.getMessageSourceService().getMessage("msfcore.currentLocationIdentity",
-                            new Object[]{Context.getLocationService().getDefaultLocation().getName(), instanceId()}, null);
+                            new Object[]{Context.getLocationService().getDefaultLocation().getName(), getInstanceId()}, null);
         }
         return "";
     }

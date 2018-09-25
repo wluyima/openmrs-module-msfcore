@@ -44,7 +44,7 @@ public class ConfigurationPageController {
             if (parentFeedUrl != null) {
                 Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL, parentFeedUrl);
             }
-            if (msfCoreService.configured()) {
+            if (msfCoreService.isConfigured()) {
                 // reload msfIDgenerator installation
                 msfCoreService.msfIdentifierGeneratorInstallation();
                 // reload dhis2 metadata
@@ -60,7 +60,7 @@ public class ConfigurationPageController {
         model.addAttribute("defaultLocation", locationService.getDefaultLocation());
         model.addAttribute("allLocations", locationService.getAllLocations());
         model.addAttribute("msfLocations", getSimplifiedMSFLocations(msfCoreService, dhisService));
-        model.addAttribute("instanceId", msfCoreService.instanceId());
+        model.addAttribute("instanceId", msfCoreService.getInstanceId());
         model.addAttribute("localFeedUrl", StringUtils.isBlank(localFeedUrlString) ? "" : localFeedUrlString);
         model.addAttribute("parentFeedUrl", StringUtils.isBlank(parentFeedUrlString) ? "" : parentFeedUrlString);
         model.addAttribute("isClinic", isClinic(locationService.getDefaultLocation()));
@@ -80,8 +80,8 @@ public class ConfigurationPageController {
     private List<SimplifiedLocation> getSimplifiedMSFLocations(MSFCoreService msfCoreService, DHISService dhisService) {
         List<SimplifiedLocation> locations = new ArrayList<SimplifiedLocation>();
         for (Location loc : msfCoreService.getMSFLocations()) {
-            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid(),
-                            dhisService.getLocationDHISUid(loc)));
+            locations.add(new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc.getUuid(), dhisService
+                            .getLocationDHISUid(loc)));
         }
         return locations;
     }
@@ -89,8 +89,8 @@ public class ConfigurationPageController {
     private void saveLocationCodes(HttpServletRequest request, MSFCoreService msfCoreService, DHISService dhisService,
                     LocationService locationService) {
         for (Location loc : msfCoreService.getMSFLocations()) {
-            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc),
-                            loc.getUuid(), dhisService.getLocationDHISUid(loc));
+            SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc
+                            .getUuid(), dhisService.getLocationDHISUid(loc));
             Location location = locationService.getLocationByUuid(simplifiedLocation.getUuid());
             String code = request.getParameter(simplifiedLocation.getUuid());
             String uid = request.getParameter(simplifiedLocation.getUuid() + "_uid");

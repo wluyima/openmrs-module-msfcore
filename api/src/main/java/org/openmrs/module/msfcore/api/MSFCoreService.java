@@ -28,9 +28,9 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
-    public boolean configured();
+    public boolean isConfigured();
 
-    public String instanceId();
+    public String getInstanceId();
 
     public List<Location> getMSFLocations();
 
