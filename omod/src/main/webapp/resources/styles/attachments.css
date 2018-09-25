@@ -1,0 +1,134 @@
+/* Attachments page for file uploads widget */
+
+#att-page-main {
+    display:flex;
+    flex-direction: row;
+    height: 440px;
+    margin-top:10px;
+}
+
+#att-page-main .att_main-section {
+    background:none;
+    border:none;
+    height: 440px;
+    margin:0;
+    width:50%;
+}
+
+.att_webcam-plugin {
+    border: 16px solid #fff;
+}
+
+.att_upload-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.att_file-upload-container {
+    background: #55D6BE;
+    border-radius: 0 0 0 8px;
+    box-sizing: border-box;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    padding: 24px;
+    height: 100% !important;
+}
+
+.att_upload-container .att_upload-element.att_dropzone-element, 
+.att_upload-container .att_upload-element.att_caption-element {
+    float:none;
+    margin: 0 auto;
+    width: calc( 100% - 24px );
+}
+
+.att_upload-container .att_upload-element.att_dropzone-element {
+    height:100%;
+}
+
+.dropzone.dz-clickable {
+    background: rgba(255,255,255,0.5);
+    border: 2px dashed rgba(255,255,255,1);
+    border-radius: 8px;
+    height: 120px;
+    margin-bottom: 16px;
+    padding: 16px;
+}
+
+.att_upload-element.att_caption-element {
+    margin-top:40px;
+}
+
+.att_caption-element h3:after {
+    content: 'This is required';
+    font-size: 1rem;
+    padding-left: 1rem;
+    font-family: 'OpenSans', Arial, Helvetica, sans-serif;
+    float: right;
+    margin-top: 0.5rem;
+    color: red;
+}
+
+.att_caption-element textarea {
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+}
+
+.att_caption-element textarea:focus {
+    outline:none;
+    border-bottom:4px solid #55D6BE;
+}
+
+#att-page-main .att_thumbnails-container {
+    background: #D0FEF5;
+    border-radius: 0 0 8px 0;
+    border-top: none;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    box-sizing: border-box;
+    color: #373F46;
+    height: 100%;
+    width: 100%;
+    padding: 24px;
+}
+
+#att-page-main .att_thumbnails-container:before {
+    content: "Your uploads";
+    display: block;
+    font-family: 'OpenSansLight', Arial, Helvetica, sans-serif;
+    font-size: 1.8rem;
+    line-height: 35px;
+    margin-top: 10px;
+}
+
+.att_thumbnail-image-section .att_thumbnail-frame {
+    background: rgba(255,255,255,0.75);
+    border:none;
+    box-shadow: rgba(0,0,0,0.1) 0 2px 8px;
+}
+
+.att_thumbnail-caption-section.att_editable p:hover {
+    background-color: transparent;
+    color: #4EC3AD;
+    padding:0;
+    font-family: 'OpenSans', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+.att_editable p:hover:after {
+    content: "\f044";
+    font-family: FontAwesome;
+    color: #4EC3AD;
+    font-size: 1rem;
+    float:right;
+}
+
+.att_thumbnail-image-section .att_icon-trash {
+    position: absolute;
+    left: 40px;
+    top: 32px;
+    font-size: 250%;
+}
+
+.att_icon-trash:hover {
+    color: #ff4747;
+}

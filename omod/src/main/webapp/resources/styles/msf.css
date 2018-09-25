@@ -8,6 +8,7 @@ In production a single concatonated and minified file should be used instead. @I
 @import url('dashboard.css');
 @import url('registration.css');
 @import url('ncd.css');
+@import url('attachments.css');
 
 /* COLORS
 
@@ -36,7 +37,6 @@ White: FFFFFF
     Darker:
 
 */
-
 
 /* STRUCTURE */
 
@@ -250,6 +250,7 @@ table td:last-child {
 
 .dialog, .ngdialog.ngdialog-theme-default .ngdialog-content {
     box-shadow:rgba(0, 0, 0, 0.3) 0 16px 32px;
+    min-height: 240px;
 }
 
 .dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
@@ -322,54 +323,4 @@ table td:last-child {
 @keyframes widget-text {
     0% { opacity: 0; }
     100%   { opacity: 1; }
-}
-
-/* MODALS > Webcam for Attachments */
-
-.att_webcam-plugin {
-    border: 16px solid #fff;
-}
-
-.att_caption-element h3:after {
-    content: 'This is required';
-    font-size: 1rem;
-    padding-left: 1rem;
-    font-family: 'OpenSans', Arial, Helvetica, sans-serif;
-    float: right;
-    margin-top: 0.5rem;
-    color: red;
-}
-
-.att_thumbnails-container {
-    background: #424C55;
-    border-radius: 0 0 8px 8px;
-    border-top: 8px solid #373F46;
-    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
-    box-sizing: border-box;
-    color: #fff;
-    width: 100%;
-    padding: 16px;
-}
-
-.att_thumbnail-caption-section.att_editable .att_editable p:hover {
-    background-color:none;
-    color: #55D6BE;
-}
-
-.att_editable p:hover:after {
-    content: "\f044";
-    font-family: FontAwesome;
-    color:#fff;
-    font-size: 1rem;
-    float:right;
-}
-
-.att_file-upload-container {
-    box-sizing: border-box;
-    padding: 16px;
-    height: 240px !important;
-}
-
-#att-page-main .att_main-section {
-    margin:0;
 }
