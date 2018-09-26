@@ -17,7 +17,6 @@ services:
   web:
     build: web
     image: referenceapplication:2.9.0-msf-snapshot
-      - db
     environment:
       DB_DATABASE: openmrs
       DB_HOST: db
