@@ -37,6 +37,7 @@ a.button,
 a.button.confirm,
 .button.confirm,
 button.confirm,
+.dropdown,
 input[type="submit"],
 input[type="button"],
 input[type="submit"].confirm,
@@ -47,6 +48,7 @@ input[type="button"].cancel,
 input[type="submit"].cancel,
 #form-actions-container a {
     background: #fff;
+    background-color: #fff;
     border: none;
     border-radius: 24px;
     box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
@@ -55,6 +57,29 @@ input[type="submit"].cancel,
     padding: 12px 24px;
     margin: 8px;
 }
+
+#favorite-search-record, #comment-on-search-record, #possible-task-list {
+    cursor: pointer;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
+    color: #444;
+    border-radius: 100px;
+    padding: 8px;
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
+    box-sizing: border-box;
+}
+
+.dropdown {
+    margin-top: 0;
+    background-color: #ddd;
+    height: 23px;
+    width: 140px;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 input[type=button] [value=value],
 a.button.cancel .button.cancel,

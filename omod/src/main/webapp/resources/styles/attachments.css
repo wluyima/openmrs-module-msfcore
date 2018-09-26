@@ -132,3 +132,15 @@
 .att_icon-trash:hover {
     color: #ff4747;
 }
+
+.att_upload-element.att_caption-element span.right {
+    width:100%;
+}
+
+.att_upload-element.att_caption-element span.right button:nth-of-type(2) {
+    float:left;
+}
+
+.att_upload-element.att_caption-element a.button.left {
+    display:none;
+}

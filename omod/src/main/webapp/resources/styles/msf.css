@@ -324,3 +324,18 @@ table td:last-child {
     0% { opacity: 0; }
     100%   { opacity: 1; }
 }
+
+#chart-search-form-submit .chart-search-input {
+    background: #55D6BE;
+    border-radius: 0;
+    padding:24px;
+}
+
+#chart-search-form-submit .chart-search-input .filters_section {
+    background: rgba(255,255,255,0.3);
+    height: 80px;
+    border-radius: 8px;
+    margin-top: 16px;
+    padding: 8px;
+    box-sizing: border-box;
+}
