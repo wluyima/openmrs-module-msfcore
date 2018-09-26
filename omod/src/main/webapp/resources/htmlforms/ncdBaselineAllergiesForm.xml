@@ -89,7 +89,7 @@
 						<tr>
 							<td>Date:</td>
 							<td>
-								<encounterDate default="now"/>
+								<encounterDate default="now" disallowMultipleEncountersOnDate="block"/>
 							</td>
 						</tr>
 						<tr>
@@ -104,75 +104,112 @@
 
 			<div class="sections-container">
 
-				<section headerLabel="Complications">
+				<section headerLabel="Allergies">
+
 					<table class="baseline-aligned">
 						<tr>
-							<td><lookup expression="fn.getConcept('163619').name"/></td>
-							<td> <obs conceptId="163619" answerConceptId="120148" answerLabel="Arrhythmia" style="checkbox" /></td>
+							<td><lookup expression="fn.getConcept('465110').name"/></td>
+							<td>
+								<obs id="allergy-type"  conceptId="465110" answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" style="radio">
+									<controls>
+										<when value="162554" thenDisplay="#allergy-food"/>
+										<when value="141760" thenDisplay="#allergy-drug"/>
+										<when value="139994" thenDisplay="#allergy-other"/>
+									</controls>
+								</obs>
+							</td>
 						</tr>
 						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163375" answerLabel="Angina" style="checkbox" /></td>
+							<td colspan="2">
+								<p id="allergy-food"><obsgroup groupingConceptId="162553">
+									<obs conceptId="465111" answerConceptId="162543" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="72609" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162544" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162545" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162171" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162546" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162547" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162172" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162175" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162176" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162548" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="162177" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
+								</obsgroup></p>
+								<p id="allergy-drug">
+									<obsgroup groupingConceptId="162552">
+										<obs conceptId="465112" answerConceptId="162298" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162299" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="71617" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162301" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="73667" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162305" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162307" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162302" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="80106" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162306" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162297" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="162170" style="checkbox" />
+										<obs conceptId="465112" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
+									</obsgroup>
+								</p>
+								<p id="allergy-other"><obsgroup groupingConceptId="162554">
+									<obs conceptId="465113" answerConceptId="162536" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162537" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162538" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162539" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162540" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162541" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162542" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="162170" style="checkbox" />
+									<obs conceptId="465113" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
+								</obsgroup></p>
+							</td>
 						</tr>
 						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163442" answerLabel="Heart Attack" style="checkbox" /></td>
+							<td colspan="2">
+								Allergic Reactions (check all that apply)
+								<obsgroup groupingConceptId="162555">
+									<obs conceptId="465114" answerConceptId="121677" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="121629" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="148888" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="139084" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="148787" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="108" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="120148" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="143264" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="142412" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="118773" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="140238" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="140039" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="139581" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="121677" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="117399" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="136455" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="159374" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="121" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="512" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="159098" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="111061" style="checkbox" />
+									<obs conceptId="465114" answerConceptId="1067" style="checkbox" />
+									<obs conceptId="465111" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
+								</obsgroup>
+
+							</td>
 						</tr>
 						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163383" answerLabel="Heart failure" style="checkbox" /></td>
+							<td>Severity</td>
+							<td>
+
+								<obs conceptId="162820" answerConceptIds="1498,1499,1500" style="radio" answerLabels="Mild, Moderate, Severe" />
+							</td>
 						</tr>
 						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163441" answerLabel="Hypertensive emergencies" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="138291" answerLabel="Hyperglycaemia" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163385" answerLabel="Retinopathy" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163447" answerLabel="Neuropathy" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163554" answerLabel="COPD / Asthma" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163624" answerLabel="CRF" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163623" answerLabel="PVD" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163625" answerLabel="associated hospitalization" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163626" answerLabel="Hypoglycaemia" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163621" answerLabel="Stroke" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163622" answerLabel="ICH" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="163619" answerConceptId="163627" answerLabel="DKA/HHS" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.getConcept('163620').name"/></td>
-							<td> <obs conceptId="163620" /></td>
+							<td>Comment</td>
+							<td>
+
+								<obs conceptId="161011" style="textarea" rows="3"/>
+							</td>
 						</tr>
 					</table>
 				</section>
