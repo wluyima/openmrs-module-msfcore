@@ -1,0 +1,54 @@
+# Generated automatically by openmrs SDK
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.6
+    command: "mysqld --character-set-server=utf8 --collation-server=utf8_general_ci"
+    environment:
+      MYSQL_DATABASE: openmrs
+      MYSQL_ROOT_PASSWORD: Admin123
+      MYSQL_USER: openmrs
+      MYSQL_PASSWORD: Admin123
+    volumes:
+      - ./dbdump:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/mysql
+
+  web:
+    build: web
+    image: referenceapplication:2.9.0-msf-snapshot
+      - db
+    environment:
+      DB_DATABASE: openmrs
+      DB_HOST: db
+      DB_USERNAME: openmrs
+      DB_PASSWORD: Admin123
+      DB_CREATE_TABLES: 'false'  # change to 'true' if using an empty database
+      DB_AUTO_UPDATE: 'false'    # change to 'true' if using an empty database
+      MODULE_WEB_ADMIN: 'true'   # allow web admin on OpenMRS
+    ports:
+      - "8080:8080"
+    volumes:
+      - web-data:/usr/local/tomcat/.OpenMRS
+      - /usr/local/tomcat/.OpenMRS/modules/ # used to mount persistent docker volume for modules
+      - /usr/local/tomcat/.OpenMRS/owa/     # used to mount persistent docker volume for owa
+
+  backup:
+    image: jembi/openmrs-module-msfcore
+    secrets:
+      - zip_file_password
+    volumes:
+      - db-data:/db_data
+      - web-data:/web_data
+      - ./backup:/backup
+    environment:
+      - DIRS=/db_data:mysql,/web_data:openmrs
+      - SCHEDULE=0 0 * * *
+
+volumes:
+  db-data:
+  web-data:
+
+secrets:
+  zip_file_password:
+    file: ./zip_file_password.txt
