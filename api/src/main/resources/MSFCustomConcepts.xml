@@ -3,10 +3,18 @@
 
     <!-- Grouping concepts for allergies -->
     <concept  concept_id="465110"  retired="0" datatype_id="2"  class_id="4"  is_set="0"  creator="1"  date_created="2018-09-26 05:47:04" changed_by="1"  date_changed="2018-09-26 05:47:04" uuid="cab5578c-0c62-4582-b668-28e3f218b635"/>
+    <concept  concept_id="465111"  retired="0" datatype_id="2"  class_id="4"  is_set="0"  creator="1"  date_created="2018-09-26 05:47:04" changed_by="1"  date_changed="2018-09-26 05:47:04" uuid="1325f5d0-bbb8-402a-a6dc-21d7c6f82330"/>
+    <concept  concept_id="465112"  retired="0" datatype_id="2"  class_id="4"  is_set="0"  creator="1"  date_created="2018-09-26 05:47:04" changed_by="1"  date_changed="2018-09-26 05:47:04" uuid="1141bd11-1f91-4af7-a8d7-a26394140e08"/>
+    <concept  concept_id="465113"  retired="0" datatype_id="2"  class_id="4"  is_set="0"  creator="1"  date_created="2018-09-26 05:47:04" changed_by="1"  date_changed="2018-09-26 05:47:04" uuid="a0740eb7-92cd-4f79-a9b2-08e0f363532e"/>
+    <concept  concept_id="465114"  retired="0" datatype_id="2"  class_id="4"  is_set="0"  creator="1"  date_created="2018-09-26 05:47:04" changed_by="1"  date_changed="2018-09-26 05:47:04" uuid="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc"/>
 
     <concept_name  concept_id="465110"  name="Baseline Consultation Allergy Type"  locale="en"  creator="1"  date_created="2018-09-26 05:47:04"  concept_name_id="1291600"  voided="false"  uuid="089ff945-89e7-4b8c-95a0-32c8a042bf73"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="true"/>
+    <concept_name  concept_id="465111"  name="Food Allergy List"  locale="en"  creator="1"  date_created="2018-09-26 05:47:04"  concept_name_id="1291601"  voided="false"  uuid="7588fcbe-f54c-4ab1-bb76-315ec806070c"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="true"/>
+    <concept_name  concept_id="465112"  name="Drug Allergy List"  locale="en"  creator="1"  date_created="2018-09-26 05:47:04"  concept_name_id="1291602"  voided="false"  uuid="b8964561-5b54-43f0-9fc6-b5a8142216f3"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="true"/>
+    <concept_name  concept_id="465113"  name="Other Allergy List"  locale="en"  creator="1"  date_created="2018-09-26 05:47:04"  concept_name_id="1291603"  voided="false"  uuid="cac06f69-dd67-4d7d-84fc-01a36fce7eb8"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="true"/>
+    <concept_name  concept_id="465114"  name="Allergic Reactions"  locale="en"  creator="1"  date_created="2018-09-26 05:47:04"  concept_name_id="1291604"  voided="false"  uuid="c3c41ce1-7f18-4a58-b49b-9afac9215517"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="true"/>
 
     <concept_answer  concept_answer_id="307100"  concept_id="465110"  answer_concept="162554"  creator="1"  date_created="2018-09-26 05:47:04"  uuid="022ebc9a-1acb-41fb-b613-bc06801ae181"  sort_weight="3"/>
-    <concept_answer  concept_answer_id="307101"  concept_id="465110"  answer_concept="141760"  creator="1"  date_created="2018-09-26 05:47:04"  uuid="b671ae94-edc3-4275-ab2e-a304347a3b85"  sort_weight="2"/>
-    <concept_answer  concept_answer_id="307102"  concept_id="465110"  answer_concept="139994"  creator="1"  date_created="2018-09-26 05:47:04"  uuid="5fb58bee-04c1-4485-882a-8b86ebb9758b"  sort_weight="1"/>
+    <concept_answer  concept_answer_id="307101"  concept_id="465110"  answer_concept="162553"  creator="1"  date_created="2018-09-26 05:47:04"  uuid="b671ae94-edc3-4275-ab2e-a304347a3b85"  sort_weight="2"/>
+    <concept_answer  concept_answer_id="307102"  concept_id="465110"  answer_concept="162552"  creator="1"  date_created="2018-09-26 05:47:04"  uuid="5fb58bee-04c1-4485-882a-8b86ebb9758b"  sort_weight="1"/>
 </dataset>
