@@ -15,6 +15,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.dataexchange.DataImporter;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -107,6 +108,13 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
                         "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+
+        // install concepts
+        log.info("Importing MSF Custom Concepts");
+        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+
+        dataImporter.importData("MSFCustomConcepts.xml");
+        log.info("MSF Custom Concepts imported");
     }
 
     private void removeMSFMeta() {
