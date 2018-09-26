@@ -106,7 +106,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         // see https://issues.openmrs.org/browse/EA-116 for more information
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
-                        "*=7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+                        "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
     }
 
     private void removeMSFMeta() {
