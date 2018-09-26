@@ -91,7 +91,7 @@
                         <tr>
                             <td>Date:</td>
                             <td>
-                                <encounterDate default="now"/>
+                                <encounterDate default="now" disallowMultipleEncountersOnDate="block"/>
                             </td>
                         </tr>
                         <tr>
