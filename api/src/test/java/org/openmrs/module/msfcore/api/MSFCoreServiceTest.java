@@ -9,19 +9,42 @@
  */
 package org.openmrs.module.msfcore.api;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-
 /**
  * This is a unit test, which verifies logic in MSFCoreService.
  */
 public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties props = super.getRuntimeProperties();
+        props.put(MSFCoreConfig.PROP_OPENHIM_USERNAME, "user");
+        props.put(MSFCoreConfig.PROP_OPENHIM_PASSWORD, "pass");
+        props.put(MSFCoreConfig.PROP_DHIS2_USERNAME, "admin");
+        props.put(MSFCoreConfig.PROP_DHIS2_PASSWORD, "password");
+        return props;
+    }
+
+    @Test
+    public void openHimPropertiesShouldGetInitialised() {
+        String url = "http://localhost/5001/tracker";
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL, url);
+        assertThat(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_OPENHIM_TRACKER_URL), is(url));
+        assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_USERNAME), is("admin"));
+        assertThat(Context.getRuntimeProperties().getProperty(MSFCoreConfig.PROP_DHIS2_PASSWORD), is("password"));
+    }
 
     @Test
     public void getAllConceptAnswers_shouldReturnConceptsFromAnswers() {

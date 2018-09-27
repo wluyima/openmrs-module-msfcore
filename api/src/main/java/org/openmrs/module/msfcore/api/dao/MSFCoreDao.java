@@ -10,22 +10,25 @@
 package org.openmrs.module.msfcore.api.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.Person;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.springframework.stereotype.Repository;
 
@@ -52,7 +55,7 @@ public class MSFCoreDao {
     @SuppressWarnings("unchecked")
     public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
         return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location)).add(
-                        Restrictions.eq("attributeType", type)).list();
+                        Restrictions.eq("attributeType", type)).addOrder(Order.desc("dateCreated")).list();
     }
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
@@ -61,5 +64,17 @@ public class MSFCoreDao {
         if (updated != 1) {
             throw new APIException("Expected to update 1 row but updated " + updated + " rows instead!");
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PersonAttribute> getPersonAttributeByTypeAndPerson(PersonAttributeType type, Person person) {
+        return getSession().createCriteria(PersonAttribute.class).add(Restrictions.eq("person", person)).add(
+                        Restrictions.eq("attributeType", type)).addOrder(Order.desc("dateCreated")).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PatientIdentifier> getPatientIdentifierByTypeAndPatient(PatientIdentifierType type, Patient patient) {
+        return getSession().createCriteria(PatientIdentifier.class).add(Restrictions.eq("patient", patient)).add(
+                        Restrictions.eq("identifierType", type)).addOrder(Order.desc("dateCreated")).list();
     }
 }

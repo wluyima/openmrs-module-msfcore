@@ -14,7 +14,6 @@ import java.util.List;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
-import org.openmrs.LocationAttributeType;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
@@ -26,8 +25,6 @@ import org.openmrs.module.msfcore.DropDownFieldOption;
 public interface MSFCoreService extends OpenmrsService {
 
     public List<Concept> getAllConceptAnswers(Concept question);
-
-    public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location);
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
@@ -48,4 +45,5 @@ public interface MSFCoreService extends OpenmrsService {
     public void msfIdentifierGeneratorInstallation();
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
+
 }

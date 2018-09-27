@@ -4,7 +4,9 @@ import java.lang.reflect.Method;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.AuditService;
+import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.springframework.aop.AfterReturningAdvice;
@@ -21,6 +23,11 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
                                             + " - " + patient.getPatientIdentifier().getIdentifier()).user(Context.getAuthenticatedUser())
                             .patient(patient).build();
             Context.getService(AuditService.class).saveAuditLog(registerPatientLog);
+            // TODO added this for MSF testing/demo, this should be removed when
+            // ncd program enrollment is handled and invoked there
+            if ("true".equals(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_WITH_DHIS2))) {
+                Context.getService(DHISService.class).postTrackerInstanceThroughOpenHimForAPatient(patient);
+            }
         }
     }
 

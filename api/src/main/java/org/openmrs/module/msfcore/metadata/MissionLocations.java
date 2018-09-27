@@ -32,7 +32,7 @@ public class MissionLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(MissionLocationAttributes.LEBANON);
+            return Arrays.asList(MissionLocationAttributes.LEBANON_CODE, MissionLocationAttributes.LEBANON_UID);
         }
     };
 
@@ -59,7 +59,7 @@ public class MissionLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(MissionLocationAttributes.UKRAINE);
+            return Arrays.asList(MissionLocationAttributes.UKRAINE_CODE, MissionLocationAttributes.UKRAINE_UID);
         }
     };
 }

@@ -32,7 +32,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.AARSAL);
+            return Arrays.asList(ClinicLocationAttributes.AARSAL_CODE, ClinicLocationAttributes.AARSAL_UID);
         }
 
         @Override
@@ -65,7 +65,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.BAALBAK);
+            return Arrays.asList(ClinicLocationAttributes.BAALBAK_CODE, ClinicLocationAttributes.BAALBAK_UID);
         }
 
         @Override
@@ -97,7 +97,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.HERMEL);
+            return Arrays.asList(ClinicLocationAttributes.HERMEL_CODE, ClinicLocationAttributes.HERMEL_UID);
         }
 
         @Override
@@ -129,7 +129,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.MAJDAL_ANJAR);
+            return Arrays.asList(ClinicLocationAttributes.MAJDAL_ANJAR_CODE, ClinicLocationAttributes.MAJDAL_ANJAR_UID);
         }
 
         @Override
@@ -161,7 +161,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.ABDEH);
+            return Arrays.asList(ClinicLocationAttributes.ABDEH_CODE, ClinicLocationAttributes.ABDEH_UID);
         }
 
         @Override
@@ -193,7 +193,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.DAZ);
+            return Arrays.asList(ClinicLocationAttributes.DAZ_CODE, ClinicLocationAttributes.DAZ_UID);
         }
 
         @Override
@@ -225,7 +225,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.BEREZOVE);
+            return Arrays.asList(ClinicLocationAttributes.BEREZOVE_CODE, ClinicLocationAttributes.BEREZOVE_UID);
         }
 
         @Override
@@ -257,7 +257,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.KAMIANKA_2);
+            return Arrays.asList(ClinicLocationAttributes.KAMIANKA_2_CODE, ClinicLocationAttributes.KAMIANKA_2_UID);
         }
 
         @Override
@@ -289,7 +289,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.KURAKHOVE);
+            return Arrays.asList(ClinicLocationAttributes.KURAKHOVE_CODE, ClinicLocationAttributes.KURAKHOVE_UID);
         }
 
         @Override
@@ -321,7 +321,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.MAXIMILIANOVKA);
+            return Arrays.asList(ClinicLocationAttributes.MAXIMILIANOVKA_CODE, ClinicLocationAttributes.MAXIMILIANOVKA_UID);
         }
 
         @Override
@@ -353,7 +353,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.NETAILOVE);
+            return Arrays.asList(ClinicLocationAttributes.NETAILOVE_CODE, ClinicLocationAttributes.NETAILOVE_UID);
         }
 
         @Override
@@ -385,7 +385,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.NOVOSELIVKA_DRUHA);
+            return Arrays.asList(ClinicLocationAttributes.NOVOSELIVKA_DRUHA_CODE, ClinicLocationAttributes.NOVOSELIVKA_DRUHA_UID);
         }
 
         @Override
@@ -417,7 +417,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.OPYTNE);
+            return Arrays.asList(ClinicLocationAttributes.OPYTNE_CODE, ClinicLocationAttributes.OPYTNE_UID);
         }
 
         @Override
@@ -449,7 +449,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.TARAMCHUK);
+            return Arrays.asList(ClinicLocationAttributes.TARAMCHUK_CODE, ClinicLocationAttributes.TARAMCHUK_UID);
         }
 
         @Override
@@ -481,7 +481,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.VODYANE);
+            return Arrays.asList(ClinicLocationAttributes.VODYANE_CODE, ClinicLocationAttributes.VODYANE_UID);
         }
 
         @Override
@@ -513,7 +513,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.BERDIANSKOE);
+            return Arrays.asList(ClinicLocationAttributes.BERDIANSKOE_CODE, ClinicLocationAttributes.BERDIANSKOE_UID);
         }
 
         @Override
@@ -545,7 +545,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.GRANITNE);
+            return Arrays.asList(ClinicLocationAttributes.GRANITNE_CODE, ClinicLocationAttributes.GRANITNE_UID);
         }
 
         @Override
@@ -577,7 +577,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.HOSPITAL_N_1_MARIUPOL);
+            return Arrays.asList(ClinicLocationAttributes.HOSPITAL_N_1_MARIUPOL_CODE, ClinicLocationAttributes.HOSPITAL_N_1_MARIUPOL_UID);
         }
 
         @Override
@@ -609,7 +609,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.HOSPITAL_N_3_MARIUPOL);
+            return Arrays.asList(ClinicLocationAttributes.HOSPITAL_N_3_MARIUPOL_CODE, ClinicLocationAttributes.HOSPITAL_N_3_MARIUPOL_UID);
         }
 
         @Override
@@ -641,7 +641,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.KAMIANKA_1);
+            return Arrays.asList(ClinicLocationAttributes.KAMIANKA_1_CODE, ClinicLocationAttributes.KAMIANKA_1_UID);
         }
 
         @Override
@@ -673,7 +673,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.LEBEDINSKOE);
+            return Arrays.asList(ClinicLocationAttributes.LEBEDINSKOE_CODE, ClinicLocationAttributes.LEBEDINSKOE_UID);
         }
 
         @Override
@@ -705,7 +705,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.MIKOLAIVKA);
+            return Arrays.asList(ClinicLocationAttributes.MIKOLAIVKA_CODE, ClinicLocationAttributes.MIKOLAIVKA_UID);
         }
 
         @Override
@@ -737,7 +737,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.NOVOSELIVKA);
+            return Arrays.asList(ClinicLocationAttributes.NOVOSELIVKA_CODE, ClinicLocationAttributes.NOVOSELIVKA_UID);
         }
 
         @Override
@@ -769,7 +769,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.ORLOVSKE);
+            return Arrays.asList(ClinicLocationAttributes.ORLOVSKE_CODE, ClinicLocationAttributes.ORLOVSKE_UID);
         }
 
         @Override
@@ -801,7 +801,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.PASHKOVSKOGO);
+            return Arrays.asList(ClinicLocationAttributes.PASHKOVSKOGO_CODE, ClinicLocationAttributes.PASHKOVSKOGO_UID);
         }
 
         @Override
@@ -833,7 +833,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.PAVLOPIL);
+            return Arrays.asList(ClinicLocationAttributes.PAVLOPIL_CODE, ClinicLocationAttributes.PAVLOPIL_UID);
         }
 
         @Override
@@ -865,7 +865,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.PIONERSKE);
+            return Arrays.asList(ClinicLocationAttributes.PIONERSKE_CODE, ClinicLocationAttributes.PIONERSKE_UID);
         }
 
         @Override
@@ -897,7 +897,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.PROHOROVKA);
+            return Arrays.asList(ClinicLocationAttributes.PROHOROVKA_CODE, ClinicLocationAttributes.PROHOROVKA_UID);
         }
 
         @Override
@@ -929,7 +929,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.STAROGNATIVKA);
+            return Arrays.asList(ClinicLocationAttributes.STAROGNATIVKA_CODE, ClinicLocationAttributes.STAROGNATIVKA_UID);
         }
 
         @Override
@@ -961,7 +961,7 @@ public class ClinicLocations {
 
         @Override
         public List<LocationAttributeDescriptor> attributes() {
-            return Arrays.asList(ClinicLocationAttributes.STEPANIVKA);
+            return Arrays.asList(ClinicLocationAttributes.STEPANIVKA_CODE, ClinicLocationAttributes.STEPANIVKA_UID);
         }
 
         @Override

@@ -4,11 +4,14 @@ public class SimplifiedLocation {
     private String display;
     private String code;
     private String uuid;
+    // DHIS2 uid
+    private String uid;
 
-    public SimplifiedLocation(String display, String code, String uuid) {
+    public SimplifiedLocation(String display, String code, String uuid, String uid) {
         setDisplay(display);
         setCode(code);
         setUuid(uuid);
+        setUid(uid);
     }
 
     public String getDisplay() {
@@ -33,6 +36,14 @@ public class SimplifiedLocation {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
 }

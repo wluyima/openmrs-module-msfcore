@@ -46,36 +46,36 @@
         <section headerLabel="Results">
 		<table class="baseline-aligned">
 			<tr>
-                                <td><lookup expression="fn.getConcept('163596').name"/></td>
-				<td><obs conceptId="163596" id="Hba1C"/></td>
+                                <td><lookup expression="fn.getConcept('463596').name"/></td>
+				<td><obs conceptId="463596" id="Hba1C"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163630').name"/></td>
-				<td><obs conceptId="163630" id="Total Cholesterol"/></td>
+                                <td><lookup expression="fn.getConcept('463630').name"/></td>
+				<td><obs conceptId="463630" id="Total Cholesterol"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163631').name"/></td>
-				<td><obs conceptId="163631" id="ALT"/></td>
+                                <td><lookup expression="fn.getConcept('463631').name"/></td>
+				<td><obs conceptId="463631" id="ALT"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163632').name"/></td>
-				<td><obs conceptId="163632" id="Creatinine"/></td>
+                                <td><lookup expression="fn.getConcept('463632').name"/></td>
+				<td><obs conceptId="463632" id="Creatinine"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163629').name"/></td>
-				<td><obs conceptId="163629" id="K"/></td>
+                                <td><lookup expression="fn.getConcept('463629').name"/></td>
+				<td><obs conceptId="463629" id="K"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163582').name"/></td>
-				<td><obs conceptId="163582" id="TSH"/></td>
+                                <td><lookup expression="fn.getConcept('463582').name"/></td>
+				<td><obs conceptId="463582" id="TSH"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163583').name"/></td>
-				<td><obs conceptId="163583" id="INR"/></td>
+                                <td><lookup expression="fn.getConcept('463583').name"/></td>
+				<td><obs conceptId="463583" id="INR"/></td>
 			</tr>
 			<tr>
-                                <td><lookup expression="fn.getConcept('163574').name"/></td>
-				<td><obs conceptId="163574" id="ECG"  rows="4" cols="80"/></td>
+                                <td><lookup expression="fn.getConcept('463574').name"/></td>
+				<td><obs conceptId="463574" id="ECG"  rows="4" cols="80"/></td>
 			</tr>
 		</table>
 	</section>

@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
-import org.openmrs.LocationAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -40,10 +39,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     public List<Concept> getAllConceptAnswers(Concept question) {
         return dao.getAllConceptAnswers(question);
-    }
-
-    public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
-        return dao.getLocationAttributeByTypeAndLocation(type, location);
     }
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
@@ -92,19 +87,29 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     public String getLocationCode(Location location) {
-        LocationAttribute locationCode = getLocationCodeAttribute(location);
-        if (locationCode != null) {
-            return locationCode.getValue().toString();
+        if (location == null) {
+            return null;
+        }
+        return getLocationAttribute(getLocationCodeAttribute(location));
+    }
+
+    private String getLocationAttribute(LocationAttribute locAttribute) {
+        if (locAttribute != null) {
+            return locAttribute.getValue().toString();
         }
         return "";
     }
 
     public LocationAttribute getLocationCodeAttribute(Location location) {
+        return getLocationAttribute(location, MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID);
+    }
+
+    private LocationAttribute getLocationAttribute(Location location, String attributeTypeUuid) {
         if (location != null) {
-            List<LocationAttribute> codes = getLocationAttributeByTypeAndLocation(Context.getLocationService()
-                            .getLocationAttributeTypeByUuid(MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID), location);
-            if (codes.size() > 0) {
-                return codes.get(0);
+            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(Context.getLocationService()
+                            .getLocationAttributeTypeByUuid(attributeTypeUuid), location);
+            if (!attrributes.isEmpty()) {
+                return attrributes.get(0);
             }
         }
         return null;
@@ -121,4 +126,5 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
         dao.saveSequencyPrefix(generator);
     }
+
 }
