@@ -20,6 +20,7 @@
                    jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&amp;patientId='+ jq('input[name=personId]').val());
 					 jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
                     jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+                    jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
             });
         }
     </script>
@@ -56,9 +57,10 @@
                     <li>
                         <a href="#regularpatientreview">Regular patient review</a>
                     </li>
-                    <li>
-                        <a href="#clinicalnote">Clinical note</a>
-                    </li>
+					<li>
+						<a id="clinicalnote" href="#clinicalnote">Clinical note</a>
+						<span class="hidden" id="clinical-note-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948</span>
+					</li>
                     <li>
                         <a href="#investigationrequest">Request investigation</a>
                     </li>
