@@ -31,9 +31,11 @@ button.big {
 - Avoid pruning.
 
 */
+
 button,
 .button,
 a.button,
+a.button.task,
 a.button.confirm,
 .button.confirm,
 button.confirm,
@@ -56,6 +58,71 @@ input[type="submit"].cancel,
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding: 12px 24px;
     margin: 8px;
+}
+
+/* Visit Buttons */
+
+#visits {
+    display: flex;
+}
+
+#visits-list + .main-content {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 25px;
+    border: 1px solid #cccccc;
+    width: 100%;
+    margin-left: -6px;
+}
+
+.main-content .visit-actions {
+    border:none;
+    padding:0;
+}
+
+.visit-actions.active-visit {
+    display:flex;
+}
+
+a.button.task {
+    box-sizing: border-box;
+    margin:0;
+    border-radius:0;
+    min-width: 160px;
+    display:flex;
+    flex-grow:100%;
+}
+
+#encountersList li {
+    margin-bottom: 0px;
+    height: 48px;
+    display: flex;
+}
+#encountersList > li:nth-of-type(odd) {
+    background: #eee;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+a.button.task i, #encountersList li i {
+    display:none;
+}
+
+#encountersList .encounter-details {
+    border:none;
+}
+#encountersList .encounter-details li {
+    display:flex;
+    flex-direction: row;
+}
+
+#encountersList .encounter-date {
+    margin-right: 16px;
+    float: left;
+}
+
+#encountersList .encounter-date strong {
+    float: left;
 }
 
 #favorite-search-record, #comment-on-search-record, #possible-task-list {
@@ -185,6 +252,7 @@ input[type="submit"]:disabled:hover {
     opacity: 1;
 }
 
+#encountersList .encounter-details li:last-child > .details-action a,
 .edit-info,
 .edit-action,
 #patient-search-clear-button,

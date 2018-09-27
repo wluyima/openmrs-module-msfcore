@@ -339,3 +339,15 @@ table td:last-child {
     padding: 8px;
     box-sizing: border-box;
 }
+
+.patient-header + #edit-patient-identifier-dialog + .actions.dropdown {
+    background: #fff;
+    border: none;
+    border-radius: 24px;
+    float: right;
+    height: 48px;
+    width: 120px;
+}
+.patient-header + #edit-patient-identifier-dialog + .actions.dropdown .dropdown-name {
+    color:#373F46;
+}

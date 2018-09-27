@@ -16,12 +16,24 @@ form ul.select,
 .form input, 
 .form select, 
 .form textarea, 
-.form ul.select {
+.form ul.select,
+input[type="search"] {
     background: #fff;
+    border: none;
     border-bottom: 2px solid #ccc;
     border-radius:4px;
     outline: none;
     padding: 8px 16px;
+}
+
+.simple-form-ui select, 
+.simple-form-ui form select {
+    height: 41px;
+    margin-top: 0;
+}
+
+.simple-form-ui select#gender-field {
+    height: 100%;
 }
 
 form input {
@@ -48,10 +60,18 @@ form ul.select:focus,
 
 div#active-visits_filter.dataTables_filter,
 form#patient-search-form {
-    background:#55D6BE;
+    background: #55D6BE;
     border-radius: 8px 8px 0 0;
-    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
-    padding:16px;
+    box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    padding: 16px;
+    width: 100%;
+}
+
+#active-visits_filter input[type="search"] {
+    margin-left:8px;
+    width:40%;
 }
 
 #patient-search-results {
