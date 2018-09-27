@@ -18,3 +18,16 @@ jQuery(document).ready(function() {
         jQuery('#patient-search-form').before(content);
     }
 });
+
+function disableFn(group){
+    jq(group).addClass('hidden');
+    group.children("#disabled").fadeTo(250,0.33);
+    group.children("#disabled").find(":checkbox").attr("checked",false); //uncheck
+    group.children("#disabled").find("input[type$='text']").val("");
+    group.children("#disabled").find("input").attr("disabled",true);  //disable
+}
+function enableFn(group){
+    jq(group).removeClass('hidden');
+    group.children("#disabled").fadeTo(250,1);
+    group.children("#disabled").find("input").attr("disabled",false);
+}

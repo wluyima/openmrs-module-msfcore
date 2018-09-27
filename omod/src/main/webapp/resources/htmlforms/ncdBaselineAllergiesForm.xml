@@ -11,6 +11,7 @@
 	</macros>
 
 	<script type="text/javascript">
+
 		if (jQuery) {
 			jq(document).ready(function () {
 				<!-- add the links to the actual forms -->
@@ -18,6 +19,78 @@
 				jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&amp;patientId='+ jq('input[name=personId]').val());
 				jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
 				jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+
+				// form handling functions
+				jq(".enableDisable, .allergy").each(function(){
+					disableFn(jq(this));
+					jq(this).children("#trigger").find(":checkbox:first").change(function(){
+						var checked = jq(this).attr("checked");
+						if(checked == true){
+							enableFn(jq(this));
+						}else{
+							disableFn(jq(this));
+						}
+					});
+				});
+
+
+				jq(".checkboxGroup").each(function(){
+					var group = jq(this);
+					var uncheckAll = function(){
+						group.find("input[type$='checkbox']").attr("checked",false);
+						group.find("input[type$='checkbox']").change();
+					}
+					var uncheckRadioAndAll = function(){
+						group.find("#checkboxAll,#checkboxRadio").find("input[type$='checkbox']").attr("checked",false);
+						group.find("#checkboxAll,#checkboxRadio").find("input[type$='checkbox']").change();
+					}
+
+					group.find("#checkboxAll").find("input").click(
+						/*  This was tricky... A number of things needed to happen
+						   Basically, This is supposed to treat a group of inputs as if
+						   were all one big checkbox. It is designed so that a checkbox
+							can be next to an input, and the user clicks the input, the
+						   checkbox checks as well. But, when the user clicks the checkbox,
+							the browser marks the checkbox as checked. Therefore, when we check
+							if the checkbox is already checked, it always respondes true...
+							We needed to have 2 cases: when the clicking action is on the first checkbox
+							and when the action is on any other.  */
+						function(){
+							var flip;
+							var checked = jQuery(this).siblings(":checkbox:first").attr("checked");
+							if(jq(this).attr("name") == jq(this).parents("#checkboxAll:first").find(":checkbox:first").attr("name")){
+								checked = jq(this).attr("checked");
+								flip = checked;
+							}else{
+								flip = !checked;
+							}
+							if(jq(this).attr("type") == "text") if(flip == false) flip = !filp; // this is so the user doesn't go to check the checkbox, then uncheck it when they hit the input.
+							uncheckAll();
+							jq(this).parents("#checkboxAll:first").find(":checkbox").attr("checked",flip);
+							jq(this).parents("#checkboxAll:first").find(":checkbox").change();
+						}
+					);
+
+					group.find("#checkboxRadio").find("input[type$='checkbox']").click(function(){
+						uncheckAll();
+						jq(this).siblings("input[type$='checkbox']").attr("checked",false);
+						jq(this).attr("checked",true);
+						jq(this).change();
+					});
+
+					group.find("#checkboxCheckbox").click(
+						function(){
+							uncheckRadioAndAll();
+						}
+					);
+				});
+
+				<!-- show and hide the different types of allergies -->
+				jq("#allergy-type").change(function(){
+				    <!-- disable all the allergy sections and enable only the one which is selected -->
+                    disableFn(jq(".allergy"));
+				    enableFn("#"+getValue('allergy-type.value'));
+				});
 			});
 		}
 	</script>
@@ -108,20 +181,11 @@
 
 					<table class="baseline-aligned">
 						<tr>
-							<td><lookup expression="fn.getConcept('465110').name"/></td>
+							<td><lookup expression="fn.getConcept('465110').name"/>X</td>
 							<td>
-								<obs id="allergy-type"  conceptId="465110" answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" style="radio">
-									<controls>
-										<when value="162554" thenDisplay="#allergy-food"/>
-										<when value="141760" thenDisplay="#allergy-drug"/>
-										<when value="139994" thenDisplay="#allergy-other"/>
-									</controls>
-								</obs>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<p id="allergy-food"><obsgroup groupingConceptId="162553">
+								<obs id="allergy-type"  conceptId="465110" answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" style="radio" />
+								<br />
+								<p id="162553" class="enableDisable allergy"><obsgroup groupingConceptId="162553">
 									<obs conceptId="465111" answerConceptId="162543" style="checkbox" />
 									<obs conceptId="465111" answerConceptId="72609" style="checkbox" />
 									<obs conceptId="465111" answerConceptId="162544" style="checkbox" />
@@ -136,7 +200,7 @@
 									<obs conceptId="465111" answerConceptId="162177" style="checkbox" />
 									<obs conceptId="465111" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
 								</obsgroup></p>
-								<p id="allergy-drug">
+								<p id="162552" class="enableDisable allergy">
 									<obsgroup groupingConceptId="162552">
 										<obs conceptId="465112" answerConceptId="162298" style="checkbox" />
 										<obs conceptId="465112" answerConceptId="162299" style="checkbox" />
@@ -153,7 +217,7 @@
 										<obs conceptId="465112" answerConceptId="5622" style="checkbox" commentFieldLabel="Specify:" />
 									</obsgroup>
 								</p>
-								<p id="allergy-other"><obsgroup groupingConceptId="162554">
+								<p id="162554" class="enableDisable allergy"><obsgroup groupingConceptId="162554">
 									<obs conceptId="465113" answerConceptId="162536" style="checkbox" />
 									<obs conceptId="465113" answerConceptId="162537" style="checkbox" />
 									<obs conceptId="465113" answerConceptId="162538" style="checkbox" />
@@ -167,8 +231,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td>
 								Allergic Reactions (check all that apply)
+							</td>
+							<td>
 								<obsgroup groupingConceptId="162555">
 									<obs conceptId="465114" answerConceptId="121677" style="checkbox" />
 									<obs conceptId="465114" answerConceptId="121629" style="checkbox" />
