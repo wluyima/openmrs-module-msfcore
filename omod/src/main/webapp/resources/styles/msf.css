@@ -9,6 +9,7 @@ In production a single concatonated and minified file should be used instead. @I
 @import url('registration.css');
 @import url('ncd.css');
 @import url('attachments.css');
+@import url('visit-history.css');
 
 /* COLORS
 
@@ -148,7 +149,7 @@ header .logo {
     font-size: 16px;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
-    order-radius: 8px;
+    border-radius: 8px;
 }
 
 /* FORMS */
@@ -224,10 +225,15 @@ table td:last-child {
     padding:5px;
 }
 
-.fg-toolbar {
-    background: #424C55;
+
+.fg-toolbar,
+.tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
     border-radius: 0 0 8px 8px;
     box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+.fg-toolbar {
+    background: #424C55;
     border-top: 8px solid #373F46;
     color: #fff;
     padding: 8px;
@@ -343,10 +349,10 @@ table td:last-child {
 .patient-header + #edit-patient-identifier-dialog + .actions.dropdown {
     background: #fff;
     border: none;
-    border-radius: 24px;
-    float: right;
-    height: 48px;
-    width: 120px;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin: -18px 0 0 1024px;
+    width: 10rem;
 }
 .patient-header + #edit-patient-identifier-dialog + .actions.dropdown .dropdown-name {
     color:#373F46;

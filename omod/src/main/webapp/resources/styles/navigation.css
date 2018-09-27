@@ -156,6 +156,7 @@ i.icon-home.small:after {
 .ui-tabs .ui-tabs-nav {
     border-bottom: none;
     background: #55D6BE;
+    padding: 24px 24px 0 12px;
 }
 
 .ui-tabs .ui-tabs-nav li {

@@ -48,7 +48,13 @@ a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
-#form-actions-container a {
+#form-actions-container a,
+.button.task:visited, 
+button.task:visited, 
+input[type="submit"].task:visited, 
+input[type="button"].task:visited, 
+input[type="submit"].task:visited, 
+a.button.task:visited {
     background: #fff;
     background-color: #fff;
     border: none;
@@ -58,71 +64,15 @@ input[type="submit"].cancel,
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding: 12px 24px;
     margin: 8px;
+    text-align: center;
 }
 
 /* Visit Buttons */
 
-#visits {
-    display: flex;
-}
-
-#visits-list + .main-content {
-    display: inline-block;
-    vertical-align: top;
-    padding-left: 25px;
-    border: 1px solid #cccccc;
-    width: 100%;
-    margin-left: -6px;
-}
-
-.main-content .visit-actions {
-    border:none;
-    padding:0;
-}
-
-.visit-actions.active-visit {
-    display:flex;
-}
-
 a.button.task {
     box-sizing: border-box;
-    margin:0;
-    border-radius:0;
     min-width: 160px;
-    display:flex;
-    flex-grow:100%;
-}
-
-#encountersList li {
-    margin-bottom: 0px;
-    height: 48px;
-    display: flex;
-}
-#encountersList > li:nth-of-type(odd) {
-    background: #eee;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
-
-a.button.task i, #encountersList li i {
-    display:none;
-}
-
-#encountersList .encounter-details {
-    border:none;
-}
-#encountersList .encounter-details li {
-    display:flex;
-    flex-direction: row;
-}
-
-#encountersList .encounter-date {
-    margin-right: 16px;
-    float: left;
-}
-
-#encountersList .encounter-date strong {
-    float: left;
+    flex-grow:1;
 }
 
 #favorite-search-record, #comment-on-search-record, #possible-task-list {
@@ -191,6 +141,7 @@ input[type="submit"].cancel:hover,
 a.button.cancel:hover,
 #form-actions-container a:nth-of-type(2):hover {
     color: #ff4747;
+    cursor: pointer;
 }
 
 .button.confirm:hover,
@@ -242,6 +193,7 @@ input[type="submit"]:disabled:hover {
 }
 
 /* BUTTONS > Table Row Actions */
+#deleteVisitLink:hover, #editVisitDatesLink:hover, #editVisitLink:hover,
 .icon-pencil.edit-action:hover,
 .icon-pencil:hover,
 .ui-state-default.ui-button:hover {
@@ -253,22 +205,24 @@ input[type="submit"]:disabled:hover {
 }
 
 #encountersList .encounter-details li:last-child > .details-action a,
+#deleteVisitLink, #editVisitDatesLink, #editVisitLink,
 .edit-info,
 .edit-action,
 #patient-search-clear-button,
 .delete-item,
 .delete-action {
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    color: #999;
-    font-size: 1em;
-    cursor: pointer;
-    min-width: 24px;
     background: #fff;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
+    color: #999;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    margin-left:4px;
+    min-width: 24px;
+    position: relative;
     padding: 4px;
+    text-decoration: none;
 }
 
 .edit-info { 
@@ -334,10 +288,6 @@ button.confirm.big i.icon-arrow-right {float: right;}
 .att_upload-container button.confirm, button#allergyui-addNewAllergy {
     float:right;
 }
-
-/* Add New Allergy */ 
-
-
 
 /* BUTTONS > Transitions */
 form input,
