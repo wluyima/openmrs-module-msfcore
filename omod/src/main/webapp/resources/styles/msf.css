@@ -264,3 +264,17 @@ table td:last-child {
 #filter-tags {
     display: none;
 }
+
+/* HTML Forms view on the patient dashboard */
+span.value {
+    color: blue;
+}
+
+/* Hide the left hand menu when displaying the dashboard */
+.encounter-summary-container .left-column, .encounter-summary-container .hide-on-view, .encounter-summary-container .hide-on-print {
+    display: none;
+}
+
+.encounter-summary-container .right-form-display {
+    width: 100%;
+}

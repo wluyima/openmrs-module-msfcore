@@ -1,6 +1,6 @@
 <htmlform
         formUuid="30d1fda4-4161-4666-ad0c-e2ba20eb73a6"
-        formName="NCD Baseline Consultation - Allergies"
+        formName="Allergies"
         formDescription="Allergies for NCD baseline consultation"
         formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
         formVersion="1.1" formAddMetadata="no">
@@ -54,7 +54,6 @@
                         jq('#' + i + '-toggleContainer').show();
                     }
                 }
-
             });
         }
     </script>
@@ -134,6 +133,12 @@
                             <td>Location:</td>
                             <td>
                                 <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Provider:</td>
+                            <td>
+                                <encounterProvider default="currentUser"/>
                             </td>
                         </tr>
                     </table>
@@ -220,7 +225,7 @@
                                             <obs conceptId="161011" style="textarea" rows="3"/>
                                         </td>
                                     </tr>
-                                    <tfoot>
+                                    <tfoot class="hide-on-view">
                                     <tr>
                                         <td></td>
                                         <td><button class="addEntry" id="{allergy}-addEntry">Add Allergy</button> | <button
@@ -260,7 +265,7 @@
 
 
     <!-- Enusre that only one version of this form can exist at any one time -->
-    <ifMode mode="EDIT" include="false">
+    <ifMode mode="ENTER" include="true">
         <lookup complexExpression="
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))

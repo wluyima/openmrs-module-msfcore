@@ -1,7 +1,7 @@
 <htmlform
         formUuid="06807e2b-ce97-4d65-8796-e955fcbe057d"
         formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
-        formName="NCD Baseline Consultation Form"
+        formName="Medical History"
         formDescription="Personal and family history for NCD baseline consultation"
         formVersion="1.1" formAddMetadata="yes"
         formUILocation="patientDashboard.visitActions">
@@ -100,6 +100,12 @@
                             <td>Location:</td>
                             <td>
                                 <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Provider:</td>
+                            <td>
+                                <encounterProvider default="currentUser"/>
                             </td>
                         </tr>
                     </table>
@@ -278,7 +284,7 @@
     <!-- TODO: Fix the url of all the forms to display their contents once done -->
 
     <!-- Enusre that only one version of this form can exist at any one time -->
-    <ifMode mode="EDIT" include="false">
+    <ifMode mode="ENTER" include="true">
         <lookup complexExpression="
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))

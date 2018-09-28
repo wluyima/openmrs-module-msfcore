@@ -129,11 +129,11 @@
 	</div>
 
 	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="EDIT" include="false">
+	<ifMode mode="ENTER" include="true">
 		<lookup complexExpression="
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null)) $encounter.form.uuid
+            #foreach($encounter in $fn.allEncounters(null))
                 #if( $encounter.form.uuid == '30d1fda4-4161-4666-ad0c-e2ba20eb73a6' )
                     &lt;script type=&quot;text/javascript&quot;>
                         window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
