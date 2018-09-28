@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+
+    <concept  concept_id="135315"  retired="false"  datatype_id="4"  class_id="4"  is_set="false"  creator="1"  date_created="2007-11-03 00:00:00"  uuid="135315AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+    <concept  concept_id="159374"  retired="false"  datatype_id="4"  class_id="5"  is_set="false"  creator="1"  date_created="2010-08-24 14:17:44"  uuid="159374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+    <concept  concept_id="161011"  retired="false"  datatype_id="3"  class_id="11"  is_set="false"  creator="1"  date_created="2012-07-31 19:06:39"  uuid="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+    <concept  concept_id="160221"  retired="false"  datatype_id="3"  class_id="7"  is_set="false"  creator="1"  date_created="2011-07-27 15:35:19"  uuid="160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+
+    <concept_description  concept_description_id="10783"  concept_id="135315"  description="Rapid and excessive rise of temperature accompanied by muscular rigidity following general anesthesia."  locale="en"  creator="1"  date_created="2007-10-18 04:28:24" uuid="10783FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
+
+    <concept_description  concept_description_id="16006"  concept_id="159374"  description="Times per week the patient has wheezing or dyspnea during the day time, as used while assessing the severity of Asthma and other problems."  locale="en"  creator="1"  date_created="2010-08-24 14:17:44"  uuid="16006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
+
+    <concept_name  concept_id="135315"  name="Malignant Hyperthermia"  locale="en"  creator="1"  date_created="2007-10-18 04:28:24"  concept_name_id="35184"  voided="false"  uuid="35184BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="135315"  name="hipertermia maligna"  locale="es"  creator="1"  date_created="2009-08-18 16:03:14"  concept_name_id="69642"  voided="false"  uuid="69642BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="135315"  name="Tăng thân nhiệt ác tính"  locale="vi"  creator="1"  date_created="2015-07-17 20:07:24"  concept_name_id="129123"  voided="false"  uuid="129123BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="159374"  name="Patient has wheezing or dyspnea during the day"  locale="en"  creator="1"  date_created="2010-08-24 14:17:44"  concept_name_id="106446"  voided="false"  uuid="106446BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1" />
+    <concept_name  concept_id="159374"  name="Wheezing or dyspnea during the day"  locale="en"  creator="1"  date_created="2010-08-24 14:17:44"  concept_name_id="106447"  voided="false"  uuid="106447BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="SHORT"  locale_preferred="0" />
+    <concept_name  concept_id="161011"  name="Free text comment"  locale="en"  creator="1"  date_created="2012-07-31 19:06:39"  concept_name_id="109902"  voided="false"  uuid="109902BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="161011"  name="Texte libre commentaire"  locale="fr"  creator="1"  date_created="2016-03-09 02:44:24"  concept_name_id="135862"  voided="false"  uuid="135862BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="161011"  name="Kòmantè tèks"  locale="ht"  creator="1"  date_created="2016-03-09 02:44:24"  concept_name_id="135863"  voided="false"  uuid="135863BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  />
+    <concept_name  concept_id="160221"  name="Past medical history added (text)"  locale="en"  creator="1"  date_created="2011-07-27 15:35:19"  concept_name_id="108123"  voided="false"  uuid="108123BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"/>
+    <concept_name  concept_id="160221"  name="antecedente personal texto"  locale="es"  creator="1"  date_created="2013-03-12 23:38:41"  concept_name_id="123596"  voided="false" uuid="123596BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"/>
+    <concept_name  concept_id="160221"  name="Antécédents médicaux ajouté (texte)"  locale="fr"  creator="1"  date_created="2016-07-10 02:05:03"  concept_name_id="137356"  voided="false" uuid="137356BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"/>
+    <concept_name  concept_id="160221"  name="Istwa medikal te ajoute (tèks)"  locale="ht"  creator="1"  date_created="2016-07-10 02:05:03"  concept_name_id="137357"  voided="false" uuid="137357BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"/>
+
+</dataset>

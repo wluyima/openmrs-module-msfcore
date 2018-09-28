@@ -113,6 +113,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         log.info("Importing MSF Custom Concepts");
         DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
 
+        dataImporter.importData("CIELConcepts.xml");
         dataImporter.importData("MSFCustomConcepts.xml");
         log.info("MSF Custom Concepts imported");
     }
