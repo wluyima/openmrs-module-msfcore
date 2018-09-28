@@ -45,8 +45,3 @@
         [[= encounterTemplates.displayEncounter(encounter, patient) ]]
     [[ }); ]]
 </ul>
-<ul id="encountersTypeList">
-    [[ _.each(encounters, function(encounter) { ]]
-    [[= encounterTemplates.displayEncounter(encounter, patient) ]]
-    [[ }); ]]
-</ul>
