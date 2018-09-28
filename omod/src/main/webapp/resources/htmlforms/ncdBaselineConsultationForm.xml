@@ -29,7 +29,7 @@
     <div class="wrapper">
         <div class="left-column">
             <div class="left-navigation">
-                <h3>NCD Baseline Consultation Note</h3>
+                <h3>NCD Baseline Consultation Form</h3>
                 <span>Paper Form ID: $paperFormId</span>
                 <ol>
                     <li class="active">
@@ -282,7 +282,7 @@
         <lookup complexExpression="
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null)) $encounter.form.uuid
+            #foreach($encounter in $fn.allEncounters(null))
                 #if( $encounter.form.uuid == '06807e2b-ce97-4d65-8796-e955fcbe057d' )
                     &lt;script type=&quot;text/javascript&quot;>
                         window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
