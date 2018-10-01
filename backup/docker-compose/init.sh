@@ -7,9 +7,9 @@ echo
 if [ ! -z "$ZIP_FILE_PASSWORD" ]
 then
 rm docker-compose*
-wget https://raw.githubusercontent.com/edrisse/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.yml
-wget https://raw.githubusercontent.com/edrisse/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.override.yml
-wget https://raw.githubusercontent.com/edrisse/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.prod.yml
+wget https://raw.githubusercontent.com/jembi/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.yml
+wget https://raw.githubusercontent.com/jembi/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.override.yml
+wget https://raw.githubusercontent.com/jembi/openmrs-module-msfcore/master/backup/docker-compose/docker-compose.prod.yml
 echo $ZIP_FILE_PASSWORD > zip_file_password.txt
 mkdir backup
 else
