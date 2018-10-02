@@ -226,22 +226,22 @@
                         <tr>
                             <td class="left-th" width="18%">
                                 <span>
-                                    <lookup expression="fn.getConcept('463603').name"/>
+                                    <lookup expression="fn.getConcept('a2c36065-0377-435c-b06f-c48e4a609ee4').name"/>
                                 </span>
                             </td>
                             <td width="82%">
-                                <obs conceptId="463603" answerConceptIds="463605,463606,463607,463608,463609"
+                                <obs conceptId="a2c36065-0377-435c-b06f-c48e4a609ee4" answerConceptIds="14dd482d-a42b-46d0-bb14-4d3f8c743f32,65faaf98-3caf-47d0-8b92-6bb1d222ad9c,256de010-3614-4e1c-91fa-183236c6e7f2,3b3db397-ed73-4250-84b0-0feabcb4f498,5c6ac484-0ebb-4e81-83e2-e42b801810a5"
                                      style="radio"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="left-th">
                                 <span>
-                                    <lookup expression="fn.getConcept('463604').name"/>
+                                    <lookup expression="fn.getConcept('8e31892a-57da-42b2-94b6-a5776e1c7fa8').name"/>
                                 </span>
                             </td>
                             <td>
-                                <obs conceptId="463604" answerConceptIds="463605,463606,463607,463608,463609"
+                                <obs conceptId="8e31892a-57da-42b2-94b6-a5776e1c7fa8" answerConceptIds="14dd482d-a42b-46d0-bb14-4d3f8c743f32,65faaf98-3caf-47d0-8b92-6bb1d222ad9c,256de010-3614-4e1c-91fa-183236c6e7f2,3b3db397-ed73-4250-84b0-0feabcb4f498,5c6ac484-0ebb-4e81-83e2-e42b801810a5"
                                      style="radio"/>
                             </td>
                         </tr>
@@ -257,19 +257,19 @@
                     <table width="90%">
                         <tr>
                             <td>
-                                <obs conceptId="463615" answerConceptId="463616" answerLabel="Diabetes"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="5108a071-b9b6-4405-8afa-9f7657b247b9" answerLabel="Diabetes"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="463615" answerConceptId="463617" answerLabel="Premature CV Event &lt;50"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="2e7b4eb2-a6c9-4d8f-9734-2832d0706066" answerLabel="Premature CV Event &lt;50"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="463615" answerConceptId="135315" answerLabel="Malignant Hyperthermia"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="135315" answerLabel="Malignant Hyperthermia"
                                      style="checkbox"/>
                             </td>
                         </tr>

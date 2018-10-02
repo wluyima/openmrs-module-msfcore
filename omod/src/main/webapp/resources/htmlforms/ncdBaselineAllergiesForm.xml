@@ -163,26 +163,26 @@
                                 <table class="baseline-aligned">
                                     <tr>
                                         <td>
-                                            <lookup expression="fn.getConcept('465115').name"/>
+                                            <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name"/>
                                         </td>
                                         <td nowrap="nowrap">
-                                            <obs id="allergy-type-{allergy}" conceptId="465115"
+                                            <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635"
                                                  answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other"
                                                  style="radio" answerSeparator=""/>
                                             <br/>
                                             <p id="162553-{allergy}" class="enableDisable allergy-{allergy}">
                                                 <obsgroup groupingConceptId="162553">
-                                                    <obs conceptId="465116" style="radio" answerSeparator=""/>
+                                                    <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" style="radio" answerSeparator=""/>
                                                 </obsgroup>
                                             </p>
                                             <p id="162552-{allergy}" class="enableDisable allergy-{allergy}">
                                                 <obsgroup groupingConceptId="162552">
-                                                    <obs conceptId="465112" style="radio" answerSeparator=""/>
+                                                    <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="radio" answerSeparator=""/>
                                                 </obsgroup>
                                             </p>
                                             <p id="162554-{allergy}" class="enableDisable allergy-{allergy}">
                                                 <obsgroup groupingConceptId="162554">
-                                                    <obs conceptId="465113" style="radio" answerSeparator=""/>
+                                                    <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
                                                 </obsgroup>
                                             </p>
                                         </td>
@@ -193,28 +193,28 @@
                                         </td>
                                         <td>
                                             <obsgroup groupingConceptId="162555">
-                                                <obs conceptId="465114" answerConceptId="121677" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="121629" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="148888" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="139084" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="148787" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="108" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="120148" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="143264" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="142412" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="118773" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="140238" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="140039" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="139581" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="117399" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="136455" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="159347" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="121" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="512" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="159098" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="111061" style="checkbox"/>
-                                                <obs conceptId="465114" answerConceptId="1067" style="checkbox"/>
-                                                <obs conceptId="465116" answerConceptId="5622" style="checkbox"
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121677" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121629" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148888" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139084" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148787" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="108" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="120148" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="143264" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="142412" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="118773" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140238" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140039" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139581" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="117399" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="136455" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159347" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="512" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159098" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="111061" style="checkbox"/>
+                                                <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="1067" style="checkbox"/>
+                                                <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" answerConceptId="5622" style="checkbox"
                                                      commentFieldLabel="Specify:"/>
                                             </obsgroup>
 
