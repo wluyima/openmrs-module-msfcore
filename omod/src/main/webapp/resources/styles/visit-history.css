@@ -136,6 +136,13 @@ ul#encountersList {
     box-shadow: inset rgba(0,0,0,0.1) 0 2px 4px;
 }
 
+#encountersList li > span {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    margin-top: -16px;
+}
+
 /* VISIT NOTE Section */
 
 

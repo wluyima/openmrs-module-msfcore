@@ -202,7 +202,8 @@ input[type="submit"]:disabled:hover {
 #deleteVisitLink:hover, #editVisitDatesLink:hover, #editVisitLink:hover,
 .icon-pencil.edit-action:hover,
 .icon-pencil:hover,
-.ui-state-default.ui-button:hover {
+.ui-state-default.ui-button:hover,
+.icon-file-alt:hover {
     color: #4EC3AD;
 }
 
@@ -216,7 +217,8 @@ input[type="submit"]:disabled:hover {
 .edit-action,
 #patient-search-clear-button,
 .delete-item,
-.delete-action {
+.delete-action,
+.view-action {
     background: #fff;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
@@ -224,10 +226,12 @@ input[type="submit"]:disabled:hover {
     cursor: pointer;
     display: inline-block;
     font-size: 1em;
-    margin-left:4px;
-    min-width: 24px;
+    height: 18px;
+    margin: 1px 4px;
+    min-width: 64px;
     position: relative;
     padding: 4px;
+    text-align:center;
     text-decoration: none;
 }
 
@@ -248,6 +252,7 @@ input[type="submit"]:disabled:hover {
     margin-right: 0;
 }
 
+.view-action.icon-file-alt::after,
 #patient-search-clear-button::after,
 .icon-pencil.edit-action::after,
 .icon-remove.delete-action::after,
@@ -269,6 +274,10 @@ a#patient-search-register-patient {
     margin-bottom: 24px;
 }
 
+.view-action.icon-file-alt::after {
+    content: 'View';
+}
+
 .edit-action.icon-share-alt:after {
     content: 'Open';
 }
@@ -288,6 +297,20 @@ button.confirm.big i.icon-arrow-right {
 }
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
+
+/* Visit Note */
+
+#display-encounter-diagnoses-container li i {
+    display: inline-block;
+}
+
+#buttons {
+    margin-top:2rem;
+}
+
+#encounter-diagnoses-target {
+    width:100%;
+}
 
 /* Attachments */
 
