@@ -81,11 +81,10 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>htmlformentryui-api</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${lombokVersion}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
@@ -100,7 +99,7 @@
 						<configFile>src/main/resources/jembi-formatter.xml</configFile>
 						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
 					</configuration>
-				</plugin>
+		        </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

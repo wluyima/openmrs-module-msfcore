@@ -51,6 +51,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
         Context.getService(DHISService.class).transferDHISMappingsToDataDirectory();
         Context.getService(DHISService.class).installDHIS2Metadata();
+        Context.getService(MSFCoreService.class).overwriteSync2Configuration();
 
         installMSFMeta();
 

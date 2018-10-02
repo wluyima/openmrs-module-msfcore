@@ -1,0 +1,249 @@
+{
+  "general" : {
+    "parentFeedLocation" : "",
+    "localFeedLocation" : "",
+    "localInstanceId" : null,
+    "persistSuccessAudit" : true,
+    "persistFailureAudit" : true
+  },
+  "push" : {
+    "enabled" : true,
+    "schedule" : 12,
+    "classes" : [
+      {
+        "classTitle" : "Location",
+        "category" : "location",
+        "openMrsClass" : "org.openmrs.Location",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Observation",
+        "category" : "observation",
+        "openMrsClass" : "org.openmrs.Obs",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Encounter",
+        "category" : "encounter",
+        "openMrsClass" : "org.openmrs.Encounter",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Visit",
+        "category" : "visit",
+        "openMrsClass" : "org.openmrs.Visit",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Provider",
+        "category" : "provider",
+        "openMrsClass" : "org.openmrs.Provider",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Drug",
+        "category" : "drug",
+        "openMrsClass" : "org.openmrs.Drug",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Form",
+        "category" : "form",
+        "openMrsClass" : "org.openmrs.Form",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Order",
+        "category" : "order",
+        "openMrsClass" : "org.openmrs.Order",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Program Enrollment",
+        "category" : "programenrollment",
+        "openMrsClass" : "org.openmrs.PatientProgram",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Person",
+        "category" : "person",
+        "openMrsClass" : "org.openmrs.Person",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Patient",
+        "category" : "patient",
+        "openMrsClass" : "org.openmrs.Patient",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Relationship",
+        "category" : "relationship",
+        "openMrsClass" : "org.openmrs.Relationship",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Cohort",
+        "category" : "cohort",
+        "openMrsClass" : "org.openmrs.Cohort",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Visit Type",
+        "category" : "visittype",
+        "openMrsClass" : "org.openmrs.VisitType",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Concept",
+        "category" : "concept",
+        "openMrsClass" : "org.openmrs.Concept",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "User",
+        "category" : "user",
+        "openMrsClass" : "org.openmrs.User",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Program",
+        "category" : "program",
+        "openMrsClass": "org.openmrs.Program",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Privilege",
+        "category" : "privilege",
+        "openMrsClass": "org.openmrs.Privilege",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "AuditMessage",
+        "category" : "audit_message",
+        "openMrsClass": "org.openmrs.module.sync2.api.model.audit.AuditMessage",
+        "enabled" : false
+      }
+    ]
+  },
+  "pull" : {
+    "enabled" : true,
+    "schedule" : 12,
+    "classes" : [
+      {
+        "classTitle" : "Location",
+        "category" : "location",
+        "openMrsClass" : "org.openmrs.Location",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Observation",
+        "category" : "observation",
+        "openMrsClass" : "org.openmrs.Obs",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Encounter",
+        "category" : "encounter",
+        "openMrsClass" : "org.openmrs.Encounter",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Visit",
+        "category" : "visit",
+        "openMrsClass" : "org.openmrs.Visit",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Provider",
+        "category" : "provider",
+        "openMrsClass" : "org.openmrs.Provider",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Drug",
+        "category" : "drug",
+        "openMrsClass" : "org.openmrs.Drug",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Form",
+        "category" : "form",
+        "openMrsClass" : "org.openmrs.Form",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Order",
+        "category" : "order",
+        "openMrsClass" : "org.openmrs.Order",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Program Enrollment",
+        "category" : "programenrollment",
+        "openMrsClass" : "org.openmrs.PatientProgram",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Person",
+        "category" : "person",
+        "openMrsClass" : "org.openmrs.Person",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Patient",
+        "category" : "patient",
+        "openMrsClass" : "org.openmrs.Patient",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Relationship",
+        "category" : "relationship",
+        "openMrsClass" : "org.openmrs.Relationship",
+        "enabled" : false
+      },
+      {
+        "classTitle" : "Cohort",
+        "category" : "cohort",
+        "openMrsClass" : "org.openmrs.Cohort",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Visit Type",
+        "category" : "visittype",
+        "openMrsClass" : "org.openmrs.VisitType",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Concept",
+        "category" : "concept",
+        "openMrsClass" : "org.openmrs.Concept",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "User",
+        "category" : "user",
+        "openMrsClass" : "org.openmrs.User",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Program",
+        "category" : "program",
+        "openMrsClass": "org.openmrs.Program",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "Privilege",
+        "category" : "privilege",
+        "openMrsClass": "org.openmrs.Privilege",
+        "enabled" : true
+      },
+      {
+        "classTitle" : "AuditMessage",
+        "category" : "audit_message",
+        "openMrsClass": "org.openmrs.module.sync2.api.model.audit.AuditMessage",
+        "enabled" : false
+      }
+    ]
+  }
+}

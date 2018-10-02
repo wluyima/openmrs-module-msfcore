@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.SimplifiedLocation;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
@@ -25,28 +28,53 @@ public class ConfigurationPageController {
                     @RequestParam(value = "instanceId", required = false) String instanceId,
                     @SpringBean("locationService") LocationService locationService,
                     @SpringBean("msfCoreService") MSFCoreService msfCoreService, @SpringBean("dhisService") DHISService dhisService,
-                    HttpServletRequest request, HttpServletResponse response, UiUtils ui) throws IOException {
-        boolean isPostRequest = false;
-        if (defaultLocation != null) {
-            isPostRequest = true;
-            msfCoreService.saveDefaultLocation(defaultLocation);
+                    HttpServletRequest request, HttpServletResponse response, UiUtils ui,
+                    @RequestParam(value = "localFeedUrl", required = false) String localFeedUrl,
+                    @RequestParam(value = "parentFeedUrl", required = false) String parentFeedUrl) throws IOException {
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            if (defaultLocation != null) {
+                msfCoreService.saveDefaultLocation(defaultLocation);
+            }
+            if (StringUtils.isNotBlank(instanceId)) {
+                msfCoreService.saveInstanceId(StringUtils.deleteWhitespace(instanceId).toUpperCase());
+            }
+            if (StringUtils.isNotBlank(localFeedUrl)) {
+                Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL, localFeedUrl);
+            }
+            if (parentFeedUrl != null) {
+                Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL, parentFeedUrl);
+            }
+            if (msfCoreService.isConfigured()) {
+                // reload msfIDgenerator installation
+                msfCoreService.msfIdentifierGeneratorInstallation();
+                // reload dhis2 metadata
+                dhisService.installDHIS2Metadata();
+                // overwriteSync2 configurations
+                msfCoreService.overwriteSync2Configuration();
+                response.sendRedirect(ui.pageLink("referenceapplication", "home"));
+            }
         }
-        if (StringUtils.isNotBlank(instanceId)) {
-            isPostRequest = true;
-            msfCoreService.saveInstanceId(StringUtils.deleteWhitespace(instanceId).toUpperCase());
-        }
-        saveLocationCodes(request, msfCoreService, dhisService, locationService, isPostRequest);
+        String localFeedUrlString = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
+        String parentFeedUrlString = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
+        saveLocationCodes(request, msfCoreService, dhisService, locationService);
         model.addAttribute("defaultLocation", locationService.getDefaultLocation());
         model.addAttribute("allLocations", locationService.getAllLocations());
         model.addAttribute("msfLocations", getSimplifiedMSFLocations(msfCoreService, dhisService));
-        model.addAttribute("instanceId", msfCoreService.instanceId());
-        if (isPostRequest && msfCoreService.configured()) {
-            // reload msfIDgenerator installation
-            msfCoreService.msfIdentifierGeneratorInstallation();
-            // reload dhis2 metadata
-            dhisService.installDHIS2Metadata();
-            response.sendRedirect(ui.pageLink("referenceapplication", "home"));
+        model.addAttribute("instanceId", msfCoreService.getInstanceId());
+        model.addAttribute("localFeedUrl", StringUtils.isBlank(localFeedUrlString) ? "" : localFeedUrlString);
+        model.addAttribute("parentFeedUrl", StringUtils.isBlank(parentFeedUrlString) ? "" : parentFeedUrlString);
+        model.addAttribute("isClinic", isClinic(locationService.getDefaultLocation()));
+    }
+
+    private boolean isClinic(Location location) {
+        if (location != null && !location.getTags().isEmpty()) {
+            for (LocationTag tag : location.getTags()) {
+                if (tag.getUuid().equals(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)) {
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
     private List<SimplifiedLocation> getSimplifiedMSFLocations(MSFCoreService msfCoreService, DHISService dhisService) {
@@ -59,7 +87,7 @@ public class ConfigurationPageController {
     }
 
     private void saveLocationCodes(HttpServletRequest request, MSFCoreService msfCoreService, DHISService dhisService,
-                    LocationService locationService, boolean isPostRequest) {
+                    LocationService locationService) {
         for (Location loc : msfCoreService.getMSFLocations()) {
             SimplifiedLocation simplifiedLocation = new SimplifiedLocation(loc.getName(), msfCoreService.getLocationCode(loc), loc
                             .getUuid(), dhisService.getLocationDHISUid(loc));
@@ -68,23 +96,21 @@ public class ConfigurationPageController {
             String uid = request.getParameter(simplifiedLocation.getUuid() + "_uid");
             if (StringUtils.isNotBlank(code) && !StringUtils.deleteWhitespace(code).toUpperCase().equals(simplifiedLocation.getCode())) {
                 LocationAttribute locationAttribute = msfCoreService.getLocationCodeAttribute(location);
-                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, code.toUpperCase(),
-                                locationAttribute, location);
+                saveLocationAttribute(msfCoreService, locationService, simplifiedLocation, code.toUpperCase(), locationAttribute, location);
             }
             if (StringUtils.isNotBlank(uid) && !StringUtils.deleteWhitespace(uid).equals(simplifiedLocation.getUid())) {
                 LocationAttribute locationAttribute = dhisService.getLocationUidAttribute(location);
-                saveLocationAttribute(isPostRequest, msfCoreService, locationService, simplifiedLocation, uid, locationAttribute, location);
+                saveLocationAttribute(msfCoreService, locationService, simplifiedLocation, uid, locationAttribute, location);
             }
         }
     }
 
-    private void saveLocationAttribute(boolean isPostRequest, MSFCoreService msfCoreService, LocationService locationService,
+    private void saveLocationAttribute(MSFCoreService msfCoreService, LocationService locationService,
                     SimplifiedLocation simplifiedLocation, String value, LocationAttribute locationAttribute, Location location) {
         if (locationAttribute != null) {
             locationAttribute.setValue(StringUtils.deleteWhitespace(value));
             location.setAttribute(locationAttribute);
             locationService.saveLocation(location);
-            isPostRequest = true;
         }
     }
 

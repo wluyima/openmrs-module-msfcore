@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.dhis2;
+package org.openmrs.module.msfcore;
 
 import java.io.IOException;
 import java.io.InputStream;

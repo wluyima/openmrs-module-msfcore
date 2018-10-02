@@ -33,7 +33,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- Importing versions from refapp distro -->
             <dependency>
                 <groupId>org.openmrs.distro</groupId>
                 <artifactId>referenceapplication</artifactId>
@@ -58,6 +57,13 @@
 				<artifactId>htmlformentry-api-2.0</artifactId>
 				<version>${htmlformentryVersion}</version>
 				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombokVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
