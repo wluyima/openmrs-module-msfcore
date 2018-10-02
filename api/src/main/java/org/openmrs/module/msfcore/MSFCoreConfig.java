@@ -21,10 +21,26 @@ public class MSFCoreConfig {
     public final static String MODULE_PRIVILEGE = "MSF Core Privilege";
 
     public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
+
     public final static String SEARCH_APP_EXTENSION_ID = "coreapps.findPatient";
 
+    public final static String CONDITIONS_EXTENSION_ID = "coreapps.conditionlist";
+
     public final static String MSF_REGISTRATION_APP_EXTENSION_ID = "msfcore.registrationapp";
+
     public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
+
+    public final static String RELATIONSHIP_EXTENSION_ID = "coreapps.relationships";
+
+    public final static String LATEST_OBS_EXTENSION_ID = "coreapps.latestObsForConceptList";
+
+    public final static String MOST_RECENT_VITALS_EXTENSION_ID = "coreapps.mostRecentVitals";
+
+    public final static String VISIT_BY_ENCOUNTER_TYPE_EXTENSION_ID = "coreapps.visitByEncounterType";
+
+    public final static String DIAGNOSIS_EXTENSION_ID = "coreapps.diagnoses";
+
+    public final static String OBS_GRAPH_EXTENSION_ID = "coreapps.obsGraph";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
 

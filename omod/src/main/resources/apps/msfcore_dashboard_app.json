@@ -1,0 +1,164 @@
+[
+    {
+        "id":"msfcore.diagnoses",
+        "label":"coreapps.clinicianfacing.diagnoses",
+        "icon":"icon-diagnosis",
+        "extensions":[
+            {
+                "id":"org.openmrs.module.coreapps.diagnoses.clinicianDashboardFirstColumn",
+                "appId":"coreapps.diagnoses",
+                "extensionPointId":"patientDashboard.secondColumnFragments",
+                "order":-10,
+                "extensionParams":{
+                    "provider":"coreapps",
+                    "fragment":"clinicianfacing/diagnosisWidget"
+                }
+            }
+        ]
+    },
+    {
+        "id":"msfcore.mostRecentVitals",
+        "instanceOf":"coreapps.template.mostRecentEncounter",
+        "description":"coreapps.mostRecentVitals.app.description",
+        "label":"coreapps.clinicianfacing.vitals",
+        "icon":"icon-vitals",
+        "config":{
+            "encounterTypeUuid":"67a71486-1a54-468f-ac3e-7091a9a79584",
+            "encounterDateLabel":"coreapps.clinicianfacing.lastVitalsDateLabel"
+        },
+        "extensions":[
+            {
+                "id":"org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardFirstColumn",
+                "appId":"coreapps.mostRecentVitals",
+                "extensionPointId":"patientDashboard.secondColumnFragments",
+                "order":-9,
+                "extensionParams":{
+                    "provider":"coreapps",
+                    "fragment":"encounter/mostRecentEncounter"
+                }
+            }
+        ]
+    },
+    {
+        "id": "msfcore.visitByEncounterType",
+        "instanceOf": "coreapps.template.dashboardWidget",
+        "description": "coreapps.visitByEncounterType.app.description",
+        "config": {
+          "widget": "visitbyencountertype",
+          "icon": "icon-calendar",
+          "label": "msfcore.recentVisits",
+          "maxRecords": "3",
+          "combineEncounterTypes": "true"
+        },
+        "extensions": [
+          {
+            "id": "org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardSecondColumn",
+            "appId": "coreapps.visitByEncounterType",
+            "order":-9,
+            "extensionPointId": "patientDashboard.firstColumnFragments",
+            "extensionParams": {
+              "provider": "coreapps",
+              "fragment": "dashboardwidgets/dashboardWidget"
+            }
+          }
+        ]
+      },
+    {
+        "id":"msfcore.latestObsForConceptList",
+        "instanceOf":"coreapps.template.dashboardWidget",
+        "description":"msfcore.latestObsForConceptList.app.description",
+        "config":{
+            "widget":"latestobsforconceptlist",
+            "icon":"icon-user-md",
+            "label":"msfcore.latestObs",
+            "maxAge":"1m",
+            "concepts":"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 159644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 160912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, a0b4549e-9bb8-40b0-a4b9-119d9835f998"
+        },
+        "extensions":[
+            {
+                "id":"org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardFirstColumn",
+                "appId":"msfcore.latestObsForConceptList",
+                "order":-8,
+                "extensionPointId":"patientDashboard.firstColumnFragments",
+                "extensionParams":{
+                    "provider":"coreapps",
+                    "fragment":"dashboardwidgets/dashboardWidget"
+                }
+            }
+        ]
+    },
+    {
+        "id":"msfcore.latestlabresults",
+        "instanceOf":"coreapps.template.dashboardWidget",
+        "description":"msfcore.latestlabresults.app.description",
+        "config":{
+            "widget":"latestobsforconceptlist",
+            "icon":"icon-beaker",
+            "label":"msfcore.labResults",
+            "maxAge":"20d",
+            "concepts":"e76f7461-fc6d-4df1-9d1f-c1adfc14c19d,b041a326-3e9a-4768-b601-6e9485d819de,000190b0-7cbd-400e-8441-b1751c43c29c,82effb7d-0b29-4d8c-9d85-80d870337080,bc0f0544-98db-4e1e-b36c-e0094b9a265c,6eac5d6b-3856-4011-9b27-1a31783b8075,eb4af9c5-1398-4667-b905-a09d4a7cd8be,4b74a157-01eb-4211-abc4-bf6b54ec24b8"
+        },
+        "extensions":[
+            {
+                "id":"org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardSecondColumn",
+                "appId":"msfcore.latestlabresults",
+                "order":-8,
+                "extensionPointId":"patientDashboard.secondColumnFragments",
+                "extensionParams":{
+                    "provider":"coreapps",
+                    "fragment":"dashboardwidgets/dashboardWidget"
+                }
+            }
+        ]
+    },
+    {
+        "id":"msfcore.programs",
+        "instanceOf":"coreapps.template.dashboardWidget",
+        "description":"msfcore.programs.app.description",
+        "config":{
+            "widget":"programs",
+            "icon":"icon-stethoscope",
+            "label":"msfcore.programs",
+            "dateFormat":"dd MMM yyyy",
+            "supportedPrograms":"fc8855e9-9b49-47fb-8940-aaf8e2112467",
+            "enableProgramDashboards":true
+        },
+        "extensions":[
+            {
+                "id":"org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardSecondColumn",
+                "appId":"msfcore.programs",
+                "order":-6,
+                "extensionPointId":"patientDashboard.secondColumnFragments",
+                "extensionParams":{
+                    "provider":"coreapps",
+                    "fragment":"dashboardwidgets/dashboardWidget"
+                }
+            }
+        ]
+    },
+    {
+        "id": "msfcore.obsGraph",
+        "instanceOf": "coreapps.template.dashboardWidget",
+        "description": "coreapps.obsGraph.app.description",
+        "config": {
+          "widget": "obsgraph",
+          "icon": "icon-bar-chart",
+          "label": "WEIGHT GRAPH",
+          "conceptId": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "maxResults": "10",
+          "maxAge": "1y"
+        },
+        "extensions": [
+          {
+            "id": "org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardFirstColumn",
+            "appId": "coreapps.obsGraph",
+            "order":-6,
+            "extensionPointId": "patientDashboard.firstColumnFragments",
+            "extensionParams": {
+              "provider": "coreapps",
+              "fragment": "dashboardwidgets/dashboardWidget"
+            }
+          }
+        ]
+      }
+]
