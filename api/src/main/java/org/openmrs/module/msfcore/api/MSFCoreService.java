@@ -28,9 +28,9 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid);
 
-    public boolean configured();
+    public boolean isConfigured();
 
-    public String instanceId();
+    public String getInstanceId();
 
     public List<Location> getMSFLocations();
 
@@ -46,4 +46,7 @@ public interface MSFCoreService extends OpenmrsService {
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator);
 
+    public void overwriteSync2Configuration();
+
+    public String getCurrentLocationIdentity();
 }

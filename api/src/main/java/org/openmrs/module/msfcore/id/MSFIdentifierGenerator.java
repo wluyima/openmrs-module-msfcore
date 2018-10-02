@@ -27,7 +27,7 @@ public class MSFIdentifierGenerator extends SequentialIdentifierGenerator {
 
     public String getInstanceId() {
         if (StringUtils.isBlank(instanceId)) {
-            String setInstanceID = Context.getService(MSFCoreService.class).instanceId();
+            String setInstanceID = Context.getService(MSFCoreService.class).getInstanceId();
             instanceId = StringUtils.isBlank(setInstanceID) ? "MSF" : setInstanceID;
         }
         return instanceId;

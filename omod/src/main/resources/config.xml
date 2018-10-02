@@ -92,11 +92,20 @@
 		<defaultValue>oZR9WrqUKCG</defaultValue>
 		<description>DHIS2 track entity type uid defaults to NCD added</description>
 	</globalProperty>
-	
 	<globalProperty>
 		<property>msfcore.syncWithDHISOnPatientRegistration</property>
 		<defaultValue>false</defaultValue>
 		<description>Set to true only if you want sync patient with configured DHIS2</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.sync2.localFeedLocation</property>
+		<defaultValue>http://localhost:8080/openmrs</defaultValue>
+		<description>local feed url</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.sync2.parentFeedLocation</property>
+		<defaultValue></defaultValue>
+		<description>parent feed url</description>
 	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>

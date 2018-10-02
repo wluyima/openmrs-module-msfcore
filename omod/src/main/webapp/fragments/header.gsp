@@ -97,6 +97,9 @@
                 </ul>
             <% } %>
         </li>
+        <li class="logout">
+        	<a href="${currentLocationIdentity.configUrl}">${currentLocationIdentity.label}</a>
+        </li>
         <li class="change-location">
             <a href="javascript:void(0);">
                 <i class="icon-map-marker small"></i>

@@ -9,8 +9,11 @@
  */
 package org.openmrs.module.msfcore.api.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
@@ -21,10 +24,15 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.MSFCoreUtils;
+import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.util.OpenmrsUtil;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 
@@ -49,16 +57,16 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return answerNames;
     }
 
-    public boolean configured() {
+    public boolean isConfigured() {
         boolean configured = false;
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
-        if (StringUtils.isNotBlank(instanceId()) && defaultLocation != null && getLocationCodeAttribute(defaultLocation) != null) {
+        if (StringUtils.isNotBlank(getInstanceId()) && defaultLocation != null && getLocationCodeAttribute(defaultLocation) != null) {
             configured = true;
         }
         return configured;
     }
 
-    public String instanceId() {
+    public String getInstanceId() {
         String instanceId = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID);
         return StringUtils.isBlank(instanceId) ? "" : instanceId;
     }
@@ -127,4 +135,46 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         dao.saveSequencyPrefix(generator);
     }
 
+    private File getSync2ConfigFile() {
+        File configFileFolder = OpenmrsUtil.getDirectoryInApplicationDataDirectory(MSFCoreConfig.CONFIGURATION_DIR);
+        return new File(configFileFolder, MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private void setGeneralPropertyInConfigJson(SimpleJSON json, String property, String value) {
+        ((Map) json.get("general")).put(property, value);
+    }
+
+    // TODO using sync2 has bean failures
+    public void overwriteSync2Configuration() {
+        Location defaultLocation = Context.getLocationService().getDefaultLocation();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            SimpleJSON syncConfig = mapper.readValue(new FileInputStream(getClass().getClassLoader().getResource(
+                            MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()), SimpleJSON.class);
+            if (isConfigured()) {
+                String localFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
+                String parentFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
+                if (StringUtils.isNotBlank(localFeedUrl)) {
+                    setGeneralPropertyInConfigJson(syncConfig, "localFeedLocation", localFeedUrl);
+                }
+                if (StringUtils.isNotBlank(parentFeedUrl)) {
+                    setGeneralPropertyInConfigJson(syncConfig, "parentFeedLocation", parentFeedUrl);
+                }
+                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId", (getInstanceId() + "_" + getLocationCode(defaultLocation))
+                                .toLowerCase());
+            }
+            MSFCoreUtils.overWriteFile(getSync2ConfigFile(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(syncConfig));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getCurrentLocationIdentity() {
+        if (isConfigured()) {
+            return Context.getMessageSourceService().getMessage("msfcore.currentLocationIdentity",
+                            new Object[]{Context.getLocationService().getDefaultLocation().getName(), getInstanceId()}, null);
+        }
+        return "";
+    }
 }

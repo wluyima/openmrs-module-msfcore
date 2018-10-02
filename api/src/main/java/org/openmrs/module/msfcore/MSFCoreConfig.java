@@ -356,4 +356,16 @@ public class MSFCoreConfig {
     public final static String GP_SYNC_WITH_DHIS2 = "msfcore.syncWithDHISOnPatientRegistration";
 
     public final static String URL_POSTFIX_OPTIONSETS = "/api/optionSets.json?paging=false&fields=name,options[:code,name]";
+
+    public final static String GP_SYNC_LOCAL_FEED_URL = "msfcore.sync2.localFeedLocation";
+
+    public final static String GP_SYNC_PARENT_FEED_URL = "msfcore.sync2.parentFeedLocation";
+
+    public static final String SYNC2_NAME_OF_CUSTOM_CONFIGURATION = "sync2.json";
+
+    public static final String CONFIGURATION_DIR = "configuration";
+
+    public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
+
+    public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
 }
