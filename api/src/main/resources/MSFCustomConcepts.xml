@@ -15,7 +15,7 @@
     <concept concept_id="465108" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2018-09-21 09:22:27.0" changed_by="1" date_changed="2018-09-21 09:22:27.0" retired_by="1" uuid="8eca35e4-14dd-4f07-9893-932fd74fab84"/>
     <concept concept_id="465109" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2018-09-21 09:22:59.0" changed_by="1" date_changed="2018-09-21 09:22:59.0" retired_by="1" uuid="36287990-3cc1-4b40-af1e-b0f92c219491"/>
     <concept concept_id="465110" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2018-09-21 09:23:35.0" changed_by="1" date_changed="2018-09-21 09:23:35.0" retired_by="1" uuid="d7aed6d9-1131-488c-97a1-dd057e2a6c24"/>
-    <concept concept_id="465110" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2018-09-21 09:23:35.0" changed_by="1" date_changed="2018-09-21 09:23:35.0" retired_by="1" uuid="d7aed6d9-1131-488c-97a1-dd057e2a6c24"/>
+    <concept concept_id="465111" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-09-21 09:45:04.0" changed_by="1" date_changed="2018-09-21 09:45:04.0" retired_by="1" uuid="ae66bd96-af58-4fe4-9f09-dc75a943aa54"/>
     <concept concept_id="465119" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2018-09-21 09:45:04.0" changed_by="1" date_changed="2018-09-21 09:45:04.0" retired_by="1" uuid="1a3da36d-34f2-474e-921d-ef445fe231c9"/>
 
     <!-- Grouping concepts for allergies -->
