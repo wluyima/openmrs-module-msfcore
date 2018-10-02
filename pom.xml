@@ -50,38 +50,8 @@
             </dependency>
             <dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>allergyui-web-2.0</artifactId>
-				<version>${allergyuiVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-            <dependency>
-				<groupId>org.openmrs.module</groupId>
 				<artifactId>appframework-api</artifactId>
 				<version>${appframeworkVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>dataexchange-api</artifactId>
-				<version>${dataexchangeVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>emrapi-omod</artifactId>
-				<version>${emrapiVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>formentryapp-omod</artifactId>
-				<version>${formentryappVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>idgen-api</artifactId>
-				<version>${idgenVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -92,11 +62,10 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>legacyui-omod</artifactId>
-				<version>${legacyuiVersion}</version>
+				<artifactId>idgen-api</artifactId>
+				<version>${idgenVersion}</version>
 				<scope>provided</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
