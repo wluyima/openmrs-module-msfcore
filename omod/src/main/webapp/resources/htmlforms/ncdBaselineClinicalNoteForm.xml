@@ -10,8 +10,6 @@
 		fontOnHeaderColor = white
 	</macros>
 
-	<uiInclude provider="msfcore" javascript="addLinkToActualForms.js"/>
-
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
