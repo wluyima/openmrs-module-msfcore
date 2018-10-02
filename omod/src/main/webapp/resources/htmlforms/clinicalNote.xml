@@ -82,6 +82,31 @@
 		</div>
 		<div class="right-form-display">
 
+            <div style="display:none;">
+                <section headerLabel="Encounter Details">
+                    <table class="baseline-aligned">
+                        <tr>
+                            <td>Date:</td>
+                            <td>
+                                <encounterDate default="now" disallowMultipleEncountersOnDate="block"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Location:</td>
+                            <td>
+                                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Provider:</td>
+                            <td>
+                                <encounterProvider default="currentUser"/>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </div>
+
 			<div class="sections-container">
 
 				<section>
@@ -91,8 +116,7 @@
 					<table class="baseline-aligned">
 						<tr>
 							<td>
-								<!-- TODO update the concept -->
-								<obs conceptId="463346" style="textarea" rows="3"/>
+								<obs conceptId="465117" style="textarea" rows="3"/>
 							</td>
 						</tr>
 
@@ -103,20 +127,24 @@
 
 						<tr>
 							<td>
-								<!-- TODO update the concept -->
-								<obsgroup groupingConceptId="463603">
-									<obs conceptId="463603" answerConceptId="463605" style="checkbox" />
-									<obs conceptId="463603" answerConceptId="463606" style="checkbox" />
-									<obs conceptId="463603" answerConceptId="463607" style="checkbox" />
-									<obs conceptId="463603" answerConceptId="463608" style="checkbox" />
-								</obsgroup>
+								<obs conceptId="465108" labelText="Disease info"
+                                     id="desease-info"
+                                     style="checkbox"/>
+								<obs conceptId="465109" labelText="Skills"
+                                     id="skills"
+                                     style="checkbox"/>
+								<obs conceptId="465110" labelText="Adherence"
+                                     id="adherence"
+                                     style="checkbox"/>
+								<obs conceptId="465119" labelText="Lifestyle"
+                                     id="Lifestyle"
+                                     style="checkbox"/>
 							</td>
 						</tr>
 
 						<tr>
 							<td>
-								<!-- TODO update the concept -->
-								<obs conceptId="463347" style="textarea" rows="3"/>
+								<obs conceptId="465118" style="textarea" rows="3"/>
 							</td>
 						</tr>
 
@@ -134,7 +162,7 @@
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
             #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == '30d1fda4-4161-4666-ad0c-e2ba20eb73a6' )
+                #if( $encounter.form.uuid == 'f09a3a3a-810e-4cf6-b432-3d43da303948' )
                     &lt;script type=&quot;text/javascript&quot;>
                         window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
                     &lt;/script>
