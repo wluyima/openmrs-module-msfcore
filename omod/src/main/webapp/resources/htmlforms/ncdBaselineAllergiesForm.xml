@@ -21,10 +21,7 @@
                 jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
                 jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
 
-                // enabling and disabling the allergy sections there are only 5 so far
-                jq('#1-removeEntry').remove();
-                jq('#1-toggleContainer').show();
-                jq('#10-addEntry').remove();
+
 
                 
                 // show and remove sections 
@@ -48,12 +45,25 @@
                 });
 
                 // show any allergies that have been saved
+                var last_widget = 1;
                 for (i = 1; i &lt; 10; i++) {
                     if (getValue('allergy-type-' + i + '.value') != false) {
                         jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
+                        last_widget = i;
                     }
                 }
+
+                // show the add allergy for the last item as long as its not the first one
+                if (last_widget == 1) {
+                    // enabling and disabling the allergy sections there are only 10 so far
+                    jq('#1-removeEntry').remove();
+                    jq('#1-toggleContainer').show();
+                    jq('#10-addEntry').remove();
+                } else {
+                    jq('#' + last_widget + '-addEntry').show();
+                }
+
             });
         }
     </script>
