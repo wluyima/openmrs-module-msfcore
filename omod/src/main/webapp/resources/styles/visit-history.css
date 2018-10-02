@@ -62,13 +62,7 @@ ul.left-menu li,
 }
 
 ul.left-menu li:hover:not(.selected),
-.dropdown ul li:hover,
-.button.task:hover, 
-button.task:hover, 
-input[type="submit"].task:hover, 
-input[type="button"].task:hover, 
-input[type="submit"].task:hover, 
-a.button.task:hover {
+.dropdown ul li:hover {
     background: #55D6BE;
 }
 
@@ -141,3 +135,7 @@ ul#encountersList {
     box-sizing: border-box;
     box-shadow: inset rgba(0,0,0,0.1) 0 2px 4px;
 }
+
+/* VISIT NOTE Section */
+
+

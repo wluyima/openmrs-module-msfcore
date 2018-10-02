@@ -146,12 +146,18 @@ a.button.cancel:hover,
 
 .button.confirm:hover,
 button.confirm:hover,
+a.button.confirm:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover,
-#form-actions-container a:hover {
+#form-actions-container a:hover,
+.button.task:hover, 
+button.task:hover, 
+input[type="button"].task:hover, 
+input[type="submit"].task:hover, 
+a.button.task:hover {
     color:#4EC3AD;
+    background: #fff;
     cursor: pointer;
 }
 
