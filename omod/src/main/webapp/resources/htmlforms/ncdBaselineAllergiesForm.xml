@@ -11,22 +11,15 @@
         fontOnHeaderColor = white
     </macros>
 
+    <uiInclude provider="msfcore" javascript="addLinkToActualForms.js"/>
     <script type="text/javascript">
         if (jQuery) {
             jq(document).ready(function () {
-                <!-- add the links to the actual forms -->
-                jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-
                 // enabling and disabling the allergy sections there are only 5 so far
                 jq('#1-removeEntry').remove();
                 jq('#1-toggleContainer').show();
                 jq('#10-addEntry').remove();
 
-                
                 // show and remove sections 
                 jq('button.addEntry').on("click", function(){
                     var correctedAddButtonId = parseFloat(this.id) + 1;

@@ -12,19 +12,7 @@
         fontOnHeaderColor = white
     </macros>
 
-    <script type="text/javascript">
-        if (jQuery) {
-            jq(document).ready(function () {
-                    <!-- add the links to the actual forms -->
-                    jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&amp;patientId='+ jq('input[name=personId]').val());
-                   jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&amp;patientId='+ jq('input[name=personId]').val());
-					 jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                    jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                    jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-            });
-        }
-    </script>
-
+    <uiInclude provider="msfcore" javascript="addLinkToActualForms.js"/>
 
     <div class="wrapper">
         <uiInclude provider="msfcore" fragment="leftMenu"/>
