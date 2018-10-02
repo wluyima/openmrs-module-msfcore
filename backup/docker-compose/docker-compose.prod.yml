@@ -1,0 +1,7 @@
+# Generated automatically by openmrs SDK
+version: '3.3'
+
+services:
+  web:
+    ports:
+      - "${TOMCAT_PORT}:8080"

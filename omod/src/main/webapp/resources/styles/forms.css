@@ -9,13 +9,13 @@ form, .form {
     overflow: visible
 }
 
-form input, 
-form select, 
-form textarea, 
-form ul.select, 
-.form input, 
-.form select, 
-.form textarea, 
+form input,
+form select,
+form textarea,
+form ul.select,
+.form input,
+.form select,
+.form textarea,
 .form ul.select {
     background: #fff;
     border-bottom: 2px solid #ccc;
@@ -24,17 +24,26 @@ form ul.select,
     padding: 8px 16px;
 }
 
+.simple-form-ui select,
+.simple-form-ui form select {
+   height: 41px;
+   margin-top: 0;
+}
+
+.simple-form-ui select#gender-field {
+   height: 100%;
+} 
 form input {
     margin-top: 0;
 }
 
-form input:focus, 
-form select:focus, 
-form textarea:focus, 
-form ul.select:focus, 
-.form input:focus, 
-.form select:focus, 
-.form textarea:focus, 
+form input:focus,
+form select:focus,
+form textarea:focus,
+form ul.select:focus,
+.form input:focus,
+.form select:focus,
+.form textarea:focus,
 .form ul.select:focus {
     background: #fff;
     border-bottom: 2px solid #55D6BE;
@@ -78,7 +87,7 @@ form input#patient-search {
     margin-bottom: 4px;
 }
 
-form input#filter-age, 
+form input#filter-age,
 form select#filter-gender {
     min-width:45%;
     float:left;
