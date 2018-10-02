@@ -379,4 +379,34 @@ public class MSFCoreConfig {
     public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
 
     public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
+
+    public static final String NCD_PROGRAM_UUID = "a24327d2-c601-11e8-a355-529269fb1400";
+
+    public static final String NCD_PROGRAM_CONCEPT_UUID = "a2432c28-c601-11e8-a355-529269fb1401";
+
+    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "6cfb6f44-7b27-4d16-8fd1-ea189a8171a4";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_ENROLL = "a24327d2-c601-11e8-a355-529269fb1401";
+
+    public static final String WORKFLOW_CONCEPT_UUID_ENROLL = "a2432c28-c601-11e8-a355-529269fb1402";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_BASELINE_CONSULTATION = "a24327d2-c601-11e8-a355-529269fb1402";
+
+    public static final String WORKFLOW_CONCEPT_UUID_BASELINE_CONSULTATION = "a2432c28-c601-11e8-a355-529269fb1403";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_INVESTIGATION_RESULTS = "a24327d2-c601-11e8-a355-529269fb1403";
+
+    public static final String WORKFLOW_CONCEPT_UUID_INVESTIGATION_RESULTS = "a2432c28-c601-11e8-a355-529269fb1404";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_FOLLOWUP_CONSULTATION = "a24327d2-c601-11e8-a355-529269fb1404";
+
+    public static final String WORKFLOW_CONCEPT_UUID_FOLLOWUP_CONSULTATION = "a2432c28-c601-11e8-a355-529269fb1405";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_EXIT = "a24327d2-c601-11e8-a355-529269fb1405";
+
+    public static final String WORKFLOW_CONCEPT_UUID_EXIT = "a2432c28-c601-11e8-a355-529269fb1406";
+
+    public static final String NCD_PROGRAM_WORKFLOW_UUID_ACTIVE_COHORT = "a24327d2-c601-11e8-a355-529269fb1406";
+
+    public static final String WORKFLOW_CONCEPT_UUID_ACTIVE_COHORT = "a2432c28-c601-11e8-a355-529269fb1407";
 }

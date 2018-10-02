@@ -80,6 +80,9 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PatientIdentifierTypes.MSF_UNRWA_ID_TYPE);
         install(PatientIdentifierTypes.MSF_OTHER_ID);
         install(PatientIdentifierTypes.OLD_PATIENT_ID);
+
+        log.info("Installing Programs");
+        install(Programs.NCD);
     }
 
 }
