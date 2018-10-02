@@ -43,7 +43,7 @@
 
 				<section>
 
-					<h3>Clinical note</h3>
+					<h3>8. Clinical note</h3>
 
 					<table class="baseline-aligned">
 						<tr>
@@ -103,6 +103,6 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350&amp;patientId={{patient.id}}&amp;visitId={{visit.id}}" />
 
     </htmlform>
