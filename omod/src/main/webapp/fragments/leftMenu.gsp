@@ -11,7 +11,7 @@
                 <a id="lifestyle" href="#lifestyle">Lifestyle</a>
                 <span class="hidden" id="lifestyle-form-url">enterHtmlFormWithStandardUi.page?formUuid=3209cd5f-656e-42f4-984e-ab466a5b77ef</span>
             </li>
-            <li class="active">
+            <li>
                 <a id="allergies" href="#allergies">Allergies</a>
                 <span class="hidden" id="allergies-form-url">enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6</span>
             </li>
