@@ -28,6 +28,12 @@
 	        	<option value="${loc.uuid}" <% if(defaultLocation.uuid.equals(loc.uuid)){ %>selected<% } %>>${loc.name}</option>
 	    <% } %>
 	</select>
+	<br />${ui.message("msfcore.localFeedUrl")}<br />
+	<input type="text" name="localFeedUrl" value="${localFeedUrl}"/>
+	<% if(isClinic){ %>
+		<br />${ui.message("msfcore.parentFeedUrl")}<br />
+		<input type="text" name="parentFeedUrl" value="${parentFeedUrl}"/>
+	<% } %>
 	<h2 style="background-color:#f3f3f3;cursor:pointer;" onclick="jQuery('#location-codes').toggle();">${ui.message("msfcore.locationConfigs")}</h2>
 	<div id="location-codes">
 		<table>

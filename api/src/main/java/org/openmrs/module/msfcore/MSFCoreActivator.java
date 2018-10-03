@@ -9,25 +9,20 @@
  */
 package org.openmrs.module.msfcore;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.dataexchange.DataImporter;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.htmlformentry.HtmlFormEntryService;
-import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.msfcore.activator.HtmlFormsInitializer;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
@@ -51,6 +46,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
         Context.getService(DHISService.class).transferDHISMappingsToDataDirectory();
         Context.getService(DHISService.class).installDHIS2Metadata();
+        Context.getService(MSFCoreService.class).overwriteSync2Configuration();
 
         installMSFMeta();
 
@@ -106,6 +102,21 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
         log.info("Installing MSF Forms");
         installMsfForms();
+
+        // create a map between visit types and encounter types to enable the autocreation of visits
+        // all encounters are mapped to the default Facility Visit Type - change this mapping to match encounter types to facility types
+        // see https://issues.openmrs.org/browse/EA-116 for more information
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
+                        "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+
+        // install concepts
+        log.info("Importing MSF Custom Concepts");
+        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+
+        dataImporter.importData("CIELConcepts.xml");
+        dataImporter.importData("MSFCustomConcepts.xml");
+        log.info("MSF Custom Concepts imported");
     }
 
     private void removeMSFMeta() {
@@ -147,6 +158,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         // disable the MSF find patient app and enable the default core apps one
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
+
+        // remove a map between visit types and encounter types to enable the autocreation of visits
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP, "");
     }
 
     /**
@@ -174,23 +189,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
      */
     private void installMsfForms() {
         try {
-            for (File form : getFormsResourceFiles()) {
-                HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class),
-                                new Scanner(form).useDelimiter("\\Z").next());
-            }
+            HtmlFormsInitializer htmlFormsInitializer = new HtmlFormsInitializer("msfcore");
+            htmlFormsInitializer.started();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-    }
-
-    private File[] getFormsResourceFiles() {
-        List<File> formXmls = new ArrayList<File>();
-        for (File file : new File(getClass().getClassLoader().getResource("htmlforms").getPath()).listFiles()) {
-            if (file.exists() && file.getName().endsWith("Form.xml")) {
-                formXmls.add(file.getAbsoluteFile());
-            }
-        }
-        return formXmls.toArray(new File[formXmls.size()]);
     }
 
 }

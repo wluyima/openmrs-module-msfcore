@@ -27,6 +27,7 @@ public class MSFCoreConfig {
     public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
+    public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
 
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
 
@@ -248,6 +249,10 @@ public class MSFCoreConfig {
 
     public final static String TASK_AUTO_CLOSE_VISIT = "Auto Close Visits Task";
 
+    // Encounter types
+    public static final String MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
+    public static final String MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+
     public final static String LOCATION_ATTR_TYPE_UID_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0000";
 
     public final static String LOCATION_UID_ATTRIBUTE_LEBANON_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0001";
@@ -351,4 +356,16 @@ public class MSFCoreConfig {
     public final static String GP_SYNC_WITH_DHIS2 = "msfcore.syncWithDHISOnPatientRegistration";
 
     public final static String URL_POSTFIX_OPTIONSETS = "/api/optionSets.json?paging=false&fields=name,options[:code,name]";
+
+    public final static String GP_SYNC_LOCAL_FEED_URL = "msfcore.sync2.localFeedLocation";
+
+    public final static String GP_SYNC_PARENT_FEED_URL = "msfcore.sync2.parentFeedLocation";
+
+    public static final String SYNC2_NAME_OF_CUSTOM_CONFIGURATION = "sync2.json";
+
+    public static final String CONFIGURATION_DIR = "configuration";
+
+    public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
+
+    public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.module.msfcore.SimpleJSON;
 
 /**
  * Maps openmrs to dhis metadata

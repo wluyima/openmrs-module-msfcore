@@ -11,7 +11,6 @@ package org.openmrs.module.msfcore.api.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -51,13 +50,14 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.MSFCoreUtils;
+import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.dhis2.Data;
 import org.openmrs.module.msfcore.dhis2.OpenMRSToDHIS;
 import org.openmrs.module.msfcore.dhis2.Parameters;
 import org.openmrs.module.msfcore.dhis2.PatientTrackableAttributes;
-import org.openmrs.module.msfcore.dhis2.SimpleJSON;
 import org.openmrs.module.msfcore.dhis2.TrackerInstance;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -110,11 +110,11 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         if (!msfcoreStorage.exists()) {
             msfcoreStorage.mkdirs();
         }
-        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + FILENAME_DHIS_MAPPINGS_PROPERTIES);
+        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + MSFCoreConfig.FILENAME_DHIS_MAPPINGS_PROPERTIES);
     }
 
     public void transferDHISMappingsToDataDirectory() {
-        transferFileToDataDirectory(FILENAME_DHIS_MAPPINGS_PROPERTIES, getDHIS2MappingsFile());
+        transferFileToDataDirectory(MSFCoreConfig.FILENAME_DHIS_MAPPINGS_PROPERTIES, getDHIS2MappingsFile());
     }
 
     private void transferFileToDataDirectory(String fileName, File destination) {
@@ -133,7 +133,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         Properties prop = new Properties();
         File mappingFile = getDHIS2MappingsFile();
         if (!mappingFile.exists()) {
-            mappingFile = new File(getClass().getClassLoader().getResource(FILENAME_DHIS_MAPPINGS_PROPERTIES).getFile());
+            mappingFile = new File(getClass().getClassLoader().getResource(MSFCoreConfig.FILENAME_DHIS_MAPPINGS_PROPERTIES).getFile());
         }
         try {
             prop.load(new FileInputStream(mappingFile));
@@ -336,8 +336,8 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
     }
 
     private void installOptionSets() throws IOException {
-        transferFileToDataDirectory(FILENAME_OPTION_SETS_JSON, getDHIS2optionSetsFile());
-        overWriteFile(getDHIS2optionSetsFile(), getOptionSets().toString());
+        transferFileToDataDirectory(MSFCoreConfig.FILENAME_OPTION_SETS_JSON, getDHIS2optionSetsFile());
+        MSFCoreUtils.overWriteFile(getDHIS2optionSetsFile(), getOptionSets().toString());
     }
 
     private File getDHIS2optionSetsFile() {
@@ -345,15 +345,7 @@ public class DHISServiceImpl extends BaseOpenmrsService implements DHISService {
         if (!msfcoreStorage.exists()) {
             msfcoreStorage.mkdirs();
         }
-        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + FILENAME_OPTION_SETS_JSON);
-    }
-
-    private void overWriteFile(File file, String content) throws IOException {
-        if (StringUtils.isNotBlank(content)) {
-            FileWriter fooWriter = new FileWriter(file, false);
-            fooWriter.write(content);
-            fooWriter.close();
-        }
+        return new File(msfcoreStorage.getAbsoluteFile() + File.separator + MSFCoreConfig.FILENAME_OPTION_SETS_JSON);
     }
 
     public SimpleJSON getOptionSets() {
