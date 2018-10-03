@@ -120,7 +120,7 @@
             "icon":"icon-stethoscope",
             "label":"msfcore.programs",
             "dateFormat":"dd MMM yyyy",
-            "supportedPrograms":"fc8855e9-9b49-47fb-8940-aaf8e2112467",
+            "supportedPrograms":"a24327d2-c601-11e8-a355-529269fb1400",
             "enableProgramDashboards":true
         },
         "extensions":[

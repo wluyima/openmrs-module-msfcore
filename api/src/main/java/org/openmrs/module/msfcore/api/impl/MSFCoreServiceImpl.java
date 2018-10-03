@@ -12,13 +12,20 @@ package org.openmrs.module.msfcore.api.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Obs;
+import org.openmrs.PatientProgram;
+import org.openmrs.PatientState;
+import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -142,7 +149,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void setGeneralPropertyInConfigJson(SimpleJSON json, String property, String value) {
-        ((Map) json.get("general")).put(property, value);
+        ((Map) json
+                        .get("gener                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               al"))
+                        .put(property, value);
     }
 
     // TODO using sync2 has bean failures
@@ -176,5 +185,72 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                             new Object[]{Context.getLocationService().getDefaultLocation().getName(), getInstanceId()}, null);
         }
         return "";
+    }
+
+    public PatientProgram generatePatientProgram(boolean enrollment, Map<String, ProgramWorkflowState> states,
+                    PatientProgram patientProgram, Encounter encounter) {
+        if (patientProgram == null || states.isEmpty()) {
+            return null;
+        }
+        Date date = new Date();
+        ProgramWorkflowState stage = null;
+
+        if (enrollment) {// enrollment is the first stage
+            stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL);
+            PatientState patientState = new PatientState();
+            patientState.setPatientProgram(patientProgram);
+            patientState.setState(stage);
+            patientState.setStartDate(date);
+            patientProgram.getStates().add(patientState);
+            if (patientProgram.getDateCompleted() != null) {
+                patientState.setStartDate(patientProgram.getDateCompleted());
+                patientProgram.transitionToState(states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT), date);
+            }
+            // TODO handle investigation results state
+        } else {// transition to other stages after enrollment
+            if (patientProgram.getStates().isEmpty()) {
+                return null;
+            }
+            if (encounter != null && encounter.getForm() != null) {
+                if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_BASELINE)) {
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
+                } else if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_FOLLOWUP)) {
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION);
+                } else if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_EXIT)) {
+                    patientProgram.setDateCompleted(date);
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
+                    for (Obs o : encounter.getObs()) {
+                        if (o.getConcept().getUuid().equals(MSFCoreConfig.NCD_PROGRAM_OUTCOMES_CONCEPT_UUID)) {
+                            patientProgram.setOutcome(o.getValueCoded());
+                        }
+                    }
+                }
+                if (stage != null) {
+                    patientProgram.transitionToState(stage, date);
+                }
+            }
+        }
+        if (patientProgram != null && !patientProgram.getStates().isEmpty()) {
+            return patientProgram;
+        } else {
+            return null;
+        }
+    }
+
+    public Map<String, ProgramWorkflowState> getMsfStages() {
+        Map<String, ProgramWorkflowState> stages = new HashMap<String, ProgramWorkflowState>();
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ACTIVE_COHORT, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_ACTIVE_COHORT));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT));
+        return stages;
     }
 }

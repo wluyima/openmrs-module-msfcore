@@ -83,6 +83,9 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
 
         log.info("Installing Programs");
         install(Programs.NCD);
+
+        log.info("Installing Privileges");
+        install(Privileges.ENROLL_IN_PROGRAM);
     }
 
 }

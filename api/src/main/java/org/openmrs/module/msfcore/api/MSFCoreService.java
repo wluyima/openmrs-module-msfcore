@@ -10,10 +10,14 @@
 package org.openmrs.module.msfcore.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.PatientProgram;
+import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
@@ -49,4 +53,22 @@ public interface MSFCoreService extends OpenmrsService {
     public void overwriteSync2Configuration();
 
     public String getCurrentLocationIdentity();
+
+    /**
+     * @param enrollment,
+     *            is this an enrollment or not
+     * @param patient
+     * @param program
+     * @param states,
+     *            maps states to their respective uuid
+     * @param patientProgram,
+     *            must never be null
+     * @param form,
+     *            used for form managed states
+     * @return patientProgram generated or null
+     */
+    public PatientProgram generatePatientProgram(boolean enrollment, Map<String, ProgramWorkflowState> states,
+                    PatientProgram patientProgram, Encounter ecnounter);
+
+    public Map<String, ProgramWorkflowState> getMsfStages();
 }

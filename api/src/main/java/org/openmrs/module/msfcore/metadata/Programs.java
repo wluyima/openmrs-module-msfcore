@@ -38,9 +38,7 @@ public class Programs {
 
         @Override
         public Set<ProgramWorkflowDescriptor> workflows() {
-            return new HashSet<ProgramWorkflowDescriptor>(Arrays.asList(ProgramStages.ENROLL, ProgramStages.BASELINE_CONSULTATION,
-                            ProgramStages.INVESTIGATION_RESULTS, ProgramStages.FOLLOWUP_CONSULTATION, ProgramStages.EXIT,
-                            ProgramStages.ACTIVE_COHORT));
+            return new HashSet<ProgramWorkflowDescriptor>(Arrays.asList(ProgramStages.STAGES));
         }
     };
 }
