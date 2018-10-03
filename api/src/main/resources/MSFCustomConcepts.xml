@@ -135,4 +135,9 @@
 
     <concept  concept_id="465118"  retired="0" datatype_id="3"  class_id="7"  is_set="0"  creator="1"  date_created="2018-10-01 14:46:04" changed_by="1"  date_changed="2018-10-01 14:46:04" uuid="beb1187e-b00b-4089-a22c-e86988eca79a"/>
     <concept_name concept_id="465118" name="Comment Patient Education" locale="en" creator="1" date_created="2018-10-01 14:46:04" concept_name_id="2291606" voided="false" uuid="0f669d4a-fe88-46f2-ae28-d0ee8ef03232" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1"/>
+
+    <!-- Refer patient concepts -->
+    <concept  concept_id="1000000"  retired="0" datatype_id="3"  class_id="7"  is_set="0"  creator="1"  date_created="2018-10-01 14:46:04" changed_by="1"  date_changed="2018-10-01 14:46:04" uuid="830817c9-e1f9-48a7-a20b-c927bca52891"/>
+    <concept_name concept_id="1000000" name="Comment Refer Patient" locale="en" creator="1" date_created="2018-10-01 14:46:04" concept_name_id="2291605" voided="false" uuid="ed2bee5a-aca6-466c-9639-126cd3e5965b" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1"/>
+
 </dataset>
