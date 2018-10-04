@@ -9,6 +9,7 @@ if (jQuery) {
         jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#investigationrequest").attr("href", jq("#investigation-request-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#referpatient").attr("href", jq("#referpatient-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#requestappointment").attr("href", jq("#request-appointment-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
     });
 }
 </script>
@@ -52,7 +53,8 @@ if (jQuery) {
                 <span class="hidden" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
             </li>
             <li>
-                <a href="#scheduleappointment">Schedule appointment</a>
+                <a id="requestappointment" href="#requestappointment">Request appointment</a>
+                <span class="hidden" id="request-appointment-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303911</span>
             </li>
             <li>
                 <a id="referpatient" href="#referpatient">Refer patient</a>
