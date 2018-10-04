@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
 
@@ -20,5 +21,10 @@ public class DateUtils {
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    public static int getDaysBetweenDate1AndDate2(Date date1, Date date2) {
+        long diffInMillies = Math.abs(date1.getTime() - date2.getTime());
+        return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 }
