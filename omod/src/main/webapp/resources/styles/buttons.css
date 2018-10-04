@@ -107,14 +107,14 @@ input[type="submit"].cancel {
 }
 
 .button:hover, 
-a.button:hover
+/*a.button:hover,
 button:hover,
 .button.cancel:hover,
 button.cancel:hover,
 a.button.cancel:hover,
 .button.confirm:hover,
 button.confirm:hover,
-a.button.confirm:hover,
+a.button.confirm:hover,*/
 input[type="button"]:hover,
 input[type="submit"]:hover
 input[type="submit"] .cancel:hover,
@@ -124,7 +124,7 @@ input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
 #form-actions-container a {
-    background: #fff;
+    background: #fff !important;
     box-shadow: rgba(0, 0, 0, 0.4) 0 2px 8px;
     transform: scale(1.01);
     text-decoration: none;
@@ -245,7 +245,7 @@ input[type="submit"]:disabled:hover {
 
 #patient-search-clear-button {
     color: #373F46;
-    margin-left: -36px;
+    margin-left: -56px;
 }
 
 .delete-item:first-of-type {
