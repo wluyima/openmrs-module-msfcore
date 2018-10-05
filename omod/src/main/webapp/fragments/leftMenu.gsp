@@ -9,6 +9,7 @@ if (jQuery) {
         jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#investigationrequest").attr("href", jq("#investigation-request-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#referpatient").attr("href", jq("#referpatient-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#patienttargets").attr("href", jq("#patient-targets-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
     });
 }
 </script>
@@ -38,7 +39,8 @@ if (jQuery) {
                 <span class="hidden" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
             </li>
             <li>
-                <a href="#patienttargets">Patient targets</a>
+                <a id="patienttargets" href="#patienttargets">Patient targets</a>
+                <span class="hidden" id="patient-targets-form-url">enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26</span>
             </li>
             <li>
                 <a href="#regularpatientreview">Regular patient review</a>
