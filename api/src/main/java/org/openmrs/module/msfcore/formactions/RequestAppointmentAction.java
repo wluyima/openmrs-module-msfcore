@@ -35,11 +35,8 @@ public class RequestAppointmentAction {
         }
 
         AppointmentRequest appointmentRequest = new AppointmentRequest();
-        // TODO: Appointment type is mandatory, decide which appointment type should be set by
-        // default and set it here instead of id 1
-        AppointmentType appointmentType = new AppointmentType();
-        appointmentType.setId(1);
-        appointmentRequest.setAppointmentType(appointmentType);
+        appointmentRequest.setAppointmentType(Context.getService(AppointmentService.class).getAppointmentTypeByUuid(
+                        MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID));
         appointmentRequest.setNotes(notes);
         appointmentRequest.setPatient(patient);
         appointmentRequest.setMinTimeFrameUnits(TimeFrameUnits.DAYS);
