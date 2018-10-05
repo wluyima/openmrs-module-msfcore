@@ -43,7 +43,7 @@
 
 				<section>
 
-					<h3><a name="patienttargets">6. Patient targets</a></h3>
+					<h3><a name="patienttargets">6. <lookup expression="fn.message('msfcore.ncdBaseLine.patientTargets.title')"/></a></h3>
 						<table>
 							<tr>
 								<td><obs conceptId="e76f7461-fc6d-4df1-9d1f-c1adfc14c19d" labelText="HbA1C" /></td>
