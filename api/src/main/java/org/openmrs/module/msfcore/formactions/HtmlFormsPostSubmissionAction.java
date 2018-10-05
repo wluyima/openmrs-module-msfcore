@@ -10,6 +10,8 @@ import org.openmrs.module.msfcore.MSFCoreConfig;
 
 public class HtmlFormsPostSubmissionAction implements CustomFormSubmissionAction {
 
+    RequestAppointmentAction requestAppointmentAction = new RequestAppointmentAction();
+
     @Override
     public void applyAction(FormEntrySession session) {
         String formUuid = session.getForm().getUuid();
@@ -17,8 +19,7 @@ public class HtmlFormsPostSubmissionAction implements CustomFormSubmissionAction
         Set<Obs> observations = session.getEncounter().getObsAtTopLevel(false);
 
         if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
-            RequestAppointmentAction action = new RequestAppointmentAction();
-            action.requestAppointment(patient, observations);
+            requestAppointmentAction.requestAppointment(patient, observations);
         }
     }
 }

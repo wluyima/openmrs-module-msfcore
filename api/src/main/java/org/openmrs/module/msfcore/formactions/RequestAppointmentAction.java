@@ -8,7 +8,6 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
-import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.msfcore.MSFCoreConfig;
@@ -16,7 +15,9 @@ import org.openmrs.module.msfcore.api.util.DateUtils;
 
 public class RequestAppointmentAction {
 
-    public void requestAppointment(Patient patient, Set<Obs> observations) {
+    AppointmentService appointmentService;
+
+    public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations) {
         String notes = "";
         Date requestedDate = null;
 
@@ -31,18 +32,24 @@ public class RequestAppointmentAction {
 
         Date now = new Date();
         if (requestedDate == null || requestedDate.before(now)) {
-            return;
+            return null;
+        }
+
+        if (appointmentService == null) {
+            appointmentService = Context.getService(AppointmentService.class);
         }
 
         AppointmentRequest appointmentRequest = new AppointmentRequest();
-        appointmentRequest.setAppointmentType(Context.getService(AppointmentService.class).getAppointmentTypeByUuid(
-                        MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID));
+        appointmentRequest
+                        .setAppointmentType(appointmentService.getAppointmentTypeByUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID));
         appointmentRequest.setNotes(notes);
         appointmentRequest.setPatient(patient);
         appointmentRequest.setMinTimeFrameUnits(TimeFrameUnits.DAYS);
-        appointmentRequest.setMinTimeFrameValue(DateUtils.getDaysBetweenDate1AndDate2(now, requestedDate));
+        appointmentRequest.setMinTimeFrameValue(DateUtils.getDaysBetweenDates(now, requestedDate));
         appointmentRequest.setStatus(AppointmentRequestStatus.PENDING);
         appointmentRequest.setRequestedOn(new Date());
-        Context.getService(AppointmentService.class).saveAppointmentRequest(appointmentRequest);
+        appointmentService.saveAppointmentRequest(appointmentRequest);
+
+        return appointmentRequest;
     }
 }
