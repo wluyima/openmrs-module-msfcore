@@ -32,7 +32,9 @@ import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.msfcore.report.MorbidityAnalysisReport;
 import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;
+import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.scheduler.TaskDefinition;
 
 /**
@@ -68,12 +70,15 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
 
-        // disable the default find patient app to provide one which allows searching for patients at the footer of the search for patients page
+        // disable the default find patient app to provide one which allows
+        // searching for patients at the footer of the search for patients page
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
 
-        log.info("Installing MSF metadata");
+        log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+        log.info("Installing MSF Reports");
+        ReportManagerUtil.setupReport(Context.getRegisteredComponents(MorbidityAnalysisReport.class).get(0));
 
         log.info("Installation and configuration of default MSF Identifier");
         Context.getService(MSFCoreService.class).msfIdentifierGeneratorInstallation();
@@ -128,7 +133,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
             Context.getPatientService().savePatientIdentifierType(msfIdType);
         }
 
-        log.info("Configuting primary Identifier");
+        log.info("Configuring primary Identifier");
         MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
         MetadataTermMapping primaryIdentifierTypeMapping = metadataMappingService.getMetadataTermMapping(
                         EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
