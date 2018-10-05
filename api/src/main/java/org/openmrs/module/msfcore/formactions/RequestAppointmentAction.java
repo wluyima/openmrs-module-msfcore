@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore;
+package org.openmrs.module.msfcore.formactions;
 
 import java.util.Date;
 import java.util.Set;
@@ -11,28 +11,16 @@ import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRe
 import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
-import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
-import org.openmrs.module.htmlformentry.FormEntrySession;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.util.DateUtils;
 
-public class HtmlFormsPostSubmissionAction implements CustomFormSubmissionAction {
+public class RequestAppointmentAction {
 
-    @Override
-    public void applyAction(FormEntrySession session) {
-        String formUuid = session.getForm().getUuid();
-        Patient patient = session.getEncounter().getPatient();
-        Set<Obs> obss = session.getEncounter().getObsAtTopLevel(false);
-
-        if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
-            requestAppointment(patient, obss);
-        }
-    }
-
-    private void requestAppointment(Patient patient, Set<Obs> obss) {
+    public void requestAppointment(Patient patient, Set<Obs> observations) {
         String notes = "";
         Date requestedDate = null;
 
-        for (Obs obs : obss) {
+        for (Obs obs : observations) {
             if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_DATE_UUID)) {
                 requestedDate = obs.getValueDate();
             }
@@ -48,7 +36,7 @@ public class HtmlFormsPostSubmissionAction implements CustomFormSubmissionAction
 
         AppointmentRequest appointmentRequest = new AppointmentRequest();
         // TODO: Appointment type is mandatory, decide which appointment type should be set by
-        // default
+        // default and set it here instead of id 1
         AppointmentType appointmentType = new AppointmentType();
         appointmentType.setId(1);
         appointmentRequest.setAppointmentType(appointmentType);
