@@ -15,9 +15,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Number of unique patients per diagnosis by gender report, to setup; run:
- * <code>
- * Context.getRegisteredComponents(MorbidityAnalysisReport.class).get(0).setup();
- * </code>
  */
 @Component
 public class MorbidityAnalysisReport extends BaseMSFReportManager {
