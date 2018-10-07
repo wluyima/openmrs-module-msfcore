@@ -32,9 +32,8 @@ import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
-import org.openmrs.module.msfcore.report.MorbidityAnalysisReport;
+import org.openmrs.module.msfcore.report.BaseMSFReportManager;
 import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;
-import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.scheduler.TaskDefinition;
 
 /**
@@ -78,7 +77,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
         log.info("Installing MSF Reports");
-        ReportManagerUtil.setupReport(Context.getRegisteredComponents(MorbidityAnalysisReport.class).get(0));
+        Context.getRegisteredComponents(BaseMSFReportManager.class).get(0).initialise();
 
         log.info("Installation and configuration of default MSF Identifier");
         Context.getService(MSFCoreService.class).msfIdentifierGeneratorInstallation();
