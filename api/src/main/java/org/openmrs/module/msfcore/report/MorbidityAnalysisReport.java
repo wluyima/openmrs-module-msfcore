@@ -14,9 +14,9 @@ import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
 
 /**
- * Number of unique patients per diagnosis by gender report, to initiase; run:
+ * Number of unique patients per diagnosis by gender report, to setup; run:
  * <code>
- * Context.getRegisteredComponents(MorbidityAnalysisReport.class).get(0).initialise();
+ * Context.getRegisteredComponents(MorbidityAnalysisReport.class).get(0).setup();
  * </code>
  */
 @Component

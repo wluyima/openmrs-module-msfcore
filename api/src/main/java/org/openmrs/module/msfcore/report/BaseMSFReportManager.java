@@ -10,7 +10,7 @@ public abstract class BaseMSFReportManager extends BaseReportManager {
         return Context.getRegisteredComponents(BuiltInCohortDefinitionLibrary.class).get(0);
     }
 
-    public void initialise() {
+    public void setup() {
         ReportManagerUtil.setupReport(this);
     }
 }

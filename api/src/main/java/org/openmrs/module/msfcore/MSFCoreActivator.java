@@ -77,7 +77,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
         log.info("Installing MSF Reports");
-        Context.getRegisteredComponents(BaseMSFReportManager.class).get(0).initialise();
+        Context.getRegisteredComponents(BaseMSFReportManager.class).get(0).setup();
 
         log.info("Installation and configuration of default MSF Identifier");
         Context.getService(MSFCoreService.class).msfIdentifierGeneratorInstallation();
