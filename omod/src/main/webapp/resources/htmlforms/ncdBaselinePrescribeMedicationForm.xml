@@ -86,7 +86,8 @@
 			</div>
 
 			<div class="sections-container">
-				<section id="drug-orders" headerLabel="Prescriptions">
+				<section id="drug-orders">
+                    <h3>5. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
@@ -170,5 +171,5 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746&amp;patientId={{patient.id}}&amp;visitId={{visit.id}"/>
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26&amp;patientId={{patient.id}}&amp;visitId={{visit.id}"/>
 </htmlform>
