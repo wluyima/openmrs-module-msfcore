@@ -31,12 +31,15 @@ button.big {
 - Avoid pruning.
 
 */
+
 button,
 .button,
 a.button,
+a.button.task,
 a.button.confirm,
 .button.confirm,
 button.confirm,
+.dropdown,
 input[type="submit"],
 input[type="button"],
 input[type="submit"].confirm,
@@ -45,16 +48,55 @@ a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
-#form-actions-container a {
+#form-actions-container a,
+.button.task:visited, 
+button.task:visited, 
+input[type="submit"].task:visited, 
+input[type="button"].task:visited, 
+input[type="submit"].task:visited, 
+a.button.task:visited {
     background: #fff;
+    background-color: #fff;
     border: none;
     border-radius: 24px;
     box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
     color: #373F46;
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     padding: 12px 24px;
-    margin: 8px 0;
+    margin: 8px;
+    text-align: center;
 }
+
+/* Visit Buttons */
+
+a.button.task {
+    box-sizing: border-box;
+    min-width: 160px;
+    flex-grow:1;
+}
+
+#favorite-search-record, #comment-on-search-record, #possible-task-list {
+    cursor: pointer;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
+    color: #444;
+    border-radius: 100px;
+    padding: 8px;
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
+    box-sizing: border-box;
+}
+
+.dropdown {
+    margin-top: 0;
+    background-color: #ddd;
+    height: 23px;
+    width: 140px;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 input[type=button] [value=value],
 a.button.cancel .button.cancel,
@@ -64,22 +106,25 @@ input[type="submit"].cancel {
     float:left;
 }
 
+.button:hover, 
+/*a.button:hover,
 button:hover,
 .button.cancel:hover,
 button.cancel:hover,
-input[type=button]:hover,
-input[type="submit"] .cancel:hover,
-input[type="button"].cancel:hover,
-input[type="submit"].cancel:hover,
 a.button.cancel:hover,
 .button.confirm:hover,
 button.confirm:hover,
+a.button.confirm:hover,*/
+input[type="button"]:hover,
+input[type="submit"]:hover
+input[type="submit"] .cancel:hover,
+input[type="button"].cancel:hover,
+input[type="submit"].cancel:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover,
 #form-actions-container a {
-    background: #fff;
+    background: #fff !important;
     box-shadow: rgba(0, 0, 0, 0.4) 0 2px 8px;
     transform: scale(1.01);
     text-decoration: none;
@@ -96,16 +141,23 @@ input[type="submit"].cancel:hover,
 a.button.cancel:hover,
 #form-actions-container a:nth-of-type(2):hover {
     color: #ff4747;
+    cursor: pointer;
 }
 
 .button.confirm:hover,
 button.confirm:hover,
+a.button.confirm:hover,
 input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
-a.button.confirm:hover,
-#form-actions-container a:hover {
+#form-actions-container a:hover,
+.button.task:hover, 
+button.task:hover, 
+input[type="button"].task:hover, 
+input[type="submit"].task:hover, 
+a.button.task:hover {
     color:#4EC3AD;
+    background: #fff;
     cursor: pointer;
 }
 
@@ -136,41 +188,51 @@ input[type="submit"]:disabled:hover {
     box-shadow: rgba(0, 0, 0, 0.4) 0 0 4px;
 }
 
-.ui-state-default.ui-button.ui-state-disabled {
+/* BUTTONS > Disabled Pagination Buttons */
+.ui-state-default.ui-button.ui-state-disabled,
+.ui-state-default.ui-button.ui-state-disabled:hover {
     opacity: 0.3;
 }
 
 .ui-state-default.ui-button.ui-state-disabled:hover {
-    color: #373F46;
+    color: #BABDC1;
 }
 
 /* BUTTONS > Table Row Actions */
+#deleteVisitLink:hover, #editVisitDatesLink:hover, #editVisitLink:hover,
 .icon-pencil.edit-action:hover,
 .icon-pencil:hover,
-.ui-state-default.ui-button:hover {
+.ui-state-default.ui-button:hover,
+.icon-file-alt:hover {
     color: #4EC3AD;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
 }
 
 .ui-state-default.ui-button:hover {
     opacity: 1;
 }
 
+#encountersList .encounter-details li:last-child > .details-action a,
+#deleteVisitLink, #editVisitDatesLink, #editVisitLink,
 .edit-info,
 .edit-action,
 #patient-search-clear-button,
-.delete-item {
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    color: #999;
-    font-size: 1em;
-    cursor: pointer;
-    min-width: 24px;
+.delete-item,
+.delete-action,
+.view-action {
     background: #fff;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
+    color: #999;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    height: 18px;
+    margin: 1px 4px;
+    min-width: 64px;
+    position: relative;
     padding: 4px;
+    text-align:center;
+    text-decoration: none;
 }
 
 .edit-info { 
@@ -183,14 +245,17 @@ input[type="submit"]:disabled:hover {
 
 #patient-search-clear-button {
     color: #373F46;
-    margin-left: -36px;
+    margin-left: -56px;
 }
 
 .delete-item:first-of-type {
     margin-right: 0;
 }
 
+.view-action.icon-file-alt::after,
 #patient-search-clear-button::after,
+.icon-pencil.edit-action::after,
+.icon-remove.delete-action::after,
 .delete-item.icon-remove::after,
 .delete-item.icon-pencil::after,
 .edit-action::after {
@@ -204,14 +269,23 @@ input[type="submit"]:disabled:hover {
     content: 'Clear';
 }
 
+a#patient-search-register-patient {
+    float: right;
+    margin-bottom: 24px;
+}
+
+.view-action.icon-file-alt::after {
+    content: 'View';
+}
+
 .edit-action.icon-share-alt:after {
     content: 'Open';
 }
-
+.icon-pencil.edit-action::after,
 .delete-item.icon-pencil::after {
     content: 'Edit';
 }
-
+.icon-remove.delete-action::after,
 .delete-item.icon-remove::after {
     content: 'Delete';
 }
@@ -224,6 +298,25 @@ button.confirm.big i.icon-arrow-right {
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
 
+/* Visit Note */
+
+#display-encounter-diagnoses-container li i {
+    display: inline-block;
+}
+
+#buttons {
+    margin-top:2rem;
+}
+
+#encounter-diagnoses-target {
+    width:100%;
+}
+
+/* Attachments */
+
+.att_upload-container button.confirm, button#allergyui-addNewAllergy {
+    float:right;
+}
 
 /* BUTTONS > Transitions */
 form input,

@@ -368,4 +368,12 @@ public class MSFCoreConfig {
     public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
 
     public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
+
+    public static final String HTMLFORM_REQUEST_APPOINTMENT_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303911";
+
+    public static final String CONCEPT_REQUEST_APPOINTMENT_DATE_UUID = "c72e7dce-e9eb-44e9-8114-94f9550ad5b0";
+
+    public static final String CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID = "f3a76818-3ff4-4d94-9c51-be295cad43a1";
+
+    public static final String SERVICE_TYPE_GENERAL_MEDICINE_UUID = "7dd9ac8e-c436-11e4-a470-82b0ea87e2d8";
 }

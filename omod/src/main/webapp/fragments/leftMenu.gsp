@@ -9,6 +9,8 @@ if (jQuery) {
         jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#investigationrequest").attr("href", jq("#investigation-request-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#referpatient").attr("href", jq("#referpatient-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#patienttargets").attr("href", jq("#patient-targets-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#requestappointment").attr("href", jq("#request-appointment-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
     });
 }
 </script>
@@ -38,24 +40,26 @@ if (jQuery) {
                 <span class="hidden" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
             </li>
             <li>
-                <a href="#patienttargets">Patient targets</a>
+                <a id="patienttargets" href="#patienttargets">${ui.message("msfcore.ncdbaseline.patienttargets.title")}</a>
+                <span class="hidden" id="patient-targets-form-url">enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26</span>
             </li>
             <li>
                 <a href="#regularpatientreview">Regular patient review</a>
             </li>
             <li>
-                <a id="clinicalnote" href="#clinicalnote">Clinical note</a>
+                <a id="clinicalnote" href="#clinicalnote">${ui.message("msfcore.ncdbaseline.clinicalnote.title")}</a>
                 <span class="hidden" id="clinical-note-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948</span>
             </li>
             <li>
-                <a id="investigationrequest" href="#investigationrequest">Request investigation</a>
+                <a id="investigationrequest" href="#investigationrequest">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
                 <span class="hidden" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
             </li>
             <li>
-                <a href="#scheduleappointment">Schedule appointment</a>
+                <a id="requestappointment" href="#requestappointment">${ui.message("msfcore.ncdbaseline.requestappointment.title")}</a>
+                <span class="hidden" id="request-appointment-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303911</span>
             </li>
             <li>
-                <a id="referpatient" href="#referpatient">Refer patient</a>
+                <a id="referpatient" href="#referpatient">${ui.message("msfcore.ncdbaseline.referpatient.title")}</a>
                 <span class="hidden" id="referpatient-form-url">enterHtmlFormWithStandardUi.page?formUuid=a9f3411c-03d8-4652-8143-886d572cbf4d</span>
             </li>
         </ol>
