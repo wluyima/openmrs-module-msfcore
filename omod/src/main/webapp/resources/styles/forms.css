@@ -9,21 +9,32 @@ form, .form {
     overflow: visible
 }
 
-form input,
-form select,
-form textarea,
-form ul.select,
-.form input,
-.form select,
-.form textarea,
-.form ul.select {
+htmlform {
+    display:flex;
+    flex-direction: column;
+    padding:24px;
+}
+
+form input, 
+form select, 
+form textarea, 
+form ul.select, 
+.form input, 
+.form select, 
+.form textarea, 
+.form ul.select,
+input[type="search"] {
     background: #fff;
+    border: none;
     border-bottom: 2px solid #ccc;
     border-radius:4px;
     outline: none;
+    min-width: 10%;
     padding: 8px 16px;
+    box-shadow: rgba(0,0,0,0.3) 0 0 2px;
 }
 
+select,
 .simple-form-ui select,
 .simple-form-ui form select {
    height: 41px;
@@ -35,6 +46,38 @@ form ul.select,
 } 
 form input {
     margin-top: 0;
+}
+
+/* NCD LABELS 
+form label, .form label {
+    font-size: 14px;
+    float:left;
+    line-height: 19px;
+    margin: 0 20px 0 24px;
+}*/
+
+form input[type="radio"], 
+.form input[type="radio"] {
+    width: 13px;
+}
+
+form input[type="checkbox"], 
+form input[type="radio"], 
+.form input[type="checkbox"], 
+.form input[type="radio"] {
+    float: left;
+    display: initial;
+    margin-right: -24px;
+}
+
+form input[type="checkbox"], 
+.form input[type="checkbox"] {
+    padding: 6px;
+}
+
+form input[type="checkbox"]:checked:after, 
+.form input[type="checkbox"]:checked:after {
+    font-size: 11px;
 }
 
 form input:focus,
@@ -57,10 +100,18 @@ form ul.select:focus,
 
 div#active-visits_filter.dataTables_filter,
 form#patient-search-form {
-    background:#55D6BE;
+    background: #55D6BE;
     border-radius: 8px 8px 0 0;
-    box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
-    padding:16px;
+    box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    padding: 16px;
+    width: 100%;
+}
+
+#active-visits_filter input[type="search"] {
+    margin-left:8px;
+    width:40%;
 }
 
 #patient-search-results {
@@ -103,10 +154,29 @@ ul#formBreadcrumb {
     width:25%;
     background: #55D6BE;
     color:#fff;
-    border-radius: 0 0 0 8px;
     padding: 1rem;
 }
 
 ul#formBreadcrumb li {
     border:none;
+}
+/* Icon Addon */
+.add-on {
+    left: -40px;
+}
+
+#htmlform {
+    /*background: #fff;*/
+    height: 100%;
+}
+
+/* TWEAKS TO STAGING */
+
+form input[type="checkbox"], 
+.form input[type="checkbox"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    box-shadow: inset rgba(0,0,0,0.1) 0 0 4px;
+    background: #fff;
+    margin: 0px;
 }
