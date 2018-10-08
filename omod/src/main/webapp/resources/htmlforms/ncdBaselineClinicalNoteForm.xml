@@ -47,37 +47,30 @@
 
 					<table class="baseline-aligned">
 						<tr>
-							<td>
-								<obs conceptId="465117" style="textarea" rows="3"/>
-							</td>
+                            
+                            <td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:
+                                <obs conceptId="465117" style="textarea" rows="4" cols="60"/></td>
 						</tr>
-
 						<tr>
 							<td><lookup expression="fn.getConcept('463571').name"/>:
-							<obs conceptId="463571" id="patient-education"/></td>
+							    <obs conceptId="463571" id="patient-education"/></td>
 						</tr>
 
 						<tr>
 							<td>
-								<obs conceptId="465108" labelText="Disease info"
-                                     id="desease-info"
-                                     style="checkbox"/>
-								<obs conceptId="465109" labelText="Skills"
-                                     id="skills"
-                                     style="checkbox"/>
-								<obs conceptId="465110" labelText="Adherence"
-                                     id="adherence"
-                                     style="checkbox"/>
-								<obs conceptId="465119" labelText="Lifestyle"
-                                     id="Lifestyle"
-                                     style="checkbox"/>
+                                <!-- Concept Disease Info -->
+								<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
+                                <!-- Concept Skills -->
+								<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
+                                <!-- Concept Adherence -->
+								<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
+                                <!-- Concept Lifestyle -->
+								<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
 							</td>
 						</tr>
-
 						<tr>
-							<td>
-								<obs conceptId="465118" style="textarea" rows="3"/>
-							</td>
+							<td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:
+							    <obs conceptId="465118" style="textarea" rows="4" cols="60"/></td>
 						</tr>
 
 					</table>
