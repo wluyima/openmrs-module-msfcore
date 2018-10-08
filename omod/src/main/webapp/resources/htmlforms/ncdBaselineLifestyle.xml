@@ -41,7 +41,7 @@
 
 			<div class="sections-container">
 
-				<section><!--LIFESTYLE -->
+				<section>
 					<h3>
 						<a name="lifeStyle"><lookup expression="fn.message('msfcore.lifestyle')"/></a>
 					</h3>
@@ -63,7 +63,7 @@
 								<p id="smoker-section">
 									<lookup
 										expression="fn.getConcept('b82f215e-b58b-4204-a153-7bbe7ae6a5d4').name" />
-									<obs conceptId="b82f215e-b58b-4204-a153-7bbe7ae6a5d4" id="number of packs per day"
+									<obs conceptId="b82f215e-b58b-4204-a153-7bbe7ae6a5d4" id="number-of-packs-per-day"
 										showUnits="true" />
 								</p>
 							</td>
