@@ -46,9 +46,9 @@
                     <h3>4. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></h3>
 					<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
                     <div class="add-box" id="encounter-diagnoses-target"></div>
+                    <submit submitLabel="Next >"/>
 				</section>
 			</div>
-			<submit submitLabel="Next >"/>
 		</div>
 	</div>
     
@@ -67,5 +67,5 @@
 
 	</ifMode>
 	<redirectOnSave
-        url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+        url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
 </htmlform>

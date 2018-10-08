@@ -43,7 +43,7 @@
 
 				<section>
 
-					<h3><a name="patienttargets">6. <lookup expression="fn.message('msfcore.ncdbaseline.patienttargets.title')"/></a></h3>
+					<h3><a name="patienttargets">7. <lookup expression="fn.message('msfcore.ncdbaseline.patienttargets.title')"/></a></h3>
 						<table>
 							<tr>
                                 <!-- Comment id=6000001 name=HbA1C target -->
@@ -63,7 +63,6 @@
 						<submit submitLabel="Next >"/>
 					</section>
 			</div>
-
 		</div>
 	</div>
 
@@ -82,6 +81,6 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26&amp;patientId={{patient.id}}&amp;visitId={{visit.id}}" />
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}&amp;visitId={{visit.id}}" />
 
     </htmlform>

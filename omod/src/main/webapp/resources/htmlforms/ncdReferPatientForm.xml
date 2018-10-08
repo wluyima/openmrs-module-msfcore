@@ -42,7 +42,7 @@
 			<div class="sections-container">
 
 				<section>
-					<H3><a name="referpatient">11. <lookup expression="fn.message('msfcore.ncdbaseline.referpatient.title')"/></a></H3>
+					<H3><a name="referpatient">12. <lookup expression="fn.message('msfcore.ncdbaseline.referpatient.title')"/></a></H3>
 					<h5><lookup expression="fn.message('msfcore.ncdbaseline.referpatient.question')"/></h5>
 					<table class="baseline-aligned">
 						<tr>

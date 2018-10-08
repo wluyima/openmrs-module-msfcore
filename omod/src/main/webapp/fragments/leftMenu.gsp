@@ -36,6 +36,10 @@ if (jQuery) {
                 <span class="hidden" id="diagnosis-form-url">enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746</span>
             </li>
             <li>
+                <a id="complications" href="#complications">${ui.message("msfcore.ncdbaseline.complications.title")}</a>
+                <span class="hidden" id="complications-form-url">enterHtmlFormWithStandardUi.page?formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d</span>
+            </li>
+            <li>
                 <a id="prescribemedication" href="#prescribemedication">${ui.message("msfcore.ncdbaseline.prescribemedication.title")}</a>
                 <span class="hidden" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
             </li>

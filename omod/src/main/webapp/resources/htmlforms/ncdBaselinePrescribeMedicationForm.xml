@@ -87,7 +87,7 @@
 
 			<div class="sections-container">
 				<section id="drug-orders">
-                    <h3>5. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
+                    <h3>6. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
@@ -149,9 +149,9 @@
 						<render prescription="9"/>
 						<render prescription="10"/>
 					</repeat>
+                    <submit submitLabel="Next >"/>
 				</section>
 			</div>
-			<submit submitLabel="Next >"/>
 		</div>
 	</div>
 
