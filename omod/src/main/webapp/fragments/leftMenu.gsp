@@ -32,7 +32,7 @@ if (jQuery) {
                 <span class="hidden" id="allergies-form-url">enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6</span>
             </li>
             <li>
-                <a id="diagnosis" href="#diagnosis">Diagnosis</a>
+                <a id="diagnosis" href="#diagnosis">${ui.message("msfcore.ncdbaseline.diagnosis.title")}</a>
                 <span class="hidden" id="diagnosis-form-url">enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746</span>
             </li>
             <li>

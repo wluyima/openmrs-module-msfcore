@@ -42,92 +42,23 @@
 
 			<div class="sections-container">
 
-				<section headerLabel="Complications">
-
-					<table class="baseline-aligned">
-						<tr>
-							<td><lookup expression="fn.getConcept('163619').name"/></td>
-							<td> <obs conceptId="463619" answerConceptId="120148" answerLabel="Arrhythmia" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463375" answerLabel="Angina" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463442" answerLabel="Heart Attack" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463383" answerLabel="Heart failure" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463441" answerLabel="Hypertensive emergencies" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="138291" answerLabel="Hyperglycaemia" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463385" answerLabel="Retinopathy" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463447" answerLabel="Neuropathy" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463554" answerLabel="COPD / Asthma" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463624" answerLabel="CRF" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463623" answerLabel="PVD" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463625" answerLabel="associated hospitalization" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463626" answerLabel="Hypoglycaemia" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463621" answerLabel="Stroke" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463622" answerLabel="ICH" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td> <obs conceptId="463619" answerConceptId="463627" answerLabel="DKA/HHS" style="checkbox" /></td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.getConcept('163620').name"/></td>
-							<td> <obs conceptId="463620" /></td>
-						</tr>
-					</table>
+				<section>
+                    <h3>4. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></h3>
+					<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+                    <div class="add-box" id="encounter-diagnoses-target"></div>
 				</section>
 			</div>
 			<submit submitLabel="Next >"/>
 		</div>
 	</div>
-
-
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
+    
+    <!-- Ensure that only one version of this form can exist at any one time -->
+    <ifMode mode="ENTER" include="true">
+    <lookup complexExpression="
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null)) $encounter.form.uuid
-                #if( $encounter.form.uuid == 'e5a30dfa-a871-49d2-b0bd-b4817f135c58' )
+            #foreach($encounter in $fn.allEncounters(null))
+                #if( $encounter.form.uuid == '7ba65c3e-3e16-4637-824f-ce23ccb30746' )
                     &lt;script type=&quot;text/javascript&quot;>
                         window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
                     &lt;/script>
@@ -136,5 +67,5 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+        url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
 </htmlform>
