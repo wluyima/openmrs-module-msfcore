@@ -4,7 +4,8 @@
   overflow: hidden;
   height: 100%;
   clear: both;
-  margin-top:7px;
+  margin-top: 7px;
+  display: flex;
 }
 
 .left-column {

@@ -1,4 +1,4 @@
-}/* FORMS */
+/* FORMS */
 
 #login-form ul.select,
 #login-form #sessionLocation {
@@ -170,12 +170,13 @@ ul#formBreadcrumb li {
     height: 100%;
 }
 
-#htmlform h4 {
-    font-family: "OpenSansSemiBold", Arial, sans-serif;
-}
+/* TWEAKS TO STAGING */
 
-#htmlform h4,
-#htmlform h5,
-#htmlform h6 {
-    color: #618696;
+form input[type="checkbox"], 
+.form input[type="checkbox"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    box-shadow: inset rgba(0,0,0,0.1) 0 0 4px;
+    background: #fff;
+    margin: 0px;
 }
