@@ -42,8 +42,8 @@
 			<div class="sections-container">
 
 				<section>
-					<H3><a name="referpatient">11. <lookup expression="fn.message('msfcore.ncdBaseLine.referPatient.title')"/></a></H3>
-					<h5><lookup expression="fn.message('msfcore.ncdBaseLine.referPatient.whereToReferPatient')"/></h5>
+					<H3><a name="referpatient">11. <lookup expression="fn.message('msfcore.ncdbaseline.referpatient.title')"/></a></H3>
+					<h5><lookup expression="fn.message('msfcore.ncdbaseline.referpatient.question')"/></h5>
 					<table class="baseline-aligned">
 						<tr>
 							<td width="30%">
@@ -83,7 +83,7 @@
 							<td colspan="2"><obs conceptId="MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9" id="referral_out_specialist_other"/></td>
 						</tr>
 					</table>
-					<h5><lookup expression="fn.message('msfcore.ncdBaseLine.comments')"/>:</h5>
+					<h5><lookup expression="fn.message('msfcore.ncdbaseline.comments')"/>:</h5>
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
 					<submit submitLabel="Next >"/>

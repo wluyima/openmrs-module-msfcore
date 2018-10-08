@@ -42,7 +42,7 @@
 			<div class="sections-container">
 
 			<section>
-				<H3><a name="investigationrequest">9. <lookup expression="fn.message('msfcore.ncdBaseLine.investigationRequest.title')"/></a></H3>
+				<H3><a name="investigationrequest">9. <lookup expression="fn.message('msfcore.ncdbaseline.investigationrequest.title')"/></a></H3>
 					<table class="baseline-aligned">
 						<tr>
 						    <td width="30%"><obs conceptId="MSF:CC4F333F-805F-4121-9B97-E2ED14983480" labelText="Patient has glucometer Order" id="test_patient_has_glucomoter" style="checkbox"/></td>
