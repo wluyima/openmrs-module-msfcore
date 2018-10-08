@@ -366,5 +366,7 @@
 	<concept_answer concept_answer_id="3000003" concept_id="465107" answer_concept="463613" creator="1" date_created="2018-10-05 15:05:59.0" uuid="18b973d4-a700-495f-8884-1a58f64eb28f" sort_weight="6.0"/>
 	<concept_answer concept_answer_id="3000001" concept_id="465106" answer_concept="3000000" creator="1" date_created="2018-10-05 11:29:20.0" uuid="cd0c95e4-4dd8-46ef-9589-a57d64d1919d" sort_weight="3.0"/>
 	<concept_answer concept_answer_id="3000002" concept_id="465106" answer_concept="463613" creator="1" date_created="2018-10-05 15:05:00.0" uuid="46e80a85-3d16-404e-bfb4-613bc6cfc08c" sort_weight="4.0"/>
+	<concept_answer concept_answer_id="3000004" concept_id="465106" answer_concept="1065" creator="1" date_created="2018-10-05 15:05:00.0" uuid="9047f4ca-b7b9-4b8c-af7a-e0f12de9ac36" sort_weight="5.0"/>
+	<concept_answer concept_answer_id="3000005" concept_id="465107" answer_concept="1065" creator="1" date_created="2018-10-05 15:05:00.0" uuid="6ce1236a-f34e-4698-965d-19380426c777" sort_weight="5.0"/>
 
 </dataset>
