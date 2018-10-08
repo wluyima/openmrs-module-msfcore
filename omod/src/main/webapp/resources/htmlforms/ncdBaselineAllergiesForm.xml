@@ -97,7 +97,8 @@
             </div>
 
             <div class="sections-container">
-                <section headerLabel="Allergies">
+                <section>
+                    <h3>3. <lookup expression="fn.message('msfcore.ncdbaseline.allergies.title')"/></h3>
                     <repeat>
                         <template>
                             <div id="{allergy}-toggleContainer" style="display: none;">
@@ -208,9 +209,9 @@
                         <render allergy="9"/>
                         <render allergy="10"/>
                     </repeat>
+                    <submit submitLabel="Next >"/>
                 </section>
             </div>
-            <submit submitLabel="Next >"/>
         </div>
     </div>
 

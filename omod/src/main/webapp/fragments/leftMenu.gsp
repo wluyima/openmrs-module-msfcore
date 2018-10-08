@@ -24,11 +24,11 @@ if (jQuery) {
                 <span class="hidden" id="medical-history-form-url">enterHtmlFormWithStandardUi.page?formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d</span>
             </li>
             <li>
-                <a id="lifestyle" href="#lifestyle">Lifestyle</a>
+                <a id="lifestyle" href="#lifestyle">${ui.message("msfcore.ncdbaseline.lifestyle.title")}</a>
                 <span class="hidden" id="lifestyle-form-url">enterHtmlFormWithStandardUi.page?formUuid=3209cd5f-656e-42f4-984e-ab466a5b77ef</span>
             </li>
             <li>
-                <a id="allergies" href="#allergies">Allergies</a>
+                <a id="allergies" href="#allergies">${ui.message("msfcore.ncdbaseline.allergies.title")}</a>
                 <span class="hidden" id="allergies-form-url">enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6</span>
             </li>
             <li>
