@@ -13,15 +13,22 @@ header .user-options {
 .button.app.big header .user-options li a,
 header .user-options li.logout a {
     background: #fff;
-    border-radius: 16px;
+    border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, .2) 0 0 4px;
     padding: 24px;
 }
 
 header .user-options li.change-location {
     border: none;
-    border-radius: 16px;
+    border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, .2) 0 0 4px;
+    width:12rem;
+}
+
+#selected-location {
+    display:inline-block;
+    width: 125px;
+    animation: fadein 2s ease-in;
 }
 
 header .user-options li.change-location a,
@@ -84,6 +91,9 @@ header #session-location li.selected {
 #breadcrumbs {
     background: #f3f3f3;
     margin-top: 90px;
+    height: 60px;
+    padding: 2px 0 0 16px;
+    box-sizing: border-box;
 }
 
 #breadcrumbs li a {
@@ -100,7 +110,7 @@ header #session-location li.selected {
     box-shadow:rgba(0, 0, 0, 0.1) 0 0 8px;
     color: #55D6BE;
     opacity:0.8;
-    font-family:'OpenSansSemiBold';
+    font-family:'OpenSansSemiBold', Arial, Helvetica, sans-serif;
     padding:8px 16px;
     text-decoration: none;
 }
@@ -134,3 +144,65 @@ i.icon-home.small:after {
     width: 60px;
     margin-right: 60px;
 }*/
+
+/* CONDITIONS PAGE */
+
+.ui-tabs .ui-tabs-panel {
+    padding: 16px;
+    border: none;
+    border-radius: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+    border-bottom: none;
+    background: #55D6BE;
+    padding: 24px 24px 0 12px;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    border-radius: 8px 8px 0 0;
+    border-color: #DDD;
+    background: #f7f7f7;
+    margin: 0 0 0 8px;
+    box-shadow: inset rgba(0,0,0,0.1) 0 -4px 8px, rgba(0,0,0,0.2) 0 -2px 4px;
+    height: 48px;
+    padding-top: 8px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    box-shadow: rgba(0,0,0,0.1) 0 -4px 8px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-tabs-active a:link, .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-state-default {
+    color: #4EC3AD;
+    border-top: #55D6BE;
+    margin:0;
+    height:24px;
+    font-family: 'OpenSansSemiBold', Arial, sans-serif;
+    padding-top: 8px;
+}
+#form-actions-container,
+.actions, #actions {
+    background: #424C55;
+    border-radius: 0 0 0.5rem 0.5rem;
+    border-top: 8px solid #373F46;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    box-sizing: border-box;
+    height: 6rem;
+    margin-top: 0;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Targets the Heading 2 after a script tag on the Edit Conditions page */
+
+.patient-header ~ h2 {
+    background: #55D6BE;
+    padding: 16px;
+    margin-bottom: 0;
+    border-top: none;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0;
+}
