@@ -100,9 +100,9 @@
 							<td></td>
 						</tr>
 					</table>
+					<submit submitLabel="Next >" />
 				</section>
 			</div>
-			<submit submitLabel="Next >" />
 		</div>
 	</div>
 
