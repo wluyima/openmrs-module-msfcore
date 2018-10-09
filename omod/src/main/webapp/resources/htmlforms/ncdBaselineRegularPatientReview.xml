@@ -1,0 +1,206 @@
+<htmlform formUuid="b450ec93-f4b5-4a4b-8143-4564d84028bc" formName="Regular Patient Review" formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
+ formVersion="1.0" formDescription="Regular patient review information for the NCD Baseline Consultation"
+ formAddMetadata="no">
+	<macros>
+		paperFormId = (Fill this in)
+		headerColor =#009d8e
+		fontOnHeaderColor = white
+	</macros>
+
+	<script type="text/javascript">
+		
+		var NUMBER_ENTRIES = 10;
+
+		if (jQuery) {
+			jq(document).ready(function () {
+				<!--add the links to the actual forms-->
+				jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+				jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+				jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+				jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+				jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+
+				<!-- hide entries that are not in use -->
+				jq.each(getUnusedContainers(), (index, value) => value.hide());
+
+				<!-- remove the buttons that will not be used -->
+				jq('#1-removeEntry').remove();
+				jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
+
+				<!-- handle adding entries -->
+                jq('button.addEntry').on("click", function() {
+					var indexToShow =  getIndexFromId(this.id) + 1;
+					jq('#' + indexToShow + '-toggleContainer').show();
+					return false;
+                });
+
+			});
+
+			function getIndexFromId(id) {
+				return parseInt(id.split('-')[0]);
+			}
+
+			function getUnusedContainers() {
+				var unusedContainers = [];
+				jq.each(getUnusedContainersIds(), (index, value) => unusedContainers.push(jq('#' + value)));
+				return unusedContainers;
+			}
+
+			function getUnusedContainersIds() {
+				var unusedContainersIds = [];
+				for (var i = 2; i &lt;= NUMBER_ENTRIES; i++) {
+					if (getValue(i + '-measure.value') == "") {
+						unusedContainersIds.push(i + '-toggleContainer');
+					}
+				}
+				return unusedContainersIds;
+			}
+
+			beforeValidation.push(function() {
+				jq.each(getUnusedContainers(), (index, value) => {
+					//value.remove();
+					console.info("Desabilitando campos não utilizados");
+					value.find('input').attr("disabled", true); 
+					value.find('select').attr("disabled", true); 
+				});			
+				return true;
+			});
+
+		}
+	</script>
+
+	<div class="wrapper">
+		<uiInclude provider="msfcore" fragment="leftMenu" />
+		<div class="right-form-display">
+
+			<div style="display:none;">
+				<section headerLabel="Encounter Details">
+					<table class="baseline-aligned">
+						<tr>					if ()
+
+							<td>Date:</td>
+							<td>
+								<encounterDate default="now" disallowMultipleEncountersOnDate="block" />
+							</td>
+						</tr>
+						<tr>
+							<td>Location:</td>
+							<td>
+								<encounterLocation default="SessionAttribute:emrContext.sessionLocationId" />
+							</td>
+						</tr>
+						<tr>
+							<td>Provider:</td>
+							<td>
+								<encounterProvider default="currentUser" />
+							</td>
+						</tr>
+					</table>
+				</section>
+			</div>
+
+			<div class="sections-container">
+
+				<section>
+					<!-- REGULAR PATIENT REVIEW -->
+
+					<h3>
+						<a name="regular-patient-review">Regular Patient Review</a>
+					</h3>
+
+					<repeat>
+				    	<template>
+							<div id="{entry}-toggleContainer">
+								<obsgroup groupingConceptId="1a3da36d-34f2-474e-921d-ef445fe231c9">
+									<table class="baseline-aligned">
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('f8ab3853-dc03-4574-ba09-c29d6096fb6a').name" />
+											</td>
+											<td>
+												<obs id="{entry}-measure" conceptId="f8ab3853-dc03-4574-ba09-c29d6096fb6a" required="true" />
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('b4b11c33-d0f4-4496-8a2d-7377380a92c2').name" />
+											</td>
+											<td>
+												<obs 
+													conceptId="b4b11c33-d0f4-4496-8a2d-7377380a92c2" 
+													answers="1,2,3" 
+													answerLabels="1 year,2 years,3 years" style="dropdown" required="true" />
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('0c6bc971-369e-4225-b50f-4985a5a03a8a').name" />
+											</td>
+											<td>
+												<obs
+													conceptId="0c6bc971-369e-4225-b50f-4985a5a03a8a" 
+													answers="3,6,9,12" 
+													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
+													style="dropdown"
+													required="true" />
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('1218971a-9b6f-4dd9-a600-d68df23a5118').name" />
+											</td>
+											<td>
+												<obs
+													conceptId="1218971a-9b6f-4dd9-a600-d68df23a5118" 
+													allowTime="false"
+													allowFutureDates="true" />
+											</td>
+										</tr>
+
+										<tfoot class="hide-on-view">
+											<tr>
+												<td span="2">
+													<button class="addEntry" id="{entry}-addEntry" actual="{entry}">Add Review</button>
+													<button class="removeEntry" id="{entry}-removeEntry">Remove Review</button>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
+								</obsgroup>
+							</div>
+						</template>
+						<render entry="1" />
+						<render entry="2" />
+						<render entry="3" />
+						<render entry="4" />
+						<render entry="5" />
+						<render entry="6" />
+						<render entry="7" />
+						<render entry="8" />
+						<render entry="9" />
+						<render entry="10" />
+					</repeat>
+				</section>
+			</div>
+			<submit submitLabel="Next >" />
+		</div>
+	</div>
+
+
+	<!-- Enusre that only one version of this form can exist at any one time -->
+	<ifMode mode="ENTER" include="true">
+		<lookup complexExpression="
+            #set( $encounter = 0 )
+            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
+            #foreach($encounter in $fn.allEncounters(null))
+                #if( $encounter.form.uuid == 'b450ec93-f4b5-4a4b-8143-4564d84028bc' )
+                    &lt;script type=&quot;text/javascript&quot;>
+                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
+                    &lt;/script>
+                #end
+            #end" />
+
+	</ifMode>
+	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+
+</htmlform>
