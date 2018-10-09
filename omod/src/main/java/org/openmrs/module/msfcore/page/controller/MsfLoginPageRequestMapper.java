@@ -7,7 +7,7 @@ import org.openmrs.ui.framework.page.PageRequestMapper;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class LoginPageRequestMapper implements PageRequestMapper {
+public class MsfLoginPageRequestMapper implements PageRequestMapper {
 
     @Override
     public boolean mapRequest(PageRequest request) {
@@ -15,6 +15,7 @@ public class LoginPageRequestMapper implements PageRequestMapper {
                         && request.getProviderName().equals("referenceapplication")) {
             if (request.getPageName().equals("login")) {
                 request.setProviderNameOverride("msfcore");
+                request.setPageName("msfLogin");
                 return true;
             }
         }

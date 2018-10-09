@@ -28,7 +28,6 @@ import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +39,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
  * /** Spring MVC controller that takes over /login.htm and processes requests
  * to authenticate a user
  */
-@Controller
-public class LoginPageController {
+public class MsfLoginPageController {
 
     // see TRUNK-4536 for details why we need this
     private static final String GET_LOCATIONS = "Get Locations";
@@ -243,8 +241,12 @@ public class LoginPageController {
     }
 
     private String getStringSessionAttribute(String attributeName, HttpServletRequest request) {
-        String attributeValue = (String) request.getSession().getAttribute(attributeName);
-        request.getSession().removeAttribute(attributeName);
+        String attributeValue = null;
+        Object attribute = request.getSession().getAttribute(attributeName);
+        if (attribute != null && attribute instanceof StringBuffer) {
+            attributeValue = attribute.toString();
+            request.getSession().removeAttribute(attributeName);
+        }
         return attributeValue;
     }
 

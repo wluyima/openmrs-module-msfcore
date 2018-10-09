@@ -7,14 +7,22 @@
 <html>
 <head>
     <title>${ ui.message("referenceapplication.login.title") }</title>
-    <link rel="shortcut icon" type="image/ico" href="/${ ui.contextPath() }/images/openmrs-favicon.ico"/>
-    <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
-    ${ ui.resourceLinks() }
+    
+    <!-- MSF: customize favicon -->
+        <link rel="shortcut icon" type="image/ico" href="${ui.resourceLink('msfcore', 'images/msf_favicon.ico')}"/>
+        <link rel="icon" type="image/png\" href="${ui.resourceLink('msfcore', 'images/msf_favicon.png')}"/>
+    <!-- /MSF: customize favicon -->
+    
+	${ ui.resourceLinks() }
 </head>
 <body>
 <script type="text/javascript">
     var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
 </script>
+
+<!-- MSF: We may override the header or else just style it here -->
+<link href="${ui.resourceLink('msfcore', 'styles/msf.css')}" rel="stylesheet" type="text/css" media="all">
+<!-- /MSF: We may override the header or else just style it here -->
 
 
 ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
@@ -66,7 +74,7 @@ ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
 <header>
     <div class="logo">
         <a href="${ui.pageLink("referenceapplication", "home")}">
-            <img src="${ui.resourceLink("referenceapplication", "images/openMrsLogo.png")}"/>
+            <img src="${ui.resourceLink("msfcore", "images/msf_logo.png")}"/>
         </a>
     </div>
 </header>
@@ -80,7 +88,7 @@ ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
                     <i class="icon-lock small"></i>
                     ${ ui.message("referenceapplication.login.loginHeading") }
                 </legend>
-
+				<br/><br/><br/>
                 <p class="left">
                     <label for="username">
                         ${ ui.message("referenceapplication.login.username") }:
