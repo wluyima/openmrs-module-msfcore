@@ -34,6 +34,13 @@
 					return false;
                 });
 
+				<!-- handle removing entries -->
+                jq('button.removeEntry').on("click", function() {
+					var indexToHide =  getIndexFromId(this.id);
+					jq('#' + indexToHide + '-toggleContainer').hide();
+					return false;
+                });
+
 			});
 
 			function getIndexFromId(id) {
@@ -111,47 +118,46 @@
 					<repeat>
 				    	<template>
 							<div id="{entry}-toggleContainer">
-								<obsgroup groupingConceptId="1a3da36d-34f2-474e-921d-ef445fe231c9">
+								<obsgroup groupingConceptId="62d411d1-78c7-4c4d-9104-abe0f4bf9bab">
 									<table class="baseline-aligned">
 										<tr>
 											<td>
-												<lookup expression="fn.getConcept('f8ab3853-dc03-4574-ba09-c29d6096fb6a').name" />
+												<lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" />
 											</td>
 											<td>
-												<obs id="{entry}-measure" conceptId="f8ab3853-dc03-4574-ba09-c29d6096fb6a" required="true" />
+												<obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<lookup expression="fn.getConcept('b4b11c33-d0f4-4496-8a2d-7377380a92c2').name" />
+												<lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" />
 											</td>
 											<td>
 												<obs 
-													conceptId="b4b11c33-d0f4-4496-8a2d-7377380a92c2" 
+													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a" 
 													answers="1,2,3" 
-													answerLabels="1 year,2 years,3 years" style="dropdown" required="true" />
+													answerLabels="1 year,2 years,3 years" style="dropdown" />
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<lookup expression="fn.getConcept('0c6bc971-369e-4225-b50f-4985a5a03a8a').name" />
+												<lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" />
 											</td>
 											<td>
 												<obs
-													conceptId="0c6bc971-369e-4225-b50f-4985a5a03a8a" 
+													conceptId="82138d7b-0765-4d57-8433-463aeec1f441" 
 													answers="3,6,9,12" 
 													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
-													style="dropdown"
-													required="true" />
+													style="dropdown" />
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<lookup expression="fn.getConcept('1218971a-9b6f-4dd9-a600-d68df23a5118').name" />
+												<lookup expression="fn.getConcept('bfc2de0c-35da-453a-ac12-e1173b32aaae').name" />
 											</td>
 											<td>
 												<obs
-													conceptId="1218971a-9b6f-4dd9-a600-d68df23a5118" 
+													conceptId="bfc2de0c-35da-453a-ac12-e1173b32aaae" 
 													allowTime="false"
 													allowFutureDates="true" />
 											</td>
