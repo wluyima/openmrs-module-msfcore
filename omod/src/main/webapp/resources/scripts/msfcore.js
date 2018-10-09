@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function() {
 
     // Patient Search widget handling
     if (jQuery('#patient-search-form').length == 1) {
