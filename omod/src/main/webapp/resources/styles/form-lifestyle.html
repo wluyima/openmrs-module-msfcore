@@ -1,0 +1,128 @@
+<htmlform formUuid="3209cd5f-656e-42f4-984e-ab466a5b77ef"
+	formName="Lifestyle" formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
+	formVersion="1.1" formDescription="Lifestyle information for the NCD Baseline Consultation"
+	formAddMetadata="no">
+	<macros>
+		paperFormId = (Fill this in)
+		headerColor =#009d8e
+		fontOnHeaderColor = white
+	</macros>
+
+	<div class="wrapper">
+		<uiInclude provider="msfcore" fragment="leftMenu" />
+		<div class="right-form-display">
+
+			<div class="hidden">
+				<section headerLabel="Encounter Details">
+					<table class="baseline-aligned">
+						<tr>
+							<td>Date:</td>
+							<td>
+								<encounterDate default="now"
+									disallowMultipleEncountersOnDate="block" />
+							</td>
+						</tr>
+						<tr>
+							<td>Location:</td>
+							<td>
+								<encounterLocation
+									default="SessionAttribute:emrContext.sessionLocationId" />
+							</td>
+						</tr>
+						<tr>
+							<td>Provider:</td>
+							<td>
+								<encounterProvider default="currentUser" />
+							</td>
+						</tr>
+					</table>
+				</section>
+			</div>
+
+			<div class="sections-container">
+
+				<section>
+					<h3>
+						2. <lookup expression="fn.message('msfcore.lifestyle')"/>
+					</h3>
+					<h5><lookup expression="fn.message('msfcore.lifestyle.patient.habits.question')"/></h5>
+					<table class="baseline-aligned">
+						<tr>
+							<td>
+								<lookup
+									expression="fn.getConcept('0fe30019-31b0-4505-a5f3-61e79bffd354').name" />
+							</td>
+							<td>
+								<obs conceptId="0fe30019-31b0-4505-a5f3-61e79bffd354" id="smoker">
+									<controls>
+										<when value="1065" thenDisplay="#smoker-section" />
+									</controls>
+								</obs>
+							</td>
+							<td>
+								<p id="smoker-section">
+									<lookup
+										expression="fn.getConcept('b82f215e-b58b-4204-a153-7bbe7ae6a5d4').name" />
+									<obs conceptId="b82f215e-b58b-4204-a153-7bbe7ae6a5d4" id="number-of-packs-per-day"
+										showUnits="true" />
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<lookup
+									expression="fn.getConcept('f5e1539d-987d-4def-93d2-bbf4ac4e65fa').name" />
+							</td>
+							<td>
+								<obs conceptId="f5e1539d-987d-4def-93d2-bbf4ac4e65fa" id="drinking" />
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<lookup
+									expression="fn.getConcept('cf6b2355-7500-49da-9777-96a5b23f54de').name" />
+							</td>
+							<td>
+								<obs conceptId="cf6b2355-7500-49da-9777-96a5b23f54de" id="drugs" />
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<lookup
+									expression="fn.getConcept('a89efa71-4f8c-425b-9239-3cf9138b11ee').name" />
+							</td>
+							<td>
+								<obs conceptId="a89efa71-4f8c-425b-9239-3cf9138b11ee" id="comments"
+									style="textarea" rows="4" cols="40" />
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<submit submitLabel="Next >" />
+				</section>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Enusre that only one version of this form can exist at any one time -->
+	<ifMode mode="ENTER" include="true">
+		<lookup
+			complexExpression="
+            #set( $encounter = 0 )
+            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
+            #foreach($encounter in $fn.allEncounters(null))
+                #if( $encounter.form.uuid == '3209cd5f-656e-42f4-984e-ab466a5b77ef' )
+                    &lt;script type=&quot;text/javascript&quot;>
+                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
+                    &lt;/script>
+                #end
+            #end" />
+
+	</ifMode>
+	<redirectOnSave
+		url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+
+</htmlform>

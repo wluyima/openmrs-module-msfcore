@@ -12,7 +12,7 @@ form, .form {
 htmlform {
     display:flex;
     flex-direction: column;
-    padding:24px;
+    /*padding:24px;*/
 }
 
 form input, 
@@ -56,18 +56,15 @@ form label, .form label {
     margin: 0 20px 0 24px;
 }*/
 
-form input[type="radio"], 
-.form input[type="radio"] {
-    width: 13px;
-}
-
 form input[type="checkbox"], 
 form input[type="radio"], 
 .form input[type="checkbox"], 
 .form input[type="radio"] {
     float: left;
     display: initial;
-    margin-right: -24px;
+    /*margin-right: -24px;*/
+    box-shadow: none;
+    margin: 4px;
 }
 
 form input[type="checkbox"], 
@@ -75,9 +72,21 @@ form input[type="checkbox"],
     padding: 6px;
 }
 
+form input[type="radio"]:checked {
+    background: #55D6BE;
+}
+
+form input[type="checkbox"]:checked,
+.form input[type="checkbox"]:checked {
+    background: #55D6BE;
+    border-color:#4EC3AD;
+    box-shadow: inset rgba(0,0,0,0.3) 0 1px 2px;
+}
+
 form input[type="checkbox"]:checked:after, 
 .form input[type="checkbox"]:checked:after {
-    font-size: 11px;
+    font-size: 24px;
+    color: #fff;
 }
 
 form input:focus,
@@ -91,6 +100,11 @@ form ul.select:focus,
     background: #fff;
     border-bottom: 2px solid #55D6BE;
     outline: none;
+}
+
+.input-group textarea {
+    width: 90%;
+    margin: 24px;
 }
 
 /* This is the unit added next to an input e.g. Adding Vitals */
@@ -178,5 +192,29 @@ form input[type="checkbox"],
     border: 1px solid #ccc;
     box-shadow: inset rgba(0,0,0,0.1) 0 0 4px;
     background: #fff;
-    margin: 0px;
+    margin: 0;
+    margin-right: 8px;
+}
+
+.section form label, 
+.section .form label {
+    margin-top: 0;
+}
+
+form label, 
+.form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+form input[type=radio] + label, 
+.form input[type=radio] + label {
+    margin: 0 4px 0 4px;
+    float: left;
+}
+
+.input-group input[type=radio] + label {
+    margin-right: 24px;
 }
