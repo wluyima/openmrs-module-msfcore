@@ -199,7 +199,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
             for (File form : getFormsResourceFiles()) {
                 HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class),
                                 new Scanner(form).useDelimiter("\\Z").next());
-                
+
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
