@@ -49,7 +49,7 @@ if (jQuery) {
                 <span class="hidden" id="patient-targets-form-url">enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26</span>
             </li>
             <li>
-                <a id="regular-patient-review" href="#regular-patient-review">Regular patient review</a>
+                <a id="regular-patient-review" href="#regular-patient-review">${ui.message("msfcore.ncdbaseline.regularpatientreview.title")}</a>
                 <span class="hidden" id="regular-patient-review-form-url">enterHtmlFormWithStandardUi.page?formUuid=b450ec93-f4b5-4a4b-8143-4564d84028bc</span>
             </li>
             <li>

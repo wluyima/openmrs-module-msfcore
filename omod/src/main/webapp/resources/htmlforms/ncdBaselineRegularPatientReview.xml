@@ -13,12 +13,6 @@
 
 		if (jQuery) {
 			jq(document).ready(function () {
-				<!--add the links to the actual forms-->
-				jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-				jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-				jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-				jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-				jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
 
 				<!-- hide entries that are not in use -->
 				jq.each(getUnusedContainers(), (index, value) => value.hide());
@@ -109,10 +103,9 @@
 			<div class="sections-container">
 
 				<section>
-					<!-- REGULAR PATIENT REVIEW -->
 
 					<h3>
-						<a name="regular-patient-review">Regular Patient Review</a>
+						<a name="regular-patient-review"><lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
 					</h3>
 
 					<repeat>
@@ -166,8 +159,8 @@
 										<tfoot class="hide-on-view">
 											<tr>
 												<td span="2">
-													<button class="addEntry" id="{entry}-addEntry" actual="{entry}">Add Review</button>
-													<button class="removeEntry" id="{entry}-removeEntry">Remove Review</button>
+													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.add.entry')"/></button>
+													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.remove.entry')"/></button>
 												</td>
 											</tr>
 										</tfoot>
@@ -188,7 +181,9 @@
 					</repeat>
 				</section>
 			</div>
-			<submit submitLabel="Next >" />
+
+			<!-- Submit -->
+			<button><lookup expression="fn.message('msfcore.add.next')"/></button>
 		</div>
 	</div>
 
