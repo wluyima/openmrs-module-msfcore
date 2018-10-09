@@ -74,6 +74,13 @@ header {
     z-index: 9999;
 }
 
+@media print {
+	.noprint {display:none;}
+}
+
+@media screen {
+}
+
 #body-wrapper {
     background: none;
     max-width: 1200px;
