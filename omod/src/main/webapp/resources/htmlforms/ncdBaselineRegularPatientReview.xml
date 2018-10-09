@@ -202,6 +202,6 @@
             #end" />
 
 	</ifMode>
-	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
 
 </htmlform>

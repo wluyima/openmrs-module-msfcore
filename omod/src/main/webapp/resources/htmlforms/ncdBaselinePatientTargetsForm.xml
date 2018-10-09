@@ -81,6 +81,6 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}&amp;visitId={{visit.id}}" />
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=b450ec93-f4b5-4a4b-8143-4564d84028bc&amp;patientId={{patient.id}}&amp;visitId={{visit.id}}" />
 
     </htmlform>
