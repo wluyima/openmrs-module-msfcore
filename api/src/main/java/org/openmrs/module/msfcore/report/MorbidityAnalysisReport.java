@@ -21,7 +21,7 @@ public class MorbidityAnalysisReport extends BaseMSFReportManager {
 
     @Override
     public String getName() {
-        return "Morbidity Analysis";
+        return Context.getMessageSourceService().getMessage("msfcore.reports.morbilityAnalysis");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MorbidityAnalysisReport extends BaseMSFReportManager {
 
     @Override
     public String getDescription() {
-        return "Number of unique patients per diagnosis by gender";
+        return Context.getMessageSourceService().getMessage("msfcore.reports.morbilityAnalysis.description");
     }
 
     @Override
