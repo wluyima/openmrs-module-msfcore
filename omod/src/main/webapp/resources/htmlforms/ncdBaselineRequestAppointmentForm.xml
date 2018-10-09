@@ -48,12 +48,12 @@
 					<table class="baseline-aligned">
 						<tr>
                             <td><lookup expression="fn.getConcept('MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A').name"/></td>
-                            <!-- Comment id ref term=581373 name=appointment_next_date -->
+                            <!-- Concept id ref term=581373 name=appointment_next_date -->
             				<td><obs conceptId="MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A" id="appointment_next_date" allowFutureDates="true" allowTime="false"/></td>
 						</tr>
 			            <tr>
 				            <td><lookup expression="fn.getConcept('f3a76818-3ff4-4d94-9c51-be295cad43a1').name"/></td>
-                            <!-- Comment id=6000000 name=Request Appointment Comment -->
+                            <!-- Concept id=6000000 name=Request Appointment Comment -->
 				            <td><obs conceptId="f3a76818-3ff4-4d94-9c51-be295cad43a1" id="appointment_next_comment" rows="4" cols="80"/></td>
 			            </tr>
 					</table>

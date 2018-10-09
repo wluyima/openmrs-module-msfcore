@@ -35,7 +35,45 @@
 					return false;
                 });
 
+				<!-- date calculations -->
+				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+					var frequencyFieldId = i + '-frequency.value';
+					var durationFieldId = i + '-duration.value';
+					getField(frequencyFieldId).change(callbackFor(i));
+					getField(durationFieldId).change(callbackFor(i));
+				}
+
 			});
+
+			<!-- this is just to allow the usage of the loop variable inside a callback -->
+			<!-- see https://stackoverflow.com/questions/7053965/when-using-callbacks-inside-a-loop-in-javascript-is-there-any-way-to-save-a-var -->
+			function callbackFor(entryIndex) {
+				return function() { 
+					var frequency = getValue(entryIndex + '-frequency.value');
+					var duration = getValue(entryIndex + '-duration.value');
+					var dates = [];
+					if (frequency != '' &#38;&#38; duration != '') {
+						var dates = calculateDates(parseInt(duration), parseInt(frequency), moment());
+						console.info(dates);
+					}
+					jq('#' + entryIndex + '-dates li').remove();
+					jq.each(dates, function(index, date) {
+						jq('#' + entryIndex + '-dates').append('<li>' + date.format('MM/DD/YYYY') + '</li>')
+					});
+				};
+			}
+
+			function calculateDates(years, frequency, startDate) {
+				var numberMonths = years * 12;
+				var endDate = startDate.clone().add(numberMonths, 'months');
+				var currentDate = startDate.clone().add(frequency, 'months');
+				var dates = [];
+				while (!currentDate.isAfter(endDate)) {
+					dates.push(currentDate.clone());
+					currentDate.add(frequency, 'months');
+				}
+				return dates;
+			}
 
 			function getIndexFromId(id) {
 				return parseInt(id.split('-')[0]);
@@ -105,7 +143,7 @@
 				<section>
 
 					<h3>
-						<a name="regular-patient-review"><lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
+						<a name="regular-patient-review">8. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
 					</h3>
 
 					<repeat>
@@ -117,7 +155,7 @@
 											<td>
 												<lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" />
 											</td>
-											<td>
+											<td colspan="2">
 												<obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
 											</td>
 										</tr>
@@ -125,8 +163,9 @@
 											<td>
 												<lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" />
 											</td>
-											<td>
+											<td colspan="2">
 												<obs 
+													id="{entry}-duration"
 													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a" 
 													answers="1,2,3" 
 													answerLabels="1 year,2 years,3 years" style="dropdown" />
@@ -138,17 +177,22 @@
 											</td>
 											<td>
 												<obs
+													id="{entry}-frequency"
 													conceptId="82138d7b-0765-4d57-8433-463aeec1f441" 
 													answers="3,6,9,12" 
 													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
 													style="dropdown" />
+											</td>
+											<td>
+												<ul id="{entry}-dates">
+												</ul>
 											</td>
 										</tr>
 										<tr>
 											<td>
 												<lookup expression="fn.getConcept('bfc2de0c-35da-453a-ac12-e1173b32aaae').name" />
 											</td>
-											<td>
+											<td colspan="2">
 												<obs
 													conceptId="bfc2de0c-35da-453a-ac12-e1173b32aaae" 
 													allowTime="false"
@@ -158,7 +202,7 @@
 
 										<tfoot class="hide-on-view">
 											<tr>
-												<td span="2">
+												<td span="3">
 													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.add.entry')"/></button>
 													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.remove.entry')"/></button>
 												</td>
@@ -202,6 +246,6 @@
             #end" />
 
 	</ifMode>
-	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
 
 </htmlform>

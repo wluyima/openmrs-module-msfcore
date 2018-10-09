@@ -53,7 +53,7 @@
 									expression="fn.getConcept('0fe30019-31b0-4505-a5f3-61e79bffd354').name" />
 							</td>
 							<td>
-								<!-- Comment id=463611 name=Smoker -->
+								<!-- Concept id=463611 name=Smoker -->
 								<obs conceptId="0fe30019-31b0-4505-a5f3-61e79bffd354" id="smoker">
 									<controls>
 										<when value="1065" thenDisplay="#smoker-section" />
@@ -64,7 +64,7 @@
 								<p id="smoker-section">
 									<lookup
 										expression="fn.getConcept('b82f215e-b58b-4204-a153-7bbe7ae6a5d4').name" />
-									<!-- Comment id=463614 name=Number of Packs -->
+									<!-- Concept id=463614 name=Number of Packs -->
 									<obs conceptId="b82f215e-b58b-4204-a153-7bbe7ae6a5d4" id="number-of-packs-per-day"
 										showUnits="true" />
 								</p>
@@ -76,7 +76,7 @@
 									expression="fn.getConcept('f5e1539d-987d-4def-93d2-bbf4ac4e65fa').name" />
 							</td>
 							<td>
-								<!-- Comment id=465106 name=Drinking -->
+								<!-- Concept id=465106 name=Drinking -->
 								<obs conceptId="f5e1539d-987d-4def-93d2-bbf4ac4e65fa" id="drinking" />
 							</td>
 							<td></td>
@@ -87,7 +87,7 @@
 									expression="fn.getConcept('cf6b2355-7500-49da-9777-96a5b23f54de').name" />
 							</td>
 							<td>
-								<!-- Comment id=465107 name=Drugs -->
+								<!-- Concept id=465107 name=Drugs -->
 								<obs conceptId="cf6b2355-7500-49da-9777-96a5b23f54de" id="drugs" />
 							</td>
 							<td></td>
@@ -98,7 +98,7 @@
 									expression="fn.getConcept('a89efa71-4f8c-425b-9239-3cf9138b11ee').name" />
 							</td>
 							<td>
-								<!-- Comment id=463346 name=Comments -->
+								<!-- Concept id=463346 name=Comments -->
 								<obs conceptId="a89efa71-4f8c-425b-9239-3cf9138b11ee" id="comments"
 									style="textarea" rows="4" cols="40" />
 							</td>
