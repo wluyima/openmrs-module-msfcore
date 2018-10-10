@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
         jQuery('#patient-search-form').prevAll('h2').remove();
 
         // change the text on the register patient link
-        jQuery('#patient-search-register-patient').html('+ Add New Patient');
+        jQuery('#patient-search-register-patient').html('+ ADD NEW PATIENT');
         var content = '<div id="page-header"><h2>Search for Patient Record</h2> ' +
             '               <a class="button" id="find-patient-back" href="#" onclick="window.history.go(-1); return false;">< Back</a> '
                             + jQuery('#patient-search-register-patient')[0].outerHTML + '</div>'
