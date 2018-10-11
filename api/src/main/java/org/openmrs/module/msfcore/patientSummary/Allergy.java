@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.summary;
+package org.openmrs.module.msfcore.patientSummary;
 
 import java.util.ArrayList;
 import java.util.List;

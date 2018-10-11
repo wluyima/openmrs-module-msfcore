@@ -14,10 +14,10 @@ import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.OMRSConstants;
-import org.openmrs.module.msfcore.summary.Disease;
-import org.openmrs.module.msfcore.summary.Observation;
-import org.openmrs.module.msfcore.summary.PatientSummary;
-import org.openmrs.module.msfcore.summary.PatientSummary.Representation;
+import org.openmrs.module.msfcore.patientSummary.Disease;
+import org.openmrs.module.msfcore.patientSummary.Observation;
+import org.openmrs.module.msfcore.patientSummary.PatientSummary;
+import org.openmrs.module.msfcore.patientSummary.PatientSummary.Representation;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {

@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.summary;
+package org.openmrs.module.msfcore.patientSummary;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.msfcore.summary.Age;
+import org.openmrs.module.msfcore.patientSummary.Age;
 
 public class AgeTest {
     private SimpleDateFormat dateFormat;
