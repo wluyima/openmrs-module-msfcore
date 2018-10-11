@@ -116,7 +116,7 @@
                                 </section>
 
                                 <section>
-                                        <h3>Allergic Reactions (check all that apply)</h3>
+                                        <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h3>
                                         <div class="list-of-checkboxes">
                                             <obsgroup groupingConceptId="162555">
         
@@ -201,7 +201,7 @@
                                 </section>
 
                                 <section>
-                                    <h3>Severity</h3>
+                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h3>
                                     <div class="input-group">
                                         <obs conceptId="162820" answerConceptIds="1498,1499,1500" style="radio"
                                             answerLabels="Mild, Moderate, Severe"/>
@@ -209,15 +209,15 @@
                                 </section>
 
                                 <section>
-                                    <h3>Comment</h3>
+                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h3>
                                     <div class="input-group">
                                         <obs conceptId="161011" style="textarea" rows="3"/>
                                     </div>
                                 </section>
 
                                 <div class="hide-on-view">
-                                    <button class="addEntry" id="{allergy}-addEntry">Add Allergy</button> 
-                                    <button class="removeEntry" id="{allergy}-removeEntry">Remove Allergy</button>
+                                    <button class="addEntry" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.addallergy')"/></button> 
+                                    <button class="removeEntry" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.removeallergy')"/></button>
                                 </div>
                                    
                             </div>
