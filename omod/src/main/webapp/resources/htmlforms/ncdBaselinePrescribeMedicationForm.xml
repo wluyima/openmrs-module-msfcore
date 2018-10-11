@@ -49,8 +49,10 @@
                 // show any prescriptions that have been saved
                 for (i = 1; i &lt; 10; i++) {
                     if (getValue('name-' + i + '.value') != false) {
-                        jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
+                    }
+                    if (i>1) {
+                        jq('#1-addEntry').toggle(false);
                     }
                 }
             });
