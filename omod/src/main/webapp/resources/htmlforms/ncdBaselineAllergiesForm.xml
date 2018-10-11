@@ -246,9 +246,10 @@
                         <render allergy="9"/>
                         <render allergy="10"/>
                     </repeat>
+                    <submit submitLabel="Next >"/>
                 </section>
             </div>
-            <submit submitLabel="Next"/>
+            
         </div>
     </div>
 
