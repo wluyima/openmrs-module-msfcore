@@ -479,31 +479,46 @@
   <concept_numeric concept_id="6000004" allow_decimal="false" />
   <concept_numeric concept_id="6000005" allow_decimal="false" />
 
-  <!-- Edrisse -->
-  <concept concept_id="7000000" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-10-09 11:23:15.0" changed_by="1" date_changed="2018-10-09 11:23:15.0" uuid="62d411d1-78c7-4c4d-9104-abe0f4bf9bab"/>
+  <!-- Regular patient review concepts -->
   <concept concept_id="7000001" retired="false" datatype_id="2" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:25:21.0" changed_by="1" date_changed="2018-10-09 11:25:21.0" uuid="e61aff3f-52f2-42b9-b382-6afcb2a44c48"/>
   <concept concept_id="7000002" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:08.0" changed_by="1" date_changed="2018-10-09 11:26:08.0" uuid="8a20bf07-8541-4b16-ac65-db3c564c0e8a"/>
   <concept concept_id="7000003" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="82138d7b-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="7000004" retired="false" datatype_id="6" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:27:43.0" changed_by="1" date_changed="2018-10-09 11:27:43.0" uuid="bfc2de0c-35da-453a-ac12-e1173b32aaae"/>
 
-  <concept_answer concept_answer_id="7000000" concept_id="7000001" answer_concept="465099" creator="1" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="11dcf596-9d1f-412d-85a4-a48dea1e8a22"/>
-  <concept_answer concept_answer_id="7000001" concept_id="7000001" answer_concept="465098" creator="1" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="25f5191e-462f-4925-a59a-990297fa0674"/>
+  <concept concept_id="465098" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465098-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="463596" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00463596-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="6000006" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="06000006-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="465213" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465213-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="463632" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00463632-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="465214" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465214-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="465215" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465215-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="465216" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465216-0765-4d57-8433-463aeec1f441"/>
+  <concept concept_id="6000007" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="06000007-0765-4d57-8433-463aeec1f441"/>
+ 
+  <concept_answer concept_id="7000001" answer_concept="465098" creator="1" concept_answer_id="6000000" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000000-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="463596" creator="1" concept_answer_id="6000001" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="06000001-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="6000006" creator="1" concept_answer_id="6000002" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000002-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="465213" creator="1" concept_answer_id="6000003" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="06000003-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="463632" creator="1" concept_answer_id="6000004" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000004-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="465214" creator="1" concept_answer_id="6000005" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="06000005-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="465215" creator="1" concept_answer_id="6000006" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000006-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="465216" creator="1" concept_answer_id="6000007" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="06000007-9d1f-412d-85a4-a48dea1e8a22"/>
+  <concept_answer concept_id="7000001" answer_concept="6000007" creator="1" concept_answer_id="6000008" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000008-9d1f-412d-85a4-a48dea1e8a22"/>
 
-  <concept_description concept_description_id="7000000" concept_id="7000000" description="Regular Patient Review Group" locale="en" creator="1" date_created="2018-10-09 11:23:15.0" uuid="3d1efc7b-7890-47c6-8d29-a90ea60dd67b"/>
-  <concept_description concept_description_id="7000001" concept_id="7000001" description="Measure" locale="en" creator="1" date_created="2018-10-09 11:25:21.0" uuid="62692e0a-d7d6-4be8-8b40-24bf1c6e67a2"/>
-  <concept_description concept_description_id="7000002" concept_id="7000002" description="Period" locale="en" creator="1" date_created="2018-10-09 11:26:08.0" uuid="71f1c18b-a069-4f68-bbd4-7a8d6c0700b8"/>
-  <concept_description concept_description_id="7000003" concept_id="7000003" description="Frequency" locale="en" creator="1" date_created="2018-10-09 11:26:52.0" uuid="64309247-1cdc-4f9a-bf25-f48062be4559"/>
-  <concept_description concept_description_id="7000004" concept_id="7000004" description="Frequency Date" locale="en" creator="1" date_created="2018-10-09 11:27:43.0" uuid="7983b4c7-c001-4942-a881-78382baab453"/>
+  <concept_name concept_name_id="7000003" concept_id="7000001" name="Review Type" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:25:21.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="671413e7-0aaf-4aac-a9e4-65552b6684dd"/>
+  <concept_name concept_name_id="7000004" concept_id="7000002" name="For how many years" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:08.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="3fb1b8cc-e8e9-4156-a516-c7d23fad68e6"/>
+  <concept_name concept_name_id="7000006" concept_id="7000003" name="Review period" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="41d42e09-e789-4bc4-bd61-1917c11be6a2"/>
 
-  <concept_name concept_name_id="7000000" concept_id="7000000" name="Regular Patient Review Group" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:23:15.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="44208bb9-90b8-4f90-9777-63a7e0050b8b"/>
-  <concept_name concept_name_id="7000001" concept_id="7000000" name="Regular Patient Review Group" locale="en" locale_preferred="false" creator="1" date_created="2018-10-09 11:23:15.0" concept_name_type="SHORT" voided="false" uuid="97d5f77c-6c8e-42f0-8a0a-9f2889c28a24"/>
-  <concept_name concept_name_id="7000002" concept_id="7000001" name="Variable for review" locale="en" locale_preferred="false" creator="1" date_created="2018-10-09 11:25:21.0" concept_name_type="SHORT" voided="false" uuid="3c5b1bb5-8d97-4947-9cd6-2607e17b6e4c"/>
-  <concept_name concept_name_id="7000003" concept_id="7000001" name="Variable for review" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:25:21.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="671413e7-0aaf-4aac-a9e4-65552b6684dd"/>
-  <concept_name concept_name_id="7000004" concept_id="7000002" name="Duration" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:08.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="3fb1b8cc-e8e9-4156-a516-c7d23fad68e6"/>
-  <concept_name concept_name_id="7000005" concept_id="7000002" name="Duration" locale="en" locale_preferred="false" creator="1" date_created="2018-10-09 11:26:08.0" concept_name_type="SHORT" voided="false" uuid="6c75019b-d2c8-449c-9a9f-8f6de42193e6"/>
-  <concept_name concept_name_id="7000006" concept_id="7000003" name="Frequency" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="41d42e09-e789-4bc4-bd61-1917c11be6a2"/>
-  <concept_name concept_name_id="7000007" concept_id="7000003" name="Frequency" locale="en" locale_preferred="false" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="SHORT" voided="false" uuid="941cba2f-1000-4463-abc4-f4df5758b7e5"/>
-
+  <concept_name concept_id="465098" name="FBG" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000011" voided="false" uuid="06000011-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="463596" name="HbA1c" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000012" voided="false" uuid="06000012-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="6000006" name="Total Chol" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000013" voided="false" uuid="06000013-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465213" name="Albuminuria" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000014" voided="false" uuid="06000014-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="463632" name="Creatinine" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000015" voided="false" uuid="06000015-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465214" name="eGFR" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000016" voided="false" uuid="06000016-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465215" name="Visual acuity" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000017" voided="false" uuid="06000017-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465216" name="DM foot check" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000018" voided="false" uuid="06000018-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="6000007" name="CV risk" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000019" voided="false" uuid="06000019-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  
   <concept_numeric concept_id="7000002" allow_decimal="false"/>
   <concept_numeric concept_id="7000003" allow_decimal="false"/>
 
