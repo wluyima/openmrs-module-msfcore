@@ -91,38 +91,38 @@
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
-								<h4>Medication {prescription}</h4>
+								<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.medication')"/> {prescription}</h4>
 								<table class="baseline-aligned">
 									<tr>
 
 										<td colspan="2">
-											<label>Name</label>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></label>
 											<obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
 										</td>
 									</tr>
 									<tr>
 										<td>
-											<label>Dose</label>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></label>
 											<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
 											<obs id="doseUnit{prescription}" class="doseInput select-arrow" conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33"
 												 answerConceptIds="161553,161554,162263,162376,1608,1513,162356,162366,162370,162264" />
 										</td>
-										<td>Frequency
+										<td><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/>
 											<obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
 										</td>
 									</tr>
 									<tr>
-										<td>Duration
+										<td><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/>
 											<obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
 
 										</td>
-										<td>Amount
+										<td><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/>
                                             <obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
 
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2"><label>Administrative Instructions</label>
+										<td colspan="2"><label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></label>
                                             <obs id="instructions{prescription}" class="medication-instructions" conceptId="163106" style="textarea" rows="3" cols="80"/></td>
 
 									</tr>
@@ -130,8 +130,8 @@
 									<tfoot class="hide-on-view">
 									<tr>
 										<td></td>
-										<td><button class="addEntry" id="{prescription}-addEntry">Add Prescription</button> | <button
-												class="removeEntry" id="{prescription}-removeEntry">Remove Prescription</button>
+										<td><button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.addprescription')"/></button> | <button
+												class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.removeprescription')"/></button>
 										</td>
 									</tr>
 									</tfoot>
