@@ -40,6 +40,16 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
         assertEquals(Representation.FULL, patientSummaryService.generatePatientSummary(patient, Representation.FULL).getRepresentation());
     }
 
+    @Test
+    public void generatePatientSummary_shouldSetFacilityRightly() {
+        // Un known location has id 1 and is default by default
+        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+        Context.getAdministrationService().setGlobalProperty("default_location", "Unknown Location");
+        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+        Context.getAdministrationService().setGlobalProperty("default_location", "Baalbak Clinic");
+        assertEquals("Baalbak Clinic, Baalbak Project", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+    }
+
     private int getDiffYears(Date first, Date last) {
         Calendar a = getCalendar(first);
         Calendar b = getCalendar(last);
@@ -125,8 +135,8 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     @Test
     public void generatePatientSummary_shouldSetDiagnosesRightly() throws ParseException {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient, null);
-        assertEquals(2, patientSummary.getDiagnoses().size());
-        assertThat(patientSummary.getDiagnoses(), contains("Diabates", "Hypertension"));
+        assertEquals(3, patientSummary.getDiagnoses().size());
+        assertThat(patientSummary.getDiagnoses(), contains("Diabates", "Hypertension", "Unknown Cancer"));
     }
 
     @Test

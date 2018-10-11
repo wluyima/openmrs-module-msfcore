@@ -6,11 +6,14 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.AllergyReaction;
 import org.openmrs.Concept;
+import org.openmrs.Diagnosis;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.OMRSConstants;
 import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.api.PatientSummaryService;
@@ -155,6 +158,19 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         }
     }
 
+    private void setFacility(PatientSummaryBuilder patientSummarybuilder) {
+        Location defaultLocation = Context.getLocationService().getDefaultLocation();
+
+        if (defaultLocation != null) {
+            if (defaultLocation.getTags().contains(
+                            Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC))) {
+                patientSummarybuilder.facility(defaultLocation.getName() + ", " + defaultLocation.getParentLocation().getName());
+            } else {
+                patientSummarybuilder.facility(defaultLocation.getName());
+            }
+        }
+    }
+
     public PatientSummary generatePatientSummary(Patient patient, Representation representation) {
         ConceptService conceptService = Context.getConceptService();
         PatientSummaryBuilder patientSummarybuilder = PatientSummary.builder();
@@ -162,6 +178,9 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         if (representation != null) {
             patientSummarybuilder.representation(representation);
         }
+
+        // set facility
+        setFacility(patientSummarybuilder);
 
         // set demographics
         patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
@@ -175,11 +194,11 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         PatientSummary patientSummary = patientSummarybuilder.build();
 
         // set working diagnoses
-        for (Obs o : Context.getObsService().getObservationsByPersonAndConcept(
-                        patient,
-                        conceptService.getConcept(Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
-                                        OMRSConstants.GP_CONCEPT_ID_PROBLEM_LIST))))) {
-            patientSummary.getDiagnoses().add(o.getValueCoded().getName().getName());
+        for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
+            patientSummary.getDiagnoses().add(
+                            diagnosis.getDiagnosis().getCoded() != null
+                                            ? diagnosis.getDiagnosis().getCoded().getName().getName()
+                                            : diagnosis.getDiagnosis().getNonCoded());
         }
 
         // set allergies

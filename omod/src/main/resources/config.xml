@@ -36,7 +36,6 @@
 		<require_module>org.openmrs.module.htmlformentryui</require_module>
 		<require_module>org.openmrs.module.appframework</require_module>
 		<require_module>org.openmrs.module.appui</require_module>
-		<require_module>org.openmrs.module.allergyapi</require_module>
 	</require_modules>
 	
 	<aware_of_modules>

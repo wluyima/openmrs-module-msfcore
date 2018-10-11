@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 public class PatientSummary {
     @Builder.Default
     private Representation representation = Representation.SUMMARY;
-    private String facility;
+    @Builder.Default
+    private String facility = "";
     private Demographics demographics;
     private Vitals vitals;
     @Builder.Default
