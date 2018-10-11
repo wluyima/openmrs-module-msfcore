@@ -36,6 +36,7 @@
 		<require_module>org.openmrs.module.htmlformentryui</require_module>
 		<require_module>org.openmrs.module.appframework</require_module>
 		<require_module>org.openmrs.module.appui</require_module>
+		<require_module>org.openmrs.module.allergyapi</require_module>
 	</require_modules>
 	
 	<aware_of_modules>
@@ -108,6 +109,36 @@
 		<property>msfcore.sync2.parentFeedLocation</property>
 		<defaultValue></defaultValue>
 		<description>parent feed url</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.temperature</property>
+		<defaultValue>5088</defaultValue>
+		<description>Concept id for the concept definiting temperature</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.pulse</property>
+		<defaultValue>5087</defaultValue>
+		<description>Concept id for the concept definiting pulse</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.respiratoryRate</property>
+		<defaultValue>5242</defaultValue>
+		<description>Concept id for the concept definiting respiratoryRate</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.systolicBloodPressure</property>
+		<defaultValue>5085</defaultValue>
+		<description>Concept id for the concept definiting systolic blood pressure</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.diastolicBloodPressure</property>
+		<defaultValue>5086</defaultValue>
+		<description>Concept id for the concept definiting diastolic blood pressure</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.bloodOxygenSaturation</property>
+		<defaultValue>5092</defaultValue>
+		<description>Concept id for the concept definiting blood oxygen saturation</description>
 	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
