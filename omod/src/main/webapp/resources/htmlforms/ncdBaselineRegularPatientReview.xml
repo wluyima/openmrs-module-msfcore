@@ -39,8 +39,17 @@
 				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
 					var frequencyFieldId = i + '-frequency.value';
 					var durationFieldId = i + '-duration.value';
-					getField(frequencyFieldId).change(callbackFor(i));
-					getField(durationFieldId).change(callbackFor(i));
+					var frequencyField = getField(frequencyFieldId);
+					var durationField = getField(durationFieldId);
+					if (frequencyField != null) {
+						frequencyField.change(callbackFor(i));
+					}
+					if (durationField != null) {
+						durationField.change(callbackFor(i));
+					}
+					if (frequencyField != null &#38;&#38; durationField != null) {
+						callbackFor(i)();
+					}
 				}
 
 			});
@@ -54,7 +63,6 @@
 					var dates = [];
 					if (frequency != '' &#38;&#38; duration != '') {
 						var dates = calculateDates(parseInt(duration), parseInt(frequency), moment());
-						console.info(dates);
 					}
 					jq('#' + entryIndex + '-dates li').remove();
 					jq.each(dates, function(index, date) {
@@ -95,16 +103,6 @@
 				return unusedContainersIds;
 			}
 
-			beforeValidation.push(function() {
-				jq.each(getUnusedContainers(), (index, value) => {
-					//value.remove();
-					console.info("Desabilitando campos não utilizados");
-					value.find('input').attr("disabled", true); 
-					value.find('select').attr("disabled", true); 
-				});			
-				return true;
-			});
-
 		}
 	</script>
 
@@ -115,8 +113,7 @@
 			<div style="display:none;">
 				<section headerLabel="Encounter Details">
 					<table class="baseline-aligned">
-						<tr>					if ()
-
+						<tr>
 							<td>Date:</td>
 							<td>
 								<encounterDate default="now" disallowMultipleEncountersOnDate="block" />
@@ -188,17 +185,6 @@
 												</ul>
 											</td>
 										</tr>
-										<tr>
-											<td>
-												<lookup expression="fn.getConcept('bfc2de0c-35da-453a-ac12-e1173b32aaae').name" />
-											</td>
-											<td colspan="2">
-												<obs
-													conceptId="bfc2de0c-35da-453a-ac12-e1173b32aaae" 
-													allowTime="false"
-													allowFutureDates="true" />
-											</td>
-										</tr>
 
 										<tfoot class="hide-on-view">
 											<tr>
@@ -227,7 +213,7 @@
 			</div>
 
 			<!-- Submit -->
-			<button><lookup expression="fn.message('msfcore.add.next')"/></button>
+			<button><lookup expression="fn.message('msfcore.ncdbaseline.next')"/></button>
 		</div>
 	</div>
 
