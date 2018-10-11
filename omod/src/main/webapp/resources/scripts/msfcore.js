@@ -17,4 +17,83 @@ jQuery(document).ready(function() {
         // add the patient header contents
         jQuery('#patient-search-form').before(content);
     }
+
+    // form handling functions
+    jq(".enableDisable, .allergy").each(function(){
+        disableFn(jq(this));
+        jq(this).children("#trigger").find(":checkbox:first").change(function(){
+            var checked = jq(this).attr("checked");
+            if(checked == true){
+                enableFn(jq(this));
+            }else{
+                disableFn(jq(this));
+            }
+        });
+    });
+
+
+    jq(".checkboxGroup").each(function(){
+        var group = jq(this);
+        var uncheckAll = function(){
+            group.find("input[type$='checkbox']").attr("checked",false);
+            group.find("input[type$='checkbox']").change();
+        }
+        var uncheckRadioAndAll = function(){
+            group.find("#checkboxAll,#checkboxRadio").find("input[type$='checkbox']").attr("checked",false);
+            group.find("#checkboxAll,#checkboxRadio").find("input[type$='checkbox']").change();
+        }
+
+        group.find("#checkboxAll").find("input").click(
+            /*  This was tricky... A number of things needed to happen
+               Basically, This is supposed to treat a group of inputs as if
+               were all one big checkbox. It is designed so that a checkbox
+                can be next to an input, and the user clicks the input, the
+               checkbox checks as well. But, when the user clicks the checkbox,
+                the browser marks the checkbox as checked. Therefore, when we check
+                if the checkbox is already checked, it always respondes true...
+                We needed to have 2 cases: when the clicking action is on the first checkbox
+                and when the action is on any other.  */
+            function(){
+                var flip;
+                var checked = jQuery(this).siblings(":checkbox:first").attr("checked");
+                if(jq(this).attr("name") == jq(this).parents("#checkboxAll:first").find(":checkbox:first").attr("name")){
+                    checked = jq(this).attr("checked");
+                    flip = checked;
+                }else{
+                    flip = !checked;
+                }
+                if(jq(this).attr("type") == "text") if(flip == false) flip = !filp; // this is so the user doesn't go to check the checkbox, then uncheck it when they hit the input.
+                uncheckAll();
+                jq(this).parents("#checkboxAll:first").find(":checkbox").attr("checked",flip);
+                jq(this).parents("#checkboxAll:first").find(":checkbox").change();
+            }
+        );
+
+        group.find("#checkboxRadio").find("input[type$='checkbox']").click(function(){
+            uncheckAll();
+            jq(this).siblings("input[type$='checkbox']").attr("checked",false);
+            jq(this).attr("checked",true);
+            jq(this).change();
+        });
+
+        group.find("#checkboxCheckbox").click(
+            function(){
+                uncheckRadioAndAll();
+            }
+        );
+    });
 });
+
+function disableFn(group){
+    jq(group).addClass('hidden');
+    jq(group).children("#disabled").fadeTo(250,0.33);
+    jq(group).children("#disabled").find(":checkbox").attr("checked",false); //uncheck
+    jq(group).children("#disabled").find("input[type$='text']").val("");
+    jq(group).children("#disabled").find("input").attr("disabled",true);  //disable
+}
+function enableFn(group){
+    jq(group).removeClass('hidden');
+    jq(group).children("#disabled").fadeTo(250,1);
+    jq(group).children("#disabled").find("input").attr("disabled",false);
+}
+

@@ -10,12 +10,12 @@
 <html>
     <head>
         <title>${ title ?: "OpenMRS" }</title>
-        
+
         <!-- MSF: customize favicon -->
         <link rel="shortcut icon" type="image/ico" href="${ui.resourceLink('msfcore', 'images/msf_favicon.ico')}"/>
         <link rel="icon" type="image/png\" href="${ui.resourceLink('msfcore', 'images/msf_favicon.png')}"/>
         <!-- /MSF: customize favicon -->
-        
+
         <% ui.includeCss("appui", "header.css") %>
         ${ ui.resourceLinks() }
     </head>
