@@ -1,0 +1,235 @@
+<htmlform formUuid="b450ec93-f4b5-4a4b-8143-4564d84028bc" formName="Regular Patient Review" formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
+ formVersion="1.0" formDescription="Regular patient review information for the NCD Baseline Consultation"
+ formAddMetadata="no">
+	<macros>
+		paperFormId = (Fill this in)
+		headerColor =#009d8e
+		fontOnHeaderColor = white
+	</macros>
+
+	<script type="text/javascript">
+		
+		var NUMBER_ENTRIES = 10;
+
+		if (jQuery) {
+			jq(document).ready(function () {
+
+				<!-- hide entries that are not in use -->
+				jq.each(getUnusedContainers(), (index, value) => value.hide());
+
+				<!-- remove the buttons that will not be used -->
+				jq('#1-removeEntry').remove();
+				jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
+
+				<!-- handle adding entries -->
+                jq('button.addEntry').on("click", function() {
+					var indexToShow =  getIndexFromId(this.id) + 1;
+					jq('#' + indexToShow + '-toggleContainer').show();
+					return false;
+                });
+
+				<!-- handle removing entries -->
+                jq('button.removeEntry').on("click", function() {
+					var indexToHide =  getIndexFromId(this.id);
+					jq('#' + indexToHide + '-toggleContainer').hide();
+					return false;
+                });
+
+				<!-- date calculations -->
+				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+					var frequencyFieldId = i + '-frequency.value';
+					var durationFieldId = i + '-duration.value';
+					var frequencyField = getField(frequencyFieldId);
+					var durationField = getField(durationFieldId);
+					if (frequencyField != null) {
+						frequencyField.change(callbackFor(i));
+					}
+					if (durationField != null) {
+						durationField.change(callbackFor(i));
+					}
+					if (frequencyField != null &#38;&#38; durationField != null) {
+						callbackFor(i)();
+					}
+				}
+
+			});
+
+			<!-- this is just to allow the usage of the loop variable inside a callback -->
+			<!-- see https://stackoverflow.com/questions/7053965/when-using-callbacks-inside-a-loop-in-javascript-is-there-any-way-to-save-a-var -->
+			function callbackFor(entryIndex) {
+				return function() { 
+					var frequency = getValue(entryIndex + '-frequency.value');
+					var duration = getValue(entryIndex + '-duration.value');
+					var dates = [];
+					if (frequency != '' &#38;&#38; duration != '') {
+						var dates = calculateDates(parseInt(duration), parseInt(frequency), moment());
+					}
+					jq('#' + entryIndex + '-dates li').remove();
+					jq.each(dates, function(index, date) {
+						jq('#' + entryIndex + '-dates').append('<li>' + date.format('MM/DD/YYYY') + '</li>')
+					});
+				};
+			}
+
+			function calculateDates(years, frequency, startDate) {
+				var numberMonths = years * 12;
+				var endDate = startDate.clone().add(numberMonths, 'months');
+				var currentDate = startDate.clone().add(frequency, 'months');
+				var dates = [];
+				while (!currentDate.isAfter(endDate)) {
+					dates.push(currentDate.clone());
+					currentDate.add(frequency, 'months');
+				}
+				return dates;
+			}
+
+			function getIndexFromId(id) {
+				return parseInt(id.split('-')[0]);
+			}
+
+			function getUnusedContainers() {
+				var unusedContainers = [];
+				jq.each(getUnusedContainersIds(), (index, value) => unusedContainers.push(jq('#' + value)));
+				return unusedContainers;
+			}
+
+			function getUnusedContainersIds() {
+				var unusedContainersIds = [];
+				for (var i = 2; i &lt;= NUMBER_ENTRIES; i++) {
+					if (getValue(i + '-measure.value') == "") {
+						unusedContainersIds.push(i + '-toggleContainer');
+					}
+				}
+				return unusedContainersIds;
+			}
+
+		}
+	</script>
+
+	<div class="wrapper">
+		<uiInclude provider="msfcore" fragment="leftMenu" />
+		<div class="right-form-display">
+
+			<div style="display:none;">
+				<section headerLabel="Encounter Details">
+					<table class="baseline-aligned">
+						<tr>
+							<td>Date:</td>
+							<td>
+								<encounterDate default="now" disallowMultipleEncountersOnDate="block" />
+							</td>
+						</tr>
+						<tr>
+							<td>Location:</td>
+							<td>
+								<encounterLocation default="SessionAttribute:emrContext.sessionLocationId" />
+							</td>
+						</tr>
+						<tr>
+							<td>Provider:</td>
+							<td>
+								<encounterProvider default="currentUser" />
+							</td>
+						</tr>
+					</table>
+				</section>
+			</div>
+
+			<div class="sections-container">
+
+				<section>
+
+					<h3>
+						<a name="regular-patient-review">8. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
+					</h3>
+
+					<repeat>
+				    	<template>
+							<div id="{entry}-toggleContainer">
+								<obsgroup groupingConceptId="62d411d1-78c7-4c4d-9104-abe0f4bf9bab">
+									<table class="baseline-aligned">
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" />
+											</td>
+											<td colspan="2">
+												<obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" />
+											</td>
+											<td colspan="2">
+												<obs 
+													id="{entry}-duration"
+													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a" 
+													answers="1,2,3" 
+													answerLabels="1 year,2 years,3 years" style="dropdown" />
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" />
+											</td>
+											<td>
+												<obs
+													id="{entry}-frequency"
+													conceptId="82138d7b-0765-4d57-8433-463aeec1f441" 
+													answers="3,6,9,12" 
+													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
+													style="dropdown" />
+											</td>
+											<td>
+												<ul id="{entry}-dates">
+												</ul>
+											</td>
+										</tr>
+
+										<tfoot class="hide-on-view">
+											<tr>
+												<td span="3">
+													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.add.entry')"/></button>
+													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.remove.entry')"/></button>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
+								</obsgroup>
+							</div>
+						</template>
+						<render entry="1" />
+						<render entry="2" />
+						<render entry="3" />
+						<render entry="4" />
+						<render entry="5" />
+						<render entry="6" />
+						<render entry="7" />
+						<render entry="8" />
+						<render entry="9" />
+						<render entry="10" />
+					</repeat>
+                    <submit submitLabel="Next >"/>
+				</section>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Enusre that only one version of this form can exist at any one time -->
+	<ifMode mode="ENTER" include="true">
+		<lookup complexExpression="
+            #set( $encounter = 0 )
+            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
+            #foreach($encounter in $fn.allEncounters(null))
+                #if( $encounter.form.uuid == 'b450ec93-f4b5-4a4b-8143-4564d84028bc' )
+                    &lt;script type=&quot;text/javascript&quot;>
+                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
+                    &lt;/script>
+                #end
+            #end" />
+
+	</ifMode>
+	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+
+</htmlform>
