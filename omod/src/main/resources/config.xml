@@ -112,32 +112,47 @@
 	<globalProperty>
 		<property>concept.temperature</property>
 		<defaultValue>5088</defaultValue>
-		<description>Concept id for the concept definiting temperature</description>
+		<description>Concept id for the concept defining temperature</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.pulse</property>
 		<defaultValue>5087</defaultValue>
-		<description>Concept id for the concept definiting pulse</description>
+		<description>Concept id for the concept defining pulse</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.respiratoryRate</property>
 		<defaultValue>5242</defaultValue>
-		<description>Concept id for the concept definiting respiratoryRate</description>
+		<description>Concept id for the concept defining respiratoryRate</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.systolicBloodPressure</property>
 		<defaultValue>5085</defaultValue>
-		<description>Concept id for the concept definiting systolic blood pressure</description>
+		<description>Concept id for the concept defining systolic blood pressure</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.diastolicBloodPressure</property>
 		<defaultValue>5086</defaultValue>
-		<description>Concept id for the concept definiting diastolic blood pressure</description>
+		<description>Concept id for the concept defining diastolic blood pressure</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.bloodOxygenSaturation</property>
 		<defaultValue>5092</defaultValue>
-		<description>Concept id for the concept definiting blood oxygen saturation</description>
+		<description>Concept id for the concept defining blood oxygen saturation</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.medications</property>
+		<defaultValue>163560,163561,163562,163563,163564,163565,163566,163567,163568,163569,163543</defaultValue>
+		<description>Concept ids for the concepts defining medications</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.notes</property>
+		<defaultValue>162169</defaultValue>
+		<description>Concept ids for the concepts defining clinical notes</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.vitalsEncounterTypeId</property>
+		<defaultValue>2</defaultValue>
+		<description>Encounter type id for vitals</description>
 	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>

@@ -16,4 +16,7 @@ public class Allergy {
     @Builder.Default
     private List<String> reactions = new ArrayList<String>();
     private String severity;
+    // use these 2 on full representation
+    private String visitDate;
+    private String encounterDate;
 }

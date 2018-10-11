@@ -19,9 +19,10 @@ public class PatientSummary {
     @Builder.Default
     private String facility = "";
     private Demographics demographics;
-    private Vitals vitals;
     @Builder.Default
-    private List<String> diagnoses = new ArrayList<String>();
+    private List<Vitals> vitals = new ArrayList<Vitals>();
+    @Builder.Default
+    private List<Disease> diagnoses = new ArrayList<Disease>();
     @Builder.Default
     private List<Allergy> allergies = new ArrayList<Allergy>();
     private ClinicalHistory clinicalHistory;
@@ -29,9 +30,9 @@ public class PatientSummary {
     @Builder.Default
     private Map<String, String> recentLabTests = new HashMap<String, String>();
     @Builder.Default
-    private List<String> currentMedication = new ArrayList<String>();
+    private List<Observation> currentMedications = new ArrayList<Observation>();
     @Builder.Default
-    private List<String> clinicalNotes = new ArrayList<String>();
+    private List<Observation> clinicalNotes = new ArrayList<Observation>();
 
     private String provider;
     // TODO probably use complex obs or what?

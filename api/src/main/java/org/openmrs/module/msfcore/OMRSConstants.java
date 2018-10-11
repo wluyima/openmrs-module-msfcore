@@ -9,6 +9,9 @@ public class OMRSConstants {
     public static String GP_CONCEPT_ID_SYSTOLIC_BLOOD_PRESSURE = "concept.systolicBloodPressure";
     public static String GP_CONCEPT_ID_DIASTOLIC_BLOOD_PRESSURE = "concept.diastolicBloodPressure";
     public static String GP_CONCEPT_ID_BLOOD_OXYGEN_SATURATION = "concept.bloodOxygenSaturation";
+    public static String GP_CONCEPT_ID_MEDICATIONS = "concept.medications";
+    public static String GP_CONCEPT_ID_NOTES = "concept.notes";
+    public static String GP_ENCOUNTER_TYPE_ID_VITALS = "msfcore.vitalsEncounterTypeId";
 
     public static String MESSAGE_UNITS_CENTIMETERS = "uicommons.units.centimeters";
     public static String MESSAGE_UNITS_KILOGRAMS = "uicommons.units.kilograms";

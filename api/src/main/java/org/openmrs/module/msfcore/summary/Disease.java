@@ -8,12 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Observation {
+public class Disease {
     private String name;
-    @Builder.Default
-    private String unit = "";
-    @Builder.Default
-    private String value = "_";
     // use these 2 on full representation
     private String visitDate;
     private String encounterDate;
@@ -26,7 +22,7 @@ public class Observation {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Observation other = (Observation) obj;
+        Disease other = (Disease) obj;
         if (name == null) {
             if (other.name != null)
                 return false;
@@ -34,4 +30,5 @@ public class Observation {
             return false;
         return true;
     }
+
 }

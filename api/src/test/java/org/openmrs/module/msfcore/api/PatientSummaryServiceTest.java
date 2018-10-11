@@ -14,6 +14,8 @@ import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.OMRSConstants;
+import org.openmrs.module.msfcore.summary.Disease;
+import org.openmrs.module.msfcore.summary.Observation;
 import org.openmrs.module.msfcore.summary.PatientSummary;
 import org.openmrs.module.msfcore.summary.PatientSummary.Representation;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -32,22 +34,23 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void generatePatientSummary_shouldDefaultRepresentationToSummary() {
-        assertEquals(Representation.SUMMARY, patientSummaryService.generatePatientSummary(patient, null).getRepresentation());
+        assertEquals(Representation.SUMMARY, patientSummaryService.generatePatientSummary(patient).getRepresentation());
     }
 
     @Test
     public void generatePatientSummary_shouldSetRepresentationRightly() {
-        assertEquals(Representation.FULL, patientSummaryService.generatePatientSummary(patient, Representation.FULL).getRepresentation());
+        patientSummaryService.setRepresentation(Representation.FULL);
+        assertEquals(Representation.FULL, patientSummaryService.generatePatientSummary(patient).getRepresentation());
     }
 
     @Test
     public void generatePatientSummary_shouldSetFacilityRightly() {
         // Un known location has id 1 and is default by default
-        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient).getFacility());
         Context.getAdministrationService().setGlobalProperty("default_location", "Unknown Location");
-        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+        assertEquals("Unknown Location", patientSummaryService.generatePatientSummary(patient).getFacility());
         Context.getAdministrationService().setGlobalProperty("default_location", "Baalbak Clinic");
-        assertEquals("Baalbak Clinic, Baalbak Project", patientSummaryService.generatePatientSummary(patient, null).getFacility());
+        assertEquals("Baalbak Clinic, Baalbak Project", patientSummaryService.generatePatientSummary(patient).getFacility());
     }
 
     private int getDiffYears(Date first, Date last) {
@@ -69,7 +72,7 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void generatePatientSummary_shouldSetDemographicsRightly() throws ParseException {
-        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient, null);
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals("Collet Test Chebaskwony", patientSummary.getDemographics().getName());
         assertEquals(getDiffYears(new SimpleDateFormat("yyyy-MM-dd").parse("1976-08-25"), new Date()) + " years", patientSummary
                         .getDemographics().getAge().getAge());
@@ -97,54 +100,88 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void generatePatientSummary_shouldSetVitalsRightly() {
-        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient, null);
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
 
-        assertEquals("WEIGHT (KG)", patientSummary.getVitals().getWeight().getName());
-        assertEquals("62.3", patientSummary.getVitals().getWeight().getValue());
-        assertEquals("kg", getUnit(patientSummary.getVitals().getWeight().getUnit()));
+        assertEquals(2, patientSummary.getVitals().size());
+        // latest is positioned at 0
 
-        assertEquals("Height (cm)", patientSummary.getVitals().getHeight().getName());
-        assertEquals("167.9", patientSummary.getVitals().getHeight().getValue());
-        assertEquals("cm", getUnit(patientSummary.getVitals().getHeight().getUnit()));
+        assertEquals("Temperature (C)", patientSummary.getVitals().get(0).getTemperature().getName());
+        assertEquals("35.6", patientSummary.getVitals().get(0).getTemperature().getValue());
+        assertEquals("°C", getUnit(patientSummary.getVitals().get(0).getTemperature().getUnit()));
 
-        assertEquals("BMI", patientSummary.getVitals().getBmi().getName());
-        assertEquals("22.1", patientSummary.getVitals().getBmi().getValue());
-        assertEquals("", getUnit(patientSummary.getVitals().getBmi().getUnit()));
+        assertEquals("Blood oxygen saturation", patientSummary.getVitals().get(0).getBloodOxygenSaturation().getName());
+        assertEquals("72.7", patientSummary.getVitals().get(0).getBloodOxygenSaturation().getValue());
+        assertEquals("%", getUnit(patientSummary.getVitals().get(0).getBloodOxygenSaturation().getUnit()));
+        // non set defaulting
+        assertEquals("Weight", patientSummary.getVitals().get(0).getWeight().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getWeight().getValue());
+        assertEquals("kg", getUnit(patientSummary.getVitals().get(0).getWeight().getUnit()));
 
-        assertEquals("Temperature (C)", patientSummary.getVitals().getTemperature().getName());
-        assertEquals("37", patientSummary.getVitals().getTemperature().getValue());
-        assertEquals("°C", getUnit(patientSummary.getVitals().getTemperature().getUnit()));
+        assertEquals("WEIGHT (KG)", patientSummary.getVitals().get(1).getWeight().getName());
+        assertEquals("62.3", patientSummary.getVitals().get(1).getWeight().getValue());
+        assertEquals("kg", getUnit(patientSummary.getVitals().get(1).getWeight().getUnit()));
 
-        assertEquals("Pulse", patientSummary.getVitals().getPulse().getName());
-        assertEquals("70", patientSummary.getVitals().getPulse().getValue());
-        assertEquals("/min", getUnit(patientSummary.getVitals().getPulse().getUnit()));
+        assertEquals("Height (cm)", patientSummary.getVitals().get(1).getHeight().getName());
+        assertEquals("167.9", patientSummary.getVitals().get(1).getHeight().getValue());
+        assertEquals("cm", getUnit(patientSummary.getVitals().get(1).getHeight().getUnit()));
 
-        assertEquals("Respiratory rate", patientSummary.getVitals().getRespiratoryRate().getName());
-        assertEquals("16", patientSummary.getVitals().getRespiratoryRate().getValue());
-        assertEquals("/min", getUnit(patientSummary.getVitals().getRespiratoryRate().getUnit()));
+        assertEquals("BMI", patientSummary.getVitals().get(1).getBmi().getName());
+        assertEquals("22.1", patientSummary.getVitals().get(1).getBmi().getValue());
+        assertEquals("", getUnit(patientSummary.getVitals().get(1).getBmi().getUnit()));
 
-        assertEquals("Blood Pressure", patientSummary.getVitals().getBloodPressure().getName());
-        assertEquals("130/97", patientSummary.getVitals().getBloodPressure().getValue());
-        assertEquals("", getUnit(patientSummary.getVitals().getBloodPressure().getUnit()));
+        assertEquals("Temperature (C)", patientSummary.getVitals().get(1).getTemperature().getName());
+        assertEquals("37", patientSummary.getVitals().get(1).getTemperature().getValue());
+        assertEquals("°C", getUnit(patientSummary.getVitals().get(1).getTemperature().getUnit()));
 
-        assertEquals("Blood oxygen saturation", patientSummary.getVitals().getBloodOxygenRate().getName());
-        assertEquals("_", patientSummary.getVitals().getBloodOxygenRate().getValue());
-        assertEquals("%", getUnit(patientSummary.getVitals().getBloodOxygenRate().getUnit()));
+        assertEquals("Pulse", patientSummary.getVitals().get(1).getPulse().getName());
+        assertEquals("70", patientSummary.getVitals().get(1).getPulse().getValue());
+        assertEquals("/min", getUnit(patientSummary.getVitals().get(1).getPulse().getUnit()));
+
+        assertEquals("Respiratory rate", patientSummary.getVitals().get(1).getRespiratoryRate().getName());
+        assertEquals("16", patientSummary.getVitals().get(1).getRespiratoryRate().getValue());
+        assertEquals("/min", getUnit(patientSummary.getVitals().get(1).getRespiratoryRate().getUnit()));
+
+        assertEquals("Blood Pressure", patientSummary.getVitals().get(1).getBloodPressure().getName());
+        assertEquals("130/97", patientSummary.getVitals().get(1).getBloodPressure().getValue());
+        assertEquals("", getUnit(patientSummary.getVitals().get(1).getBloodPressure().getUnit()));
+
+        assertEquals("Blood oxygen saturation", patientSummary.getVitals().get(1).getBloodOxygenSaturation().getName());
+        assertEquals("_", patientSummary.getVitals().get(1).getBloodOxygenSaturation().getValue());
+        assertEquals("%", getUnit(patientSummary.getVitals().get(1).getBloodOxygenSaturation().getUnit()));
     }
 
     @Test
     public void generatePatientSummary_shouldSetDiagnosesRightly() throws ParseException {
-        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient, null);
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals(3, patientSummary.getDiagnoses().size());
-        assertThat(patientSummary.getDiagnoses(), contains("Diabates", "Hypertension", "Unknown Cancer"));
+        assertThat(patientSummary.getDiagnoses(), contains(Disease.builder().name("Diabates").build(), Disease.builder().name(
+                        "Hypertension").build(), Disease.builder().name("Unknown Cancer").build()));
     }
 
     @Test
     public void generatePatientSummary_shouldSetAllergiesRightly() throws ParseException {
-        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient, null);
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals("ASPIRIN", patientSummary.getAllergies().get(0).getName());
         assertEquals("Severe", patientSummary.getAllergies().get(0).getSeverity());
         assertEquals(1, patientSummary.getAllergies().get(0).getReactions().size());
         assertThat(patientSummary.getAllergies().get(0).getReactions(), contains("Hives"));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldSetMedicationsRightly() throws ParseException {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(3, patientSummary.getDiagnoses().size());
+        assertThat(patientSummary.getCurrentMedications(), contains(Observation.builder().name("Medication 1").value(
+                        "Aspirin -- Aspicot 100 mg").build(), Observation.builder().name("Medication 1").value(
+                        "Bisoprolol Fumarate -- Biscor 5 mg").build(), Observation.builder().name("Other medication").value(
+                        "No more DNA damage drug missing?").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldSetClinicalNotesRightly() throws ParseException {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalNotes().size());
+        assertEquals(Observation.builder().name("Text of encounter note").value("Sample doctor's notes").build(), patientSummary
+                        .getClinicalNotes().get(0));
     }
 }
