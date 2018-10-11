@@ -70,58 +70,58 @@ ul.left-menu li:hover:not(.selected),
     display:flex;
 }
 
-ul#encountersList {
+ul.encounter-list {
     box-shadow: rgba(0,0,0,0.2) 0 2px 2px;
     width: 98%;
     border: 1px solid #ccc;
     border-radius: 8px;
 }
 
-.visit-actions.active-visit + ul#encountersList {
+.visit-actions.active-visit + ul.encounter-list {
     border:none;
 }
 
-#encountersList > li {
+.encounter-list > li {
     margin-bottom: 0px;
     display: flex;
     flex-direction: column;
     border-bottom: 2px solid #f1f1f1;
 }
 
-#encountersList .encounter-date {
+.encounter-list .encounter-date {
     margin: 16px 16px 0 16px;
 }
 
-#encountersList .encounter-date strong {
+.encounter-list .encounter-date strong {
     float: left;
 }
 
-#encountersList .encounter-details {
+.encounter-list .encounter-details {
     border:none;
 }
 
-#encountersList .encounter-details li > div {
+.encounter-list .encounter-details li > div {
     padding: 0 0 0 16px;
     border:none;
 }
 
-#encountersList .encounter-details li:first-child > div {
+.encounter-list .encounter-details li:first-child > div {
     border-left: none;
     min-width:240px;
     padding: 8px 0 0 12px;
 }
 
-#encountersList .encounter-details .encounter-type strong span {
+.encounter-list .encounter-details .encounter-type strong span {
     font-size:1.5rem;
     font-family: 'OpenSansLight', Arial, Helvetica, sans-serif;
 }
 
-#encountersList .encounter-details li:last-child > div {
+.encounter-list .encounter-details li:last-child > div {
     background: none;
     max-width:120px;
 }
 
-#encountersList .encounter-details li:last-child > .details-action {
+.encounter-list .encounter-details li:last-child > .details-action {
     max-width: 100%;
     text-align: right;
     padding-right: 16px;
@@ -136,7 +136,7 @@ ul#encountersList {
     box-shadow: inset rgba(0,0,0,0.1) 0 2px 4px;
 }
 
-#encountersList li > span {
+.encounter-list li > span {
     display: flex;
     justify-content: flex-end;
     padding: 8px;

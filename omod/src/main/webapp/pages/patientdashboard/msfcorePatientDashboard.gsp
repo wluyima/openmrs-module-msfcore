@@ -36,7 +36,7 @@
     });
 
     var patient = { id: ${ patient.id } };
-    var encounterCount = ${ encounterCount };    // This variable will be reused in visits.gsp
+    var encounterCount = ${ encounterCount };    // This variable will be reused in msfvisits.gsp
 </script>
 <% if (includeFragments) {
 
@@ -89,3 +89,25 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient, a
 
     </div>
 </div>
+<script type="text/javascript">
+    jq(document).ajaxStop(function() {
+        jq('<ul id="encounterTypeList"></ul>').insertBefore('#encountersList');
+        // move encounters with a similar encounter type to the same list
+        jq('#encountersList li.encounter').each(function(){
+            var encounter_type = jq(this).attr('data-encounter-type-uuid');
+            // check if this element exists within the encounterTypeList
+            if (!jq('#' + encounter_type + '-li').length) {
+                // create a new element for the encounter
+                jq('#encounterTypeList').append('<li id="'+ encounter_type + '-li">' +
+                    '<ul id="'+ encounter_type + '-ul" class="encounter-list">' +
+                    '<span class="encounter-name">' + jq(this).attr('data-encounter-type-name') + '</span>' +
+                    '<div class="encounter-date"> <i class="icon-time"></i> <strong>' + jq(this).attr('data-encounter-time') + ' </strong>' + jq(this).attr('data-encounter-date') + ' </div>' +
+                    '${ ui.message("coreapps.by") } <strong class="provider">' +jq(this).attr('data-encounter-provider') + ' </strong> ' +
+                    '${ ui.message("coreapps.in") } <strong class="location">' +jq(this).attr('data-encounter-location') +' </strong> '+
+                    '</ul>' +
+                    '</li>');
+            }
+            jq('#' + encounter_type + '-ul').append(jq(this));
+        });
+    });
+</script>

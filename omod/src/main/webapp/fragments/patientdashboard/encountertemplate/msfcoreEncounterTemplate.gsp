@@ -3,31 +3,13 @@
 %>
 
 <script type="text/template" id="defaultEncounterTemplate">
-<li data-encounter-id="{{- encounter.encounterId }}" data-encounter-type-uuid="{{- encounter.encounterType.uuid }}" data-encounter-type-name="{{- encounter.encounterType.name }}">
-	<div class="encounter-date">
-	    <i class="icon-time"></i>
-	    <strong>
-	        {{- encounter.encounterTime }}
-	    </strong>
-	    {{- encounter.encounterDate }}
-	</div>
+<li class="encounter" data-encounter-id="{{- encounter.encounterId }}" data-encounter-type-uuid="{{- encounter.encounterType.uuid }}" data-encounter-type-name="{{- encounter.encounterType.name }}" data-encounter-time="{{- encounter.encounterTime }}" data-encounter-date="{{- encounter.encounterDate }}" data-encounter-provider="{{- encounter.primaryProvider ? encounter.primaryProvider : '' }}" data-encounter-location="{{- encounter.location }}">
 	<ul class="encounter-details">
 	    <li> 
 	        <div class="encounter-type">
 	            <strong>
-	                <i class="{{- config.icon }}"></i>
 	                <span class="encounter-name" data-encounter-id="{{- encounter.encounterId }}">{{- encounter.form }}</span>
 	            </strong>
-	        </div>
-	    </li>
-	    <li>
-	        <div>
-	            ${ ui.message("coreapps.by") }
-	            <strong class="provider">
-	                {{- encounter.primaryProvider ? encounter.primaryProvider : '' }}
-	            </strong>
-	            ${ ui.message("coreapps.in") }
-	            <strong class="location">{{- encounter.location }}</strong>
 	        </div>
 	    </li>
 	    <li>
