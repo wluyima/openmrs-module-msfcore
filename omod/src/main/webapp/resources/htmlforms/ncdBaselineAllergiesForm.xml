@@ -12,45 +12,51 @@
     </macros>
 
     <script type="text/javascript">
+
+        var NUMBER_ENTRIES = 10;
+
         if (jQuery) {
             jq(document).ready(function () {
 
-                jq('button.addEntry').on("click", function(){
-                    var correctedAddButtonId = parseFloat(this.id) + 1;
-                    var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
-                    jq(contentAddId).toggle(true);
-                    jq('#' + this.id).toggle(false);
-                    jq('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
-                    return false;
+				<!-- handle adding entries -->
+                jq('button.addEntry').on("click", function() {
+					var indexToShow =  getIndexFromId(this.id) + 1;
+					jq(`#${indexToShow}-toggleContainer`).show();
+					return false;
                 });
-                jq('button.removeEntry').on("click", function () {
-                    var correctedRemoveButtonId = parseFloat(this.id) - 1;
-                    var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
-                    jq(contentAddId).toggle(false);
-                    jq(':input:not(:button)', contentAddId).val([]);
-                    jq('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
-                    jq('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
-                    return false;
+
+				<!-- handle removing entries -->
+                jq('button.removeEntry').on("click", function() {
+					var indexToHide =  getIndexFromId(this.id);
+					jq(`#${indexToHide}-toggleContainer`).hide();
+					return false;
                 });
-                // show any allergies that have been saved
-                var last_widget = 1;
-                for (i = 1; i &lt; 10; i++) {
-                    if (getValue('allergy-type-' + i + '.value') != false) {
-                        jq('#' + i + '-addEntry').toggle(false);
-                        jq('#' + i + '-toggleContainer').show();
-                        last_widget = i;
-                    }
-                }
-                // show the add allergy for the last item as long as its not the first one
-                if (last_widget == 1) {
-                    // enabling and disabling the allergy sections there are only 10 so far
-                    jq('#1-removeEntry').remove();
-                    jq('#1-toggleContainer').show();
-                    jq('#10-addEntry').remove();
-                } else {
-                    jq('#' + last_widget + '-addEntry').show();
-                }
+
+                <!-- show entries that are in use -->
+				jq.each(getUsedContainers(), (index, container) => container.show());
+
+				<!-- remove the buttons that will not be used -->
+				jq(`#1-removeEntry`).remove();
+				jq(`#${NUMBER_ENTRIES}-addEntry`).remove();
+
             });
+
+            function getUsedContainers() {
+				var usedContainers = [];
+				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                    var containerId = `${i}-toggleContainer`;
+					if (i == 1 || getValue(`allergy-type-${i}.value`) != "") {
+						usedContainers.push(jq(`#${i}-toggleContainer`));
+					}
+				}
+				return usedContainers;
+			}
+
+            function getIndexFromId(id) {
+				return parseInt(id.split('-')[0]);
+			}
+
+
         }
     </script>
 
