@@ -97,7 +97,8 @@
 					<!-- Comment id=1000000 name=Comment Refer Patient -->
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
-					<submit submitLabel="Next >"/>
+					<!-- Submit -->
+					<button><lookup expression="fn.message('msfcore.save.and.exit')"/></button>
 				</section>
 
 			</div>
@@ -120,6 +121,6 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=a9f3411c-03d8-4652-8143-886d572cbf4d&amp;patientId={{patient.id}}&amp;visitId={{visit.id}" />
+			url="/coreapps/clinicianfacing/patient.page?patientId={{patient.id}}&amp;app=msfcore.app.clinicianDashboard" />
 
     </htmlform>

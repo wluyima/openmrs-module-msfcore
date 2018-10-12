@@ -71,11 +71,10 @@ if (jQuery) {
             </li>
         </ol>
 
-        <button class="nav-button save">Save</button>
-        <button class="nav-button cancel">Cancel</button>
-        <button class="nav-button final">
+        <!-- Commented out as per Bianca recomendation, until we get the requirements sorted -->
+        <!-- button class="nav-button final">
             <i class="fas fa-lock"></i>
-            Save final
-        </button>
+            ${ui.message("msfcore.save.final")}
+        </button -->
     </div>
 </div>

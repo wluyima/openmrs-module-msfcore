@@ -105,7 +105,8 @@
 							<td></td>
 						</tr>
 					</table>
-					<submit submitLabel="Next >" />
+					<!-- Submit -->
+					<button><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>

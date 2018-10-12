@@ -46,7 +46,8 @@
                     <h3>4. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></h3>
 					<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
                     <div class="add-box" id="encounter-diagnoses-target"></div>
-                    <submit submitLabel="Next >"/>
+					<!-- Submit -->
+					<button><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>

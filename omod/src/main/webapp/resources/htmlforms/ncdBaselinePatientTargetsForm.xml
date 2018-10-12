@@ -60,7 +60,8 @@
 								<td><obs conceptId="06000005-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
 							</tr>
 						</table>
-						<submit submitLabel="Next >"/>
+                        <!-- Submit -->
+                        <button><lookup expression="fn.message('msfcore.next')"/></button>
 					</section>
 			</div>
 		</div>
