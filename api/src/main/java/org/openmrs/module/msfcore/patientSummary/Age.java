@@ -12,10 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Age extends org.openmrs.module.reporting.common.Age {
-    // TODO can client; age.age or age.formattedBirthDate work without these 2
-    private String age;
-    private String formattedBirthDate;
-
+    
     @Setter
     @Getter
     @JsonIgnore

@@ -3,17 +3,22 @@ package org.openmrs.module.msfcore.api;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.OMRSConstants;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.module.msfcore.patientSummary.Disease;
 import org.openmrs.module.msfcore.patientSummary.Observation;
 import org.openmrs.module.msfcore.patientSummary.PatientSummary;
@@ -33,12 +38,13 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void generatePatientSummary_shouldDefaultRepresentationToSummary() {
+    public void generatePatientSummary_shouldSetSummaryRepresentationRightly() {
+        patientSummaryService.setRepresentation(Representation.SUMMARY);
         assertEquals(Representation.SUMMARY, patientSummaryService.generatePatientSummary(patient).getRepresentation());
     }
 
     @Test
-    public void generatePatientSummary_shouldSetRepresentationRightly() {
+    public void generatePatientSummary_shouldSetFullRepresentationRightly() {
         patientSummaryService.setRepresentation(Representation.FULL);
         assertEquals(Representation.FULL, patientSummaryService.generatePatientSummary(patient).getRepresentation());
     }
@@ -151,7 +157,7 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void generatePatientSummary_shouldSetDiagnosesRightly() throws ParseException {
+    public void generatePatientSummary_shouldSetDiagnosesRightly() {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals(3, patientSummary.getDiagnoses().size());
         assertThat(patientSummary.getDiagnoses(), contains(Disease.builder().name("Diabates").build(), Disease.builder().name(
@@ -159,7 +165,7 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void generatePatientSummary_shouldSetAllergiesRightly() throws ParseException {
+    public void generatePatientSummary_shouldSetAllergiesRightly() {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals("ASPIRIN", patientSummary.getAllergies().get(0).getName());
         assertEquals("Severe", patientSummary.getAllergies().get(0).getSeverity());
@@ -168,7 +174,7 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void generatePatientSummary_shouldSetMedicationsRightly() throws ParseException {
+    public void generatePatientSummary_shouldSetMedicationsRightly() {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals(3, patientSummary.getDiagnoses().size());
         assertThat(patientSummary.getCurrentMedications(), contains(Observation.builder().name("Medication 1").value(
@@ -178,10 +184,28 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void generatePatientSummary_shouldSetClinicalNotesRightly() throws ParseException {
+    public void generatePatientSummary_shouldSetClinicalNotesRightly() {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
         assertEquals(1, patientSummary.getClinicalNotes().size());
         assertEquals(Observation.builder().name("Text of encounter note").value("Sample doctor's notes").build(), patientSummary
                         .getClinicalNotes().get(0));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldSetLabResultsRightly() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(2, patientSummary.getRecentLabResults().size());
+        assertEquals(Observation.builder().name("Creatinine").value("54.3").build(), patientSummary.getRecentLabResults().get(0));
+        assertEquals(Observation.builder().name("Total cholesterol").value("183").build(), patientSummary.getRecentLabResults().get(1));
+    }
+
+    @Test
+    public void requestPatientSummary_shouldGeneratePatientSummaryAndSaveAuditLog() {
+        PatientSummary patientSummary = patientSummaryService.requestPatientSummary(patient);
+        assertNotNull(patientSummary);
+        List<AuditLog> summaryAudits = Context.getService(AuditService.class).getAuditLogs(null, null,
+                        Arrays.asList(Event.REQUEST_PATIENT_SUMMARY), Arrays.asList(patient), null, null, null);
+        assertEquals(1, summaryAudits.size());
+        assertEquals(summaryAudits.get(0).getDetail(), "Patient Summary Request: Collet Test Chebaskwony - 6TS-4");
     }
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Disease {
     private String name;
+    private String status;
     // use these 2 on full representation
     private String visitDate;
     private String encounterDate;

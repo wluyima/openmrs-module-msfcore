@@ -153,6 +153,11 @@
 		<defaultValue>2</defaultValue>
 		<description>Encounter type id for vitals</description>
 	</globalProperty>
+	<globalProperty>
+		<property>concept.labResults</property>
+		<defaultValue>163596,163630,163631,163632,163629,163582,163583,163574</defaultValue>
+		<description>Concept ids for the concepts defining medications</description>
+	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
 	

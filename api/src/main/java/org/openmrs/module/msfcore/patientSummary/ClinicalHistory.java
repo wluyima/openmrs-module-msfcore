@@ -12,17 +12,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ClinicalHistory {
-    private List<String> medical;
-    private List<String> social;
-    private List<String> family;
+    @Builder.Default
+    private List<Observation> medical = new ArrayList<Observation>();
+    @Builder.Default
+    private List<Observation> social = new ArrayList<Observation>();
+    @Builder.Default
+    private List<Observation> family = new ArrayList<Observation>();
     // assesment/conclusion
     private String assesment;
     @Builder.Default
-    private List<String> complications = new ArrayList<String>();
+    private List<Observation> complications = new ArrayList<Observation>();
     @Builder.Default
-    private List<String> targetOrganDamages = new ArrayList<String>();
-    private String cardiovascularCholesterolScore;
-    private String bloodGlucose;
-    private String analysisType;
-    private String patientEducation;
+    private List<Observation> targetOrganDamages = new ArrayList<Observation>();
+    private Observation cardiovascularCholesterolScore;
+    private Observation bloodGlucose;
+    private Observation analysisType;
+    private Observation patientEducation;
 }

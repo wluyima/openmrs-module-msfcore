@@ -12,6 +12,7 @@ public class OMRSConstants {
     public static String GP_CONCEPT_ID_MEDICATIONS = "concept.medications";
     public static String GP_CONCEPT_ID_NOTES = "concept.notes";
     public static String GP_ENCOUNTER_TYPE_ID_VITALS = "msfcore.vitalsEncounterTypeId";
+    public static String GP_CONCEPT_ID_LAB_RESULTS = "concept.labResults";
 
     public static String MESSAGE_UNITS_CENTIMETERS = "uicommons.units.centimeters";
     public static String MESSAGE_UNITS_KILOGRAMS = "uicommons.units.kilograms";

@@ -8,9 +8,11 @@ import org.openmrs.module.msfcore.patientSummary.PatientSummary.Representation;
 public interface PatientSummaryService extends OpenmrsService {
     public void setRepresentation(Representation representation);
     /**
-     * may be used outside msfcore module
+     * Can be used to only generate patient summary
      */
     public PatientSummary generatePatientSummary(Patient patient);
-
+    /**
+     * Genarates patient summary and adds request audit log
+     */
     public PatientSummary requestPatientSummary(Patient patient);
 }

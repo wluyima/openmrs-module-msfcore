@@ -1,9 +1,7 @@
 package org.openmrs.module.msfcore.patientSummary;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PatientSummary {
-    @Builder.Default
-    private Representation representation = Representation.SUMMARY;
+    private Representation representation;
     @Builder.Default
     private String facility = "";
     private Demographics demographics;
@@ -26,15 +23,15 @@ public class PatientSummary {
     @Builder.Default
     private List<Allergy> allergies = new ArrayList<Allergy>();
     private ClinicalHistory clinicalHistory;
-    // test, result
     @Builder.Default
-    private Map<String, String> recentLabTests = new HashMap<String, String>();
+    private List<Observation> recentLabResults = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> currentMedications = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> clinicalNotes = new ArrayList<Observation>();
 
-    private String provider;
+    @Builder.Default
+    private String provider = "";
     // TODO probably use complex obs or what?
     private Object signature;
 
