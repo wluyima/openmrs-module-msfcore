@@ -209,7 +209,8 @@
 						<render entry="9" />
 						<render entry="10" />
 					</repeat>
-                    <submit submitLabel="Next >"/>
+					<!-- Submit -->
+					<button><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>

@@ -57,7 +57,8 @@
 				            <td><obs conceptId="f3a76818-3ff4-4d94-9c51-be295cad43a1" id="appointment_next_comment" rows="4" cols="80"/></td>
 			            </tr>
 					</table>
-					<submit submitLabel="Next >"/>
+					<!-- Submit -->
+					<button><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 
