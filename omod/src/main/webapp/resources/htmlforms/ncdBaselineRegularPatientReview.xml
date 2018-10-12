@@ -209,11 +209,9 @@
 						<render entry="9" />
 						<render entry="10" />
 					</repeat>
+                    <submit submitLabel="Next >"/>
 				</section>
 			</div>
-
-			<!-- Submit -->
-			<button><lookup expression="fn.message('msfcore.ncdbaseline.next')"/></button>
 		</div>
 	</div>
 

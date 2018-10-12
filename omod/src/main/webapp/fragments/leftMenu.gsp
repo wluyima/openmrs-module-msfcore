@@ -5,6 +5,7 @@ if (jQuery) {
         jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&patientId='+ jq('input[name=personId]').val());
         jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&patientId='+ jq('input[name=personId]').val());
         jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#complications").attr("href", jq("#diagnosis-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#regular-patient-review").attr("href", jq("#regular-patient-review-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
@@ -38,7 +39,7 @@ if (jQuery) {
             </li>
             <li>
                 <a id="complications" href="#complications">${ui.message("msfcore.ncdbaseline.complications.title")}</a>
-                <span class="hidden" id="complications-form-url">enterHtmlFormWithStandardUi.page?formUuid=06807e2b-ce97-4d65-8796-e955fcbe057d</span>
+                <span class="hidden" id="complications-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933</span>
             </li>
             <li>
                 <a id="prescribemedication" href="#prescribemedication">${ui.message("msfcore.ncdbaseline.prescribemedication.title")}</a>
