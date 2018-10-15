@@ -64,6 +64,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
 
+        log.info("Replacing default reports app");
+        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
+        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REPORTS_APP_EXTENSION_ID);
+
         // disable the default find patient app to provide one which allows
         // searching for patients at the footer of the search for patients page
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
@@ -131,6 +135,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         log.info("Enabling default reference application registration app");
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+        log.info("Enabling default reports app");
+        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REPORTS_APP_EXTENSION_ID);
+        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
 
         log.info("Requiring OpenMRS ID if not done");
         PatientIdentifierType openmrsIdType = Context.getPatientService().getPatientIdentifierTypeByName(

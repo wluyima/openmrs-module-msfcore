@@ -22,9 +22,11 @@ public class MSFCoreConfig {
 
     public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
     public final static String SEARCH_APP_EXTENSION_ID = "coreapps.findPatient";
+    public final static String REPORTS_APP_EXTENSION_ID = "reportingui.reports";
 
     public final static String MSF_REGISTRATION_APP_EXTENSION_ID = "msfcore.registrationapp";
     public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
+    public final static String MSF_REPORTS_APP_EXTENSION_ID = "msfcore.reports";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
     public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
