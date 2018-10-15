@@ -82,7 +82,8 @@
 							<td colspan="2"><obs conceptId="MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E" id="test_required_other"/></td>
 						</tr>
 					</table>
-					<submit submitLabel="Next >"/>
+					<!-- Submit -->
+                    <button><lookup expression="fn.message('msfcore.next')"/></button>
 
 				</section>
 

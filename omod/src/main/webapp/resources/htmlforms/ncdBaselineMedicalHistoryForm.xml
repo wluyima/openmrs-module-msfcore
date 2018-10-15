@@ -48,117 +48,104 @@
                 </section>
             </div>
 
-            <div class="sections-container">
+			 <div class="sections-container">
 
                 <section><!--MEDICAL HISTORY-->
 
                     <h3>
-                        <a name="medicalhistory">1. Medical history</a>
+                        <a name="medicalhistory">1.<lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.title')"/></a>
                     </h3>
-                    <h5>History of atherosclerotic vascular disease (ASCVD):</h5>
+                    <h5><lookup expression="fn.getConcept('e556545d-405f-4dde-9752-2b259140d84d').name" /></h5>
                     <p>
-                        <i>- these patients must be on aspirin + statin</i>
+                        <i>- <lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.info')"/></i>
                     </p>
                     <table width="90%">
+                    	 <obsgroup groupingConceptId="e556545d-405f-4dde-9752-2b259140d84d">
                         <tr>
                             <td width="30%">
-                                <obs conceptId="MSF:DBCC219B-76B8-44A8-A371-2B17E6EA107A" labelText="Angina"
-                                     id="antecedents_angina_pectoris" style="checkbox"/>
+                               <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:DBCC219B-76B8-44A8-A371-2B17E6EA107A"
+                               		id="antecedents_angina_pectoris" style="checkbox" />
                             </td>
                             <td width="30%">
-                                <obs conceptId="MSF:FFAA1C14-D8C5-40DE-B336-7244D0B62A6E" labelText="MI"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:FFAA1C14-D8C5-40DE-B336-7244D0B62A6E"
                                      id="antecedents_MI"
                                      style="checkbox"/>
                             </td>
                             <td width="30%">
-                                <obs conceptId="MSF:341072E2-40EF-4BF4-A250-8D0CE0957A8C" labelText="CABG"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:341072E2-40EF-4BF4-A250-8D0CE0957A8C"
                                      id="antecedents_CABG"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="MSF:B3D3C626-C4CC-4067-8587-8DBAD8134200" labelText="Angioplasty"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:B3D3C626-C4CC-4067-8587-8DBAD8134200"
                                      id="antecedents_Angioplasty" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:B3D3C626-C4CC-4067-8587-8DBAD8134200').name" />-->
                             </td>
                             <td>
-                                <obs conceptId="MSF:EEA48CF0-D33C-4115-9271-63A80045301B" labelText="CVA"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:EEA48CF0-D33C-4115-9271-63A80045301B"
                                      id="antecedents_CVA"
                                      style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:EEA48CF0-D33C-4115-9271-63A80045301B').name" />-->
                             </td>
                             <td>
-                                <obs conceptId="MSF:63872D45-53D7-41FF-B689-155B5823A8DC"
-                                     labelText="Carotid endarterectomy"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:63872D45-53D7-41FF-B689-155B5823A8DC"
                                      id="antecedents_carotid_endarterectomy" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:63872D45-53D7-41FF-B689-155B5823A8DC').name" />-->
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="MSF:D8533C83-6087-45AA-AD8E-7726142542E0" labelText="Claudication"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:D8533C83-6087-45AA-AD8E-7726142542E0"
                                      id="antecedents_claudication" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:D8533C83-6087-45AA-AD8E-7726142542E0').name" />-->
                             </td>
                             <td>
-                                <obs conceptId="MSF:779CEFEA-E7EC-4B0A-B83A-3458AA4820F5"
-                                     labelText="Ischaemic ulcer amputation"
+                                <obs conceptId="e556545d-405f-4dde-9752-2b259140d84d" answerConceptId="MSF:779CEFEA-E7EC-4B0A-B83A-3458AA4820F5"
                                      id="antecedents_ischaemic_ulcer_amputation" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:779CEFEA-E7EC-4B0A-B83A-3458AA4820F5').name" />-->
                             </td>
                             <td>
                                 &#160;
                             </td>
                         </tr>
+                        </obsgroup>
                     </table>
 
-                    <h5>History of target organ damage:</h5>
-
+                    <h5><lookup expression="fn.getConcept('ef656ae9-897d-4236-b640-ae060f71796f').name" />:</h5>
                     <table width="90%">
+                        <obsgroup groupingConceptId="ef656ae9-897d-4236-b640-ae060f71796f">
                         <tr>
                             <td width="30%">
-                                <obs conceptId="MSF:979B865F-44D9-46E8-9AE6-3457952B5880" labelText="Heart failure"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:979B865F-44D9-46E8-9AE6-3457952B5880"
                                      id="antecedents_heart_failure" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:979B865F-44D9-46E8-9AE6-3457952B5880').name" />-->
                             </td>
                             <td width="30%">
-                                <obs conceptId="MSF:86A85208-8E02-425A-AF15-0D2F2234EC2C"
-                                     labelText="Left ventricular hypertrophy"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:86A85208-8E02-425A-AF15-0D2F2234EC2C"
                                      id="antecedents_left_ventricular_hypertrophy" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:86A85208-8E02-425A-AF15-0D2F2234EC2C').name" />-->
                             </td>
                             <td width="30%">
-                                <obs conceptId="MSF:5F457C57-8747-4817-A2FA-26BC2A6B438E" labelText="Retinopathy"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:5F457C57-8747-4817-A2FA-26BC2A6B438E"
                                      id="antecedents_retinopathy" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:5F457C57-8747-4817-A2FA-26BC2A6B438E').name" />-->
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="MSF:E889434F-3CB9-47B6-942A-6D714ECB8899" labelText="Renal failure"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:E889434F-3CB9-47B6-942A-6D714ECB8899"
                                      id="antecedents_renal_failure" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:E889434F-3CB9-47B6-942A-6D714ECB8899').name" />-->
                             </td>
                             <td>
-                                <obs conceptId="MSF:7ABB956F-81FA-4CB2-9D7D-6136B1CBF1F1"
-                                     labelText="Diabete + renal impairment"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:7ABB956F-81FA-4CB2-9D7D-6136B1CBF1F1"
                                      id="antecedents_diabetes_renal_impairment" style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:7ABB956F-81FA-4CB2-9D7D-6136B1CBF1F1').name" />-->
                             </td>
                             <td>
-                                <obs conceptId="MSF:40D2D1D7-1382-42D6-8719-67C0757E4D3C"
-                                     labelText="Hypertension + renal impairment"
+                                <obs conceptId="ef656ae9-897d-4236-b640-ae060f71796f" answerConceptId="MSF:40D2D1D7-1382-42D6-8719-67C0757E4D3C"
                                      id="antecedents_hypertension_renal_impairment"
                                      style="checkbox"/>
-                                <!--<lookup expression="fn.getConcept('MSF:40D2D1D7-1382-42D6-8719-67C0757E4D3C').name" />-->
-                            </td>
+                             </td>
                         </tr>
-
+                        </obsgroup>
                     </table>
 
-                    <h5>Cardiovascular risk score:</h5>
+                    <h5><lookup expression="fn.getConcept('39979ffb-48b1-4c74-84f2-6df36a253cb1').name" />:</h5>
                     <table>
+	                    <obsgroup groupingConceptId="39979ffb-48b1-4c74-84f2-6df36a253cb1">
                         <tr>
                             <td class="left-th" width="18%">
                                 <span>
@@ -181,39 +168,39 @@
                                      style="radio"/>
                             </td>
                         </tr>
+                        </obsgroup>
                     </table>
 
+                    <h5><lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.otherpastmedicalhistory')"/>:</h5>
+                    <obs conceptId="160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="4" cols="60"/>
 
-                    <h5>Other past medical history</h5>
-                    <obs conceptId="160221" rows="4" cols="60"/>
-                    <!--<textarea cols="60" rows="6" placeholder="Write in as much details any other past medical history"></textarea>-->
-
-
-                    <h5>Family history</h5>
+                    <h5> <lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.familyhistory')"/>:</h5>
                     <table width="90%">
+                    	<obsgroup groupingConceptId="23b6f689-0484-4b5f-8094-2d83ce733335">
                         <tr>
                             <td>
-                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="5108a071-b9b6-4405-8afa-9f7657b247b9" answerLabel="Diabetes"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="5108a071-b9b6-4405-8afa-9f7657b247b9"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="2e7b4eb2-a6c9-4d8f-9734-2832d0706066" answerLabel="Premature CV Event &lt;50"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="2e7b4eb2-a6c9-4d8f-9734-2832d0706066"
                                      style="checkbox"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="135315" answerLabel="Malignant Hyperthermia"
+                                <obs conceptId="23b6f689-0484-4b5f-8094-2d83ce733335" answerConceptId="135315AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                                      style="checkbox"/>
                             </td>
                         </tr>
+                        </obsgroup>
                     </table>
+                    <!-- Submit -->
+                    <button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
                 </section>
             </div>
-            <!-- Submit -->
-            <button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
         </div>
     </div>
 

@@ -228,8 +228,8 @@
                                 </section>
 
                                 <div class="hide-on-view">
-                                    <button class="addEntry" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.addallergy')"/></button> 
-                                    <button class="removeEntry" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.removeallergy')"/></button>
+                                    <button class="addEntry" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
+                                    <button class="removeEntry" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                                 </div>
                                    
                             </div>

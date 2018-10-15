@@ -1,12 +1,14 @@
 package org.openmrs.module.msfcore.formactions;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
+import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
 import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
@@ -19,6 +21,7 @@ public class RequestAppointmentAction {
 
     public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations) {
         String notes = "";
+        String appointmentTypeUuid = "";
         Date requestedDate = null;
 
         for (Obs obs : observations) {
@@ -27,6 +30,9 @@ public class RequestAppointmentAction {
             }
             if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID)) {
                 notes = obs.getValueText();
+            }
+            if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID)) {
+                appointmentTypeUuid = obs.getValueText();
             }
         }
 
@@ -39,9 +45,18 @@ public class RequestAppointmentAction {
             appointmentService = Context.getService(AppointmentService.class);
         }
 
+        AppointmentType appointmentType = appointmentService.getAppointmentTypeByUuid(appointmentTypeUuid);
+
+        List<AppointmentRequest> appointmentRequests = appointmentService.getAllAppointmentRequests(false);
+        for (AppointmentRequest request : appointmentRequests) {
+            if (request.getAppointmentType() == appointmentType && request.getPatient().getId() == patient.getId()
+                            && DateUtils.sameDate(now, request.getDateCreated()) && request.getStatus() == AppointmentRequestStatus.PENDING) {
+                return null;
+            }
+        }
+
         AppointmentRequest appointmentRequest = new AppointmentRequest();
-        appointmentRequest
-                        .setAppointmentType(appointmentService.getAppointmentTypeByUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID));
+        appointmentRequest.setAppointmentType(appointmentType);
         appointmentRequest.setNotes(notes);
         appointmentRequest.setPatient(patient);
         appointmentRequest.setMinTimeFrameUnits(TimeFrameUnits.DAYS);

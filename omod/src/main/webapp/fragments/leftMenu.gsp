@@ -16,6 +16,13 @@ if (jQuery) {
         jq("#referpatient").attr("href", jq("#referpatient-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#patienttargets").attr("href", jq("#patient-targets-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#requestappointment").attr("href", jq("#request-appointment-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+
+        //handle nav bar button clicks
+        jq(".msf-operation-button").on("click", function() {
+            jq("#msf-operation").attr("value", this.value);
+			return true;
+        });
+
     });
 
 }
@@ -76,10 +83,9 @@ if (jQuery) {
             </li>
         </ol>
 
-        <!-- Commented out as per Bianca recomendation, until we get the requirements sorted -->
-        <!-- button class="nav-button final">
-            <i class="fas fa-lock"></i>
-            ${ui.message("msfcore.save.final")}
-        </button -->
+        <button class="nav-button msf-operation-button save" value="save.and.exit.action">${ui.message('msfcore.save.and.exit')}</button>
+        <button class="nav-button msf-operation-button final" value="complete.action">${ui.message('msfcore.save.final')}</button>
+	    <input id="msf-operation" name="msf.operation" type="hidden" />
+
     </div>
 </div>
