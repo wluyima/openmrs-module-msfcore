@@ -445,6 +445,7 @@
   <!-- Request appointment concepts -->
   <concept concept_id="6000000" retired="0" datatype_id="3" class_id="7" is_set="0" creator="1" date_created="2018-10-01 14:46:04" changed_by="1" date_changed="2018-10-01 14:46:04" uuid="f3a76818-3ff4-4d94-9c51-be295cad43a1" />
   <concept_name concept_id="6000000" name="Request Appointment Comment" locale="en" creator="1" date_created="2018-10-01 14:46:04" concept_name_id="6000000" voided="false" uuid="f3a76818-3ff4-4d94-9c51-be295cad43a2" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept concept_id="6000009" retired="0" datatype_id="3" class_id="7" is_set="0" creator="1" date_created="2018-10-01 14:46:04" changed_by="1" date_changed="2018-10-01 14:46:04" uuid="d0475b32-6987-43b3-a618-b975f4967ba5" />
 
   <!-- LifeStyle Concepts -->
   <concept concept_id="3000000" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2018-10-05 03:56:08.0" changed_by="1" date_changed="2018-10-05 11:20:14.0" retired_by="1" uuid="3f52044b-6a62-46af-8257-106937a25b45" />

@@ -19,6 +19,7 @@ public class RequestAppointmentAction {
 
     public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations) {
         String notes = "";
+        String appointmentTypeUuid = "";
         Date requestedDate = null;
 
         for (Obs obs : observations) {
@@ -27,6 +28,9 @@ public class RequestAppointmentAction {
             }
             if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID)) {
                 notes = obs.getValueText();
+            }
+            if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID)) {
+                appointmentTypeUuid = obs.getValueText();
             }
         }
 
@@ -40,8 +44,7 @@ public class RequestAppointmentAction {
         }
 
         AppointmentRequest appointmentRequest = new AppointmentRequest();
-        appointmentRequest
-                        .setAppointmentType(appointmentService.getAppointmentTypeByUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID));
+        appointmentRequest.setAppointmentType(appointmentService.getAppointmentTypeByUuid(appointmentTypeUuid));
         appointmentRequest.setNotes(notes);
         appointmentRequest.setPatient(patient);
         appointmentRequest.setMinTimeFrameUnits(TimeFrameUnits.DAYS);
