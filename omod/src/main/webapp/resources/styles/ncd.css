@@ -1,36 +1,16 @@
 /* NCD Forms styling */
 
-html, body{
-    height:100%;
-}
-
-#htmlform {
-  background: #fff;
-  height: 100%;
-
-}
-#htmlform h4 {
-  font-family: "OpenSansSemiBold", Arial, sans-serif;
-}
-#htmlform h4,
-#htmlform h5,
-#htmlform h6 {
-  color: #618696;
-}
-
-.float-left {float: left;}
-
 .wrapper {
   overflow: hidden;
   height: 100%;
   clear: both;
-  margin-top:7px;
+  margin-top: 7px;
+  display: flex;
 }
 
 .left-column {
   background: #55D6BE;
   width: 30%;
-  height:100%;
   overflow: hidden;
   float: left;
 }
@@ -44,9 +24,7 @@ html, body{
 }
 
 .left-column .left-navigation ol {
-  margin-left:20px;
-  margin-top:20px;
-  margin-bottom: 20px;
+  margin:20px 0 20px 20px;
   width: 103%;
   color: #fff;
 }
@@ -60,7 +38,7 @@ html, body{
   background: #4EC3AD;
 }
 
-.left-column .left-navigation ol li a{
+.left-column .left-navigation ol li a {
   color: #fff;
   font-size: 18px;
   line-height: 18px;
@@ -141,12 +119,14 @@ html, body{
   margin-bottom: 10px;
   text-transform: uppercase;
 }
+
 .section {
   border: 1px solid $headerColor;
   padding: 2px;
   text-align: left;
   margin-bottom: 1em;
 }
+
 .sectionHeader {
   background-color: $headerColor;
   color: $fontOnHeaderColor;
@@ -154,49 +134,24 @@ html, body{
   padding: 2px;
   font-weight: bold;
 }
+
 table.baseline-aligned td {
   vertical-align: baseline;
 }
-.btn:active
-{
+.btn:active {
   background-color:yellow;
 }
 
-.btn.active
-{
+.btn.active {
   color: #white;
   background-color:darkgrey;
 }
 
-form label, .form label {
-  margin-top: 0;
-  float:left;
-  margin-left: 24px;
-  margin-right: 20px;
-  font-size: 14px;
-  line-height: 19px;
-}
-form input[type="radio"], .form input[type="radio"] {
-  width: 13px;
-}
-form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
-  float: left;
-  display: initial;
-  margin-right: -24px;
-}
-form input[type="checkbox"], .form input[type="checkbox"] {
-  padding: 6px;
-}
-form input[type="checkbox"]:checked:after, .form input[type="checkbox"]:checked:after {
-  font-size: 11px;
-}
 table th, table td {
   border: 0;
   padding:5px;
 }
-form input, form select, form textarea, form ul.select, .form input, .form select, .form textarea, .form ul.select {
-  min-width: 10%;
-}
+
 td.left-th {
   background: #618696;
 }
@@ -221,12 +176,18 @@ input#diagnosis-search {
   color: #618696;
   font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
+
 #display-encounter-diagnoses-container li .diagnosis {
-  background: #618696;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+  color: #333;
 }
+
 #display-encounter-diagnoses-container li .diagnosis.primary {
-  border-left: 8px #55D6BE solid;
+  border-left: 4px #55D6BE solid;
 }
+
 #display-encounter-diagnoses-container li .diagnosis .actions input {
   float: inherit;
   margin:3px 5px 0px 10px;
@@ -248,17 +209,85 @@ input#diagnosis-search {
     margin-right: 10px;
     margin-left: 0;
   }
+
 #display-encounter-diagnoses-container li .diagnosis .actions {
-  margin-top: 0;
+    margin-top: 0;
+    height: 3rem;
+    background: none;
+    border-top: 0px solid #373F46;
+    box-shadow: none;
 }
+
 .right-form-display .sections-container .section .add-box table tr:nth-child(odd),
 .right-form-display .sections-container .section .add-box table tr:nth-child(even) {
   background: none;
 }
+
 .right-form-display .sections-container .section .add-box table tr {
   border:none;
 }
+
 .right-form-display .sections-container .section .add-box table tr td {
   padding-left: 0;
   vertical-align: top;
+}
+
+input.submitButton {
+  float: right;
+  margin: 24px;
+}
+
+
+.input-group form input[type="checkbox"], 
+.input-group .form input[type="checkbox"] {
+  margin:4px;
+}
+
+
+/* Allergies */
+
+span[id*="allergy-type-"] label {
+  float: left;
+  padding: 24px;
+  width: 30%;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
+  margin: -8px 25px 16px -24px !important;
+}
+span[id*="allergy-type-"] input[type="radio"] {
+  padding:24px;
+}
+
+span[id*="allergy-type-"] input[type="radio"]:checked + label {
+  background:#55D6BE;
+  color:#fff;
+  border:none;
+  box-shadow: inset rgba(0,0,0,0.3) 0 1px 2px;
+}
+
+.allergy-tab {
+  padding: 24px;
+  margin-top:64px;
+  border: 2px solid #55D6BE;
+  border-radius: 8px;
+}
+
+.allergy-tab > input[type=radio] + label {
+  float:none;
+  margin:4px;
+}
+
+.input-group {
+  padding: 4px;
+}
+
+.list-of-checkboxes {
+  display: flex;
+}
+
+.list-of-checkboxes .column {
+  width:249px;
 }

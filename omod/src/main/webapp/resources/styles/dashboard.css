@@ -16,18 +16,23 @@
     border: none;
     border-radius: 8px 8px 0 0;
     box-shadow:rgba(0,0,0,0.1) 0 -2px 8px;
-    margin: 0 0 -8px 0;
+    margin: 0 0 -10px 0;
     overflow: hidden;
     padding: 16px;
     position: relative;
     z-index: 0;
 }
 
+.patient-header .demographics {
+    height: 48px;
+}
+
 .patient-header .demographics h1.name {
     color:#fff;
-    font-family: 'OpenSansSemiBold', Arial, sans-serif;
+    font-family: "OpenSansSemiBold", Arial Bold, Arial, Helvetica, sans-serif;
     font-size:2rem;
     margin-left: 24px;
+    height:3rem;
 }
 
 .patient-header .demographics .name span:nth-of-type(1),
@@ -37,7 +42,7 @@
 }
 
 .patient-header .demographics .name span.gender-age {
-    font-family:'OpenSansRegular', Arial, sans-serif;
+    font-family:'OpenSans', Arial, sans-serif;
 }
 
 #edit-patient-demographics {
@@ -105,6 +110,7 @@
 }
 
 .dashboard .action-section h3 {
+    font-size: 1.8rem;
     margin-top:0px;
 }
 
@@ -143,7 +149,7 @@
 }
 
 .dashboard .info-header h3 {
-    font-family: "OpenSansSemiBold", Arial, sans-serif;
+    font-family: "OpenSansSemiBold", Arial Bold, Arial, Helvetica, sans-serif;
     padding-left: 6px;
     color: #fff;
 }
@@ -169,6 +175,7 @@
 .dashboard .info-body {
     color:#373F46;
     border-radius: 0 0 8px 8px;
+    min-height: 32px;
     padding: 16px;
 }
 

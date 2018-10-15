@@ -34,6 +34,13 @@ h1,h2,h3,h4 {
     font-family: "OpenSansLight", Arial, sans-serif;
 }
 
+#htmlform h4,
+#htmlform h5,
+#htmlform h6 {
+    color: #618696;
+    margin-top: 32px;
+}
+
 h5,h6 {
   color: #373F46;
   font-family: "OpenSansSemiBold", Arial, sans-serif;
@@ -53,6 +60,11 @@ h3 {
 h4 {
     font-size: 1.4rem;
 }
+
+#htmlform h4 {
+    font-family: "OpenSansSemiBold", Arial, sans-serif;
+}
+
 h5 {
     font-size: 1.1rem;
     margin:15px 0 5px;
@@ -64,4 +76,6 @@ h6 {
 h6 i::before {
     width:20px;
 }
+
 .bold {font-weight: 700}
+
