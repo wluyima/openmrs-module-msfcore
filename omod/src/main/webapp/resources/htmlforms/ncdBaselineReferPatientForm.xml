@@ -98,7 +98,7 @@
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
 					<!-- Submit -->
-					<button><lookup expression="fn.message('msfcore.save.and.exit')"/></button>
+					<button class="no-print"><lookup expression="fn.message('msfcore.save.and.exit')"/></button>
 				</section>
 
 			</div>

@@ -11,54 +11,60 @@
         fontOnHeaderColor = white
     </macros>
 
+
     <script type="text/javascript">
 
-        var NUMBER_ENTRIES = 10;
 
-        if (jQuery) {
-            jq(document).ready(function () {
+            var NUMBER_ENTRIES = 10;
 
-				<!-- handle adding entries -->
-                jq('button.addEntry').on("click", function() {
-					var indexToShow =  getIndexFromId(this.id) + 1;
-					jq(`#${indexToShow}-toggleContainer`).show();
-					return false;
+            if (jQuery) {
+                jq(document).ready(function () {
+                    <ifMode mode="VIEW">
+                            <!-- Hide the buttons in view mode -->
+                            jq('button.no-print').hide();
+                    </ifMode>
+                    <!-- handle adding entries -->
+                    jq('button.addEntry').on("click", function() {
+                        var indexToShow =  getIndexFromId(this.id) + 1;
+                        jq(`#${indexToShow}-toggleContainer`).show();
+                        return false;
+                    });
+
+                    <!-- handle removing entries -->
+                    jq('button.removeEntry').on("click", function() {
+                        var indexToHide =  getIndexFromId(this.id);
+                        jq(`#${indexToHide}-toggleContainer`).hide();
+                        return false;
+                    });
+
+                    <!-- show entries that are in use -->
+                    jq.each(getUsedContainers(), (index, container) => container.show());
+
+                    <!-- remove the buttons that will not be used -->
+                    jq(`#1-removeEntry`).remove();
+                    jq(`#${NUMBER_ENTRIES}-addEntry`).remove();
+
                 });
 
-				<!-- handle removing entries -->
-                jq('button.removeEntry').on("click", function() {
-					var indexToHide =  getIndexFromId(this.id);
-					jq(`#${indexToHide}-toggleContainer`).hide();
-					return false;
-                });
+                function getUsedContainers() {
+                    var usedContainers = [];
+                    for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                        var containerId = `${i}-toggleContainer`;
+                        if (i == 1 || getValue(`allergy-type-${i}.value`) != "") {
+                            usedContainers.push(jq(`#${i}-toggleContainer`));
+                        }
+                    }
+                    return usedContainers;
+                }
 
-                <!-- show entries that are in use -->
-				jq.each(getUsedContainers(), (index, container) => container.show());
-
-				<!-- remove the buttons that will not be used -->
-				jq(`#1-removeEntry`).remove();
-				jq(`#${NUMBER_ENTRIES}-addEntry`).remove();
-
-            });
-
-            function getUsedContainers() {
-				var usedContainers = [];
-				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
-                    var containerId = `${i}-toggleContainer`;
-					if (i == 1 || getValue(`allergy-type-${i}.value`) != "") {
-						usedContainers.push(jq(`#${i}-toggleContainer`));
-					}
-				}
-				return usedContainers;
-			}
-
-            function getIndexFromId(id) {
-				return parseInt(id.split('-')[0]);
-			}
+                function getIndexFromId(id) {
+                    return parseInt(id.split('-')[0]);
+                }
+            }
 
 
-        }
     </script>
+
 
     <div class="wrapper">
         <uiInclude provider="msfcore" fragment="leftMenu"/>
@@ -253,7 +259,7 @@
                         <render allergy="10"/>
                     </repeat>
                     <!-- Submit -->
-                    <button><lookup expression="fn.message('msfcore.next')"/></button>
+                    <button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
                 </section>
             </div>
             

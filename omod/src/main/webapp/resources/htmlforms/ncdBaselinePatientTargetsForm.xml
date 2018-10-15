@@ -9,6 +9,13 @@
 		headerColor =#009d8e
 		fontOnHeaderColor = white
 	</macros>
+	<script type="text/javascript">
+        jq(document).ready(function () {
+        	<ifMode mode="VIEW">
+                jq('button.no-print').hide();
+        	</ifMode>
+        });
+	</script>
 
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
@@ -61,7 +68,7 @@
 							</tr>
 						</table>
                         <!-- Submit -->
-                        <button><lookup expression="fn.message('msfcore.next')"/></button>
+                        <button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
 					</section>
 			</div>
 		</div>
