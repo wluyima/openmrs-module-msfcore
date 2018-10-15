@@ -143,8 +143,8 @@ a:visited, a.visited {
 #content.container {
     margin: 3rem 0 6rem 0;
     border-radius: 8px;
-    background: #fff;
-    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    /*background: #fff;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;*/
 }
 
 .simple-form-ui form#htmlform {
@@ -366,4 +366,97 @@ div#appointmentscheduling-manageAppointments {
 
 div#appointmentscheduling-manageAppointments > div {
     margin-bottom:2rem;
+}
+
+/* APPOINTMENT SCHEDULING */
+
+.appointment-filter,
+#filter-parameters {
+    color:#fff;
+    padding: 24px;
+    background: #55D6BE;
+    border-radius: 8px 8px 0 0;
+    box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.appointment-filter {
+    border-radius: 0 8px 0 0;
+    z-index:5;
+    position: relative;
+}
+
+#filter-date ~ h1 {
+    float:left;
+    margin-right: 384px
+}
+
+#filter-date, #filter-location {
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+    padding: 16px;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 4px;
+}
+
+#filter-date {
+    padding-left: 24px;
+    padding-right: 0px;
+}
+
+#filter-date input {
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.appointment-filter input,
+.appointment-filter select,
+#filter-parameters input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #4EC3AD;
+    box-shadow: inset rgba(0,0,0,0.2) 0 1px 2px;
+}
+
+#filter-parameters .viewAllAppointmentTypes,
+.appointment-filter .viewAllAppointmentTypes {
+    display: none;
+}
+
+.selectmultipleBox {
+    font-size: 1rem;
+    border:none;
+}
+
+.fc-header tr td,
+.fc-header-left,  
+.fc-header-right,
+table td:last-child {
+    padding:16px;
+}
+
+.fc-content {
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+#appointmentTypesTable tr td span {
+    display: inline-block;
+    min-width: 10rem;
+}
+
+#noDailyAppointments {
+    padding: 16px;
+    text-align: center;
+    background: #538CAC;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: inset rgba(0,0,0,0.5) 0 2px 4px -2px;
+    color: #fff;
+}
+
+#appointmentscheduling-patientAppointmentRequests > div > h2 {
+    display: none;
 }

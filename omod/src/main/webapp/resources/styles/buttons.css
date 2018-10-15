@@ -266,11 +266,15 @@ a.view-details {
 #patient-search-clear-button {
     color: #373F46;
     margin-left: -36px;
+    right: 42px;
 }
+
+/*
+Causes an issue on Manage Service Types
 
 .delete-item:first-of-type {
     margin-right: 0;
-}
+}*/
 
 .view-action.icon-file-alt::after,
 #patient-search-clear-button::after,
