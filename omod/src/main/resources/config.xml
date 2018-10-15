@@ -140,7 +140,7 @@
 	</globalProperty>
 	<globalProperty>
 		<property>concept.medications</property>
-		<defaultValue>163560,163561,163562,163563,163564,163565,163566,163567,163568,163569,163543</defaultValue>
+		<defaultValue>463560,463561,463562,463563,463564,463565,463566,463567,463568,463569,463543</defaultValue>
 		<description>Concept ids for the concepts defining medications</description>
 	</globalProperty>
 	<globalProperty>
@@ -155,7 +155,7 @@
 	</globalProperty>
 	<globalProperty>
 		<property>concept.labResults</property>
-		<defaultValue>163596,163630,163631,163632,163629,163582,163583,163574</defaultValue>
+		<defaultValue>463596,463630,463631,463632,463629,463582,463583,463574</defaultValue>
 		<description>Concept ids for the concepts defining medications</description>
 	</globalProperty>
 	

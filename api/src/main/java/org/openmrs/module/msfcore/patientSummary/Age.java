@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Age extends org.openmrs.module.reporting.common.Age {
-    
+
     @Setter
     @Getter
     @JsonIgnore

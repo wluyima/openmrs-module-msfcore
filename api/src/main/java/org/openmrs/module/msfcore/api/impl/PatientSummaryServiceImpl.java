@@ -93,15 +93,18 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         } else if (concept.getConceptId().equals(
                         Integer.parseInt(Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_WEIGHT)))) {
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_KILOGRAMS);
-        } else if (concept.getConceptId().toString()
-                        .matches(Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_PULSE) + "|" + Context
-                                        .getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_RESPIRATORY_RATE))) {
+        } else if (concept.getConceptId().toString().matches(
+                        Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_PULSE)
+                                        + "|"
+                                        + Context.getAdministrationService()
+                                                        .getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_RESPIRATORY_RATE))) {
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_PER_MINUTE);
         } else if (concept.getConceptId().equals(
                         Integer.parseInt(Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_TEMPERATURE)))) {
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_DEGREES);
-        } else if (concept.getConceptId().equals(Integer.parseInt(
-                        Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_BLOOD_OXYGEN_SATURATION)))) {
+        } else if (concept.getConceptId().equals(
+                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                        OMRSConstants.GP_CONCEPT_ID_BLOOD_OXYGEN_SATURATION)))) {
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_PERCENT);
         } else {
             return "";
@@ -133,8 +136,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     private Observation getBMI(Observation weight, Observation height) {
         ObservationBuilder bmi = Observation.builder().name("BMI");
         if (observationValueBlank(weight.getValue()) && observationValueBlank(height.getValue())) {
-            bmi.value(cleanObservationValue(Double.toString(roundABout(
-                            Double.parseDouble(weight.getValue()) / (Math.pow(Double.parseDouble(height.getValue()) * 0.01, 2)), 2))));
+            bmi.value(cleanObservationValue(Double.toString(roundABout(Double.parseDouble(weight.getValue())
+                            / (Math.pow(Double.parseDouble(height.getValue()) * 0.01, 2)), 2))));
         }
         return bmi.build();
     }
@@ -176,14 +179,13 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
     private List<Vitals> getVitals(Patient patient) {
         List<Vitals> vitals = new ArrayList<Vitals>();
-        EncounterSearchCriteria encSearch = new EncounterSearchCriteriaBuilder().setPatient(patient)
-                        .setEncounterTypes(Arrays.asList(Context.getEncounterService()
-                                        .getEncounterType(Integer.parseInt(Context.getAdministrationService()
-                                                        .getGlobalProperty(OMRSConstants.GP_ENCOUNTER_TYPE_ID_VITALS)))))
-                        .createEncounterSearchCriteria();
-        List<Obs> vitalsObs = Context.getObsService().getObservations(Arrays.asList(patient.getPerson()),
-                        Context.getEncounterService().getEncounters(encSearch), null, null, null, null, null, null, null, null, null,
-                        false);
+        EncounterSearchCriteria encSearch = new EncounterSearchCriteriaBuilder().setPatient(patient).setEncounterTypes(
+                        Arrays.asList(Context.getEncounterService().getEncounterType(
+                                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                                        OMRSConstants.GP_ENCOUNTER_TYPE_ID_VITALS))))).createEncounterSearchCriteria();
+        List<Obs> vitalsObs = Context.getObsService()
+                        .getObservations(Arrays.asList(patient.getPerson()), Context.getEncounterService().getEncounters(encSearch), null,
+                                        null, null, null, null, null, null, null, null, false);
         // arrange obs by encounter
         Collections.sort(vitalsObs, new Comparator<Obs>() {
             @Override
@@ -240,17 +242,16 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     private void setAllergies(Patient patient, PatientSummary patientSummary) {
         for (org.openmrs.Allergy a : Context.getPatientService().getAllergies(patient)) {
             AllergyBuilder allergyBuilder = Allergy.builder();
-            allergyBuilder.name(a.getAllergen().getCodedAllergen() != null
-                            ? a.getAllergen().getCodedAllergen().getName().getName()
-                            : a.getAllergen().getNonCodedAllergen());
+            allergyBuilder.name(a.getAllergen().getCodedAllergen() != null ? a.getAllergen().getCodedAllergen().getName().getName() : a
+                            .getAllergen().getNonCodedAllergen());
             if (a.getSeverity() != null) {
                 allergyBuilder.severity(a.getSeverity().getName().getName());
             }
             Allergy allergy = allergyBuilder.build();
             for (AllergyReaction reaction : a.getReactions()) {
-                allergy.getReactions().add(reaction.getReaction() != null
-                                ? reaction.getReaction().getName().getName()
-                                : reaction.getReactionNonCoded());
+                allergy.getReactions().add(
+                                reaction.getReaction() != null ? reaction.getReaction().getName().getName() : reaction
+                                                .getReactionNonCoded());
             }
             patientSummary.getAllergies().add(allergy);
         }
@@ -260,8 +261,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
 
         if (defaultLocation != null) {
-            if (defaultLocation.getTags()
-                            .contains(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC))) {
+            if (defaultLocation.getTags().contains(
+                            Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC))) {
                 patientSummarybuilder.facility(defaultLocation.getName() + ", " + defaultLocation.getParentLocation().getName());
             } else {
                 patientSummarybuilder.facility(defaultLocation.getName());
@@ -296,8 +297,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         setFacility(patientSummarybuilder);
 
         // set demographics
-        patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName())
-                        .age(new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
+        patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
+                        new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
 
         PatientSummary patientSummary = patientSummarybuilder.build();
 
@@ -306,9 +307,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
         // set working diagnoses
         for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
-            String d = diagnosis.getDiagnosis().getCoded() != null
-                            ? diagnosis.getDiagnosis().getCoded().getName().getName()
-                            : diagnosis.getDiagnosis().getNonCoded();
+            String d = diagnosis.getDiagnosis().getCoded() != null ? diagnosis.getDiagnosis().getCoded().getName().getName() : diagnosis
+                            .getDiagnosis().getNonCoded();
             DiseaseBuilder dB = Disease.builder().name(d);
             patientSummary.getDiagnoses().add(dB.build());
         }
@@ -323,8 +323,11 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         }
 
         // set clinical notes
-        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(patient, Context.getConceptService().getConcept(
-                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
+        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(
+                        patient,
+                        Context.getConceptService().getConcept(
+                                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                                        OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
             patientSummary.getClinicalNotes().add(convertObs(obs));
         }
 
@@ -346,13 +349,13 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     public PatientSummary requestPatientSummary(Patient patient) {
         PatientSummary summary = generatePatientSummary(patient);
         // log audit log
-        AuditLog requestLog = AuditLog.builder().event(Event.REQUEST_PATIENT_SUMMARY)
-                        .detail(Context.getMessageSourceService()
-                                        .getMessage("msfcore.requestPatientSummary",
+        AuditLog requestLog = AuditLog.builder().event(Event.REQUEST_PATIENT_SUMMARY).detail(
+                        Context.getMessageSourceService()
+                                        .getMessage(
+                                                        "msfcore.requestPatientSummary",
                                                         new Object[]{patient.getPersonName().getFullName(),
-                                                                        patient.getPatientIdentifier().getIdentifier()},
-                                                        null))
-                        .user(Context.getAuthenticatedUser()).patient(patient).build();
+                                                                        patient.getPatientIdentifier().getIdentifier()}, null)).user(
+                        Context.getAuthenticatedUser()).patient(patient).build();
         Context.getService(AuditService.class).saveAuditLog(requestLog);
         return summary;
     }
