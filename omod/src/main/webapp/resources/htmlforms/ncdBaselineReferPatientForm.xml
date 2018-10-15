@@ -121,6 +121,6 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/coreapps/clinicianfacing/patient.page?patientId={{patient.id}}&amp;app=msfcore.app.clinicianDashboard" />
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=a9f3411c-03d8-4652-8143-886d572cbf4d&amp;patientId={{patient.id}}" />
 
     </htmlform>

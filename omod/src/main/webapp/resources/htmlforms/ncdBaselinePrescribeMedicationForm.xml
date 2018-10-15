@@ -177,5 +177,5 @@
 
 	</ifMode>
 	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26&amp;patientId={{patient.id}}&amp;visitId={{visit.id}"/>
+			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26&amp;patientId={{patient.id}}"/>
 </htmlform>
