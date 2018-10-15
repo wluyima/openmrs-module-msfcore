@@ -521,5 +521,48 @@
   
   <concept_numeric concept_id="7000002" allow_decimal="false"/>
   <concept_numeric concept_id="7000003" allow_decimal="false"/>
+  
+  <concept concept_id="3000005" retired="false" datatype_id="2" class_id="10" is_set="true" creator="1" date_created="2018-10-15 15:17:28.0" changed_by="1" date_changed="2018-10-15 15:56:05.0" retired_by="1" uuid="e556545d-405f-4dde-9752-2b259140d84d"/>
+  <concept_name concept_name_id="3000005" concept_id="3000005" name="History of atherosclerotic vascular disease (ASCVD)" locale="en" locale_preferred="true" creator="1" date_created="2018-10-15 15:37:18.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="ca18ecf5-b71b-4c27-8838-8c299cfb3a16" changed_by="1"/>
+
+  <concept_answer concept_answer_id="7000098" concept_id="3000005" answer_concept="463375" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="1.0" uuid="7626eb2a-23d1-48b8-ae78-6fbf793642d7"/>
+  <concept_answer concept_answer_id="7000099" concept_id="3000005" answer_concept="463376" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="2.0" uuid="c1fd0111-5b0f-44ef-982e-ee91a88d1f9f"/>
+  <concept_answer concept_answer_id="7000100" concept_id="3000005" answer_concept="463377" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="3.0" uuid="b9b2b5ed-9a52-4303-9c7d-888d5819545a"/>
+  <concept_answer concept_answer_id="7000101" concept_id="3000005" answer_concept="463378" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="4.0" uuid="6d450b2c-b290-43a1-ada2-45132434972f"/>
+  <concept_answer concept_answer_id="7000102" concept_id="3000005" answer_concept="463379" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="5.0" uuid="11080caf-ff3d-4f86-85dc-b4bf49812fb3"/>
+  <concept_answer concept_answer_id="7000103" concept_id="3000005" answer_concept="463380" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="6.0" uuid="96eaf6e9-773e-4c2d-ab9e-2c261dc09148"/>
+  <concept_answer concept_answer_id="7000104" concept_id="3000005" answer_concept="463381" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="7.0" uuid="19519852-014f-45b2-9d53-85762c22f42a"/>
+  <concept_answer concept_answer_id="7000105" concept_id="3000005" answer_concept="463382" creator="1" date_created="2018-10-15 15:56:05.0" sort_weight="8.0" uuid="67dc98be-abc8-4934-b25a-9f0d8da41591"/>
+  <concept_set concept_set_id="3000005" concept_id="463375" concept_set="3000005" sort_weight="0.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="7945c482-b97d-4e00-b01c-b8bfb5c42ab4"/>
+  <concept_set concept_set_id="3000006" concept_id="463376" concept_set="3000005" sort_weight="1.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="32b12e8e-6167-4cd8-965c-f9d6eddf03a2"/>
+  <concept_set concept_set_id="3000007" concept_id="463377" concept_set="3000005" sort_weight="2.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="d4030d03-9aba-47a7-88ab-b34a6703d05c"/>
+  <concept_set concept_set_id="3000008" concept_id="463378" concept_set="3000005" sort_weight="3.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="ff84d3d5-87d1-4d96-bbd3-d67d384401fe"/>
+  <concept_set concept_set_id="3000009" concept_id="463379" concept_set="3000005" sort_weight="4.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="56402057-18ab-487d-b479-0144c91418da"/>
+  <concept_set concept_set_id="3000010" concept_id="463380" concept_set="3000005" sort_weight="5.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="fb16065b-3276-4de7-a357-b1d2a797193f"/>
+  <concept_set concept_set_id="3000011" concept_id="463381" concept_set="3000005" sort_weight="6.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="55535d98-0335-4b80-9049-375c992e6632"/>
+  <concept_set concept_set_id="3000012" concept_id="463382" concept_set="3000005" sort_weight="7.0" creator="1" date_created="2018-10-15 15:56:05.0" uuid="048750d8-7cee-473b-80ca-865f69bf4d19"/>
+  
+  <concept concept_id="3000006" retired="false" datatype_id="2" class_id="10" is_set="true" creator="1" date_created="2018-10-15 15:19:10.0" changed_by="1" date_changed="2018-10-15 15:59:56.0" retired_by="1" uuid="ef656ae9-897d-4236-b640-ae060f71796f"/>
+  <concept_name concept_name_id="6000020" concept_id="3000006" name="History of target organ damage" locale="en" locale_preferred="true" creator="1" date_created="2018-10-15 15:19:10.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="9a7f08b5-14bc-4769-a5b5-0a1698f3e9d3" changed_by="1"/>
+
+  <concept_answer concept_answer_id="7000106" concept_id="3000006" answer_concept="463383" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="1.0" uuid="56210f01-c0ec-4aa3-ab28-2c9a218d759d"/>
+  <concept_answer concept_answer_id="7000107" concept_id="3000006" answer_concept="463384" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="2.0" uuid="3e96c82c-7447-409d-930e-ce3e9e183bda"/>
+  <concept_answer concept_answer_id="7000108" concept_id="3000006" answer_concept="463385" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="3.0" uuid="cca39cf3-ea74-48e4-ac48-b6fd90d31e57"/>
+  <concept_answer concept_answer_id="7000109" concept_id="3000006" answer_concept="463386" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="4.0" uuid="a1f32829-4241-4202-9ce3-4a85cd6c231a"/>
+  <concept_answer concept_answer_id="7000110" concept_id="3000006" answer_concept="463387" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="5.0" uuid="1d2a20b4-b7c2-4f5a-9267-12786a332506"/>
+  <concept_answer concept_answer_id="7000111" concept_id="3000006" answer_concept="463388" creator="1" date_created="2018-10-15 15:59:56.0" sort_weight="6.0" uuid="8306a31c-0bbb-4102-8ac3-bd3855cf23e6"/>
+  <concept_set concept_set_id="3000013" concept_id="463383" concept_set="3000006" sort_weight="0.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="bf287a6b-212e-40c3-9f90-dad8ed5bcd88"/>
+  <concept_set concept_set_id="3000014" concept_id="463384" concept_set="3000006" sort_weight="1.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="ff0fa2ef-47f3-436b-b076-2bba06c63075"/>
+  <concept_set concept_set_id="3000015" concept_id="463385" concept_set="3000006" sort_weight="2.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="39f27998-04be-4a68-9593-23a1bef15ca1"/>
+  <concept_set concept_set_id="3000016" concept_id="463386" concept_set="3000006" sort_weight="3.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="d6b83f8d-f55b-4bac-b190-fe7848331424"/>
+  <concept_set concept_set_id="3000017" concept_id="463387" concept_set="3000006" sort_weight="4.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="9dd48656-3b1c-4b03-8e79-7c59cc970499"/>
+  <concept_set concept_set_id="3000018" concept_id="463388" concept_set="3000006" sort_weight="5.0" creator="1" date_created="2018-10-15 15:59:56.0" uuid="63af11c0-e9f9-4063-9d7a-fdf868e37421"/>
+
+  <concept concept_id="3000007" retired="false" datatype_id="2" class_id="10" is_set="true" creator="1" date_created="2018-10-15 15:20:46.0" changed_by="1" date_changed="2018-10-15 16:01:25.0" retired_by="1" uuid="39979ffb-48b1-4c74-84f2-6df36a253cb1"/>
+  <concept_name concept_name_id="6000021" concept_id="3000007" name="Cardiovascular risk score" locale="en" locale_preferred="true" creator="1" date_created="2018-10-15 15:20:46.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="e2642f44-680f-4244-826f-018b166f441d" changed_by="1"/>
+  <concept_answer concept_answer_id="7000112" concept_id="3000007" answer_concept="463603" creator="1" date_created="2018-10-15 16:01:25.0" sort_weight="1.0" uuid="e57baa51-23ee-40bf-b788-0c3a5709ecdb"/>
+  <concept_answer concept_answer_id="7000113" concept_id="3000007" answer_concept="463604" creator="1" date_created="2018-10-15 16:01:25.0" sort_weight="2.0" uuid="7780dd9d-98c8-46a3-9082-23faa119ba56"/>
+  <concept_set concept_set_id="3000019" concept_id="463603" concept_set="3000007" sort_weight="0.0" creator="1" date_created="2018-10-15 16:01:25.0" uuid="5be92adb-923f-408f-8990-b96f12859095"/>
+  <concept_set concept_set_id="3000020" concept_id="463604" concept_set="3000007" sort_weight="1.0" creator="1" date_created="2018-10-15 16:01:25.0" uuid="db17144a-b79e-4166-842f-67aec6a14fd9"/>
 
 </dataset>
