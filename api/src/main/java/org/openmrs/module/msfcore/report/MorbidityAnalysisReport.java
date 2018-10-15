@@ -10,7 +10,6 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
-import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
 
 /**
@@ -75,20 +74,18 @@ public class MorbidityAnalysisReport extends BaseMSFReportManager {
     }
 
     private String getDiagnosisByGenderSQLQuery() {
-        String diagnosesListConceptId = Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_PROBLEM_LIST);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT max(cn.name) as Diagnosis, ");
+        stringBuilder.append("SELECT COALESCE(d.diagnosis_non_coded, max(cn.name)) as Diagnosis, ");
         stringBuilder.append("COUNT(DISTINCT(CASE WHEN p.gender = 'M' THEN p.person_id END)) AS Male, ");
         stringBuilder.append("COUNT(DISTINCT(CASE WHEN p.gender = 'F' THEN p.person_id END)) AS Female, ");
-        stringBuilder.append("COUNT(DISTINCT p.person_id) as Total FROM obs o ");
-        stringBuilder.append("INNER JOIN concept_name cn ON o.value_coded = cn.concept_id ");
-        stringBuilder.append("INNER JOIN person p ON o.person_id = p.person_id ");
-        stringBuilder.append("WHERE o.concept_id = " + diagnosesListConceptId + " ");
-        stringBuilder.append("AND cn.locale='en' ");
-        stringBuilder.append("AND cn.locale_preferred = '1' ");
-        stringBuilder.append("AND o.obs_datetime >= :startDate ");
-        stringBuilder.append("AND o.obs_datetime <= :endDate ");
-        stringBuilder.append("group by o.value_coded, cn.name ");
+        stringBuilder.append("COUNT(DISTINCT p.person_id) as Total FROM encounter_diagnosis d ");
+        stringBuilder.append("LEFT JOIN concept_name cn ON cn.concept_id = d.diagnosis_coded ");
+        stringBuilder.append("INNER JOIN person p ON d.patient_id = p.person_id ");
+        stringBuilder.append("WHERE COALESCE(cn.locale, '') in ('en' ,'') ");
+        stringBuilder.append("AND COALESCE(cn.locale_preferred, '') in ('1', '') ");
+        stringBuilder.append("AND d.date_created >= :startDate ");
+        stringBuilder.append("AND d.date_created <= :endDate ");
+        stringBuilder.append("group by COALESCE(d.diagnosis_non_coded, d.diagnosis_coded), COALESCE(d.diagnosis_non_coded, cn.name) ");
         stringBuilder.append("order by Total desc;");
         return stringBuilder.toString();
     }
