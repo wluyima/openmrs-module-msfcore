@@ -13,7 +13,8 @@ import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.springframework.stereotype.Component;
 
 /**
- * Number of unique patients per diagnosis by gender report, to setup; run:
+ * Number of unique patients per diagnosis by gender report, auto installed in
+ * MSFCoreActivator
  */
 @Component
 public class MorbidityAnalysisReport extends BaseMSFReportManager {
