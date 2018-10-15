@@ -189,8 +189,8 @@
 										<tfoot class="hide-on-view">
 											<tr>
 												<td span="3">
-													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.add.entry')"/></button>
-													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.remove.entry')"/></button>
+													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
+													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
 												</td>
 											</tr>
 										</tfoot>

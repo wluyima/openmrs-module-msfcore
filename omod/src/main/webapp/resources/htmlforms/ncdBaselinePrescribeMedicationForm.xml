@@ -31,8 +31,8 @@
                     var correctedAddButtonId = parseFloat(this.id) + 1;
                     var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
                     jq(contentAddId).toggle(true);
-                    jq('#' + this.id).toggle(false);
-                    jq('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
+                    //jq('#' + this.id).toggle(false);
+                    //jq('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
                     return false;
                 });
 
@@ -49,10 +49,8 @@
                 // show any prescriptions that have been saved
                 for (i = 1; i &lt; 10; i++) {
                     if (getValue('name-' + i + '.value') != false) {
+                        //jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
-                    }
-                    if (i>1) {
-                        jq('#1-addEntry').toggle(false);
                     }
                 }
             });
@@ -132,8 +130,8 @@
 									<tfoot class="hide-on-view">
 									<tr>
 										<td></td>
-										<td><button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.addprescription')"/></button> | <button
-												class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.removeprescription')"/></button>
+										<td><button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
+                                            <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
 										</td>
 									</tr>
 									</tfoot>

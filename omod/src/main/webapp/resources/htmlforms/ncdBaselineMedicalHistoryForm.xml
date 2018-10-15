@@ -190,10 +190,10 @@
                         </tr>
                         </obsgroup>
                     </table>
+                    <!-- Submit -->
+                    <button><lookup expression="fn.message('msfcore.next')"/></button>
                 </section>
-            </div>
-            <!-- Submit -->
-            <button><lookup expression="fn.message('msfcore.next')"/></button>
+            </div>     
         </div>
     </div>
 
