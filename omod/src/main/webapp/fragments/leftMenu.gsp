@@ -8,7 +8,7 @@ if (jQuery) {
         jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&patientId='+ jq('input[name=personId]').val());
         jq("#allergies").attr("href", jq("#allergies-form-url").html() + '&patientId='+ jq('input[name=personId]').val());
         jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
-        jq("#complications").attr("href", jq("#diagnosis-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
+        jq("#complications").attr("href", jq("#complications-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#regular-patient-review").attr("href", jq("#regular-patient-review-form-url").html() + '&patientId=' + jq('input[name=personId]').val());
         jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&patientId=' + jq('input[name=personId]').val());

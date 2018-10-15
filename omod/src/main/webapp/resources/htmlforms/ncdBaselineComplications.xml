@@ -17,6 +17,23 @@
 		});
 	</script>
 
+	<script type="text/javascript">
+		
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
+
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
@@ -86,8 +103,10 @@
   	  	  					<td colspan="2"><obs class="large" conceptId="463620"/></td>
   	  	  				</tr>
 					</table>
-					<!-- Submit -->
-					<button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
+
+		            <!-- Submit -->
+					<button class="msf-operation-button no-print" value="ncd.baseline.complications.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button no-print" value="ncd.baseline.complications.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 
@@ -108,7 +127,6 @@
             #end"/>
 
 	</ifMode>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a&amp;patientId={{patient.id}}" />
 
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+</htmlform>

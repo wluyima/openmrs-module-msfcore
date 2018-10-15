@@ -13,15 +13,16 @@
 	<script type="text/javascript">
         if (jQuery) {
             jq(document).ready(function () {
+
                 <ifMode mode="VIEW">
                         jq('button.no-print').hide();
                 </ifMode>
-                <!-- add the links to the actual forms -->
-                jq("#medicalhistory").attr("href", jq("#medical-history-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#lifestyle").attr("href", jq("#lifestyle-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#diagnosis").attr("href", jq("#diagnosis-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#prescribemedication").attr("href", jq("#prescribe-medication-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
-                jq("#clinicalnote").attr("href", jq("#clinical-note-form-url").html() + '&amp;patientId=' + jq('input[name=personId]').val());
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
 
                 // enabling and disabling the allergy sections there are only 5 so far
                 jq('#1-removeEntry').remove();
@@ -152,8 +153,10 @@
 						<render prescription="9"/>
 						<render prescription="10"/>
 					</repeat>
-					<!-- Submit -->
-					<button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
+
+		            <!-- Submit -->
+					<button class="msf-operation-button no-print" value="ncd.baseline.prescribemedication.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button no-print" value="ncd.baseline.prescribemedication.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>
@@ -174,6 +177,5 @@
             #end"/>
 
 	</ifMode>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f88f341a-2a37-47e9-ac81-b5dae813ab26&amp;patientId={{patient.id}}"/>
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
 </htmlform>

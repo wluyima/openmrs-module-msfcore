@@ -10,6 +10,23 @@
 		fontOnHeaderColor = white
 	</macros>
 
+	<script type="text/javascript">
+		
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
+
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
@@ -97,8 +114,8 @@
 					<!-- Comment id=1000000 name=Comment Refer Patient -->
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
-					<!-- Submit -->
-					<button class="no-print"><lookup expression="fn.message('msfcore.save.and.exit')"/></button>
+		            <!-- Submit -->
+					<button class="msf-operation-button no-print" value="ncd.baseline.referpatient.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
 				</section>
 
 			</div>
@@ -120,6 +137,5 @@
             #end"/>
 
 	</ifMode>
-	<redirectOnSave
-			url="/coreapps/clinicianfacing/patient.page?patientId={{patient.id}}&amp;app=msfcore.app.clinicianDashboard" />
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+</htmlform>

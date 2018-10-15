@@ -18,6 +18,23 @@
         });
 	</script>
 
+	<script type="text/javascript">
+		
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
+
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
@@ -53,8 +70,10 @@
                     <h3>4. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></h3>
 					<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
                     <div class="add-box" id="encounter-diagnoses-target"></div>
-					<!-- Submit -->
-					<button class="no-print"><lookup expression="fn.message('msfcore.next')"/></button>
+
+		            <!-- Submit -->
+					<button class="msf-operation-button no-print" value="ncd.baseline.diagnosis.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button no-print" value="ncd.baseline.diagnosis.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>
@@ -74,6 +93,5 @@
             #end"/>
 
 	</ifMode>
-	<redirectOnSave
-        url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933&amp;patientId={{patient.id}}" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
 </htmlform>

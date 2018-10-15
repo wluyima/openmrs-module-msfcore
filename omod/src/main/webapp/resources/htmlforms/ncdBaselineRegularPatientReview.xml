@@ -14,6 +14,12 @@
 		if (jQuery) {
 			jq(document).ready(function () {
 
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
 				<!-- hide entries that are not in use -->
 				jq.each(getUnusedContainers(), (index, value) => value.hide());
 
@@ -209,8 +215,10 @@
 						<render entry="9" />
 						<render entry="10" />
 					</repeat>
-					<!-- Submit -->
-					<button><lookup expression="fn.message('msfcore.next')"/></button>
+
+		            <!-- Submit -->
+					<button class="msf-operation-button" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>
@@ -231,6 +239,6 @@
             #end" />
 
 	</ifMode>
-	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}" />
 
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
 </htmlform>
