@@ -1,6 +1,8 @@
 package org.openmrs.module.msfcore.api.util;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
@@ -42,5 +44,16 @@ public class DataUtilsTest {
         Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 20:29:59");
         int days = DateUtils.getDaysBetweenDates(date1, date2);
         assertThat(days, is(10));
+    }
+
+    @Test
+    public void sameDate_shouldEvaluateCorrectly() throws ParseException {
+        Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-10 20:29:59");
+        Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 20:29:59");
+        Date date3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-10 14:04:05");
+        boolean result1 = DateUtils.sameDate(date1, date2);
+        boolean result2 = DateUtils.sameDate(date1, date3);
+        assertFalse(result1);
+        assertTrue(result2);
     }
 }
