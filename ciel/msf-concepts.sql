@@ -578,6 +578,7 @@ UNLOCK TABLES;
 LOCK TABLES `concept_answer` WRITE;
 /*!40000 ALTER TABLE `concept_answer` DISABLE KEYS */;
 INSERT IGNORE INTO `concept_answer` (`concept_answer_id`, `concept_id`, `answer_concept`, `answer_drug`, `creator`, `date_created`, `sort_weight`, `uuid`) VALUES
+(307076,463615,135315,NULL,1,'2017-12-18 13:28:41',7,'03651002-7afc-491e-8812-01e9387b4f09'),
 (306567,463352,463140,NULL,1,'2017-10-23 03:08:19',1,'894f429e-38d9-4a26-94af-e79d25240cf7'),
 (306568,463352,463141,NULL,1,'2017-10-23 03:08:19',2,'4e3e9384-3064-4c1e-84be-f8c0f100ac92'),
 (306569,463353,463142,NULL,1,'2017-10-23 03:09:24',1,'9692f572-8428-4c39-b561-0d7d0649bfa2'),

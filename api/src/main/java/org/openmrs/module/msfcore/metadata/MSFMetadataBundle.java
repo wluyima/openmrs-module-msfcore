@@ -81,6 +81,10 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PatientIdentifierTypes.MSF_OTHER_ID);
         install(PatientIdentifierTypes.OLD_PATIENT_ID);
 
+        log.info("Installing Encounter Types");
+        install(EncounterTypes.MSF_NCD_BASELINE_ENCOUNTER_TYPE);
+        install(EncounterTypes.MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE);
+
         log.info("Installing Programs");
         install(Programs.NCD);
 
