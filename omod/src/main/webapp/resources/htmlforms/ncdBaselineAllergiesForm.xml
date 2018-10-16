@@ -57,11 +57,21 @@
                     var usedContainers = [];
                     for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
                         var containerId = `${i}-toggleContainer`;
-                        if (i == 1 || getValue(`allergy-type-${i}.value`) != "") {
+                        if (i == 1 || isAllergyTypeFilled(i)) {
                             usedContainers.push(jq(`#${i}-toggleContainer`));
                         }
                     }
                     return usedContainers;
+                }
+
+                function isAllergyTypeFilled(i) {
+                    var filled;
+                    if (typeof(getValue) != 'undefined') {
+                        filled = getValue(`allergy-type-${i}.value`) != "";
+                    } else {
+                        filled = jq(`#allergy-type-${i}`).children('.value').length > 0;
+                    }
+                    return filled;
                 }
 
                 function getIndexFromId(id) {
@@ -106,8 +116,6 @@
                     <repeat>
                         <template>
                             <div id="{allergy}-toggleContainer" style="display: none;">
-
-
                                 <section>
                                     <h3>
                                         <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name"/>
@@ -235,8 +243,8 @@
                                 </section>
 
                                 <div class="hide-on-view">
-                                    <button class="addEntry" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
-                                    <button class="removeEntry" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                                    <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
+                                    <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                                 </div>
                                    
                             </div>
@@ -248,9 +256,11 @@
                                         disableFn(jq(".allergy-{allergy}"));
                                         enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
                                     });
-                                    if (getValue('allergy-type-{allergy}.value') != '') {
-                                        enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
-                                    }
+                                    <ifMode mode="VIEW" include="false">
+                                        if (getValue('allergy-type-{allergy}.value') != '') {
+                                            enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
+                                        }
+                                    </ifMode>
                                 });
                             </script>
                         </template>

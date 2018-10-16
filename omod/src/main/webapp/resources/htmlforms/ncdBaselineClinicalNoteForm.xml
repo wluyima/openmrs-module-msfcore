@@ -82,14 +82,18 @@
 
 						<tr>
 							<td>
-                                <!-- Concept Disease Info -->
-								<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
-                                <!-- Concept Skills -->
-								<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
-                                <!-- Concept Adherence -->
-								<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
-                                <!-- Concept Lifestyle -->
-								<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
+								<div class="input-group"><!-- Concept Disease Info -->
+									<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Skills -->
+									<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Adherence -->
+									<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Lifestyle -->
+									<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
+								</div>
 							</td>
 						</tr>
 						<tr>
