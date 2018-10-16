@@ -2,11 +2,16 @@ package org.openmrs.module.msfcore.submissionaction;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
+import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.formactions.RequestAppointmentAction;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -78,6 +83,21 @@ public class MsfStandardSubmissionAction implements CustomFormSubmissionAction {
 
     @Override
     public void applyAction(FormEntrySession formEntrySession) {
+
+        // This is a temporary fix so that request appointments post submission action works for
+        // the demo
+
+        String formUuid = formEntrySession.getForm().getUuid();
+        Patient patient = formEntrySession.getEncounter().getPatient();
+        Set<Obs> observations = formEntrySession.getEncounter().getObsAtTopLevel(false);
+
+        if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
+            RequestAppointmentAction requestAppointmentAction = new RequestAppointmentAction();
+            requestAppointmentAction.requestAppointment(patient, observations);
+        }
+
+        ///////////////////////////////////////////////////////////////
+
         String operation = getRequest().getParameter("msf.operation");
         if (operation != null) {
             String nextUrl = OPERATION_TO_URL.get(operation);
