@@ -23,8 +23,10 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
+import org.openmrs.Program;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -211,12 +213,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
             if (patientProgram.getStates().isEmpty()) {
                 return null;
             }
-            if (encounter != null && encounter.getForm() != null) {
-                if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_BASELINE)) {
+            if (encounter != null && encounter.getEncounterType() != null) {
+                if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE)) {
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
-                } else if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_FOLLOWUP)) {
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP)) {
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION);
-                } else if (encounter.getForm().getUuid().equals(MSFCoreConfig.HTML_FORM_UUID_EXIT)) {
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT)) {
                     patientProgram.setDateCompleted(date);
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
                     for (Obs o : encounter.getObs()) {
@@ -225,7 +227,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                         }
                     }
                 }
-                if (stage != null) {
+                if (stage != null && !patientProgram.getCurrentStates().iterator().next().getState().equals(stage)) {
                     patientProgram.transitionToState(stage, date);
                 }
             }
@@ -252,5 +254,33 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, Context.getProgramWorkflowService().getStateByUuid(
                         MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT));
         return stages;
+    }
+
+    public void manageNCDProgram(Encounter encounter) {
+        Patient patient = encounter.getPatient();
+        Program ncdPrgram = Context.getProgramWorkflowService().getProgramByUuid(MSFCoreConfig.NCD_PROGRAM_UUID);
+        PatientProgram patientProgram = null;
+        List<PatientProgram> patientPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, ncdPrgram, null, null, null,
+                        null, false);
+        // TODO if patientPrograms is empty, first auto enroll?
+        if (patientPrograms.isEmpty()) {
+            PatientProgram pp = new PatientProgram();
+            pp.setPatient(patient);
+            pp.setProgram(ncdPrgram);
+            pp.setDateEnrolled(new Date());
+            patientPrograms.add(Context.getProgramWorkflowService().savePatientProgram(
+                            generatePatientProgram(true, getMsfStages(), pp, null)));
+        }
+        for (PatientProgram pp : patientPrograms) {
+            if (pp.getPatient().equals(patient)) {
+                patientProgram = pp;
+            }
+        }
+        if (patientProgram != null) {
+            patientProgram = generatePatientProgram(false, getMsfStages(), patientProgram, encounter);
+            if (patientProgram != null) {
+                Context.getProgramWorkflowService().savePatientProgram(patientProgram);
+            }
+        }
     }
 }

@@ -7,32 +7,48 @@ public class EncounterTypes {
     public static EncounterTypeDescriptor MSF_NCD_BASELINE_ENCOUNTER_TYPE = new EncounterTypeDescriptor() {
         @Override
         public String name() {
-            return "NCD Baseline Encounter";
+            return "NCD Baseline";
         }
 
         @Override
         public String description() {
-            return "Baseline NCD Assessment";
+            return "Baseline NCD Assessment encounter type";
         }
 
         public String uuid() {
-            return MSFCoreConfig.MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID;
+            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE;
         }
     };
 
     public static EncounterTypeDescriptor MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE = new EncounterTypeDescriptor() {
         @Override
         public String name() {
-            return "NCD Follow-up Encounter";
+            return "NCD Follow-up";
         }
 
         @Override
         public String description() {
-            return "NCD Followup Encounter";
+            return "NCD Followup encounter type";
         }
 
         public String uuid() {
-            return MSFCoreConfig.MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID;
+            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP;
+        }
+    };
+
+    public static EncounterTypeDescriptor MSF_NCD_EXIT_ENCOUNTER_TYPE = new EncounterTypeDescriptor() {
+        @Override
+        public String name() {
+            return "NCD Exit";
+        }
+
+        @Override
+        public String description() {
+            return "Exit ncd encounter type";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT;
         }
     };
 }

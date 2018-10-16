@@ -263,8 +263,11 @@ public class MSFCoreConfig {
     public final static String TASK_AUTO_CLOSE_VISIT = "Auto Close Visits Task";
 
     // Encounter types
-    public static final String MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
-    public static final String MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+    public static final String ENCOUNTER_TYPE_UUID_BASELINE = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
+
+    public static final String ENCOUNTER_TYPE_UUID_FOLLOWUP = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+
+    public static final String ENCOUNTER_TYPE_UUID_EXIT = "4aa6553b-be5a-413a-93fc-23962bc594e9";
 
     public final static String LOCATION_ATTR_TYPE_UID_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0000";
 

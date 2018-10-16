@@ -124,10 +124,6 @@
 		<point>org.openmrs.api.ProgramWorkflowService</point>
 		<class>org.openmrs.module.msfcore.aop.SavePatientProgramAdvice</class>
 	</advice>
-	<advice>
-		<point>org.openmrs.api.EncounterService</point>
-		<class>org.openmrs.module.msfcore.aop.SaveEncounterAdvice</class>
-	</advice>
 	
 </module>
 

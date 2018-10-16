@@ -127,6 +127,7 @@
             #end" />
 
 	</ifMode>
+	<postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
 	<redirectOnSave
 		url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&amp;patientId={{patient.id}}" />
 

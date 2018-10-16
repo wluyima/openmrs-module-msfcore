@@ -98,8 +98,18 @@ public class MSFCoreActivator extends BaseModuleActivator {
     }
 
     private void installMSFMeta() {
+        // install concepts
+        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+        log.info("Importing MSF CIEL Concepts");
+        dataImporter.importData("CIELConcepts.xml");
+        log.info("MSF CIEL Concepts imported");
+        log.info("Importing MSF Custom Concepts");
+        dataImporter.importData("MSFCustomConcepts.xml");
+        log.info("MSF Custom Concepts imported");
+
         log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+
         log.info("Installing MSF Reports");
         for (BaseMSFReportManager msfReport : Context.getRegisteredComponents(BaseMSFReportManager.class)) {
             msfReport.setup();
@@ -147,15 +157,6 @@ public class MSFCoreActivator extends BaseModuleActivator {
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
                         "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
 
-        // install concepts
-
-        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
-        log.info("Importing MSF CIEL Concepts");
-        dataImporter.importData("CIELConcepts.xml");
-        log.info("MSF CIEL Concepts imported");
-        log.info("Importing MSF Custom Concepts");
-        dataImporter.importData("MSFCustomConcepts.xml");
-        log.info("MSF Custom Concepts imported");
     }
 
     private void removeMSFMeta() {

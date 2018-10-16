@@ -71,4 +71,6 @@ public interface MSFCoreService extends OpenmrsService {
                     PatientProgram patientProgram, Encounter ecnounter);
 
     public Map<String, ProgramWorkflowState> getMsfStages();
+
+    public void manageNCDProgram(Encounter encounter);
 }

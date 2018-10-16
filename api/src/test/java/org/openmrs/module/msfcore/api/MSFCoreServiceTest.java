@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.Form;
 import org.openmrs.Obs;
 import org.openmrs.PatientProgram;
@@ -144,6 +145,12 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertNull(patientProgram2);
     }
 
+    private EncounterType newEncounterType(String uuid) {
+        EncounterType encType = new EncounterType();
+        encType.setUuid(uuid);
+        return encType;
+    }
+
     @Test
     public void generatePatientProgram_testFormsAfterEnrollement() {
         ProgramWorkflowState enrollStage = new ProgramWorkflowState();
@@ -158,16 +165,10 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         ProgramWorkflowState exitStage = new ProgramWorkflowState();
         exitStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
         exitStage.setTerminal(true);
-        Form baseLineForm = new Form();
-        baseLineForm.setUuid(MSFCoreConfig.HTML_FORM_UUID_BASELINE);
-        Form followUpForm = new Form();
-        followUpForm.setUuid(MSFCoreConfig.HTML_FORM_UUID_FOLLOWUP);
-        Form exitForm = new Form();
-        exitForm.setUuid(MSFCoreConfig.HTML_FORM_UUID_EXIT);
         Encounter encounter = new Encounter(3);
 
         // starting with any other stage besides enrollment should return null
-        encounter.setForm(baseLineForm);
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE));
         PatientProgram patientProgram = generatePatientProgram(false, new PatientProgram(), encounter, enrollStage, resultsStage,
                         baselineStage, followUpStage, exitStage);
         Assert.assertNull(patientProgram);
@@ -179,7 +180,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(patientProgram.getStates().iterator().next().getState(), is(enrollStage));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setForm(baseLineForm);
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(2));
@@ -187,7 +188,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setForm(followUpForm);
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(3));
@@ -196,7 +197,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setForm(exitForm);
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(4));
@@ -207,7 +208,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
         // exiting should set outcome when obs exists
-        encounter.setForm(exitForm);
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT));
         Obs outcome = new Obs();
         Concept qn = new Concept();
         qn.setUuid(MSFCoreConfig.NCD_PROGRAM_OUTCOMES_CONCEPT_UUID);

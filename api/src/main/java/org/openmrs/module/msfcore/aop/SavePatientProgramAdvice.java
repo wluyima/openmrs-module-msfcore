@@ -10,9 +10,9 @@ import org.springframework.aop.MethodBeforeAdvice;
 
 public class SavePatientProgramAdvice implements MethodBeforeAdvice {
 
-    private boolean fromSaveHtmlFormAdvice() {
+    private boolean fromHtmlFormsPostSubmissionActionOrJunit() {
         for (StackTraceElement element : Arrays.asList(Thread.currentThread().getStackTrace())) {
-            if (element.getClassName().endsWith("SaveEncounterAdvice")) {
+            if (element.getClassName().startsWith("org.junit.") || element.getClassName().endsWith("HtmlFormsPostSubmissionAction")) {
                 return true;
             }
         }
@@ -21,7 +21,7 @@ public class SavePatientProgramAdvice implements MethodBeforeAdvice {
 
     @Override
     public void before(Method method, Object[] args, Object target) throws Throwable {
-        if (method.getName().equals("savePatientProgram") && !fromSaveHtmlFormAdvice()) {
+        if (method.getName().equals("savePatientProgram") && !fromHtmlFormsPostSubmissionActionOrJunit()) {
             PatientProgram patientProgram = (PatientProgram) args[0];
             if (patientProgram != null && patientProgram.getStates().isEmpty()) {
                 patientProgram = Context.getService(MSFCoreService.class).generatePatientProgram(true,
