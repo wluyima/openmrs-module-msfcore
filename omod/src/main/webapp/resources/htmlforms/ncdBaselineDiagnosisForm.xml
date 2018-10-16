@@ -1,5 +1,5 @@
 <htmlform
-		formUuid="7ba65c3e-3e16-4637-824f-ce23ccb30746"
+		formUuid="860d4952-7490-4a70-9e75-8cf4ebf10df8"
 		formName="Diagnosis"
 		formDescription="Diagnoses for NCD Baseline Consultation"
 		formEncounterType="fa6f3ff5-b784-43fb-ab35-a08ab7dbf074"
@@ -85,7 +85,7 @@
             #set( $encounter = 0 )
             #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
             #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == '7ba65c3e-3e16-4637-824f-ce23ccb30746' )
+                #if( $encounter.form.uuid == '860d4952-7490-4a70-9e75-8cf4ebf10df8' )
                     &lt;script type=&quot;text/javascript&quot;>
                         window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
                     &lt;/script>

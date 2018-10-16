@@ -47,7 +47,7 @@ if (jQuery) {
             </li>
             <li>
                 <a id="diagnosis" href="#diagnosis">${ui.message("msfcore.ncdbaseline.diagnosis.title")}</a>
-                <span class="hidden section-link" id="diagnosis-form-url">enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746</span>
+                <span class="hidden section-link" id="diagnosis-form-url">enterHtmlFormWithStandardUi.page?formUuid=860d4952-7490-4a70-9e75-8cf4ebf10df8</span>
             </li>
             <li>
                 <a id="complications" href="#complications">${ui.message("msfcore.ncdbaseline.complications.title")}</a>
