@@ -439,7 +439,7 @@ div#appointmentscheduling-manageAppointments > div {
 }
 
 .viewAllAppointmentTypes {
-    margin-left: -80px;
+    margin-left: -56px;
 }
 
 .selectmultipleBox {
@@ -475,4 +475,8 @@ table td:last-child {
 
 #appointmentscheduling-patientAppointmentRequests > div > h2 {
     display: none;
+}
+
+#patient-search-form + #patient-search-results + div {
+    display:none;
 }
