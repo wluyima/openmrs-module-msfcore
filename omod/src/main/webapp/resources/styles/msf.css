@@ -389,10 +389,10 @@ div#appointmentscheduling-manageAppointments > div {
 
 #filter-date ~ h1 {
     float:left;
-    margin-right: 384px
+    margin-right: 384px;
 }
-.appointment-filter #filter-date, 
-.appointment-filter #filter-location {
+.container > #filter-date, 
+.container > #filter-location {
     background: #fff;
     border-radius: 8px 8px 0 0;
     padding: 16px;
