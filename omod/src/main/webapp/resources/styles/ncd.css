@@ -68,12 +68,13 @@
 
 #htmlform .right-form-display {
   color: #6D7378;
-}
-
-.right-form-display {
+  background: #fff;
+  border-radius: 0 0 8px 0;
   width: 70%;
   float: right;
+  padding-bottom: 24px;
 }
+
 .right-form-display .sections-container {
   margin:30px;
 }
@@ -121,15 +122,12 @@
 }
 
 .section {
-  border: 1px solid $headerColor;
   padding: 2px;
   text-align: left;
   margin-bottom: 1em;
 }
 
 .sectionHeader {
-  background-color: $headerColor;
-  color: $fontOnHeaderColor;
   display: block;
   padding: 2px;
   font-weight: bold;
@@ -144,7 +142,7 @@ table.baseline-aligned td {
 
 .btn.active {
   color: #white;
-  background-color:darkgrey;
+  background-color: #darkgrey;
 }
 
 table th, table td {
