@@ -134,7 +134,7 @@ form input#patient-search {
 
 #patient-search-filter {
     float:right;
-    min-width:38%;
+    min-width:36%;
     box-sizing: border-box;
 }
 
