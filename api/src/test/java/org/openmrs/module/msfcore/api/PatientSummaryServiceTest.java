@@ -208,4 +208,70 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
         assertEquals(1, summaryAudits.size());
         assertEquals(summaryAudits.get(0).getDetail(), "Patient Summary Request: Collet Test Chebaskwony - 6TS-4");
     }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalMedicalHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(2, patientSummary.getClinicalHistory().getMedical().size());
+        assertEquals(Observation.builder().name("Past medical history added (text)").value(
+                        "Persistent headache, High blood pressure probably").build(), patientSummary.getClinicalHistory().getMedical().get(
+                        0));
+        assertEquals(Observation.builder().name("Angina").value("true").build(), patientSummary.getClinicalHistory().getMedical().get(1));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalSocialHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getSocial().size());
+        assertThat(patientSummary.getClinicalHistory().getSocial(), contains(Observation.builder().name("Smoker").value("Ex-Smoker")
+                        .build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalFamilyHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getFamily().size());
+        assertThat(patientSummary.getClinicalHistory().getFamily(), contains(Observation.builder().name("Family History (1st Degree Only)")
+                        .value("Diabates").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalComplicationsHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getComplications().size());
+        assertThat(patientSummary.getClinicalHistory().getComplications(), contains(Observation.builder().name("Complications").value(
+                        "Stroke").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicaltargetOrganDamagesHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getTargetOrganDamages().size());
+        assertThat(patientSummary.getClinicalHistory().getTargetOrganDamages(), contains(Observation.builder().name(
+                        "Left ventricular hypertrophy").value("true").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalCardiovascularCholesterolScoreHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getCardiovascularCholesterolScore().size());
+        assertThat(patientSummary.getClinicalHistory().getCardiovascularCholesterolScore(), contains(Observation.builder().name(
+                        "With cholesterol").value("<=10%").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalBloodGlucoseHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getBloodGlucose().size());
+        assertThat(patientSummary.getClinicalHistory().getBloodGlucose(), contains(Observation.builder().name("Blood glucose (mmol/L)")
+                        .value("8.4").unit("mmol/L").build()));
+    }
+
+    @Test
+    public void generatePatientSummary_shouldGenerateClinicalPatientEducationHistoryWithRight() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
+        assertEquals(1, patientSummary.getClinicalHistory().getPatientEducation().size());
+        assertThat(patientSummary.getClinicalHistory().getPatientEducation(), contains(Observation.builder().name("Patient education")
+                        .value("Not received").build()));
+    }
 }

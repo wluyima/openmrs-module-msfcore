@@ -30,7 +30,7 @@ public class Vitals {
     private Observation bloodPressure = Observation.builder().name("Blood Pressure").build();
     @Builder.Default
     private Observation bloodOxygenSaturation = Observation.builder().name("Blood oxygen saturation").unit("%").build();
-    // values, use a GP to populate this
+    // values, TODO use a GP of concept ids to populate this in the service
     @Builder.Default
     private List<Observation> otherObservations = new ArrayList<Observation>();
 }

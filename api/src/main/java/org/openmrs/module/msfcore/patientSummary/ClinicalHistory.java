@@ -19,13 +19,17 @@ public class ClinicalHistory {
     @Builder.Default
     private List<Observation> family = new ArrayList<Observation>();
     // assesment/conclusion
-    private String assesment;
+    private String assessment;
     @Builder.Default
     private List<Observation> complications = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> targetOrganDamages = new ArrayList<Observation>();
-    private Observation cardiovascularCholesterolScore;
-    private Observation bloodGlucose;
-    private Observation analysisType;
-    private Observation patientEducation;
+    @Builder.Default
+    private List<Observation> cardiovascularCholesterolScore = new ArrayList<Observation>();
+    @Builder.Default
+    private List<Observation> bloodGlucose = new ArrayList<Observation>();
+    @Builder.Default
+    private List<Observation> analysisType = new ArrayList<Observation>();
+    @Builder.Default
+    private List<Observation> patientEducation = new ArrayList<Observation>();
 }

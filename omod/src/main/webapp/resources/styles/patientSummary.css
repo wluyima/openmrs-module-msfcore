@@ -1,15 +1,24 @@
-header {
-	display: hidden;
+header, #breadcrumbs {
+	display: none;
 }
 
-.center {
+.summary-actions-wrapper {
     text-align: center;
+}
+
+.summary-actions {
+	display: inline-block;
+}
+
+table {
+	border-collapse: initial;
+	box-shadow:none;
 }
 
 h2 {
 	text-align: center;
 }
 
-h2 {
+h3 {
 	border-bottom: #dddddd 1px solid;
 }

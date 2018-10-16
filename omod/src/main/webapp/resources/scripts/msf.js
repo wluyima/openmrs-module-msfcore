@@ -3,7 +3,7 @@
  * items, items array
  * breakPoint, number to break table at horinzotally
  */
-function tabulateItemsIntoAnElement(element, items, breakPoint) {
+function tabulateCleanedItemsIntoAnElement(element, items, breakPoint) {
 	if (element && items) {
 		var tableContent = "<table>";
 		var lastNonZeroBreakIndex;
@@ -16,8 +16,13 @@ function tabulateItemsIntoAnElement(element, items, breakPoint) {
 			if (i == 0 || tableContent.endsWith("</tr>")) {
 				tableContent += "<tr>";
 			}
+			var item = items[i];
+			// clean up item
+			if (item.endsWith(", ")) {
+				item = item.substring(0, item.length - 2);
+			}
 			// build table data/records
-			tableContent += "<td>" + items[i] + "</td>";
+			tableContent += "<td>" + item + "</td>";
 			// break table vertically at first break point or last item, or next
 			// break point
 			if (i + 1 == breakPoint || i == items.length - 1

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openmrs.AllergyReaction;
 import org.openmrs.Concept;
 import org.openmrs.ConceptDatatype;
+import org.openmrs.ConceptNumeric;
 import org.openmrs.Diagnosis;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
@@ -27,6 +28,7 @@ import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.module.msfcore.patientSummary.Age;
 import org.openmrs.module.msfcore.patientSummary.Allergy;
 import org.openmrs.module.msfcore.patientSummary.Allergy.AllergyBuilder;
+import org.openmrs.module.msfcore.patientSummary.ClinicalHistory;
 import org.openmrs.module.msfcore.patientSummary.Demographics;
 import org.openmrs.module.msfcore.patientSummary.Disease;
 import org.openmrs.module.msfcore.patientSummary.Disease.DiseaseBuilder;
@@ -106,8 +108,12 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                         Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
                                         OMRSConstants.GP_CONCEPT_ID_BLOOD_OXYGEN_SATURATION)))) {
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_PERCENT);
+        } else if (concept.getConceptId().equals(
+                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(OMRSConstants.GP_CONCEPT_ID_BLOOD_GLUCOSE)))) {
+            return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_BLOOD_GLUCOSE);
         } else {
-            return "";
+            ConceptNumeric cn = Context.getConceptService().getConceptNumeric(concept.getConceptId());
+            return cn == null ? "" : Context.getConceptService().getConceptNumeric(concept.getConceptId()).getUnits();
         }
     }
 
@@ -286,6 +292,26 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         return getConcepts(OMRSConstants.GP_CONCEPT_ID_LAB_RESULTS);
     }
 
+    private void addObsToHistory(Patient patient, List<Observation> clinicalHistoryObs, String gp) {
+        for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getConcepts(gp), null, null, null,
+                        null, null, null, null, null, false)) {
+            clinicalHistoryObs.add(convertObs(obs));
+        }
+    }
+
+    private void setClinicalHistory(Patient patient, PatientSummary patientSummary) {
+        ClinicalHistory clinicalHistory = ClinicalHistory.builder().build();
+        addObsToHistory(patient, clinicalHistory.getMedical(), OMRSConstants.GP_CONCEPT_ID_PAST_MEDICATION_HISTORY);
+        addObsToHistory(patient, clinicalHistory.getSocial(), OMRSConstants.GP_CONCEPT_ID_SOCIAL_HISTORY);
+        addObsToHistory(patient, clinicalHistory.getFamily(), OMRSConstants.GP_CONCEPT_ID_FAMILY_HISTORY);
+        addObsToHistory(patient, clinicalHistory.getComplications(), OMRSConstants.GP_CONCEPT_ID_COMPLICATIONS);
+        addObsToHistory(patient, clinicalHistory.getTargetOrganDamages(), OMRSConstants.GP_CONCEPT_ID_HISTORY_OF_TARGET_ORGAN_DAMAGE);
+        addObsToHistory(patient, clinicalHistory.getCardiovascularCholesterolScore(), OMRSConstants.GP_CONCEPT_ID_CARDIOVASCULAR_RISK_SCORE);
+        addObsToHistory(patient, clinicalHistory.getBloodGlucose(), OMRSConstants.GP_CONCEPT_ID_BLOOD_GLUCOSE);
+        addObsToHistory(patient, clinicalHistory.getPatientEducation(), OMRSConstants.GP_CONCEPT_ID_PATIENT_EDUCATION);
+        patientSummary.setClinicalHistory(clinicalHistory);
+    }
+
     public PatientSummary generatePatientSummary(Patient patient) {
         // TODO probably on summary pull first set of items than all???
         PatientSummaryBuilder patientSummarybuilder = PatientSummary.builder();
@@ -315,6 +341,9 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
         // set allergies
         setAllergies(patient, patientSummary);
+
+        // add clinical history
+        setClinicalHistory(patient, patientSummary);
 
         // set medications
         for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getMedicationsConcepts(), null,

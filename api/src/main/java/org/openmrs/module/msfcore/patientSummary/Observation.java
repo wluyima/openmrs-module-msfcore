@@ -17,7 +17,6 @@ public class Observation {
     // use these 2 on full representation
     private String visitDate;
     private String encounterDate;
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -32,6 +31,27 @@ public class Observation {
                 return false;
         } else if (!name.equals(other.name))
             return false;
+        if (unit == null) {
+            if (other.unit != null)
+                return false;
+        } else if (!unit.equals(other.unit))
+            return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
+    }
+
 }
