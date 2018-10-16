@@ -31,7 +31,6 @@ if (jQuery) {
 <div class="left-column">
     <div class="left-navigation">
         <h3>NCD Baseline Consultation Note</h3>
-        <span>Paper Form ID: </span>
         <ol>
             <li>
                 <a id="medicalhistory" href="#medicalhistory">Medical history</a>
