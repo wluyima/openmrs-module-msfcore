@@ -116,6 +116,7 @@
 
 		            <!-- Submit -->
 					<button class="msf-operation-button no-print" value="ncd.baseline.referpatient.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button no-print" value="complete.action"><lookup expression="fn.message('msfcore.save.final')"/></button>
 				</section>
 
 			</div>
