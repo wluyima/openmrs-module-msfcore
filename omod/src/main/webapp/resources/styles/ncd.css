@@ -141,8 +141,8 @@ table.baseline-aligned td {
 }
 
 .btn.active {
-  color: #white;
-  background-color: #darkgrey;
+  color: white;
+  background-color: darkgrey;
 }
 
 table th, table td {
@@ -288,4 +288,53 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
 
 .list-of-checkboxes .column {
   width:249px;
+}
+
+/* 6. Prescribe Medication */
+
+div[id*="-toggleContainer"] {
+  border: 1px solid #eee;
+  padding:16px;
+  border-radius:8px;
+  box-shadow: rgba(0,0,0,0.1) 0 2px 4px;
+  margin-bottom:24px;
+  height: 500px;
+}
+
+div[id*="-toggleContainer"] > h4 {
+  margin-top:0 !important;
+}
+
+div[id*="-toggleContainer"] .input-group:first-of-type {
+  margin-bottom: 24px;
+}
+
+div[id*="-toggleContainer"] div.input-group:nth-of-type(2), 
+div[id*="-toggleContainer"] div.input-group:nth-of-type(3), 
+div[id*="-toggleContainer"] div.input-group:nth-of-type(4),
+div[id*="-toggleContainer"] div.input-group:nth-of-type(5) {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  padding-right: 40px;
+}
+div[id*="-toggleContainer"] div.input-group:nth-of-type(2) label {
+  widows: 100%;
+  display:block;
+}
+div[id*="-toggleContainer"] div.input-group:nth-of-type(2) span {
+  float:left;
+}
+
+div[id*="-toggleContainer"] div.input-group:nth-of-type(6) {
+  width: 100%;
+  margin-top: 48px;
+  display: block;
+  float: left;
+  padding: 0;
+  height: 140px;
+}
+
+.medication-instructions textarea {
+  margin: 8px 0 0 2px;
 }

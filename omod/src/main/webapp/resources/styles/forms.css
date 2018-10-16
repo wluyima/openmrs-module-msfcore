@@ -127,14 +127,14 @@ form#patient-search-form {
 }
 
 form input#patient-search {
-    min-width: 60%;
+    min-width: 56%;
     box-sizing: border-box;
     margin-top:28px;
 }
 
 #patient-search-filter {
     float:right;
-    min-width:36%;
+    min-width:39%;
     box-sizing: border-box;
 }
 
@@ -275,4 +275,37 @@ form#login-form fieldset legend {
 #cantLogin {
     float: left;
     margin: 16px 36%;
+}
+
+/* Add New Allergies */ 
+
+div#allergy {
+    background: #fff;
+    padding: 24px;
+}
+
+div#allergens {
+    width:100%;
+}
+
+div#allergens ul {
+    display:flex;
+    flex-direction: column;
+}
+
+div#allergy > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#reactions ul li {
+    display: inline-block;
+    height: 40px;
+    width: 280px;
+}
+
+div#actions {
+    margin: 24px 0 -24px -24px;
+    width: calc(100% + 48px);
 }
