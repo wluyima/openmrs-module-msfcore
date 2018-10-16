@@ -481,6 +481,7 @@
   <concept_numeric concept_id="6000005" allow_decimal="false" />
 
   <!-- Regular patient review concepts -->
+  <concept concept_id="7000000" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-10-09 11:23:15.0" changed_by="1" date_changed="2018-10-09 11:23:15.0" uuid="62d411d1-78c7-4c4d-9104-abe0f4bf9bab"/>
   <concept concept_id="7000001" retired="false" datatype_id="2" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:25:21.0" changed_by="1" date_changed="2018-10-09 11:25:21.0" uuid="e61aff3f-52f2-42b9-b382-6afcb2a44c48"/>
   <concept concept_id="7000002" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:08.0" changed_by="1" date_changed="2018-10-09 11:26:08.0" uuid="8a20bf07-8541-4b16-ac65-db3c564c0e8a"/>
   <concept concept_id="7000003" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="82138d7b-0765-4d57-8433-463aeec1f441"/>
@@ -506,6 +507,7 @@
   <concept_answer concept_id="7000001" answer_concept="465216" creator="1" concept_answer_id="6000007" date_created="2018-10-09 11:25:21.0" sort_weight="1.0" uuid="06000007-9d1f-412d-85a4-a48dea1e8a22"/>
   <concept_answer concept_id="7000001" answer_concept="6000007" creator="1" concept_answer_id="6000008" date_created="2018-10-09 11:25:21.0" sort_weight="2.0" uuid="06000008-9d1f-412d-85a4-a48dea1e8a22"/>
 
+  <concept_name concept_name_id="7000000" concept_id="7000000" name="Regular Patient Review Group" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:23:15.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="44208bb9-90b8-4f90-9777-63a7e0050b8b"/>
   <concept_name concept_name_id="7000003" concept_id="7000001" name="Review Type" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:25:21.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="671413e7-0aaf-4aac-a9e4-65552b6684dd"/>
   <concept_name concept_name_id="7000004" concept_id="7000002" name="For how many years" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:08.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="3fb1b8cc-e8e9-4156-a516-c7d23fad68e6"/>
   <concept_name concept_name_id="7000006" concept_id="7000003" name="Review period" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="41d42e09-e789-4bc4-bd61-1917c11be6a2"/>
