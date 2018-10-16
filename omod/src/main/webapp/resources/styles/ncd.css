@@ -298,35 +298,35 @@ div[id*="-toggleContainer"] {
   border-radius:8px;
   box-shadow: rgba(0,0,0,0.1) 0 2px 4px;
   margin-bottom:24px;
-  height: 500px;
+  min-height: 500px;
 }
 
-div[id*="-toggleContainer"] > h4 {
+#drug-orders div[id*="-toggleContainer"] > h4 {
   margin-top:0 !important;
 }
 
-div[id*="-toggleContainer"] .input-group:first-of-type {
+#drug-orders div[id*="-toggleContainer"] .input-group:first-of-type {
   margin-bottom: 24px;
 }
 
-div[id*="-toggleContainer"] div.input-group:nth-of-type(2), 
-div[id*="-toggleContainer"] div.input-group:nth-of-type(3), 
-div[id*="-toggleContainer"] div.input-group:nth-of-type(4),
-div[id*="-toggleContainer"] div.input-group:nth-of-type(5) {
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2), 
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(3), 
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(4),
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(5) {
   float: left;
   display: flex;
   flex-direction: column;
   padding-right: 40px;
 }
-div[id*="-toggleContainer"] div.input-group:nth-of-type(2) label {
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2) label {
   widows: 100%;
   display:block;
 }
-div[id*="-toggleContainer"] div.input-group:nth-of-type(2) span {
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2) span {
   float:left;
 }
 
-div[id*="-toggleContainer"] div.input-group:nth-of-type(6) {
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(6) {
   width: 100%;
   margin-top: 48px;
   display: block;
