@@ -60,16 +60,6 @@ ul.left-menu li.selected {
 
 ul.left-menu li .arrow {
     border-color: transparent transparent transparent #4EC3AD;
-    border-style: solid;
-    border-right-width: 20px;
-    border-left-width: 14px;
-    border-bottom-width: 16px;
-    border-top-width: 16px;
-    height: 0;
-    width: 0;
-    position: absolute;
-    right: -33px;
-    top: 23px;
 }
 
 ul.left-menu li .menu-date {

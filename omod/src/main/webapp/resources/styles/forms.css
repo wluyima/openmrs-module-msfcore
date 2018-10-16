@@ -1,10 +1,4 @@
 /* FORMS */
-
-#login-form ul.select,
-#login-form #sessionLocation {
-    width:60%;
-}
-
 form, .form {
     overflow: visible
 }
@@ -217,4 +211,68 @@ form input[type=radio] + label,
 
 .input-group input[type=radio] + label {
     margin-right: 24px;
+}
+
+#login-form ul.select, #login-form #sessionLocation {
+    width: 95%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+form#login-form {
+    width: 40%;
+    margin: 9rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: rgba(0,0,0,0.3) 0 8px 16px;
+}
+
+ul.select li {
+    width: 43%;
+    padding: 8px;
+    color: #4EC3AD;
+    border: 1px solid #ccc;
+    border-radius:4px;
+    box-shadow: rgba(0,0,0,0.1) 0 0 1px;
+    margin:4px;
+}
+
+ul.select li:hover {
+    background-color: #55D6BE;
+}
+
+ul.select li.selected {
+    background-color: #4EC3AD;
+    box-shadow: inset rgba(0,0,0,0.3) 0 2px 4px;
+    color: white;
+    border-color: transparent;
+}
+
+form#login-form fieldset {
+    border: none;
+}
+
+form#login-form fieldset legend {
+    padding: 16px;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    background: #424C55;
+    width: 105%;
+    box-sizing: border-box;
+    padding: 24px;
+    margin: -20px 0 32px -22px;
+    float: left;
+    border-radius: 8px 8px 0 0;
+}
+
+#login-form p input[type=submit] {
+    width: 100%;
+    float: left;
+    margin: 16px 22%;
+}
+
+#cantLogin {
+    float: left;
+    margin: 16px 36%;
 }
