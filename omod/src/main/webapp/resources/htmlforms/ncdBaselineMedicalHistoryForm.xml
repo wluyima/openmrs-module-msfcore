@@ -214,11 +214,10 @@
                         </tr>
                         </obsgroup>
                     </table>
+                    <!-- Submit -->
+                    <button class="msf-operation-button no-print" value="ncd.baseline.medicalhistory.next"><lookup expression="fn.message('msfcore.next')"/></button>
                 </section>
             </div>
-
-            <!-- Submit -->
-            <button class="msf-operation-button no-print" value="ncd.baseline.medicalhistory.next"><lookup expression="fn.message('msfcore.next')"/></button>
         </div>
     </div>
 
