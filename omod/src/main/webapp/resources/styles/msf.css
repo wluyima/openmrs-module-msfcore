@@ -391,8 +391,8 @@ div#appointmentscheduling-manageAppointments > div {
     float:left;
     margin-right: 384px
 }
-
-#filter-date, #filter-location {
+.appointment-filter #filter-date, 
+.appointment-filter #filter-location {
     background: #fff;
     border-radius: 8px 8px 0 0;
     padding: 16px;
@@ -421,9 +421,25 @@ div#appointmentscheduling-manageAppointments > div {
     box-shadow: inset rgba(0,0,0,0.2) 0 1px 2px;
 }
 
-#filter-parameters .viewAllAppointmentTypes,
-.appointment-filter .viewAllAppointmentTypes {
-    display: none;
+#filter-parameters .viewAllAppointmentTypes a,
+.appointment-filter .viewAllAppointmentTypes a {
+    padding:8px;
+    background:#fff;
+    box-shadow: rgba(0, 0, 0, .3) 0 2px 4px;
+    border-radius:8px;
+    font-family: 'OpenSansSemiBold', Arial, Helvetica, sans-serif;
+    color:#373F46;
+    cursor: pointer;
+}
+
+#filter-parameters .viewAllAppointmentTypes a:hover,
+.appointment-filter .viewAllAppointmentTypes a:hover {
+    text-decoration: none;
+    color: #4EC3AD;
+}
+
+.viewAllAppointmentTypes {
+    margin-left: -80px;
 }
 
 .selectmultipleBox {

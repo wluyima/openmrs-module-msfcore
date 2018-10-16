@@ -75,6 +75,7 @@ ul.encounter-list {
     width: 98%;
     border: 1px solid #ddd;
     border-radius: 8px;
+    margin-bottom: 24px;
 }
 
 .visit-actions.active-visit + ul.encounter-list {
@@ -84,7 +85,7 @@ ul.encounter-list {
 #i-toggle {
     position: absolute;
     margin-left: 1020px;
-    top: 266px;
+    top: 256px;
     color: #55D6BE;
     cursor: pointer;
     font-size: 0.9em;
@@ -125,7 +126,7 @@ ul.encounter-list {
 }
 
 .encounter-list .encounter-details .encounter-type strong span {
-    font-size:1.25rem;
+    font-size:1rem;
     font-family: 'OpenSansSemiBold', Arial, Helvetica, sans-serif;
     color:#373F46;
 }
@@ -173,14 +174,18 @@ a.view-details.collapsed > i.icon-caret-right::before {
 
 h4.encounter-name {
     padding-left: 6px;
+    color:#fff;
 }
 
 li.encounter-summary {
+    background:#538CAC;
+    border-color: #538CAC;
+    color:#fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 8px;
-    border-bottom: 2px solid #333;
+    border-radius: 8px 8px 0 0;
 }
 
 li.encounter-summary p {
