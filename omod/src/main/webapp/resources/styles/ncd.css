@@ -305,7 +305,7 @@ div[id*="-toggleContainer"] {
   border-radius: 8px;
   /*box-shadow: rgba(0,0,0,0.2) 0px 3px 4px;*/
   margin-bottom: 24px;
-  min-height: 500px;
+  min-height: 300px;
   background: #D0FEF5;
   color: #373F46;
 }
@@ -325,7 +325,7 @@ div[id*="-toggleContainer"] {
   float: left;
   display: flex;
   flex-direction: column;
-  padding-right: 40px;
+  padding-right: 30px;
 }
 #drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2) label {
   width: 100%;
@@ -337,7 +337,6 @@ div[id*="-toggleContainer"] {
 
 #drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(6) {
   width: 100%;
-  margin-top: 48px;
   display: block;
   float: left;
   padding: 0;
@@ -365,3 +364,11 @@ td.cv-risk-options input[type="radio"] + label{
 .section .obs-field {
   margin-top:5px;
 }
+#htmlform .section div[id*="-toggleContainer"] div {
+  margin-bottom: 32px;
+}
+
+#htmlform .section div[id*="-toggleContainer"] div.hide-on-view,#htmlform .section div[id*="-toggleContainer"] div.column, #htmlform .section div[id*="-toggleContainer"] div.column div.input-group, #htmlform .section div[id*="-toggleContainer"] div.section {
+  margin-bottom: 0;
+}
+.obs-field.select-arrow {margin-top:0;}

@@ -74,14 +74,14 @@
 								<td><obs conceptId="06000001-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
                                 <!-- Concept id=6000002 name=Systolic blood pressure target -->
 								<td><obs conceptId="06000002-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
+																<!-- Concept id=6000003 name=Diastolic blood pressure target -->
+								<td><obs conceptId="06000003-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
 							</tr>
 							<tr>
-                                <!-- Concept id=6000003 name=Diastolic blood pressure target -->
-								<td><obs conceptId="06000003-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
                                 <!-- Concept id=6000004 name=FBG target -->
 								<td><obs conceptId="06000004-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
                                 <!-- Concept id=6000005 name=PEFR target -->
-								<td><obs conceptId="06000005-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
+								<td colspan="2"><obs conceptId="06000005-3ff4-4d94-9c51-1e295cad43a1" labelNameTag="default" /></td>
 							</tr>
 						</table>
 

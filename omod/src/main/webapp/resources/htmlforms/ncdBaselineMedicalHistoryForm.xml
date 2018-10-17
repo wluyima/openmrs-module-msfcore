@@ -72,7 +72,7 @@
                     <h3>
                         <a name="medicalhistory">1.<lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.title')"/></a>
                     </h3>
-                    <h5><lookup expression="fn.getConcept('e556545d-405f-4dde-9752-2b259140d84d').name" /></h5>
+                    <h4><lookup expression="fn.getConcept('e556545d-405f-4dde-9752-2b259140d84d').name" /></h4>
                     <p>
                         <i>- <lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.info')"/></i>
                     </p>
@@ -125,7 +125,7 @@
                         </obsgroup>
                     </table>
 
-                    <h5><lookup expression="fn.getConcept('ef656ae9-897d-4236-b640-ae060f71796f').name" />:</h5>
+                    <h4><lookup expression="fn.getConcept('ef656ae9-897d-4236-b640-ae060f71796f').name" />:</h4>
                     <table width="90%">
                         <obsgroup groupingConceptId="ef656ae9-897d-4236-b640-ae060f71796f">
                         <tr>
@@ -160,7 +160,7 @@
                         </obsgroup>
                     </table>
 
-                    <h5><lookup expression="fn.getConcept('39979ffb-48b1-4c74-84f2-6df36a253cb1').name" />:</h5>
+                    <h4><lookup expression="fn.getConcept('39979ffb-48b1-4c74-84f2-6df36a253cb1').name" />:</h4>
                     <table>
 	                    <obsgroup groupingConceptId="39979ffb-48b1-4c74-84f2-6df36a253cb1">
                         <tr>
@@ -188,10 +188,10 @@
                         </obsgroup>
                     </table>
 
-                    <h5><lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.otherpastmedicalhistory')"/>:</h5>
+                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.otherpastmedicalhistory')"/>:</h4>
                     <obs conceptId="160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="4" cols="60"/>
 
-                    <h5> <lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.familyhistory')"/>:</h5>
+                    <h4> <lookup expression="fn.message('msfcore.ncdbaseline.medicalhistory.familyhistory')"/>:</h4>
                     <table width="90%">
                     	<obsgroup groupingConceptId="23b6f689-0484-4b5f-8094-2d83ce733335">
                         <tr>

@@ -69,19 +69,14 @@
 
 					<h3>10. <lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.title')"/></h3>
 
-					<table class="baseline-aligned">
-						<tr>
-
-                            <td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:
-                                <obs conceptId="465117" style="textarea" rows="4" cols="60"/></td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.getConcept('463571').name"/>:
-							    <obs conceptId="463571" id="patient-education"/></td>
-						</tr>
-
-						<tr>
-							<td>
+					<div>
+						<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:</h4>
+						<obs conceptId="465117" style="textarea" rows="4" cols="60"/>
+					</div>
+					<div>
+						<h4><lookup expression="fn.getConcept('463571').name"/>:</h4>
+						<obs conceptId="463571" id="patient-education"/>
+						<div>
 								<div class="input-group"><!-- Concept Disease Info -->
 									<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
 								</div>
@@ -94,14 +89,14 @@
 								<div class="input-group"><!-- Concept Lifestyle -->
 									<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:
-							    <obs conceptId="465118" style="textarea" rows="4" cols="60"/></td>
-						</tr>
+						</div>
+					</div>
 
-					</table>
+					<div>
+						<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:</h4>
+						<obs conceptId="465118" style="textarea" rows="4" cols="60"/>
+					</div>
+
 
 		            <!-- Submit -->
 					<div class="bottom-of-form">

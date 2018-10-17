@@ -340,10 +340,6 @@ button.confirm.big i.icon-arrow-right {float: right;}
     margin-top:2rem;
 }
 
-#encounter-diagnoses-target {
-    width:100%;
-}
-
 /* Attachments */
 
 .att_upload-container button.confirm, button#allergyui-addNewAllergy {
@@ -409,3 +405,17 @@ button.addEntry::before {
   font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
   margin-right: 5px;
 }
+button.removeEntry {
+  display: block;
+  margin: 0 auto;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-top: 15px;
+}
+button.removeEntry:hover {
+  color: #FF0000;
+}
+button {outline: none}
