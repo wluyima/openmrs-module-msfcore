@@ -95,6 +95,9 @@ a:visited, a.visited {
     color: #4EC3AD;
 }
 
+.active {
+    background-color: rgb(27, 82, 72);
+}
 
 /* Vitals Section */
 

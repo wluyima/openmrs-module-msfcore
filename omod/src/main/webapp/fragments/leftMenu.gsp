@@ -1,6 +1,45 @@
 <script type="text/javascript">
 if (jQuery) {
     jq(document).ready(function () {
+        // Set active class on the menu currently selected
+        var currentFormName = jq("htmlform").attr("formName");
+        if (currentFormName == "Medical History") {
+            jq("#medicalhistory").attr("class","active");
+        }
+        if (currentFormName == "Lifestyle") {
+            jq("#lifestyle").attr("class","active");
+        }
+        if (currentFormName == "Allergies") {
+            jq("#allergies").attr("class","active");
+        }
+        if (currentFormName == "Diagnosis") {
+            jq("#diagnosis").attr("class","active");
+        }
+        if (currentFormName == "Complications") {
+            jq("#complications").attr("class","active");
+        }
+        if (currentFormName == "Prescribe Medication") {
+            jq("#prescribemedication").attr("class","active");
+        }
+        if (currentFormName == "Regular Patient Review") {
+            jq("#regular-patient-review").attr("class","active");
+        }
+        if (currentFormName == "Clinical Note") {
+            jq("#clinicalnote").attr("class","active");
+        }
+        if (currentFormName == "Request Investigation") {
+            jq("#investigationrequest").attr("class","active");
+        }
+        if (currentFormName == "Refer Patient") {
+            jq("#referpatient").attr("class","active");
+        }
+        if (currentFormName == "Patient Targets") {
+            jq("#patienttargets").attr("class","active");
+        }
+        if (currentFormName == "Request Appointment") {
+            jq("#requestappointment").attr("class","active");
+        }
+
         if (window.location.href.indexOf("htmlform/viewEncounterWithHtmlForm.page") != -1) {
             jq('button.no-print').addClass('hidden');
         }

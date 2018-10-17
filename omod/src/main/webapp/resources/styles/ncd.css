@@ -79,9 +79,6 @@
   margin:30px;
 }
 
-.right-form-display .sections-container .section {
-  margin-bottom:50px
-}
 
 .right-form-display .sections-container .section table{
   box-shadow: none;
@@ -124,7 +121,11 @@
 .section {
   padding: 2px;
   text-align: left;
-  margin-bottom: 1em;
+  margin-bottom: 1.3em;
+  overflow: hidden;
+}
+.section .input-group textarea{
+  margin: 0;
 }
 
 .sectionHeader {
@@ -151,7 +152,7 @@ table th, table td {
 }
 
 td.left-th {
-  background: #618696;
+  background: #757C83;
 }
 td.left-th span{
   margin-left: 5px;
@@ -236,7 +237,7 @@ input.submitButton {
 }
 
 
-.input-group form input[type="checkbox"], 
+.input-group form input[type="checkbox"],
 .input-group .form input[type="checkbox"] {
   margin:4px;
 }
@@ -245,15 +246,15 @@ input.submitButton {
 /* Allergies */
 
 span[id*="allergy-type-"] label {
-  float: left;
-  padding: 24px;
+  padding: 15px;
   width: 30%;
   box-sizing: border-box;
   text-align: center;
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
-  margin: -8px 25px 16px -24px !important;
+  margin: -8px 12px 16px -24px !important;
+  background: #fff;
 }
 span[id*="allergy-type-"] input[type="radio"] {
   padding:24px;
@@ -264,11 +265,12 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
   color:#fff;
   border:none;
   box-shadow: inset rgba(0,0,0,0.3) 0 1px 2px;
+  padding:16px;
 }
 
 .allergy-tab {
-  padding: 24px;
-  margin-top:64px;
+  padding: 14px;
+  margin-top: 32px;
   border: 2px solid #55D6BE;
   border-radius: 8px;
 }
@@ -293,12 +295,13 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
 /* 6. Prescribe Medication */
 
 div[id*="-toggleContainer"] {
-  border: 1px solid #eee;
-  padding:16px;
-  border-radius:8px;
-  box-shadow: rgba(0,0,0,0.1) 0 2px 4px;
-  margin-bottom:24px;
+  padding: 32px;
+  border-radius: 8px;
+  /*box-shadow: rgba(0,0,0,0.2) 0px 3px 4px;*/
+  margin-bottom: 24px;
   min-height: 500px;
+  background: #D0FEF5;
+  color: #373F46;
 }
 
 #drug-orders div[id*="-toggleContainer"] > h4 {
@@ -309,8 +312,8 @@ div[id*="-toggleContainer"] {
   margin-bottom: 24px;
 }
 
-#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2), 
-#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(3), 
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2),
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(3),
 #drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(4),
 #drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(5) {
   float: left;
@@ -334,7 +337,25 @@ div[id*="-toggleContainer"] {
   padding: 0;
   height: 140px;
 }
-
 .medication-instructions textarea {
   margin: 8px 0 0 2px;
+}
+td.cv-risk-options input[type="radio"] + label{
+  margin-right: 14px;
+}
+.bottom-of-form {
+  padding-top: 32px;
+  border-top: 1px solid #eeeeee;
+  margin-bottom: 0;
+  margin-top: 40px;
+}
+.section button.addEntry {
+  margin: 0 auto;
+  display: block;
+  padding: 18px 30px;
+  border-radius: 30px;
+  margin-top:32px;
+}
+.section .obs-field {
+  margin-top:5px;
 }

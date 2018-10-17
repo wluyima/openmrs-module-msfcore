@@ -19,7 +19,7 @@
 	</script>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -72,13 +72,15 @@
                     <div class="add-box" id="encounter-diagnoses-target"></div>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.diagnosis.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="ncd.baseline.diagnosis.next"><lookup expression="fn.message('msfcore.next')"/></button>
+							<div class="bottom-of-form">
+								<button class="msf-operation-button no-print" value="ncd.baseline.diagnosis.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+								<button class="primary right msf-operation-button no-print" value="ncd.baseline.diagnosis.next"><lookup expression="fn.message('msfcore.next')"/></button>
+							</div>
 				</section>
 			</div>
 		</div>
 	</div>
-    
+
     <!-- Ensure that only one version of this form can exist at any one time -->
     <ifMode mode="ENTER" include="true">
     <lookup complexExpression="

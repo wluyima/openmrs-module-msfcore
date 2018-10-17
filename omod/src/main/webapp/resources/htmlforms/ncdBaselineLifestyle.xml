@@ -16,7 +16,7 @@
 	</script>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -31,7 +31,7 @@
 
 		}
 	</script>
-	
+
 		<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu" />
 		<div class="right-form-display">
@@ -131,8 +131,10 @@
 					</table>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.lifestyle.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="ncd.baseline.lifestyle.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.lifestyle.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.lifestyle.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 			</div>
 		</div>
@@ -153,7 +155,7 @@
             #end" />
 
 	</ifMode>
-	
+
 	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
 
 </htmlform>

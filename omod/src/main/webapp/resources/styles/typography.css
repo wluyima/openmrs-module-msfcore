@@ -37,7 +37,7 @@ h1,h2,h3,h4 {
 #htmlform h4,
 #htmlform h5,
 #htmlform h6 {
-    color: #618696;
+    color: #538CAC;
     margin-top: 32px;
 }
 
@@ -58,13 +58,17 @@ h3 {
     line-height: 35px;
 }
 h4 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
-
 #htmlform h4 {
-    font-family: "OpenSansSemiBold", Arial, sans-serif;
+    font-family: "OpenSansLight", Arial, sans-serif;
 }
-
+#htmlform .section h4 {
+  color: #373F46;
+  margin-top:0;
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
 h5 {
     font-size: 1.1rem;
     margin:15px 0 5px;
@@ -78,4 +82,3 @@ h6 i::before {
 }
 
 .bold {font-weight: 700}
-

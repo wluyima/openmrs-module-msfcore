@@ -8,7 +8,7 @@
 	</macros>
 
 	<script type="text/javascript">
-		
+
 		var NUMBER_ENTRIES = 10;
 
 		if (jQuery) {
@@ -65,7 +65,7 @@
 			<!-- this is just to allow the usage of the loop variable inside a callback -->
 			<!-- see https://stackoverflow.com/questions/7053965/when-using-callbacks-inside-a-loop-in-javascript-is-there-any-way-to-save-a-var -->
 			function callbackFor(entryIndex) {
-				return function() { 
+				return function() {
 					var frequency = getValue(entryIndex + '-frequency.value');
 					var duration = getValue(entryIndex + '-duration.value');
 					var dates = [];
@@ -183,10 +183,10 @@
 												<lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" />
 											</td>
 											<td colspan="2">
-												<obs 
+												<obs
 													id="{entry}-duration"
-													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a" 
-													answers="1,2,3" 
+													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a"
+													answers="1,2,3"
 													answerLabels="1 year,2 years,3 years" style="dropdown" />
 											</td>
 										</tr>
@@ -197,8 +197,8 @@
 											<td>
 												<obs
 													id="{entry}-frequency"
-													conceptId="82138d7b-0765-4d57-8433-463aeec1f441" 
-													answers="3,6,9,12" 
+													conceptId="82138d7b-0765-4d57-8433-463aeec1f441"
+													answers="3,6,9,12"
 													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
 													style="dropdown" />
 											</td>
@@ -233,8 +233,10 @@
 					</repeat>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
+          <div class="bottom-of-form">
+  					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+  					<button class="primary right msf-operation-button no-print" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
+          </div>
 				</section>
 			</div>
 		</div>
