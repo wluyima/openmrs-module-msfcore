@@ -47,12 +47,12 @@ public class DataUtilsTest {
     }
 
     @Test
-    public void sameDate_shouldEvaluateCorrectly() throws ParseException {
+    public void isSameDate_shouldEvaluateCorrectly() throws ParseException {
         Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-10 20:29:59");
         Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-20 20:29:59");
         Date date3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-10 14:04:05");
-        boolean result1 = DateUtils.sameDate(date1, date2);
-        boolean result2 = DateUtils.sameDate(date1, date3);
+        boolean result1 = DateUtils.isSameDate(date1, date2);
+        boolean result2 = DateUtils.isSameDate(date1, date3);
         assertFalse(result1);
         assertTrue(result2);
     }

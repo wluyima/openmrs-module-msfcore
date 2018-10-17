@@ -8,8 +8,8 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
-import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
+import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
 import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.msfcore.MSFCoreConfig;
@@ -32,7 +32,7 @@ public class RequestAppointmentAction {
                 notes = obs.getValueText();
             }
             if (obs.getConcept().getUuid().equals(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID)) {
-                appointmentTypeUuid = obs.getValueCoded().getUuid();
+                appointmentTypeUuid = obs.getValueText();
             }
         }
 
@@ -50,7 +50,8 @@ public class RequestAppointmentAction {
         List<AppointmentRequest> appointmentRequests = appointmentService.getAllAppointmentRequests(false);
         for (AppointmentRequest request : appointmentRequests) {
             if (request.getAppointmentType() == appointmentType && request.getPatient().getId() == patient.getId()
-                            && DateUtils.sameDate(now, request.getDateCreated()) && request.getStatus() == AppointmentRequestStatus.PENDING) {
+                            && DateUtils.isSameDate(now, request.getDateCreated())
+                            && request.getStatus() == AppointmentRequestStatus.PENDING) {
                 return null;
             }
         }

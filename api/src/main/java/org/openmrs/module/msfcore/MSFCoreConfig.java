@@ -378,5 +378,4 @@ public class MSFCoreConfig {
 
     public static final String CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID = "d0475b32-6987-43b3-a618-b975f4967ba5";
 
-    public static final String SERVICE_TYPE_GENERAL_MEDICINE_UUID = "7dd9ac8e-c436-11e4-a470-82b0ea87e2d8";
 }
