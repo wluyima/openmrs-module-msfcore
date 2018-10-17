@@ -67,7 +67,7 @@
 
 				<section>
 
-					<h3><a name="patienttargets">7. <lookup expression="fn.message('msfcore.ncdbaseline.patienttargets.title')"/></a></h3>
+					<h3><a name="patienttargets">8. <lookup expression="fn.message('msfcore.ncdbaseline.patienttargets.title')"/></a></h3>
 						<table>
 							<tr>
                                 <!-- Concept id=6000001 name=HbA1C target -->

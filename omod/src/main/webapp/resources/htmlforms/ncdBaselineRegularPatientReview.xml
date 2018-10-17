@@ -162,7 +162,7 @@
 				<section>
 
 					<h3>
-						<a name="regular-patient-review">8. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
+						<a name="regular-patient-review">9. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
 					</h3>
 
 					<repeat>

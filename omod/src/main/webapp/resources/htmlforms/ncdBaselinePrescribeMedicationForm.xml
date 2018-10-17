@@ -91,7 +91,7 @@
 
 			<div class="sections-container">
 				<section id="drug-orders">
-                    <h3>6. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
+                    <h3>7. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">

@@ -64,18 +64,18 @@ public class MsfStandardSubmissionAction implements CustomFormSubmissionAction {
             put("ncd.baseline.diagnosis.previous", ALLERGIES_URL);
             put("ncd.baseline.diagnosis.next", COMPLICATIONS_URL);
             put("ncd.baseline.complications.previous", DIAGNOSIS_URL);
-            put("ncd.baseline.complications.next", PRESCRIBE_MEDICATION_URL);
-            put("ncd.baseline.prescribemedication.previous", COMPLICATIONS_URL);
+            put("ncd.baseline.complications.next", INVESTIGATION_REQUEST_URL);
+            put("ncd.baseline.requestinvestigation.previous", COMPLICATIONS_URL);
+            put("ncd.baseline.requestinvestigation.next", PRESCRIBE_MEDICATION_URL);
+            put("ncd.baseline.prescribemedication.previous", INVESTIGATION_REQUEST_URL);
             put("ncd.baseline.prescribemedication.next", PATIENT_TARGETS_URL);
             put("ncd.baseline.patienttargets.previous", PRESCRIBE_MEDICATION_URL);
             put("ncd.baseline.patienttargets.next", REGULAR_PATIENT_REVIEW_URL);
             put("ncd.baseline.regularpatientreview.previous", PATIENT_TARGETS_URL);
             put("ncd.baseline.regularpatientreview.next", CLINICAL_NOTE_URL);
             put("ncd.baseline.clinicalnote.previous", REGULAR_PATIENT_REVIEW_URL);
-            put("ncd.baseline.clinicalnote.next", INVESTIGATION_REQUEST_URL);
-            put("ncd.baseline.requestinvestigation.previous", CLINICAL_NOTE_URL);
-            put("ncd.baseline.requestinvestigation.next", REQUEST_APPOINTMENT_URL);
-            put("ncd.baseline.requestappointment.previous", INVESTIGATION_REQUEST_URL);
+            put("ncd.baseline.clinicalnote.next", REQUEST_APPOINTMENT_URL);
+            put("ncd.baseline.requestappointment.previous", CLINICAL_NOTE_URL);
             put("ncd.baseline.requestappointment.next", REFER_PATIENT_URL);
             put("ncd.baseline.referpatient.previous", REQUEST_APPOINTMENT_URL);
         }
