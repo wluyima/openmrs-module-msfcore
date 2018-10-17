@@ -1,5 +1,12 @@
 /* NCD Forms styling */
 
+/* Visible on the View version of the Form */
+span#form-actions {
+  background: #373F46;
+  padding: 24px 0 16px 67%;
+  margin-bottom: -8px;
+}
+
 .wrapper {
   overflow: hidden;
   height: 100%;
@@ -72,6 +79,7 @@
   font-size: 99%
 }
 
+htmlform .right-form-display,
 #htmlform .right-form-display {
   color: #6D7378;
   background: #fff;
@@ -84,7 +92,6 @@
 .right-form-display .sections-container {
   margin:30px;
 }
-
 
 .right-form-display .sections-container .section table{
   box-shadow: none;
