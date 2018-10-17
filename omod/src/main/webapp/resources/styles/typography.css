@@ -63,13 +63,17 @@ h4 {
 #htmlform h4 {
     font-family: "OpenSansLight", Arial, sans-serif;
 }
-#htmlform .section .section h4, #htmlform .section div[id*="-toggleContainer"] h4 {
+#htmlform .section .section h4,
+#htmlform .section div[id*="-toggleContainer"] h4,
+.add-box#encounter-diagnoses-target h3 {
   color: #373F46;
   margin-top:0;
   margin-bottom: 0;
   padding-bottom: 5px;
 }
-
+.add-box#encounter-diagnoses-target h3 {
+  margin-bottom: 15px;
+}
 h5 {
     font-size: 1.1rem;
     margin:15px 0 5px;

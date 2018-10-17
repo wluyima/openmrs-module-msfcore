@@ -1,45 +1,6 @@
 <script type="text/javascript">
 if (jQuery) {
     jq(document).ready(function () {
-        // Set active class on the menu currently selected
-        var currentFormName = jq("htmlform").attr("formName");
-        if (currentFormName == "Medical History") {
-            jq("#medicalhistory").attr("class","active");
-        }
-        if (currentFormName == "Lifestyle") {
-            jq("#lifestyle").attr("class","active");
-        }
-        if (currentFormName == "Allergies") {
-            jq("#allergies").attr("class","active");
-        }
-        if (currentFormName == "Diagnosis") {
-            jq("#diagnosis").attr("class","active");
-        }
-        if (currentFormName == "Complications") {
-            jq("#complications").attr("class","active");
-        }
-        if (currentFormName == "Prescribe Medication") {
-            jq("#prescribemedication").attr("class","active");
-        }
-        if (currentFormName == "Regular Patient Review") {
-            jq("#regular-patient-review").attr("class","active");
-        }
-        if (currentFormName == "Clinical Note") {
-            jq("#clinicalnote").attr("class","active");
-        }
-        if (currentFormName == "Request Investigation") {
-            jq("#investigationrequest").attr("class","active");
-        }
-        if (currentFormName == "Refer Patient") {
-            jq("#referpatient").attr("class","active");
-        }
-        if (currentFormName == "Patient Targets") {
-            jq("#patienttargets").attr("class","active");
-        }
-        if (currentFormName == "Request Appointment") {
-            jq("#requestappointment").attr("class","active");
-        }
-
         if (window.location.href.indexOf("htmlform/viewEncounterWithHtmlForm.page") != -1) {
             jq('button.no-print').addClass('hidden');
         }
@@ -92,10 +53,6 @@ if (jQuery) {
                 <span class="hidden section-link" id="complications-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933</span>
             </li>
             <li>
-                <a id="investigationrequest" href="#investigationrequest">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
-                <span class="hidden section-link" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
-            </li>
-            <li>
                 <a id="prescribemedication" href="#prescribemedication">${ui.message("msfcore.ncdbaseline.prescribemedication.title")}</a>
                 <span class="hidden section-link" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
             </li>
@@ -112,6 +69,10 @@ if (jQuery) {
                 <span class="hidden section-link" id="clinical-note-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948</span>
             </li>
             <li>
+                <a id="investigationrequest" href="#investigationrequest">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
+                <span class="hidden section-link" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
+            </li>
+            <li>
                 <a id="requestappointment" href="#requestappointment">${ui.message("msfcore.ncdbaseline.requestappointment.title")}</a>
                 <span class="hidden section-link" id="request-appointment-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303911</span>
             </li>
@@ -121,8 +82,8 @@ if (jQuery) {
             </li>
         </ol>
 
-        <button class="nav-button msf-operation-button save" value="save.and.exit.action">${ui.message('msfcore.save.and.exit')}</button>
-        <button class="nav-button msf-operation-button final" value="complete.action">${ui.message('msfcore.save.final')}</button>
+        <button class="nav-button msf-operation-button final" value="save.and.exit.action">${ui.message('msfcore.save.and.exit')}</button>
+        <button class="nav-button msf-operation-button save" value="complete.action">${ui.message('msfcore.save.final')}</button>
 	    <input id="msf-operation" name="msf.operation" type="hidden" />
 
     </div>
