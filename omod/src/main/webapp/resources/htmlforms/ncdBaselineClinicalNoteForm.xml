@@ -18,7 +18,7 @@
 	</script>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -71,7 +71,7 @@
 
 					<table class="baseline-aligned">
 						<tr>
-                            
+
                             <td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:
                                 <obs conceptId="465117" style="textarea" rows="4" cols="60"/></td>
 						</tr>
@@ -104,8 +104,10 @@
 					</table>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.clinicalnote.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="ncd.baseline.clinicalnote.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.clinicalnote.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.clinicalnote.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 			</div>
 

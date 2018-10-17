@@ -117,10 +117,10 @@
                         <template>
                             <div id="{allergy}-toggleContainer" style="display: none;">
                                 <section>
-                                    <h3>
+                                    <h4>
                                         <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name"/>
-                                    </h3>
-                                        
+                                    </h4>
+
                                     <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635"
                                             answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other"
                                             style="radio" answerSeparator=""/>
@@ -143,16 +143,16 @@
                                 </section>
 
                                 <section>
-                                        <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h3>
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h4>
                                         <div class="list-of-checkboxes">
                                             <obsgroup groupingConceptId="162555">
-        
+
                                             <div class="column">
                                                 <div class="input-group">
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121629" style="checkbox"/>
                                                 </div>
                                                 <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121677" style="checkbox"/>    
+                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121677" style="checkbox"/>
                                                 </div>
                                                 <div class="input-group">
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148888" style="checkbox"/>
@@ -173,7 +173,7 @@
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="143264" style="checkbox"/>
                                                 </div>
                                             </div>
-        
+
                                             <div class="column">
                                                 <div class="input-group">
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="142412" style="checkbox"/>
@@ -200,7 +200,7 @@
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159347" style="checkbox"/>
                                                 </div>
                                             </div>
-        
+
                                             <div class="column">
                                                 <div class="input-group">
                                                     <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121" style="checkbox"/>
@@ -219,7 +219,7 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" answerConceptId="5622" style="checkbox"
-                                                        commentFieldLabel="Specify:"/>                                        
+                                                        commentFieldLabel="Specify:"/>
                                                 </div>
                                             </div>
 
@@ -228,7 +228,7 @@
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h4>
                                     <div class="input-group">
                                         <obs conceptId="162820" answerConceptIds="1498,1499,1500" style="radio"
                                             answerLabels="Mild, Moderate, Severe"/>
@@ -236,17 +236,17 @@
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h4>
                                     <div class="input-group">
                                         <obs conceptId="161011" style="textarea" rows="3"/>
                                     </div>
                                 </section>
 
                                 <div class="hide-on-view">
-                                    <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
+                                    <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
                                     <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                                 </div>
-                                   
+
                             </div>
                             <script>
                                 jq(document).ready(function () {
@@ -277,11 +277,13 @@
                     </repeat>
 
                     <!-- Submit -->
-                    <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-                    <button class="msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    <div class="bottom-of-form">
+                      <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+                      <button class="primary right msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    </div>
                 </section>
             </div>
-            
+
         </div>
     </div>
 

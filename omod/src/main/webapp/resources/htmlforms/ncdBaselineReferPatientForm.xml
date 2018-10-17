@@ -11,7 +11,7 @@
 	</macros>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -115,8 +115,10 @@
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.referpatient.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="complete.action"><lookup expression="fn.message('msfcore.save.final')"/></button>
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.referpatient.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="complete.action"><lookup expression="fn.message('msfcore.save.final')"/></button>
+					</div>
 				</section>
 
 			</div>

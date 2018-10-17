@@ -32,7 +32,7 @@
     </script>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -128,8 +128,10 @@
 					</table>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button no-print" value="ncd.baseline.requestappointment.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button no-print" value="ncd.baseline.requestappointment.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.requestappointment.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.requestappointment.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 			</div>
 

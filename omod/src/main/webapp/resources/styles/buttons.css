@@ -25,9 +25,9 @@ button.big {
     color: #55D6BE;
 }
 
-/* BUTTONS > Cancel & Confirm 
+/* BUTTONS > Cancel & Confirm
 
-- The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet. 
+- The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet.
 - Avoid pruning.
 
 */
@@ -49,11 +49,11 @@ button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
 #form-actions-container a,
-.button.task:visited, 
-button.task:visited, 
-input[type="submit"].task:visited, 
-input[type="button"].task:visited, 
-input[type="submit"].task:visited, 
+.button.task:visited,
+button.task:visited,
+input[type="submit"].task:visited,
+input[type="button"].task:visited,
+input[type="submit"].task:visited,
 a.button.task:visited {
     background: #fff;
     background-color: #fff;
@@ -124,7 +124,7 @@ input[type="submit"].cancel {
     float:left;
 }
 
-.button:hover, 
+.button:hover,
 a.button:hover
 button:hover,
 .button.cancel:hover,
@@ -162,7 +162,7 @@ a.button.cancel:hover,
     cursor: pointer;
 }
 
-.main-content .visit-actions a:hover, 
+.main-content .visit-actions a:hover,
 .main-content .spaced a:hover,
 .button.confirm:hover,
 button.confirm:hover,
@@ -171,10 +171,10 @@ input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
 #form-actions-container a:hover,
-.button.task:hover, 
-button.task:hover, 
-input[type="button"].task:hover, 
-input[type="submit"].task:hover, 
+.button.task:hover,
+button.task:hover,
+input[type="button"].task:hover,
+input[type="submit"].task:hover,
 a.button.task:hover {
     color:#4EC3AD;
     background: #fff;
@@ -238,8 +238,8 @@ input[type="submit"]:disabled:hover {
 #patient-search-clear-button,
 .delete-item,
 .delete-action,
-.view-action, 
-#i-toggle, 
+.view-action,
+#i-toggle,
 a.view-details {
     background: #fff;
     border-radius: 4px;
@@ -257,11 +257,11 @@ a.view-details {
     text-decoration: none;
 }
 
-.edit-info { 
+.edit-info {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
 
-.edit-action { 
+.edit-action {
     margin-bottom:4px;
 }
 
@@ -382,11 +382,11 @@ a.button:hover,
 .ui-state-default.ui-button:hover,
 .delete-item,
 .delete-item:hover,
-#patient-search-results #patient-search-results-table tbody tr:hover, 
+#patient-search-results #patient-search-results-table tbody tr:hover,
 #patient-search-results #patient-search-results-table tbody tr,
 .dashboard .info-header i.edit-action,
 .dashboard .info-header i.edit-action:hover,
-#form-actions-container a,  
+#form-actions-container a,
 #form-actions-container a:hover  {
     -webkit-transition-property: all;
     transition-property: all;
@@ -394,4 +394,18 @@ a.button:hover,
     transition-duration: .35s;
     -webkit-transition-timing-function: cubic-bezier(.455, .03, .515, .955);
     transition-timing-function: cubic-bezier(.455, .03, .515, .955);
+}
+
+button.primary {
+  background: #538CAC;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, .2) 0 1px 4px;
+}
+button.primary:hover {background: #55D6BE}
+
+button.right {float: right}
+
+button.addEntry::before {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+  margin-right: 5px;
 }

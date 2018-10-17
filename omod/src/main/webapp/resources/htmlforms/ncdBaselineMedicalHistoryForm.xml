@@ -20,7 +20,7 @@
     </script>
 
 	<script type="text/javascript">
-		
+
 		if (jQuery) {
 
 			jq(document).ready(function () {
@@ -164,12 +164,12 @@
                     <table>
 	                    <obsgroup groupingConceptId="39979ffb-48b1-4c74-84f2-6df36a253cb1">
                         <tr>
-                            <td class="left-th" width="18%">
+                            <td class="left-th" width="14%">
                                 <span>
                                     <lookup expression="fn.getConcept('a2c36065-0377-435c-b06f-c48e4a609ee4').name"/>
                                 </span>
                             </td>
-                            <td width="82%">
+                            <td class="cv-risk-options" width="82%">
                                 <obs conceptId="a2c36065-0377-435c-b06f-c48e4a609ee4" answerConceptIds="14dd482d-a42b-46d0-bb14-4d3f8c743f32,65faaf98-3caf-47d0-8b92-6bb1d222ad9c,256de010-3614-4e1c-91fa-183236c6e7f2,3b3db397-ed73-4250-84b0-0feabcb4f498,5c6ac484-0ebb-4e81-83e2-e42b801810a5"
                                      style="radio"/>
                             </td>
@@ -180,7 +180,7 @@
                                     <lookup expression="fn.getConcept('8e31892a-57da-42b2-94b6-a5776e1c7fa8').name"/>
                                 </span>
                             </td>
-                            <td>
+                            <td class="cv-risk-options">
                                 <obs conceptId="8e31892a-57da-42b2-94b6-a5776e1c7fa8" answerConceptIds="14dd482d-a42b-46d0-bb14-4d3f8c743f32,65faaf98-3caf-47d0-8b92-6bb1d222ad9c,256de010-3614-4e1c-91fa-183236c6e7f2,3b3db397-ed73-4250-84b0-0feabcb4f498,5c6ac484-0ebb-4e81-83e2-e42b801810a5"
                                      style="radio"/>
                             </td>
@@ -215,7 +215,10 @@
                         </obsgroup>
                     </table>
                     <!-- Submit -->
-                    <button class="msf-operation-button no-print" value="ncd.baseline.medicalhistory.next"><lookup expression="fn.message('msfcore.next')"/></button>
+
+                    <div class="bottom-of-form">
+                      <button class="primary right msf-operation-button no-print" value="ncd.baseline.medicalhistory.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    </div>
                 </section>
             </div>
         </div>
