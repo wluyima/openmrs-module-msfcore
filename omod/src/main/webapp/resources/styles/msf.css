@@ -8,46 +8,30 @@ In production a single concatonated and minified file should be used instead. @I
 @import url('dashboard.css');
 @import url('registration.css');
 @import url('ncd.css');
+@import url('attachments.css');
+@import url('visit-history.css');
 
 /* COLORS
-
 This can be converted to custom propterties / variables at a later stage. A build process may be needed to ensure compatibility with all browsers.
-
 INTERACTION:
 Medium Turquoise: 55D6BE
+    Link text: 4EC3AD
 Aero Blue: D0FEF5
-
 INFORMATION:
 Info blue: 538CAC
     lightest: B0CAD9
-
 BRANDING:
-
 MSF Red: FF0000
-
 Dark grey: 424C55
     Darker: 373F46 (Body Text)
     Lighter: 646C73
     lightest: 757C83
-
+    Disabled: BABDC1
 White: FFFFFF
     Darker:
-
 */
 
-
 /* STRUCTURE */
-
-a, a:hover,
-header a, 
-header a:hover, 
-header a:link {
-    color:#4EC3AD;
-}
-
-a:visited, a.visited {
-    color: #4EC3AD;
-}
 
 html {
     box-sizing: border-box;
@@ -62,6 +46,10 @@ body {
     font-size: 1em;
 }
 
+html, body{
+    height:100%;
+}
+
 header {
     background-color: #ffff;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
@@ -74,11 +62,8 @@ header {
     z-index: 9999;
 }
 
-@media print {
-	.noprint {display:none;}
-}
-
-@media screen {
+header .logo {
+    margin: 4px 0 4px 16px;
 }
 
 #body-wrapper {
@@ -87,6 +72,21 @@ header {
     margin: 0 auto;
     padding: 0;
 }
+
+/* INTERACTIONS */
+
+
+a, a:hover,
+header a, 
+header a:hover, 
+header a:link {
+    color:#4EC3AD;
+}
+
+a:visited, a.visited {
+    color: #4EC3AD;
+}
+
 
 /* Vitals Section */
 
@@ -103,21 +103,17 @@ header {
 }
 
 #content > .container.half-width #actions {
-    height: 60px;
-    width: 44%;
-    padding: 16px 30% 16px 31%;
-    margin: 0 -30px 0 -26px;
     background: #55D6BE;
     box-shadow: inset rgba(0,0,0,0.3) 0 0 8px;
+    border: none;
+    border-radius: 0;
+    height: 6rem;
+    padding: 16px 30% 16px 30%;
+    margin: 0 -40px 0 -40px;
+    width: 106%;
 }
 
 #form-actions-container {
-    background: #D0FEF5;
-    border-radius: 0 0 0.5rem 0.5rem;
-    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
-    box-sizing: border-box;
-    height: 6rem;
-    padding:1rem;
     order: 3;
 }
 
@@ -133,7 +129,14 @@ header {
 #content.container {
     display: flex;
     flex-direction: column;
-    margin-top:2rem;
+    /*padding:3rem 0 6rem 0;*/
+}
+
+#content.container {
+    margin: 3rem 0 6rem 0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
 }
 
 .simple-form-ui form#htmlform {
@@ -144,6 +147,11 @@ header {
 
 .float-left {
     width: 80%;
+    float: left;
+}
+
+.hidden {
+    display: none;
 }
 
 /* TOASTS */
@@ -153,46 +161,6 @@ header {
     font-size: 16px;
     box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
     border: none;
-    order-radius: 8px;
-}
-
-/* FORMS */
-
-#login-form ul.select,
-#login-form #sessionLocation {
-    width:60%;
-}
-
-form, .form {
-    overflow: visible
-}
-
-form input,
-form select,
-form textarea,
-form ul.select,
-.form input,
-.form select,
-.form textarea,
-.form ul.select {
-    outline: none;
-    border-bottom: 2px solid #ccc;
-    background: #fff;
-    padding: 8px 16px;
-    border-radius:4px;
-}
-
-form input:focus,
-form select:focus,
-form textarea:focus,
-form ul.select:focus,
-.form input:focus,
-.form select:focus,
-.form textarea:focus,
-.form ul.select:focus {
-    outline: none;
-    border-bottom: 2px solid #55D6BE;
-    background: #fff;
     border-radius: 8px;
 }
 
@@ -229,13 +197,19 @@ table td:last-child {
     padding:5px;
 }
 
-.fg-toolbar {
-    background: #424C55;
+
+.fg-toolbar,
+.tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
     border-radius: 0 0 8px 8px;
     box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+.fg-toolbar {
+    background: #424C55;
     border-top: 8px solid #373F46;
     color: #fff;
     padding: 8px;
+    margin-bottom: 64px;
 }
 
 .dataTables_info {
@@ -243,12 +217,18 @@ table td:last-child {
     padding-left: 8px;
     font-size: 18px;
     opacity: 0.8;
+    width: 38%;
+}
+
+.paging_full_numbers {
+    width: 60% !important;
 }
 
 /* MODALS */
 
 .dialog, .ngdialog.ngdialog-theme-default .ngdialog-content {
     box-shadow:rgba(0, 0, 0, 0.3) 0 16px 32px;
+    min-height: 240px;
 }
 
 .dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
@@ -270,4 +250,112 @@ table td:last-child {
 /* HIDDEN */
 #filter-tags {
     display: none;
+}
+
+/* HTML Forms view on the patient dashboard */
+span.value {
+    color: blue;
+}
+
+/* Hide the left hand menu when displaying the dashboard */
+.encounter-summary-container .left-column, .encounter-summary-container .hide-on-view, .encounter-summary-container .hide-on-print {
+    display: none;
+}
+
+.encounter-summary-container .right-form-display {
+    width: 100%;
+}
+
+/* Conditions */
+
+.horizontal {
+    display: table;
+    padding: 16px;
+    background: #55D6BE;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.horizontal:first-of-type {
+    margin-top:16px;
+    border-radius: 8px 8px 0 0;
+}
+
+.horizontal > * {
+    display: inline-block;
+    text-transform: lowercase;
+}
+
+.concept input, 
+#concept-and-date span.date input { 
+    padding:8px;
+    border-radius: 4px;
+    border:none;
+    border-bottom: 2px solid #ccc;
+}
+
+#conceptId-input::before {
+    content: 'Type to find a Concept';
+    display: block;
+}
+
+#content {
+    animation: fadein 0.5s ease-in;
+}
+
+#breadcrumbs li:last-child {
+    animation: fadein 1s ease-in;
+}
+
+@keyframes fadein {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+@keyframes widget-text {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+#chart-search-form-submit .chart-search-input {
+    background: #55D6BE;
+    border-radius: 0;
+    padding:24px;
+}
+
+#chart-search-form-submit .chart-search-input .filters_section {
+    background: rgba(255,255,255,0.3);
+    height: 80px;
+    border-radius: 8px;
+    margin-top: 16px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.patient-header + #edit-patient-identifier-dialog + .actions.dropdown {
+    background: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin: -18px 0 0 1024px;
+    width: 10rem;
+}
+.patient-header + #edit-patient-identifier-dialog + .actions.dropdown .dropdown-name {
+    color:#373F46;
+}
+
+/* APPOINTMENTS SECTION */
+
+div#appointmentscheduling-manageAppointments {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+div#appointmentscheduling-manageAppointments > div {
+    margin-bottom:2rem;
 }

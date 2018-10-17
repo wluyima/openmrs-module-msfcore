@@ -22,11 +22,13 @@ public class MSFCoreConfig {
 
     public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
     public final static String SEARCH_APP_EXTENSION_ID = "coreapps.findPatient";
+    public final static String REPORTS_APP_EXTENSION_ID = "reportingui.reports";
 
     public final static String MSF_REGISTRATION_APP_EXTENSION_ID = "msfcore.registrationapp";
     public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
+    public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
 
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
 
@@ -248,6 +250,10 @@ public class MSFCoreConfig {
 
     public final static String TASK_AUTO_CLOSE_VISIT = "Auto Close Visits Task";
 
+    // Encounter types
+    public static final String MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
+    public static final String MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+
     public final static String LOCATION_ATTR_TYPE_UID_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0000";
 
     public final static String LOCATION_UID_ATTRIBUTE_LEBANON_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0001";
@@ -363,4 +369,12 @@ public class MSFCoreConfig {
     public static final String FILENAME_DHIS_MAPPINGS_PROPERTIES = "dhis-mappings.properties";
 
     public static final String FILENAME_OPTION_SETS_JSON = "optionSets.json";
+
+    public static final String HTMLFORM_REQUEST_APPOINTMENT_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303911";
+
+    public static final String CONCEPT_REQUEST_APPOINTMENT_DATE_UUID = "c72e7dce-e9eb-44e9-8114-94f9550ad5b0";
+
+    public static final String CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID = "f3a76818-3ff4-4d94-9c51-be295cad43a1";
+
+    public static final String SERVICE_TYPE_GENERAL_MEDICINE_UUID = "7dd9ac8e-c436-11e4-a470-82b0ea87e2d8";
 }

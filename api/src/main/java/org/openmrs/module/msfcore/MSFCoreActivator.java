@@ -9,29 +9,25 @@
  */
 package org.openmrs.module.msfcore;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.dataexchange.DataImporter;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.htmlformentry.HtmlFormEntryService;
-import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataTermMapping;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.msfcore.activator.HtmlFormsInitializer;
 import org.openmrs.module.msfcore.api.DHISService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.metadata.MSFMetadataBundle;
 import org.openmrs.module.msfcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.msfcore.report.BaseMSFReportManager;
 import org.openmrs.module.referencemetadata.ReferenceMetadataConstants;
 import org.openmrs.scheduler.TaskDefinition;
 
@@ -68,12 +64,20 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
 
-        // disable the default find patient app to provide one which allows searching for patients at the footer of the search for patients page
+        log.info("Disabling default reports app");
+        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
+
+        // disable the default find patient app to provide one which allows
+        // searching for patients at the footer of the search for patients page
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
 
-        log.info("Installing MSF metadata");
+        log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+        log.info("Installing MSF Reports");
+        for (BaseMSFReportManager msfReport : Context.getRegisteredComponents(BaseMSFReportManager.class)) {
+            msfReport.setup();
+        }
 
         log.info("Installation and configuration of default MSF Identifier");
         Context.getService(MSFCoreService.class).msfIdentifierGeneratorInstallation();
@@ -107,12 +111,32 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
         log.info("Installing MSF Forms");
         installMsfForms();
+
+        // create a map between visit types and encounter types to enable the autocreation of visits
+        // all encounters are mapped to the default Facility Visit Type - change this mapping to match encounter types to facility types
+        // see https://issues.openmrs.org/browse/EA-116 for more information
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
+                        "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+
+        // install concepts
+
+        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+        log.info("Importing MSF CIEL Concepts");
+        dataImporter.importData("CIELConcepts.xml");
+        log.info("MSF CIEL Concepts imported");
+        log.info("Importing MSF Custom Concepts");
+        dataImporter.importData("MSFCustomConcepts.xml");
+        log.info("MSF Custom Concepts imported");
     }
 
     private void removeMSFMeta() {
         log.info("Enabling default reference application registration app");
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+        log.info("Enabling default reports app");
+        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
 
         log.info("Requiring OpenMRS ID if not done");
         PatientIdentifierType openmrsIdType = Context.getPatientService().getPatientIdentifierTypeByName(
@@ -128,7 +152,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
             Context.getPatientService().savePatientIdentifierType(msfIdType);
         }
 
-        log.info("Configuting primary Identifier");
+        log.info("Configuring primary Identifier");
         MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
         MetadataTermMapping primaryIdentifierTypeMapping = metadataMappingService.getMetadataTermMapping(
                         EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
@@ -148,6 +172,10 @@ public class MSFCoreActivator extends BaseModuleActivator {
         // disable the MSF find patient app and enable the default core apps one
         Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
         Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
+
+        // remove a map between visit types and encounter types to enable the autocreation of visits
+        Context.getAdministrationService().setGlobalProperty(
+                        MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP, "");
     }
 
     /**
@@ -175,23 +203,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
      */
     private void installMsfForms() {
         try {
-            for (File form : getFormsResourceFiles()) {
-                HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class),
-                                new Scanner(form).useDelimiter("\\Z").next());
-            }
+            HtmlFormsInitializer htmlFormsInitializer = new HtmlFormsInitializer("msfcore");
+            htmlFormsInitializer.started();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-    }
-
-    private File[] getFormsResourceFiles() {
-        List<File> formXmls = new ArrayList<File>();
-        for (File file : new File(getClass().getClassLoader().getResource("htmlforms").getPath()).listFiles()) {
-            if (file.exists() && file.getName().endsWith("Form.xml")) {
-                formXmls.add(file.getAbsoluteFile());
-            }
-        }
-        return formXmls.toArray(new File[formXmls.size()]);
     }
 
 }

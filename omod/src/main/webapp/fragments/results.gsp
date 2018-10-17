@@ -24,6 +24,6 @@
 	</table>
 </div>
 <div id="results-print-close">
-	<input type="button" onclick="window.print();" class="noprint" value="${ ui.message('msfcore.print')}"/>
-	<input type="button" onclick="history.back();" class="noprint" value="${ ui.message('msfcore.close')}"/>
+	<input type="button" onclick="window.print();" value="${ ui.message('msfcore.print')}"/>
+	<input type="button" onclick="history.back();" value="${ ui.message('msfcore.close')}"/>
 </div>
