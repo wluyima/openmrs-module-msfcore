@@ -68,6 +68,8 @@ ul.left-menu li .menu-date {
     padding-bottom: 0 !important;
 }
 
+/* Visit Actions Buttons above the Encounters List */
+
 .main-content .visit-actions {
     border:none;
     padding:0 24px 0 0;
@@ -113,6 +115,8 @@ ul.encounter-list {
     font-size: 0.9em;
 }
 
+/* Encounters List */
+
 .encounter-list > li.encounter {
     margin-bottom: 0px;
     display: block;
@@ -130,11 +134,6 @@ ul.encounter-list {
 .encounter-list .encounter-date strong {
     border: none;
     float: left;
-}
-
-.encounter > span + div {
-    float:left;
-    width:100%;
 }
 
 .encounter-type,
@@ -164,6 +163,14 @@ ul.encounter-list {
     padding: 8px;
 }
 
+h4.encounter-name {
+    padding-left: 6px;
+    color:#fff;
+}
+
+
+/* Encounter Type List > Encounter > Show Details button */ 
+
 a.view-details {
     color: #4EC3AD;
     margin: 8px 0;
@@ -184,19 +191,51 @@ a.view-details.collapsed > i.icon-caret-right::before {
     content: '\f0da';
 }
 
+/* Encounter Type List > Encounter Expanded > Encounter Summary */
+
+div[id*="encounter-summary"] {
+    width: 100%;
+}
+
+div[id*="encounter-summary"] button.msf-operation-button {
+    display:none;
+}
+
 
 .collapse .encounter-summary-container {
-    padding: 8px;
+    padding: 16px;
     border: none;
-    float: left;
     width: 100%;
+    min-height: 32px !important;
     box-sizing: border-box;
     box-shadow: inset rgba(0,0,0,0.1) 0 2px 4px;
 }
 
-h4.encounter-name {
-    padding-left: 6px;
-    color:#fff;
+/* These rules make changes to NCD Forms to suite the Visit History content
+the better option would be to only show the relevant content. */ 
+
+.encounter-summary-container .sections-container {
+    margin:0;
+}
+
+.encounter-summary-container  .sections-container > .section > h3,
+.encounter-summary-container  section button {
+    display: none;
+}
+
+.encounter-summary-container  .sections-container > .section > h5 {
+    font-weight:normal;
+    font-size: 1rem;
+}
+
+.encounter-summary-container  .sections-container div[id*="-toggleContainer"] {
+    border: none;
+    padding: 16px 0;
+    box-shadow: none;
+    margin-bottom: 0;
+    min-height: 200px;
+    border-radius: 0;
+    border-bottom: 2px solid #ccc;
 }
 
 li.encounter-summary {

@@ -262,7 +262,7 @@ table td:last-child {
 
 /* HTML Forms view on the patient dashboard */
 span.value {
-    color: blue;
+    color: black;
 }
 
 /* Hide the left hand menu when displaying the dashboard */
