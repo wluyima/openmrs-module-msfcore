@@ -92,6 +92,10 @@ if (jQuery) {
                 <span class="hidden section-link" id="complications-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933</span>
             </li>
             <li>
+                <a id="investigationrequest" href="#investigationrequest">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
+                <span class="hidden section-link" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
+            </li>
+            <li>
                 <a id="prescribemedication" href="#prescribemedication">${ui.message("msfcore.ncdbaseline.prescribemedication.title")}</a>
                 <span class="hidden section-link" id="prescribe-medication-form-url">enterHtmlFormWithStandardUi.page?formUuid=aab2cab6-c280-438b-9afd-3c54e799ef2a</span>
             </li>
@@ -106,10 +110,6 @@ if (jQuery) {
             <li>
                 <a id="clinicalnote" href="#clinicalnote">${ui.message("msfcore.ncdbaseline.clinicalnote.title")}</a>
                 <span class="hidden section-link" id="clinical-note-form-url">enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948</span>
-            </li>
-            <li>
-                <a id="investigationrequest" href="#investigationrequest">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
-                <span class="hidden section-link" id="investigation-request-form-url">enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350</span>
             </li>
             <li>
                 <a id="requestappointment" href="#requestappointment">${ui.message("msfcore.ncdbaseline.requestappointment.title")}</a>

@@ -72,7 +72,7 @@
 		</table>
 	</section>
 	<section headerLabel="New Diagnosis">
-	
+
         <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
     <div id="encounter-diagnoses-target">
     </div>
@@ -81,7 +81,7 @@
 		<table class="baseline-aligned">
 			<tr>
                                 <td><lookup expression="fn.getConcept('163618').name"/></td>
-                                <td><obs conceptId="163618"/></td>			
+                                <td><obs conceptId="163618"/></td>
 			</tr>
 		</table>
 	</section>
@@ -89,7 +89,7 @@
 		<table class="baseline-aligned">
 			<tr>
                                 <td><lookup expression="fn.getConcept('163533').name"/></td>
-                                <td><obs conceptId="163533" style="no_yes" /></td>			
+                                <td><obs conceptId="163533" style="no_yes" /></td>
 			</tr>
 		</table>
 	</section>
@@ -203,7 +203,7 @@
                                 <td width="5%"> <obs conceptId="MSF:A914E896-5E26-4D8A-B0C6-4E3FDA14BE56" id="referral_out_nephrologist" style="checkbox"/></td>
 				<td><lookup expression="fn.getConcept('MSF:A914E896-5E26-4D8A-B0C6-4E3FDA14BE56').name"/></td>
 			</tr>
-			<tr>                        
+			<tr>
 				<td width="5%"></td><td><lookup expression="fn.getConcept('MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9').name"/>
                                 <obs conceptId="MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9" id="referral_out_specialist_other"/></td>
 			</tr>
@@ -291,7 +291,7 @@
                                 <td width="5%"> <obs conceptId="MSF:BA91735A-BFE1-40E4-9090-D07F19889C87" id="test_required_ldl" style="checkbox"/></td>
 				<td><lookup expression="fn.getConcept('MSF:3E9C0A6C-7E97-41B1-A971-527A6567E89D').name"/></td>
 			</tr>
-			<tr>                        
+			<tr>
 				<td width="5%"></td><td><lookup expression="fn.getConcept('MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E').name"/>
                                  <obs conceptId="MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E" id="test_required_other"/></td>
 			</tr>

@@ -69,7 +69,7 @@
 					<h3>
 						<a name="lifeStyle">2. <lookup expression="fn.message('msfcore.ncdbaseline.lifestyle.title')"/></a>
 					</h3>
-					<h5><lookup expression="fn.message('msfcore.ncdbaseline.lifestyle.question')"/></h5>
+					<h4><lookup expression="fn.message('msfcore.ncdbaseline.lifestyle.question')"/></h4>
 					<table class="baseline-aligned">
 						<tr>
 							<td>

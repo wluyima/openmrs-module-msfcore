@@ -59,7 +59,7 @@
 			<div class="sections-container">
 
 			<section>
-				<H3><a name="investigationrequest">10. <lookup expression="fn.message('msfcore.ncdbaseline.investigationrequest.title')"/></a></H3>
+				<H3><a name="investigationrequest">6. <lookup expression="fn.message('msfcore.ncdbaseline.investigationrequest.title')"/></a></H3>
 					<table class="baseline-aligned">
 						<tr>
                             <!-- Comment id=463389 name=Patient has glucometer Order -->
