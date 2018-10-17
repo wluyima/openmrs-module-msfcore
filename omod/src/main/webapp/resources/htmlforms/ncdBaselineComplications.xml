@@ -130,5 +130,5 @@
 
 	</ifMode>
 
-	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionActionHandler" />
 </htmlform>

@@ -2,26 +2,13 @@ package org.openmrs.module.msfcore.submissionaction;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.openmrs.Obs;
-import org.openmrs.Patient;
-import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
-import org.openmrs.module.msfcore.MSFCoreConfig;
-import org.openmrs.module.msfcore.formactions.RequestAppointmentAction;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionAction;
+import org.springframework.stereotype.Component;
 
-/**
- * This class is resposible for defining the next url when a submit button is clicked on a form
- * 
- * @author Edrisse
- */
-public class MsfStandardSubmissionAction implements CustomFormSubmissionAction {
+@Component
+public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
 
     private static final String DASHBOARD_URL = "/coreapps/clinicianfacing/patient.page?patientId=%s&app=msfcore.app.clinicianDashboard";
 
@@ -31,7 +18,7 @@ public class MsfStandardSubmissionAction implements CustomFormSubmissionAction {
 
     private static final String ALLERGIES_URL = "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=30d1fda4-4161-4666-ad0c-e2ba20eb73a6&patientId=%s";
 
-    private static final String DIAGNOSIS_URL = "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746&patientId=%s";
+    private static final String DIAGNOSIS_URL = "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=860d4952-7490-4a70-9e75-8cf4ebf10df8&patientId=%s";
 
     private static final String COMPLICATIONS_URL = "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303933&patientId=%s";
 
@@ -64,60 +51,34 @@ public class MsfStandardSubmissionAction implements CustomFormSubmissionAction {
             put("ncd.baseline.diagnosis.previous", ALLERGIES_URL);
             put("ncd.baseline.diagnosis.next", COMPLICATIONS_URL);
             put("ncd.baseline.complications.previous", DIAGNOSIS_URL);
-            put("ncd.baseline.complications.next", INVESTIGATION_REQUEST_URL);
-            put("ncd.baseline.requestinvestigation.previous", COMPLICATIONS_URL);
-            put("ncd.baseline.requestinvestigation.next", PRESCRIBE_MEDICATION_URL);
-            put("ncd.baseline.prescribemedication.previous", INVESTIGATION_REQUEST_URL);
+            put("ncd.baseline.complications.next", PRESCRIBE_MEDICATION_URL);
+            put("ncd.baseline.prescribemedication.previous", COMPLICATIONS_URL);
             put("ncd.baseline.prescribemedication.next", PATIENT_TARGETS_URL);
             put("ncd.baseline.patienttargets.previous", PRESCRIBE_MEDICATION_URL);
             put("ncd.baseline.patienttargets.next", REGULAR_PATIENT_REVIEW_URL);
             put("ncd.baseline.regularpatientreview.previous", PATIENT_TARGETS_URL);
             put("ncd.baseline.regularpatientreview.next", CLINICAL_NOTE_URL);
             put("ncd.baseline.clinicalnote.previous", REGULAR_PATIENT_REVIEW_URL);
-            put("ncd.baseline.clinicalnote.next", REQUEST_APPOINTMENT_URL);
-            put("ncd.baseline.requestappointment.previous", CLINICAL_NOTE_URL);
+            put("ncd.baseline.clinicalnote.next", INVESTIGATION_REQUEST_URL);
+            put("ncd.baseline.requestinvestigation.previous", CLINICAL_NOTE_URL);
+            put("ncd.baseline.requestinvestigation.next", REQUEST_APPOINTMENT_URL);
+            put("ncd.baseline.requestappointment.previous", INVESTIGATION_REQUEST_URL);
             put("ncd.baseline.requestappointment.next", REFER_PATIENT_URL);
             put("ncd.baseline.referpatient.previous", REQUEST_APPOINTMENT_URL);
         }
     };
 
     @Override
-    public void applyAction(FormEntrySession formEntrySession) {
-
-        // This is a temporary fix so that request appointments post submission action works for
-        // the demo
-
-        String formUuid = formEntrySession.getForm().getUuid();
-        Patient patient = formEntrySession.getEncounter().getPatient();
-        Set<Obs> observations = formEntrySession.getEncounter().getObsAtTopLevel(false);
-
-        if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
-            RequestAppointmentAction requestAppointmentAction = new RequestAppointmentAction();
-            requestAppointmentAction.requestAppointment(patient, observations);
-        }
-
-        ///////////////////////////////////////////////////////////////
-
-        String operation = getRequest().getParameter("msf.operation");
+    public void apply(String operation, FormEntrySession session) {
         if (operation != null) {
             String nextUrl = OPERATION_TO_URL.get(operation);
             if (nextUrl != null) {
-                formEntrySession.setAfterSaveUrlTemplate(String.format(nextUrl, formEntrySession.getPatient().getId()));
+                session.setAfterSaveUrlTemplate(String.format(nextUrl, session.getPatient().getId()));
             } else {
                 throw new IllegalArgumentException(String.format("No URL found for operation %s", operation));
             }
         } else {
             throw new IllegalArgumentException("msf.operation parameter not set");
-        }
-    }
-
-    private HttpServletRequest getRequest() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (requestAttributes instanceof ServletRequestAttributes) {
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            return request;
-        } else {
-            throw new IllegalStateException("This really should not happen");
         }
     }
 
