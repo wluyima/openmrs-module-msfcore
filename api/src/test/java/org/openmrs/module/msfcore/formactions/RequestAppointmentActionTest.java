@@ -33,6 +33,7 @@ import org.openmrs.test.BaseContextMockTest;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RequestAppointmentActionTest extends BaseContextMockTest {
+    private static final String SERVICE_TYPE_GENERAL_MEDICINE_UUID = "7dd9ac8e-c436-11e4-a470-82b0ea87e2d8";
 
     @InjectMocks
     RequestAppointmentAction requestAppointmentAction;
@@ -61,13 +62,13 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
         Concept appointmentTypeConcept = new Concept();
         appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
         appointmentTypeObs.setConcept(appointmentTypeConcept);
-        appointmentTypeObs.setValueText(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID);
+        appointmentTypeObs.setValueText(SERVICE_TYPE_GENERAL_MEDICINE_UUID);
 
         Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
 
         AppointmentType generalMedicine = new AppointmentType();
 
-        when(appointmentService.getAppointmentTypeByUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID)).thenReturn(generalMedicine);
+        when(appointmentService.getAppointmentTypeByUuid(SERVICE_TYPE_GENERAL_MEDICINE_UUID)).thenReturn(generalMedicine);
 
         AppointmentRequest actual = requestAppointmentAction.requestAppointment(patient, observations);
 
