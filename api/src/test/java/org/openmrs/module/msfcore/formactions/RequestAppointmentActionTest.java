@@ -60,9 +60,7 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
         commentObs.setConcept(commentConcept);
         commentObs.setValueText("Comment");
 
-        Obs appointmentTypeObs = createAppointmentTypeObs();
-
-        Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
+        Set<Obs> observations = Sets.newSet(dateObs, commentObs);
 
         AppointmentType generalMedicine = new AppointmentType();
 
@@ -89,20 +87,6 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
         assertThat(actual.getMinTimeFrameValue(), is(equalTo(expected.getMinTimeFrameValue() - 1)));
         assertThat(actual.getStatus(), is(equalTo(expected.getStatus())));
         assertThat(actual.getRequestedOn(), is(notNullValue()));
-    }
-
-    private Obs createAppointmentTypeObs() {
-        Obs appointmentTypeObs = new Obs();
-
-        Concept concept = new Concept();
-        concept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
-        Concept answer = new Concept();
-        answer.setUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID);
-
-        appointmentTypeObs.setConcept(concept);
-        appointmentTypeObs.setValueCoded(answer);
-
-        return appointmentTypeObs;
     }
 
     @Test
