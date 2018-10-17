@@ -10,6 +10,23 @@
 		fontOnHeaderColor = white
 	</macros>
 
+	<script type="text/javascript">
+
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
+
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
@@ -42,7 +59,7 @@
 			<div class="sections-container">
 
 			<section>
-				<H3><a name="investigationrequest">10. <lookup expression="fn.message('msfcore.ncdbaseline.investigationrequest.title')"/></a></H3>
+				<H3><a name="investigationrequest">6. <lookup expression="fn.message('msfcore.ncdbaseline.investigationrequest.title')"/></a></H3>
 					<table class="baseline-aligned">
 						<tr>
                             <!-- Comment id=463389 name=Patient has glucometer Order -->
@@ -82,8 +99,12 @@
 							<td colspan="2"><obs conceptId="MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E" id="test_required_other"/></td>
 						</tr>
 					</table>
-					<submit submitLabel="Next >"/>
 
+		            <!-- Submit -->
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.requestinvestigation.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.requestinvestigation.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 
 			</div>
@@ -105,7 +126,6 @@
             #end"/>
 
 	</ifMode>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303911&amp;patientId={{patient.id}}" />
 
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+</htmlform>
