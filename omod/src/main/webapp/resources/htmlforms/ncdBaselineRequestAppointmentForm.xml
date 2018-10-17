@@ -25,6 +25,8 @@
                 jq("#appointment-type-list").on("change", function() {
                     setValue("appointment-type.value", jq("#appointment-type-list").val());
                 });
+
+                jq("#appointment-type-list").val(getValue("appointment-type.value"));
             });
         }
     </script>
