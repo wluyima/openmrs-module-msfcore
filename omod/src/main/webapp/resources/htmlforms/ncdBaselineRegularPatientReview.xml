@@ -194,7 +194,7 @@
                   </div>
                   <div class="hide-on-view">
                     <button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
-                    <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                    <!-- <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
                   </div>
 
 								</obsgroup>

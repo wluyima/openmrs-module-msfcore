@@ -118,9 +118,9 @@
                             <div id="{allergy}-toggleContainer" style="display: none;">
                                 <obsgroup groupingConceptId="cab5578c-0c62-4582-b668-28e3f218b635"> 
                                 <section>
-                                    <h3>
+                                    <h4>
                                         <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name"/>
-                                    </h3>
+                                    </h4>
                                     <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635"
                                             answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" 
                                             style="radio" answerSeparator=""/>
@@ -138,7 +138,7 @@
                                     </div>
                                 </section>
                                 <section>
-                                        <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h3>
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h4>
                                         <div class="list-of-checkboxes">
                                             <obsgroup groupingConceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc">
 	                                            <div class="column">
@@ -221,7 +221,7 @@
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h4>
                                     <div class="input-group">
                                        <obsgroup groupingConceptId="162820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                                         <obs conceptId="162820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="radio" />
@@ -230,7 +230,7 @@
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h4>
                                     <div class="input-group">
                                         <obsgroup groupingConceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                                         	<obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="textarea" rows="3"/>
@@ -240,7 +240,7 @@
 								</obsgroup>
                                 <div class="hide-on-view">
                                     <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
-                                    <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                                   <!--  <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
                                 </div>
                                    
                             </div>
@@ -273,8 +273,10 @@
                     </repeat>
 
                     <!-- Submit -->
-                    <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-                    <button class="msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    <div class="bottom-of-form">
+                        <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+                        <button class="msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    </div>
                 </section>
             </div>
             

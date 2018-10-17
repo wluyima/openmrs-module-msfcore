@@ -125,7 +125,7 @@
 								<div class="hide-on-view">
 									<button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/>
 									</button>
-                  <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                  <!-- <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
 								</div>
 							</div>
 						</template>
