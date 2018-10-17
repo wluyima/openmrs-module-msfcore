@@ -1,4 +1,13 @@
 /*
+ * Print html from entire page ignoring some elements
+ */
+function printPageWithIgnore(elements) {
+	jQuery(elements).hide();
+	window.print();
+	jQuery(elements).show();
+}
+
+/*
  * element, html element to write table to
  * items, items array
  * breakPoint, number to break table at horinzotally
@@ -34,13 +43,4 @@ function tabulateCleanedItemsIntoAnElement(element, items, breakPoint) {
 		tableContent += "</table>"
 		jQuery(element).html(tableContent);
 	}
-}
-
-/*
- * Print html from entire page ignoring some elements
- */
-function printPageWithIgnore(elements) {
-	jQuery(elements).hide();
-	window.print();
-	jQuery(elements).show();
 }
