@@ -42,19 +42,21 @@
                 });
 
 				<!-- date calculations -->
-				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
-					var frequencyFieldId = i + '-frequency.value';
-					var durationFieldId = i + '-duration.value';
-					var frequencyField = getField(frequencyFieldId);
-					var durationField = getField(durationFieldId);
-					if (frequencyField != null) {
-						frequencyField.change(callbackFor(i));
-					}
-					if (durationField != null) {
-						durationField.change(callbackFor(i));
-					}
-					if (frequencyField != null &#38;&#38; durationField != null) {
-						callbackFor(i)();
+				if (!isViewMode()) {
+					for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+						var frequencyFieldId = i + '-frequency.value';
+						var durationFieldId = i + '-duration.value';
+						var frequencyField = getField(frequencyFieldId);
+						var durationField = getField(durationFieldId);
+						if (frequencyField != null) {
+							frequencyField.change(callbackFor(i));
+						}
+						if (durationField != null) {
+							durationField.change(callbackFor(i));
+						}
+						if (frequencyField != null &#38;&#38; durationField != null) {
+							callbackFor(i)();
+						}
 					}
 				}
 
@@ -102,11 +104,25 @@
 			function getUnusedContainersIds() {
 				var unusedContainersIds = [];
 				for (var i = 2; i &lt;= NUMBER_ENTRIES; i++) {
-					if (getValue(i + '-measure.value') == "") {
+					if (!isMeasureTypeFilled(i)) {
 						unusedContainersIds.push(i + '-toggleContainer');
 					}
 				}
 				return unusedContainersIds;
+			}
+
+			function isMeasureTypeFilled(i) {
+				var filled;
+				if (!isViewMode()) {
+					filled = getValue(`${i}-measure.value`) != "";
+				} else {
+					filled = jq(`#${i}-measure`).children('.value').length > 0;
+				}
+				return filled;
+			}
+
+			function isViewMode() {
+				return typeof(getValue) == 'undefined';
 			}
 
 		}
@@ -195,8 +211,8 @@
 										<tfoot class="hide-on-view">
 											<tr>
 												<td span="3">
-													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
-													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+													<button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
+													<button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
 												</td>
 											</tr>
 										</tfoot>
@@ -217,8 +233,8 @@
 					</repeat>
 
 		            <!-- Submit -->
-					<button class="msf-operation-button" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-					<button class="msf-operation-button" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</section>
 			</div>
 		</div>
