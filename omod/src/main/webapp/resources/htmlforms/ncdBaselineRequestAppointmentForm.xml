@@ -89,7 +89,7 @@
 						</tr>
 						<tr>
                             <td><lookup expression="fn.message('msfcore.ncdbaseline.requestappointment.servicetype')"/></td>
-                            <!-- Concept id=6000009 -->
+                            <!-- Concept id=6000009 name = Request Appointment Type-->
             				<td>
                                 <span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5"/></span>
                                 <select name="appointment-type" id="appointment-type-list">
