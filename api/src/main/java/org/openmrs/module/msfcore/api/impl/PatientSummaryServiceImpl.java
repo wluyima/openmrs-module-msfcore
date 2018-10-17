@@ -218,7 +218,6 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                     setCalculatedObservationsAndAddToVitals(vitals, vitalsBuilder);
                 }
             } else { // first obs in vitals encounters
-                setCalculatedObservationsAndAddToVitals(vitals, vitalsBuilder);
                 if (i == vitalsObs.size() - 1) {// add last item straight away
                     vitalsBuilder = Vitals.builder();
                     setVital(vitalsBuilder, obs);

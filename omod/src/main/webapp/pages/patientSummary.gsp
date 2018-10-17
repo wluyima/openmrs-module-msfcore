@@ -23,14 +23,14 @@
 	    
 	    // add clinical history
 	    tabulateCleanedItemsIntoAnElement("#clinical-history", [
-	    	"${ui.message("msfcore.patientSummary.medicalInfo")}<% patientSummary.clinicalHistory.medical.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.socialHistory")}<% patientSummary.clinicalHistory.social.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.familyHistory")}<% patientSummary.clinicalHistory.family.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.complications")}<% patientSummary.clinicalHistory.complications.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.historyOfTargetOrganDamage")}<% patientSummary.clinicalHistory.targetOrganDamages.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.cardiovascularScore")}<% patientSummary.clinicalHistory.cardiovascularCholesterolScore.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.blooodGlucose")}<% patientSummary.clinicalHistory.bloodGlucose.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
-	    	"${ui.message("msfcore.patientSummary.patientEducation")}<% patientSummary.clinicalHistory.patientEducation.each { o -> %><% if(["false", "true"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>"
+	    	"${ui.message("msfcore.patientSummary.medicalInfo")}<% patientSummary.clinicalHistory.medical.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
+	    	"${ui.message("msfcore.patientSummary.socialHistory")}<% patientSummary.clinicalHistory.social.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
+	    	"${ui.message("msfcore.patientSummary.familyHistory")}<% patientSummary.clinicalHistory.family.each { o -> %>${o.value}, <% } %>",
+	    	"${ui.message("msfcore.patientSummary.complications")}<% patientSummary.clinicalHistory.complications.each { o -> %>${o.value}, <% } %>",
+	    	"${ui.message("msfcore.patientSummary.historyOfTargetOrganDamage")}<% patientSummary.clinicalHistory.targetOrganDamages.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
+	    	"${ui.message("msfcore.patientSummary.cardiovascularScore")}<% patientSummary.clinicalHistory.cardiovascularCholesterolScore.each { o -> %>${o.name}:${o.value}, <% } %>",
+	    	"${ui.message("msfcore.patientSummary.blooodGlucose")}<% patientSummary.clinicalHistory.bloodGlucose.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
+	    	"${ui.message("msfcore.patientSummary.patientEducation")}<% patientSummary.clinicalHistory.patientEducation.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}:${o.value}, <% } else { %>${o.value}, <% } %><% } %>"
 	    ], 1);
 	    	
 	   	// add clinicalNotes
@@ -48,7 +48,7 @@
 	    		"${ui.message("msfcore.temperature")}${patientSummary.vitals.get(0).temperature.value} ${patientSummary.vitals.get(0).temperature.unit}",
 	    		"${ui.message("msfcore.pulse")}${patientSummary.vitals.get(0).pulse.value} ${patientSummary.vitals.get(0).pulse.unit}",
 	    		"${ui.message("msfcore.respiratoryRate")}${patientSummary.vitals.get(0).respiratoryRate.value} ${patientSummary.vitals.get(0).respiratoryRate.unit}",
-	    		"${ui.message("msfcore.bloodPressure")}${patientSummary.vitals.get(0).bloodPressure.value} ${patientSummary.vitals.get(0).respiratoryRate.unit}",
+	    		"${ui.message("msfcore.bloodPressure")}${patientSummary.vitals.get(0).bloodPressure.value}",
 	    		"${ui.message("msfcore.bloodOxygenSaturation")}${patientSummary.vitals.get(0).bloodOxygenSaturation.value} ${patientSummary.vitals.get(0).bloodOxygenSaturation.unit}"
 	    	], 3);
 	    	
