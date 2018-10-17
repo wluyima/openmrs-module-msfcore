@@ -179,11 +179,21 @@ table {
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
 }
 
+
+.ngRow.odd:hover,
+.ngRow.even:hover,
+.ngRow.selected:hover,
 #patient-search-results #patient-search-results-table tbody tr:hover {
     background: #D0FEF5;
     cursor: pointer;
     color: #373F46;
 }
+
+.ngRow.odd.selected,
+.ngRow.even.selected {
+    background: #55D6BE;
+}
+
 
 .ui-state-default,
 .ui-widget-content .ui-state-default,
@@ -478,5 +488,36 @@ table td:last-child {
 }
 
 #patient-search-form + #patient-search-results + div {
+    display:none;
+}
+
+/* Appointment Requests */
+
+#appointmentRequestsGridTable {
+    width: 100%;
+}
+
+.ngTopPanel {
+    background-color: #538CAC;
+    color:#fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.ng1539782755913 .colt1,
+.ngHeaderCell.ng-scope.col4.colt4 {
+    width: 200px;
+}
+
+#appointmentRequestsGridTable .delete-item {
+    height: 18px;
+    margin: 6px 1px 0 1px;
+    min-width: 24px;
+    position: relative;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#appointmentRequestsGridTable .delete-item:after {
     display:none;
 }
