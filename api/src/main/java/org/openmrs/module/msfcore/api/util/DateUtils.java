@@ -30,7 +30,7 @@ public class DateUtils {
         return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 
-    public static boolean sameDate(Date date1, Date date2) {
+    public static boolean isSameDate(Date date1, Date date2) {
         DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
         return dateTimeComparator.compare(date1, date2) == 0;
     }

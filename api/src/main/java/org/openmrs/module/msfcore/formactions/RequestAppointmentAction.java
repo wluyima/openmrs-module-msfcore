@@ -50,7 +50,8 @@ public class RequestAppointmentAction {
         List<AppointmentRequest> appointmentRequests = appointmentService.getAllAppointmentRequests(false);
         for (AppointmentRequest request : appointmentRequests) {
             if (request.getAppointmentType() == appointmentType && request.getPatient().getId() == patient.getId()
-                            && DateUtils.sameDate(now, request.getDateCreated()) && request.getStatus() == AppointmentRequestStatus.PENDING) {
+                            && DateUtils.isSameDate(now, request.getDateCreated())
+                            && request.getStatus() == AppointmentRequestStatus.PENDING) {
                 return null;
             }
         }
