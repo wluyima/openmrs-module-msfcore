@@ -25,9 +25,9 @@ button.big {
     color: #55D6BE;
 }
 
-/* BUTTONS > Cancel & Confirm 
+/* BUTTONS > Cancel & Confirm
 
-- The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet. 
+- The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet.
 - Avoid pruning.
 
 */
@@ -49,11 +49,11 @@ button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
 #form-actions-container a,
-.button.task:visited, 
-button.task:visited, 
-input[type="submit"].task:visited, 
-input[type="button"].task:visited, 
-input[type="submit"].task:visited, 
+.button.task:visited,
+button.task:visited,
+input[type="submit"].task:visited,
+input[type="button"].task:visited,
+input[type="submit"].task:visited,
 a.button.task:visited {
     background: #fff;
     background-color: #fff;
@@ -69,11 +69,29 @@ a.button.task:visited {
 
 /* Visit Buttons */
 
-a.button.task {
+.visit-actions a.button.task {
+    border-radius: 0;
+    box-shadow: rgba(0, 0, 0, .4) 0 0 2px;
     box-sizing: border-box;
-    min-width: 160px;
-    flex-grow:1;
+    flex-grow: 1;
+    margin: 0;
+    min-width: 90px;
+    font-size: 0.8rem;
+    padding: 8px;
 }
+
+.visit-actions a.button.task:first-of-type {
+    border-radius: 24px 0 0 24px;
+}
+
+.visit-actions a.button.task:last-of-type {
+    border-radius: 0 24px 24px 0;
+}
+
+.visit-actions {
+    margin-bottom: 32px;
+}
+
 
 #favorite-search-record, #comment-on-search-record, #possible-task-list {
     cursor: pointer;
@@ -106,7 +124,7 @@ input[type="submit"].cancel {
     float:left;
 }
 
-.button:hover, 
+.button:hover,
 a.button:hover
 button:hover,
 .button.cancel:hover,
@@ -144,6 +162,8 @@ a.button.cancel:hover,
     cursor: pointer;
 }
 
+.main-content .visit-actions a:hover,
+.main-content .spaced a:hover,
 .button.confirm:hover,
 button.confirm:hover,
 a.button.confirm:hover,
@@ -151,10 +171,10 @@ input[type="submit"] .confirm:hover,
 input[type="button"].confirm:hover,
 input[type="submit"].confirm:hover,
 #form-actions-container a:hover,
-.button.task:hover, 
-button.task:hover, 
-input[type="button"].task:hover, 
-input[type="submit"].task:hover, 
+.button.task:hover,
+button.task:hover,
+input[type="button"].task:hover,
+input[type="submit"].task:hover,
 a.button.task:hover {
     color:#4EC3AD;
     background: #fff;
@@ -218,7 +238,9 @@ input[type="submit"]:disabled:hover {
 #patient-search-clear-button,
 .delete-item,
 .delete-action,
-.view-action {
+.view-action,
+#i-toggle,
+a.view-details {
     background: #fff;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
@@ -235,22 +257,26 @@ input[type="submit"]:disabled:hover {
     text-decoration: none;
 }
 
-.edit-info { 
+.edit-info {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
 
-.edit-action { 
+.edit-action {
     margin-bottom:4px;
 }
 
 #patient-search-clear-button {
     color: #373F46;
     margin-left: -36px;
+    right: 42px;
 }
+
+/*
+Causes an issue on Manage Service Types
 
 .delete-item:first-of-type {
     margin-right: 0;
-}
+}*/
 
 .view-action.icon-file-alt::after,
 #patient-search-clear-button::after,
@@ -258,7 +284,8 @@ input[type="submit"]:disabled:hover {
 .icon-remove.delete-action::after,
 .delete-item.icon-remove::after,
 .delete-item.icon-pencil::after,
-.edit-action::after {
+.edit-action::after,
+#i-toggle::after {
     display: inline-block;
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
     font-size: 12px;
@@ -289,6 +316,11 @@ a#patient-search-register-patient {
 .delete-item.icon-remove::after {
     content: 'Delete';
 }
+
+#i-toggle::after {
+    content: "Expand all encounters";
+}
+
 /* On Add Vitals Page */
 button.cancel.big i.icon-arrow-left,
 button.confirm.big i.icon-arrow-right {
@@ -306,10 +338,6 @@ button.confirm.big i.icon-arrow-right {float: right;}
 
 #buttons {
     margin-top:2rem;
-}
-
-#encounter-diagnoses-target {
-    width:100%;
 }
 
 /* Attachments */
@@ -350,11 +378,11 @@ a.button:hover,
 .ui-state-default.ui-button:hover,
 .delete-item,
 .delete-item:hover,
-#patient-search-results #patient-search-results-table tbody tr:hover, 
+#patient-search-results #patient-search-results-table tbody tr:hover,
 #patient-search-results #patient-search-results-table tbody tr,
 .dashboard .info-header i.edit-action,
 .dashboard .info-header i.edit-action:hover,
-#form-actions-container a,  
+#form-actions-container a,
 #form-actions-container a:hover  {
     -webkit-transition-property: all;
     transition-property: all;
@@ -363,3 +391,31 @@ a.button:hover,
     -webkit-transition-timing-function: cubic-bezier(.455, .03, .515, .955);
     transition-timing-function: cubic-bezier(.455, .03, .515, .955);
 }
+
+button.primary {
+  background: #538CAC;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, .2) 0 1px 4px;
+}
+button.primary:hover {background: #55D6BE}
+
+button.right {float: right}
+
+button.addEntry::before {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+  margin-right: 5px;
+}
+button.removeEntry {
+  display: block;
+  margin: 0 auto;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-top: 15px;
+}
+button.removeEntry:hover {
+  color: #FF0000;
+}
+button {outline: none}

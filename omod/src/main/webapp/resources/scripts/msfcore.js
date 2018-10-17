@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
 
     // Patient Search widget handling
-    if (jQuery('#patient-search-form').length == 1) {
+    if (jQuery('#patient-search-register-patient').length == 1) {
         // add a header section just above the form
         // Hide the register patient link
         jQuery('#register-patient-link').hide();

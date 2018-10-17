@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTimeComparator;
+
 public class DateUtils {
 
     public static Date addDays(Date date, Integer nDays) {
@@ -26,5 +28,10 @@ public class DateUtils {
     public static int getDaysBetweenDates(Date date1, Date date2) {
         long diffInMillies = Math.abs(date1.getTime() - date2.getTime());
         return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    }
+
+    public static boolean isSameDate(Date date1, Date date2) {
+        DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+        return dateTimeComparator.compare(date1, date2) == 0;
     }
 }
