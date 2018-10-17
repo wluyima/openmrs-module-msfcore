@@ -95,6 +95,9 @@ a:visited, a.visited {
     color: #4EC3AD;
 }
 
+.active {
+    background-color: rgb(27, 82, 72);
+}
 
 /* Vitals Section */
 
@@ -143,8 +146,8 @@ a:visited, a.visited {
 #content.container {
     margin: 3rem 0 6rem 0;
     border-radius: 8px;
-    background: #fff;
-    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+    /*background: #fff;
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;*/
 }
 
 .simple-form-ui form#htmlform {
@@ -179,11 +182,21 @@ table {
     box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
 }
 
+
+.ngRow.odd:hover,
+.ngRow.even:hover,
+.ngRow.selected:hover,
 #patient-search-results #patient-search-results-table tbody tr:hover {
     background: #D0FEF5;
     cursor: pointer;
     color: #373F46;
 }
+
+.ngRow.odd.selected,
+.ngRow.even.selected {
+    background: #55D6BE;
+}
+
 
 .ui-state-default,
 .ui-widget-content .ui-state-default,
@@ -197,12 +210,49 @@ table thead th {
     padding: 0.75rem;
 }
 
-table tr:nth-child(even) {
-    background:rgba(250,250,250,1);
+/* Date Picker */
+
+.ui-datepicker-calendar .ui-state-default {
+    border-bottom: none;
+    border-radius: 16px;
+    background: none;
+    font-size:0.75rem;
+    padding: 0.25rem;
+    width:16px;
+    height:16px;
+    text-align:center;
 }
 
-table td:last-child {
-    padding:5px;
+.ui-datepicker td,
+.ui-datepicker td:last-child {
+    padding: 8px 4px;
+}
+
+.ui-datepicker-calendar .ui-state-default:hover {
+    background: #55D6BE;
+    color: #fff;
+    font-weight: bold;
+}
+
+.ui-datepicker-header.ui-widget-header {
+    background: #55D6BE;
+    border: none;
+    padding: 4px;
+    margin-top: -3px;
+}
+
+.ui-datepicker table {
+    margin: 0;
+}
+
+div#ui-datepicker-div {
+    padding: 0;
+    border: none;
+    box-shadow: rgba(0,0,0,0.2) 0 6px 32px;
+}
+
+table tr:nth-child(even) {
+    background:rgba(250,250,250,1);
 }
 
 
@@ -262,7 +312,7 @@ table td:last-child {
 
 /* HTML Forms view on the patient dashboard */
 span.value {
-    color: blue;
+    color: black;
 }
 
 /* Hide the left hand menu when displaying the dashboard */
@@ -366,4 +416,148 @@ div#appointmentscheduling-manageAppointments {
 
 div#appointmentscheduling-manageAppointments > div {
     margin-bottom:2rem;
+}
+
+/* APPOINTMENT SCHEDULING */
+
+.appointment-filter,
+#filter-parameters {
+    color:#fff;
+    padding: 24px;
+    background: #55D6BE;
+    border-radius: 8px 8px 0 0;
+    box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.appointment-filter {
+    border-radius: 0 8px 0 0;
+    z-index:5;
+    position: relative;
+}
+
+#filter-date ~ h1 {
+    float:left;
+    margin-right: 384px;
+}
+.container > #filter-date, 
+.container > #filter-location {
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+    padding: 16px;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 4px;
+}
+
+#filter-date {
+    padding-left: 24px;
+    padding-right: 0px;
+}
+
+#filter-date input {
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.appointment-filter input,
+.appointment-filter select,
+#filter-parameters input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #4EC3AD;
+    box-shadow: inset rgba(0,0,0,0.2) 0 1px 2px;
+}
+
+#filter-parameters .viewAllAppointmentTypes a,
+.appointment-filter .viewAllAppointmentTypes a {
+    padding:8px;
+    background:#fff;
+    box-shadow: rgba(0, 0, 0, .3) 0 2px 4px;
+    border-radius:8px;
+    font-family: 'OpenSansSemiBold', Arial, Helvetica, sans-serif;
+    color:#373F46;
+    cursor: pointer;
+}
+
+#filter-parameters .viewAllAppointmentTypes a:hover,
+.appointment-filter .viewAllAppointmentTypes a:hover {
+    text-decoration: none;
+    color: #4EC3AD;
+}
+
+.viewAllAppointmentTypes {
+    margin-left: -56px;
+}
+
+.selectmultipleBox {
+    font-size: 1rem;
+    border:none;
+}
+
+.fc-header tr td,
+.fc-header-left,  
+.fc-header-right,
+table td:last-child {
+    padding:16px;
+}
+
+.fc-content {
+    box-shadow: rgba(0,0,0,0.1) 0 4px 8px;
+}
+
+#appointmentTypesTable tr td span {
+    display: inline-block;
+    min-width: 10rem;
+}
+
+#noDailyAppointments {
+    padding: 16px;
+    text-align: center;
+    background: #538CAC;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: inset rgba(0,0,0,0.5) 0 2px 4px -2px;
+    color: #fff;
+}
+
+#appointmentscheduling-patientAppointmentRequests > div > h2 {
+    display: none;
+}
+
+#patient-search-form + #patient-search-results + div {
+    display:none;
+}
+
+/* Appointment Requests */
+
+#appointmentRequestsGridTable {
+    width: 100%;
+}
+
+.ngTopPanel {
+    background-color: #538CAC;
+    color:#fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.ng1539782755913 .colt1,
+.ngHeaderCell.ng-scope.col4.colt4 {
+    width: 200px;
+}
+
+#appointmentRequestsGridTable .delete-item {
+    height: 18px;
+    margin: 6px 1px 0 1px;
+    min-width: 24px;
+    position: relative;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#appointmentRequestsGridTable .delete-item:after {
+    display:none;
 }

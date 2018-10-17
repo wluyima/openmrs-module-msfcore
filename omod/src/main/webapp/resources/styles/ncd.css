@@ -1,5 +1,12 @@
 /* NCD Forms styling */
 
+/* Visible on the View version of the Form */
+span#form-actions {
+  background: #373F46;
+  padding: 24px 0 16px 67%;
+  margin-bottom: -8px;
+}
+
 .wrapper {
   overflow: hidden;
   height: 100%;
@@ -30,7 +37,7 @@
 }
 
 .left-column .left-navigation ol li {
-  padding-left: 5px;
+  padding-left: 8px;
   color: #fff;
 }
 
@@ -42,7 +49,8 @@
   color: #fff;
   font-size: 18px;
   line-height: 18px;
-  padding: 7px 0px;
+  padding: 8px 0px 8px 8px;
+  margin-left: -8px;
   display:inline-block;
   width: 100%;
 }
@@ -51,35 +59,37 @@
   text-decoration: none;
 }
 
+.left-column .left-navigation ol li a.active {
+  background:#fff;
+  color: #4EC3AD;
+}
+
 .left-column .left-navigation .nav-button.save,
 .left-column .left-navigation .nav-button.cancel {
   width: 48%;
   padding: 7px 24px;
   font-size: 90%;
+  margin:0 auto;
+  display: block;
 }
-.left-column .left-navigation .nav-button.save {
-  margin-right: 3%;
-  float: left;
-}
+
 .left-column .left-navigation .nav-button.final i {
   margin-right: 10px;
   font-size: 99%
 }
 
+htmlform .right-form-display,
 #htmlform .right-form-display {
   color: #6D7378;
-}
-
-.right-form-display {
+  background: #fff;
+  border-radius: 0 0 8px 0;
   width: 70%;
   float: right;
-}
-.right-form-display .sections-container {
-  margin:30px;
+  padding-bottom: 24px;
 }
 
-.right-form-display .sections-container .section {
-  margin-bottom:50px
+.right-form-display .sections-container {
+  margin:30px;
 }
 
 .right-form-display .sections-container .section table{
@@ -88,18 +98,6 @@
 
 .right-form-display .sections-container .section table td{
   padding:12px 10px;
-}
-
-.right-form-display .sections-container .section .add-box {
-  background: #F1F9FE;
-  border-radius: 20px;
-  border:none;
-  padding: 30px;
-
-}
-.right-form-display .sections-container .section .add-box h4 {
-  margin-top:0;
-  border-bottom: 1px solid #A8BDC5;
 }
 
 .right-form-display .sections-container h3 {
@@ -115,21 +113,22 @@
 }
 
 .nav-button {
-  width: 100%;
+  width: 95%;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 .section {
-  border: 1px solid $headerColor;
   padding: 2px;
   text-align: left;
-  margin-bottom: 1em;
+  margin-bottom: 1.3em;
+  overflow: hidden;
+}
+.section .input-group textarea{
+  margin: 0;
 }
 
 .sectionHeader {
-  background-color: $headerColor;
-  color: $fontOnHeaderColor;
   display: block;
   padding: 2px;
   font-weight: bold;
@@ -143,8 +142,8 @@ table.baseline-aligned td {
 }
 
 .btn.active {
-  color: #white;
-  background-color:darkgrey;
+  color: white;
+  background-color: darkgrey;
 }
 
 table th, table td {
@@ -153,7 +152,7 @@ table th, table td {
 }
 
 td.left-th {
-  background: #618696;
+  background: #757C83;
 }
 td.left-th span{
   margin-left: 5px;
@@ -170,11 +169,6 @@ td.left-th span{
 input#diagnosis-search {
   width: 95%;
   margin-bottom: 20px;
-}
-.add-box#encounter-diagnoses-target h3{
-  font-size: 23px;
-  color: #618696;
-  font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
 
 #display-encounter-diagnoses-container li .diagnosis {
@@ -238,7 +232,7 @@ input.submitButton {
 }
 
 
-.input-group form input[type="checkbox"], 
+.input-group form input[type="checkbox"],
 .input-group .form input[type="checkbox"] {
   margin:4px;
 }
@@ -247,15 +241,15 @@ input.submitButton {
 /* Allergies */
 
 span[id*="allergy-type-"] label {
-  float: left;
-  padding: 24px;
+  padding: 15px;
   width: 30%;
   box-sizing: border-box;
   text-align: center;
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: rgba(0,0,0,0.3) 0 1px 2px;
-  margin: -8px 25px 16px -24px !important;
+  margin: -8px 12px 16px -24px !important;
+  background: #fff;
 }
 span[id*="allergy-type-"] input[type="radio"] {
   padding:24px;
@@ -266,11 +260,12 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
   color:#fff;
   border:none;
   box-shadow: inset rgba(0,0,0,0.3) 0 1px 2px;
+  padding:16px;
 }
 
 .allergy-tab {
-  padding: 24px;
-  margin-top:64px;
+  padding: 14px;
+  margin-top: 32px;
   border: 2px solid #55D6BE;
   border-radius: 8px;
 }
@@ -291,3 +286,79 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
 .list-of-checkboxes .column {
   width:249px;
 }
+
+/* 6. Prescribe Medication */
+
+div[id*="-toggleContainer"],
+.right-form-display .sections-container .section .add-box {
+  padding: 32px;
+  border-radius: 8px;
+  /*box-shadow: rgba(0,0,0,0.2) 0px 3px 4px;*/
+  margin-bottom: 24px;
+  min-height: 200px;
+  background: #D0FEF5;
+  color: #373F46;
+}
+
+#drug-orders div[id*="-toggleContainer"] > h4 {
+  margin-top:0 !important;
+}
+
+#drug-orders div[id*="-toggleContainer"] .input-group:first-of-type {
+  margin-bottom: 24px;
+}
+
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2),
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(3),
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(4),
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(5) {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  padding-right: 30px;
+}
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2) label {
+  width: 100%;
+  display:block;
+}
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(2) span {
+  float:left;
+}
+
+#drug-orders div[id*="-toggleContainer"] div.input-group:nth-of-type(6) {
+  width: 100%;
+  display: block;
+  float: left;
+  padding: 0;
+  height: 140px;
+}
+.medication-instructions textarea {
+  margin: 8px 0 0 2px;
+}
+td.cv-risk-options input[type="radio"] + label{
+  margin-right: 14px;
+}
+.bottom-of-form {
+  padding-top: 32px;
+  border-top: 1px solid #eeeeee;
+  margin-bottom: 0;
+  margin-top: 40px;
+}
+.section button.addEntry {
+  margin: 0 auto;
+  display: block;
+  padding: 18px 30px;
+  border-radius: 30px;
+  margin-top:32px;
+}
+.section .obs-field {
+  margin-top:5px;
+}
+#htmlform .section div[id*="-toggleContainer"] div {
+  margin-bottom: 32px;
+}
+
+#htmlform .section div[id*="-toggleContainer"] div.hide-on-view,#htmlform .section div[id*="-toggleContainer"] div.column, #htmlform .section div[id*="-toggleContainer"] div.column div.input-group, #htmlform .section div[id*="-toggleContainer"] div.section {
+  margin-bottom: 0;
+}
+.obs-field.select-arrow {margin-top:0;}
