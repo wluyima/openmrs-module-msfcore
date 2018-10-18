@@ -329,7 +329,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
         // set recent vitals and observations
         List<Vitals> vitals = getVitals(patient);
-        patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : getVitals(patient));
+        patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : vitals);
 
         // set working diagnoses
         for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
