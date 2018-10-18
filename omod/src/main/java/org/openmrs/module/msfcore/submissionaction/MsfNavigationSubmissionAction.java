@@ -21,7 +21,7 @@ public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
 	
 	@Override
 	public void apply(String operation, FormEntrySession session) {
-		List<Encounter> ncdEncounters = controller.getAllNCDEncountersByPatientUuid(session.getPatient().getUuid());
+		List<Encounter> ncdEncounters = controller.getAllNCDEncountersByPatientId(session.getPatient().getUuid());
 		controller.initializeLinks(session.getPatient().getUuid(), ncdEncounters, null);
 		
 		OPERATION_TO_URL = new HashMap<String, String>() {

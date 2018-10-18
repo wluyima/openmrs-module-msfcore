@@ -45,9 +45,9 @@ public class LeftMenuFragmentController {
 	
 	public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel,
 	        HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String patientUuid = request.getParameter("patientId");
-		List<Encounter> ncdEncounters = getAllNCDEncountersByPatientUuid(patientUuid);
-		initializeLinks(patientUuid, ncdEncounters, fragmentModel);
+		String patientId = request.getParameter("patientId");
+		List<Encounter> ncdEncounters = getAllNCDEncountersByPatientId(patientId);
+		initializeLinks(patientId, ncdEncounters, fragmentModel);
 	}
 	
 	public void initializeLinks(String patientUuid, List<Encounter> ncdEncounters, FragmentModel fragmentModel) {
@@ -129,9 +129,15 @@ public class LeftMenuFragmentController {
 		return null;
 	}
 	
-	public List<Encounter> getAllNCDEncountersByPatientUuid(String patientUuid) {
-		Context.getEncounterService().getEncountersByPatient(patientUuid);
-		Patient patient = Context.getPatientService().getPatientByUuid(patientUuid);
+	public List<Encounter> getAllNCDEncountersByPatientId(String patientId) {
+		Context.getEncounterService().getEncountersByPatient(patientId);
+		Patient patient;
+		if (isANumber(patientId)) {
+			patient = Context.getPatientService().getPatient(Integer.parseInt(patientId));
+		} else {
+			patient = Context.getPatientService().getPatientByUuid(patientId);
+		}
+		
 		EncounterType ncdEncounterType = Context.getEncounterService()
 		        .getEncounterTypeByUuid(MSFCoreConfig.MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID);
 		EncounterSearchCriteria criteria = new EncounterSearchCriteria(patient, null, // location
@@ -145,5 +151,15 @@ public class LeftMenuFragmentController {
 		        false // include voided 
 		);
 		return Context.getEncounterService().getEncounters(criteria);
+	}
+	
+	private boolean isANumber(String text) {
+		try {
+			Integer.parseInt(text);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 }
