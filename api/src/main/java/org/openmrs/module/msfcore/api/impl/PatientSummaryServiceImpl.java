@@ -311,6 +311,12 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         patientSummary.setClinicalHistory(clinicalHistory);
     }
 
+    private List<Vitals> getEmptyVitals() {
+        List<Vitals> vitals = new ArrayList<Vitals>();
+        vitals.add(Vitals.builder().build());
+        return vitals;
+    }
+
     public PatientSummary generatePatientSummary(Patient patient) {
         // TODO probably on summary pull first set of items than all???
         PatientSummaryBuilder patientSummarybuilder = PatientSummary.builder();
@@ -328,7 +334,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         PatientSummary patientSummary = patientSummarybuilder.build();
 
         // set recent vitals and observations
-        patientSummary.getVitals().addAll(getVitals(patient));
+        List<Vitals> vitals = getVitals(patient);
+        patientSummary.getVitals().addAll(vitals.isEmpty() ? getEmptyVitals() : getVitals(patient));
 
         // set working diagnoses
         for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {

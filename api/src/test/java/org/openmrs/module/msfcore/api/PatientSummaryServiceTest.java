@@ -105,6 +105,45 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
+    public void generatePatientSummary_shouldSetEmptyVitalsWithNoVitals() {
+        PatientSummary patientSummary = patientSummaryService.generatePatientSummary(Context.getPatientService().getPatient(8));
+
+        assertEquals(1, patientSummary.getVitals().size());
+
+        assertEquals("Weight", patientSummary.getVitals().get(0).getWeight().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getWeight().getValue());
+        assertEquals("kg", getUnit(patientSummary.getVitals().get(0).getWeight().getUnit()));
+
+        assertEquals("Height", patientSummary.getVitals().get(0).getHeight().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getHeight().getValue());
+        assertEquals("cm", getUnit(patientSummary.getVitals().get(0).getHeight().getUnit()));
+
+        assertEquals("BMI", patientSummary.getVitals().get(0).getBmi().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getBmi().getValue());
+        assertEquals("", getUnit(patientSummary.getVitals().get(0).getBmi().getUnit()));
+
+        assertEquals("Temperature", patientSummary.getVitals().get(0).getTemperature().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getTemperature().getValue());
+        assertEquals("°C", getUnit(patientSummary.getVitals().get(0).getTemperature().getUnit()));
+
+        assertEquals("Pulse", patientSummary.getVitals().get(0).getPulse().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getPulse().getValue());
+        assertEquals("/min", getUnit(patientSummary.getVitals().get(0).getPulse().getUnit()));
+
+        assertEquals("Respiratory rate", patientSummary.getVitals().get(0).getRespiratoryRate().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getRespiratoryRate().getValue());
+        assertEquals("/min", getUnit(patientSummary.getVitals().get(0).getRespiratoryRate().getUnit()));
+
+        assertEquals("Blood Pressure", patientSummary.getVitals().get(0).getBloodPressure().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getBloodPressure().getValue());
+        assertEquals("", getUnit(patientSummary.getVitals().get(0).getBloodPressure().getUnit()));
+
+        assertEquals("Blood oxygen saturation", patientSummary.getVitals().get(0).getBloodOxygenSaturation().getName());
+        assertEquals("_", patientSummary.getVitals().get(0).getBloodOxygenSaturation().getValue());
+        assertEquals("%", getUnit(patientSummary.getVitals().get(0).getBloodOxygenSaturation().getUnit()));
+    }
+
+    @Test
     public void generatePatientSummary_shouldSetVitalsRightly() {
         PatientSummary patientSummary = patientSummaryService.generatePatientSummary(patient);
 
