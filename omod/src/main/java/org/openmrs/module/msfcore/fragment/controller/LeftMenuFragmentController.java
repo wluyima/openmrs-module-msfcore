@@ -46,54 +46,55 @@ public class LeftMenuFragmentController {
 	public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel,
 	        HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String patientId = request.getParameter("patientId");
-		List<Encounter> ncdEncounters = getAllNCDEncountersByPatientId(patientId);
-		initializeLinks(patientId, ncdEncounters, fragmentModel);
+		
+		initializeLinks(patientId, fragmentModel);
 	}
 	
-	public void initializeLinks(String patientUuid, List<Encounter> ncdEncounters, FragmentModel fragmentModel) {
+	public void initializeLinks(String patientId, FragmentModel fragmentModel) {
+		List<Encounter> ncdEncounters = getAllNCDEncountersByPatientId(patientId);
 		String medicalHistoryEncounterUuid = getEncounterUuidByFormUuid(ncdEncounters,
 		    MSFCoreConfig.FORM_MEDICAL_HISTORY_UUID);
-		medicalHistoryLink = buildLink(patientUuid, MSFCoreConfig.FORM_MEDICAL_HISTORY_UUID, medicalHistoryEncounterUuid);
+		medicalHistoryLink = buildLink(patientId, MSFCoreConfig.FORM_MEDICAL_HISTORY_UUID, medicalHistoryEncounterUuid);
 		
 		String lifestyleEncounterUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_LIFESTYLE_UUID);
-		lifestyleLink = buildLink(patientUuid, MSFCoreConfig.FORM_LIFESTYLE_UUID, lifestyleEncounterUuid);
+		lifestyleLink = buildLink(patientId, MSFCoreConfig.FORM_LIFESTYLE_UUID, lifestyleEncounterUuid);
 		
 		String allergiesUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_ALLERGIES_UUID);
-		allergiesLink = buildLink(patientUuid, MSFCoreConfig.FORM_ALLERGIES_UUID, allergiesUuid);
+		allergiesLink = buildLink(patientId, MSFCoreConfig.FORM_ALLERGIES_UUID, allergiesUuid);
 		
 		String diagnosisUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_DIAGNOSIS_UUID);
-		diagnosisLink = buildLink(patientUuid, MSFCoreConfig.FORM_DIAGNOSIS_UUID, diagnosisUuid);
+		diagnosisLink = buildLink(patientId, MSFCoreConfig.FORM_DIAGNOSIS_UUID, diagnosisUuid);
 		
 		String complicationsUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_COMPLICATIONS_UUID);
-		complicationsLink = buildLink(patientUuid, MSFCoreConfig.FORM_COMPLICATIONS_UUID, complicationsUuid);
+		complicationsLink = buildLink(patientId, MSFCoreConfig.FORM_COMPLICATIONS_UUID, complicationsUuid);
 		
 		String requestInvestigationUuid = getEncounterUuidByFormUuid(ncdEncounters,
 		    MSFCoreConfig.FORM_REQUEST_INVESTIGATION_UUID);
-		requestInvestigationLink = buildLink(patientUuid, MSFCoreConfig.FORM_REQUEST_INVESTIGATION_UUID,
+		requestInvestigationLink = buildLink(patientId, MSFCoreConfig.FORM_REQUEST_INVESTIGATION_UUID,
 		    requestInvestigationUuid);
 		
 		String prescribeMedicationUuid = getEncounterUuidByFormUuid(ncdEncounters,
 		    MSFCoreConfig.FORM_PRESCRIBE_MEDICATION_UUID);
-		prescribeMedicationLink = buildLink(patientUuid, MSFCoreConfig.FORM_PRESCRIBE_MEDICATION_UUID,
+		prescribeMedicationLink = buildLink(patientId, MSFCoreConfig.FORM_PRESCRIBE_MEDICATION_UUID,
 		    prescribeMedicationUuid);
 		
 		String patientTargetUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_PATIENT_TARGET_UUID);
-		patientTargetLink = buildLink(patientUuid, MSFCoreConfig.FORM_PATIENT_TARGET_UUID, patientTargetUuid);
+		patientTargetLink = buildLink(patientId, MSFCoreConfig.FORM_PATIENT_TARGET_UUID, patientTargetUuid);
 		
 		String regularPatientReviewUuid = getEncounterUuidByFormUuid(ncdEncounters,
 		    MSFCoreConfig.FORM_REGULAR_PATIENT_REVIEW_UUID);
-		regularPatientReviewLink = buildLink(patientUuid, MSFCoreConfig.FORM_REGULAR_PATIENT_REVIEW_UUID,
+		regularPatientReviewLink = buildLink(patientId, MSFCoreConfig.FORM_REGULAR_PATIENT_REVIEW_UUID,
 		    regularPatientReviewUuid);
 		
 		String clinicalNoteUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_CLINICAL_NOTE_UUID);
-		clinicalNoteLink = buildLink(patientUuid, MSFCoreConfig.FORM_CLINICAL_NOTE_UUID, clinicalNoteUuid);
+		clinicalNoteLink = buildLink(patientId, MSFCoreConfig.FORM_CLINICAL_NOTE_UUID, clinicalNoteUuid);
 		
 		String requestAppointmentUuid = getEncounterUuidByFormUuid(ncdEncounters,
 		    MSFCoreConfig.FORM_REQUEST_APPOINTMENT_UUID);
-		requestAppointmentLink = buildLink(patientUuid, MSFCoreConfig.FORM_REQUEST_APPOINTMENT_UUID, requestAppointmentUuid);
+		requestAppointmentLink = buildLink(patientId, MSFCoreConfig.FORM_REQUEST_APPOINTMENT_UUID, requestAppointmentUuid);
 		
 		String referPatientUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_REFER_PATIENT_UUID);
-		referPatientLink = buildLink(patientUuid, MSFCoreConfig.FORM_REFER_PATIENT_UUID, referPatientUuid);
+		referPatientLink = buildLink(patientId, MSFCoreConfig.FORM_REFER_PATIENT_UUID, referPatientUuid);
 		
 		if (fragmentModel != null) {
 			fragmentModel.addAttribute("medicalHistoryLink", medicalHistoryLink);
@@ -129,7 +130,7 @@ public class LeftMenuFragmentController {
 		return null;
 	}
 	
-	public List<Encounter> getAllNCDEncountersByPatientId(String patientId) {
+	private List<Encounter> getAllNCDEncountersByPatientId(String patientId) {
 		Context.getEncounterService().getEncountersByPatient(patientId);
 		Patient patient;
 		if (isANumber(patientId)) {

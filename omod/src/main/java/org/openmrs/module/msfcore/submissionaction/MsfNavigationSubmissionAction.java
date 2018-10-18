@@ -1,10 +1,8 @@
 package org.openmrs.module.msfcore.submissionaction;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.openmrs.Encounter;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.fragment.controller.LeftMenuFragmentController;
 import org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionAction;
@@ -21,8 +19,7 @@ public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
 	
 	@Override
 	public void apply(String operation, FormEntrySession session) {
-		List<Encounter> ncdEncounters = controller.getAllNCDEncountersByPatientId(session.getPatient().getUuid());
-		controller.initializeLinks(session.getPatient().getUuid(), ncdEncounters, null);
+		controller.initializeLinks(session.getPatient().getUuid(), null);
 		
 		OPERATION_TO_URL = new HashMap<String, String>() {
 			
