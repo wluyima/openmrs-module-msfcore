@@ -11,6 +11,8 @@
 	</macros>
 
 	<script type="text/javascript">
+		var NUMBER_ENTRIES = 10;
+		
         if (jQuery) {
             jq(document).ready(function () {
 
@@ -25,9 +27,11 @@
 				});
 
                 // enabling and disabling the allergy sections there are only 5 so far
-                jq('#1-removeEntry').remove();
+                if( jq(getUsedContainers()).length == 1){
+                    jq('#1-removeEntry').remove();
+                 }
                 jq('#1-toggleContainer').show();
-                jq('#10-addEntry').remove();
+                jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
 
 
                 // show and remove sections
@@ -51,13 +55,34 @@
                 });
 
                 // show any prescriptions that have been saved
-                for (i = 1; i &lt; 10; i++) {
+                for (i = 1; i &lt; NUMBER_ENTRIES; i++) {
                     if (getValue('name-' + i + '.value') != false) {
                         //jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
                     }
                 }
             });
+            
+            function getUsedContainers() {
+                var usedContainers = [];
+                for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                    var containerId = `${i}-toggleContainer`;
+                    if (i == 1 || isPrescriptionFilled(i)) {
+                        usedContainers.push(jq(`#${i}-toggleContainer`));
+                    }
+                }
+                return usedContainers;
+            }
+            
+            function isPrescriptionFilled(i) {
+                var filled;
+                if (typeof(getValue) != 'undefined') {
+                    filled = getValue(`name-${i}.value`) != "";
+                } else {
+                    filled = jq(`#name-${i}`).children('.value').length > 0;
+                }
+                return filled;
+            }
         }
 	</script>
 
@@ -96,6 +121,7 @@
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
 								<!--<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.medication')"/> {prescription}</h4>-->
+									<obsgroup groupingConceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"> 
 										<div class="input-group">
 											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
 											<obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
@@ -116,7 +142,7 @@
 										</div>
 										<div class="input-group">
 											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
-		                  <obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
+		                  					<obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
 										</div>
 										<div class="input-group">
 											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
@@ -125,8 +151,9 @@
 								<div class="hide-on-view">
 									<button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/>
 									</button>
-                  <!-- <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
+                                    <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
 								</div>
+								</obsgroup>
 							</div>
 						</template>
 						<render prescription="1"/>
