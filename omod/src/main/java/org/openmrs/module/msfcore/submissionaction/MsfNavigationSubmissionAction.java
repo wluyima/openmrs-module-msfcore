@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.openmrs.module.htmlformentry.FormEntrySession;
+import org.openmrs.module.msfcore.NCDBaselineLinks;
 import org.openmrs.module.msfcore.fragment.controller.LeftMenuFragmentController;
 import org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionAction;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
 	
 	@Override
 	public void apply(String operation, FormEntrySession session) {
-		controller.initializeLinks(session.getPatient().getUuid(), null);
+		final NCDBaselineLinks links = controller.getNCDBaselineLinks(session.getPatient().getUuid());
 		
 		OPERATION_TO_URL = new HashMap<String, String>() {
 			
@@ -28,34 +29,34 @@ public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
 			{
 				put("save.and.exit.action", DASHBOARD_URL);
 				put("complete.action", DASHBOARD_URL);
-				put("ncd.baseline.medicalhistory.next", "/htmlformentryui/htmlform/" + controller.lifestyleLink);
-				put("ncd.baseline.lifestyle.previous", "/htmlformentryui/htmlform/" + controller.medicalHistoryLink);
-				put("ncd.baseline.lifestyle.next", "/htmlformentryui/htmlform/" + controller.allergiesLink);
-				put("ncd.baseline.alergies.previous", "/htmlformentryui/htmlform/" + controller.lifestyleLink);
-				put("ncd.baseline.alergies.next", "/htmlformentryui/htmlform/" + controller.diagnosisLink);
-				put("ncd.baseline.diagnosis.previous", "/htmlformentryui/htmlform/" + controller.allergiesLink);
-				put("ncd.baseline.diagnosis.next", "/htmlformentryui/htmlform/" + controller.complicationsLink);
-				put("ncd.baseline.complications.previous", "/htmlformentryui/htmlform/" + controller.diagnosisLink);
-				put("ncd.baseline.complications.next", "/htmlformentryui/htmlform/" + controller.requestInvestigationLink);
+				put("ncd.baseline.medicalhistory.next", "/htmlformentryui/htmlform/" + links.getLifestyleLink());
+				put("ncd.baseline.lifestyle.previous", "/htmlformentryui/htmlform/" + links.getMedicalHistoryLink());
+				put("ncd.baseline.lifestyle.next", "/htmlformentryui/htmlform/" + links.getAllergiesLink());
+				put("ncd.baseline.alergies.previous", "/htmlformentryui/htmlform/" + links.getLifestyleLink());
+				put("ncd.baseline.alergies.next", "/htmlformentryui/htmlform/" + links.getDiagnosisLink());
+				put("ncd.baseline.diagnosis.previous", "/htmlformentryui/htmlform/" + links.getAllergiesLink());
+				put("ncd.baseline.diagnosis.next", "/htmlformentryui/htmlform/" + links.getComplicationsLink());
+				put("ncd.baseline.complications.previous", "/htmlformentryui/htmlform/" + links.getDiagnosisLink());
+				put("ncd.baseline.complications.next", "/htmlformentryui/htmlform/" + links.getRequestInvestigationLink());
 				put("ncd.baseline.prescribemedication.previous",
-				    "/htmlformentryui/htmlform/" + controller.requestInvestigationLink);
-				put("ncd.baseline.prescribemedication.next", "/htmlformentryui/htmlform/" + controller.patientTargetLink);
+				    "/htmlformentryui/htmlform/" + links.getRequestInvestigationLink());
+				put("ncd.baseline.prescribemedication.next", "/htmlformentryui/htmlform/" + links.getPatientTargetLink());
 				put("ncd.baseline.patienttargets.previous",
-				    "/htmlformentryui/htmlform/" + controller.prescribeMedicationLink);
-				put("ncd.baseline.patienttargets.next", "/htmlformentryui/htmlform/" + controller.regularPatientReviewLink);
+				    "/htmlformentryui/htmlform/" + links.getPrescribeMedicationLink());
+				put("ncd.baseline.patienttargets.next", "/htmlformentryui/htmlform/" + links.getRegularPatientReviewLink());
 				put("ncd.baseline.regularpatientreview.previous",
-				    "/htmlformentryui/htmlform/" + controller.patientTargetLink);
-				put("ncd.baseline.regularpatientreview.next", "/htmlformentryui/htmlform/" + controller.clinicalNoteLink);
+				    "/htmlformentryui/htmlform/" + links.getPatientTargetLink());
+				put("ncd.baseline.regularpatientreview.next", "/htmlformentryui/htmlform/" + links.getClinicalNoteLink());
 				put("ncd.baseline.clinicalnote.previous",
-				    "/htmlformentryui/htmlform/" + controller.regularPatientReviewLink);
-				put("ncd.baseline.clinicalnote.next", "/htmlformentryui/htmlform/" + controller.requestAppointmentLink);
+				    "/htmlformentryui/htmlform/" + links.getRegularPatientReviewLink());
+				put("ncd.baseline.clinicalnote.next", "/htmlformentryui/htmlform/" + links.getRequestAppointmentLink());
 				put("ncd.baseline.requestinvestigation.previous",
-				    "/htmlformentryui/htmlform/" + controller.complicationsLink);
+				    "/htmlformentryui/htmlform/" + links.getComplicationsLink());
 				put("ncd.baseline.requestinvestigation.next",
-				    "/htmlformentryui/htmlform/" + controller.prescribeMedicationLink);
-				put("ncd.baseline.requestappointment.previous", "/htmlformentryui/htmlform/" + controller.clinicalNoteLink);
-				put("ncd.baseline.requestappointment.next", "/htmlformentryui/htmlform/" + controller.referPatientLink);
-				put("ncd.baseline.referpatient.previous", "/htmlformentryui/htmlform/" + controller.requestAppointmentLink);
+				    "/htmlformentryui/htmlform/" + links.getPrescribeMedicationLink());
+				put("ncd.baseline.requestappointment.previous", "/htmlformentryui/htmlform/" + links.getClinicalNoteLink());
+				put("ncd.baseline.requestappointment.next", "/htmlformentryui/htmlform/" + links.getReferPatientLink());
+				put("ncd.baseline.referpatient.previous", "/htmlformentryui/htmlform/" + links.getRequestAppointmentLink());
 			}
 		};
 		
