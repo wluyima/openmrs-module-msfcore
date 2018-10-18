@@ -67,8 +67,9 @@
 	    		"<% patientSummary.currentMedications.each { m -> %>|s|${m.value}<% } %>".split("|s|").filter(v=>v!=''),
 	    	1);
     	} else if(representation == 'FULL') {
-    		Jquery(document).prop('title', "Full " + Jquery(document).prop('title'));
-    		jQuery("h2").prepend("Full ");
+    		jQuery(document).prop('title', "${ui.message('msfcore.patientFullSummary')}");
+    		jQuery("h2").text("${ui.message('msfcore.patientFullSummary')}");
+    	
     		// TODO populate differing sections
     	}
     	
