@@ -126,19 +126,5 @@
 		</div>
 	</div>
 
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'a9f3411c-03d8-4652-8143-886d572cbf4d' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-	</ifMode>
 	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionActionHandler" />
 </htmlform>

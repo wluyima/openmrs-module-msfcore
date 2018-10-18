@@ -225,23 +225,6 @@
     </div>
 
     <!-- When this form is saved forward to the Family History Form -->
-    <!-- TODO: Fix the url of all the forms to display their contents once done -->
-
-    <!-- Enusre that only one version of this form can exist at any one time -->
-    <ifMode mode="ENTER" include="true">
-        <lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == '06807e2b-ce97-4d65-8796-e955fcbe057d' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-    </ifMode>
-
 	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionActionHandler" />
 
 </htmlform>
