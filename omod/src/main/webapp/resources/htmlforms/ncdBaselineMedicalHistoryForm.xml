@@ -225,6 +225,6 @@
     </div>
 
     <!-- When this form is saved forward to the Family History Form -->
-	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionActionHandler" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 
 </htmlform>

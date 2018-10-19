@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.submissionaction.handler;
+package org.openmrs.module.msfcore.formaction.handler;
 
 import org.openmrs.module.htmlformentry.FormEntrySession;
 
@@ -7,8 +7,8 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
  * 
  * @author Edrisse
  */
-public interface MsfSubmissionAction {
-	
-	void apply(String operation, FormEntrySession session);
-	
+public interface FormAction {
+
+    void apply(String operation, FormEntrySession session);
+
 }

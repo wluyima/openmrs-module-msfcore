@@ -24,8 +24,10 @@
 				jq.each(getUnusedContainers(), (index, value) => value.hide());
 
 				<!-- remove the buttons that will not be used -->
-				jq('#1-removeEntry').remove();
 				jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
+				if(jq(getUsedContainers()).length == 1){
+                 	jq('#1-removeEntry').remove();
+                 }
 
 				<!-- handle adding entries -->
                 jq('button.addEntry').on("click", function() {
@@ -37,7 +39,7 @@
 				<!-- handle removing entries -->
                 jq('button.removeEntry').on("click", function() {
 					var indexToHide =  getIndexFromId(this.id);
-					jq('#' + indexToHide + '-toggleContainer').hide();
+					jq('#' + indexToHide + '-toggleContainer').remove();
 					return false;
                 });
 
@@ -100,6 +102,17 @@
 				jq.each(getUnusedContainersIds(), (index, value) => unusedContainers.push(jq('#' + value)));
 				return unusedContainers;
 			}
+			
+            function getUsedContainers() {
+                var usedContainers = [];
+                for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                    var containerId = `${i}-toggleContainer`;
+                    if (i == 1 || isMeasureTypeFilled(i)) {
+                        usedContainers.push(jq(`#${i}-toggleContainer`));
+                    }
+                }
+                return usedContainers;
+            }
 
 			function getUnusedContainersIds() {
 				var unusedContainersIds = [];
@@ -194,7 +207,7 @@
                   </div>
                   <div class="hide-on-view">
                     <button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
-                    <!-- <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
+                    <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                   </div>
 
 								</obsgroup>
@@ -222,6 +235,6 @@
 		</div>
 	</div>
 
-	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionActionHandler" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 
 </htmlform>
