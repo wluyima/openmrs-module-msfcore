@@ -93,6 +93,7 @@
 						<!-- Concept id=6000009 name = Request Appointment Type-->
 						<span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5"/></span>
 						<select name="appointment-type" id="appointment-type-list">
+								<option value=""></option>
 								<option value="4da187c6-c436-11e4-a470-82b0ea87e2d8">Dermatology</option>
 								<option value="5ab6d8a8-c436-11e4-a470-82b0ea87e2d8">Dermatology (New Patient)</option>
 								<option value="7dd9ac8e-c436-11e4-a470-82b0ea87e2d8">General Medicine</option>
