@@ -91,9 +91,10 @@ public class LeftMenuFragmentController {
 
     private String buildLink(String patientUuid, String formUuid, String encounterUuid) {
         if (encounterUuid == null) { // case of a new entry
-            return "enterHtmlFormWithStandardUi.page?formUuid=" + formUuid + "&patientId=" + patientUuid;
+            return String.format("enterHtmlFormWithStandardUi.page?formUuid=%s&patientId=%s", formUuid, patientUuid);
         } else { // case of edit
-            return "editHtmlFormWithStandardUi.page?formUuid=" + formUuid + "&patientId=" + patientUuid + "&encounterId=" + encounterUuid;
+            return String.format("editHtmlFormWithStandardUi.page?formUuid=%s&patientId=%s&encounterId=%s", formUuid, patientUuid,
+                            encounterUuid);
         }
     }
 
@@ -125,7 +126,7 @@ public class LeftMenuFragmentController {
                         Arrays.asList(ncdEncounterType), null, // providers
                         null, // visitTypes
                         null, // visits
-                        false // include voided 
+                        false // include voided
         );
         return Context.getEncounterService().getEncounters(criteria);
     }

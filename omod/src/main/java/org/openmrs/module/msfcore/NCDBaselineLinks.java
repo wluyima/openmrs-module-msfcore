@@ -2,29 +2,29 @@ package org.openmrs.module.msfcore;
 
 public class NCDBaselineLinks {
 
-    String medicalHistoryLink;
+    private String medicalHistoryLink;
 
-    String lifestyleLink;
+    private String lifestyleLink;
 
-    String allergiesLink;
+    private String allergiesLink;
 
-    String diagnosisLink;
+    private String diagnosisLink;
 
-    String complicationsLink;
+    private String complicationsLink;
 
-    String requestInvestigationLink;
+    private String requestInvestigationLink;
 
-    String prescribeMedicationLink;
+    private String prescribeMedicationLink;
 
-    String patientTargetLink;
+    private String patientTargetLink;
 
-    String regularPatientReviewLink;
+    private String regularPatientReviewLink;
 
-    String clinicalNoteLink;
+    private String clinicalNoteLink;
 
-    String requestAppointmentLink;
+    private String requestAppointmentLink;
 
-    String referPatientLink;
+    private String referPatientLink;
 
     public String getMedicalHistoryLink() {
         return medicalHistoryLink;

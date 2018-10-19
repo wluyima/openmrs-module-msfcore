@@ -16,46 +16,14 @@ public class NavigationFormAction implements FormAction {
 
     private static final String DASHBOARD_URL = "/coreapps/clinicianfacing/patient.page?patientId=%s&app=msfcore.app.clinicianDashboard";
 
-    private static Map<String, String> OPERATION_TO_URL;
+    private static final String BASE_FORM_URL_TEMPLATE = "/htmlformentryui/htmlform/%s";
 
     @Override
     public void apply(String operation, FormEntrySession session) {
         final NCDBaselineLinks links = controller.getNCDBaselineLinks(session.getPatient().getUuid());
-
-        OPERATION_TO_URL = new HashMap<String, String>() {
-
-            private static final long serialVersionUID = -4322535511417688724L;
-
-            {
-                put("save.and.exit.action", DASHBOARD_URL);
-                put("complete.action", DASHBOARD_URL);
-                put("ncd.baseline.medicalhistory.next", "/htmlformentryui/htmlform/" + links.getLifestyleLink());
-                put("ncd.baseline.lifestyle.previous", "/htmlformentryui/htmlform/" + links.getMedicalHistoryLink());
-                put("ncd.baseline.lifestyle.next", "/htmlformentryui/htmlform/" + links.getAllergiesLink());
-                put("ncd.baseline.alergies.previous", "/htmlformentryui/htmlform/" + links.getLifestyleLink());
-                put("ncd.baseline.alergies.next", "/htmlformentryui/htmlform/" + links.getDiagnosisLink());
-                put("ncd.baseline.diagnosis.previous", "/htmlformentryui/htmlform/" + links.getAllergiesLink());
-                put("ncd.baseline.diagnosis.next", "/htmlformentryui/htmlform/" + links.getComplicationsLink());
-                put("ncd.baseline.complications.previous", "/htmlformentryui/htmlform/" + links.getDiagnosisLink());
-                put("ncd.baseline.complications.next", "/htmlformentryui/htmlform/" + links.getRequestInvestigationLink());
-                put("ncd.baseline.prescribemedication.previous", "/htmlformentryui/htmlform/" + links.getRequestInvestigationLink());
-                put("ncd.baseline.prescribemedication.next", "/htmlformentryui/htmlform/" + links.getPatientTargetLink());
-                put("ncd.baseline.patienttargets.previous", "/htmlformentryui/htmlform/" + links.getPrescribeMedicationLink());
-                put("ncd.baseline.patienttargets.next", "/htmlformentryui/htmlform/" + links.getRegularPatientReviewLink());
-                put("ncd.baseline.regularpatientreview.previous", "/htmlformentryui/htmlform/" + links.getPatientTargetLink());
-                put("ncd.baseline.regularpatientreview.next", "/htmlformentryui/htmlform/" + links.getClinicalNoteLink());
-                put("ncd.baseline.clinicalnote.previous", "/htmlformentryui/htmlform/" + links.getRegularPatientReviewLink());
-                put("ncd.baseline.clinicalnote.next", "/htmlformentryui/htmlform/" + links.getRequestAppointmentLink());
-                put("ncd.baseline.requestinvestigation.previous", "/htmlformentryui/htmlform/" + links.getComplicationsLink());
-                put("ncd.baseline.requestinvestigation.next", "/htmlformentryui/htmlform/" + links.getPrescribeMedicationLink());
-                put("ncd.baseline.requestappointment.previous", "/htmlformentryui/htmlform/" + links.getClinicalNoteLink());
-                put("ncd.baseline.requestappointment.next", "/htmlformentryui/htmlform/" + links.getReferPatientLink());
-                put("ncd.baseline.referpatient.previous", "/htmlformentryui/htmlform/" + links.getRequestAppointmentLink());
-            }
-        };
-
+        Map<String, String> operationToUrl = generateOperationToUrlMap(links);
         if (operation != null) {
-            String nextUrl = OPERATION_TO_URL.get(operation);
+            String nextUrl = operationToUrl.get(operation);
             if (nextUrl != null) {
                 session.setAfterSaveUrlTemplate(String.format(nextUrl, session.getPatient().getId()));
             } else {
@@ -64,6 +32,42 @@ public class NavigationFormAction implements FormAction {
         } else {
             throw new IllegalArgumentException("msf.operation parameter not set");
         }
+    }
+
+    private Map<String, String> generateOperationToUrlMap(final NCDBaselineLinks links) {
+        Map<String, String> operationToUrl = new HashMap<String, String>();
+        operationToUrl.put("save.and.exit.action", DASHBOARD_URL);
+        operationToUrl.put("complete.action", DASHBOARD_URL);
+        operationToUrl.put("ncd.baseline.medicalhistory.next", String.format(BASE_FORM_URL_TEMPLATE, links.getLifestyleLink()));
+        operationToUrl.put("ncd.baseline.lifestyle.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getMedicalHistoryLink()));
+        operationToUrl.put("ncd.baseline.lifestyle.next", String.format(BASE_FORM_URL_TEMPLATE, links.getAllergiesLink()));
+        operationToUrl.put("ncd.baseline.alergies.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getLifestyleLink()));
+        operationToUrl.put("ncd.baseline.alergies.next", String.format(BASE_FORM_URL_TEMPLATE, links.getDiagnosisLink()));
+        operationToUrl.put("ncd.baseline.diagnosis.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getAllergiesLink()));
+        operationToUrl.put("ncd.baseline.diagnosis.next", String.format(BASE_FORM_URL_TEMPLATE, links.getComplicationsLink()));
+        operationToUrl.put("ncd.baseline.complications.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getDiagnosisLink()));
+        operationToUrl.put("ncd.baseline.complications.next", String.format(BASE_FORM_URL_TEMPLATE, links.getRequestInvestigationLink()));
+        operationToUrl.put("ncd.baseline.prescribemedication.previous", String.format(BASE_FORM_URL_TEMPLATE, links
+                        .getRequestInvestigationLink()));
+        operationToUrl.put("ncd.baseline.prescribemedication.next", String.format(BASE_FORM_URL_TEMPLATE, links.getPatientTargetLink()));
+        operationToUrl.put("ncd.baseline.patienttargets.previous", String
+                        .format(BASE_FORM_URL_TEMPLATE, links.getPrescribeMedicationLink()));
+        operationToUrl.put("ncd.baseline.patienttargets.next", String.format(BASE_FORM_URL_TEMPLATE, links.getRegularPatientReviewLink()));
+        operationToUrl.put("ncd.baseline.regularpatientreview.previous", String
+                        .format(BASE_FORM_URL_TEMPLATE, links.getPatientTargetLink()));
+        operationToUrl.put("ncd.baseline.regularpatientreview.next", String.format(BASE_FORM_URL_TEMPLATE, links.getClinicalNoteLink()));
+        operationToUrl
+                        .put("ncd.baseline.clinicalnote.previous", String.format(BASE_FORM_URL_TEMPLATE, links
+                                        .getRegularPatientReviewLink()));
+        operationToUrl.put("ncd.baseline.clinicalnote.next", String.format(BASE_FORM_URL_TEMPLATE, links.getRequestAppointmentLink()));
+        operationToUrl.put("ncd.baseline.requestinvestigation.previous", String
+                        .format(BASE_FORM_URL_TEMPLATE, links.getComplicationsLink()));
+        operationToUrl.put("ncd.baseline.requestinvestigation.next", String.format(BASE_FORM_URL_TEMPLATE, links
+                        .getPrescribeMedicationLink()));
+        operationToUrl.put("ncd.baseline.requestappointment.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getClinicalNoteLink()));
+        operationToUrl.put("ncd.baseline.requestappointment.next", String.format(BASE_FORM_URL_TEMPLATE, links.getReferPatientLink()));
+        operationToUrl.put("ncd.baseline.referpatient.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getRequestAppointmentLink()));
+        return operationToUrl;
     }
 
 }
