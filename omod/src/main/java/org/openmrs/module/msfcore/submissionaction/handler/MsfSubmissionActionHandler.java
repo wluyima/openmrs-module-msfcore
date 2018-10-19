@@ -22,36 +22,36 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 @Component
 public class MsfSubmissionActionHandler implements CustomFormSubmissionAction {
-	
-	public static List<MsfSubmissionAction> actions;
-	
-	private static final String MSF_OPERATION_PARAMETER_NAME = "msf.operation";
-	
-	@Override
-	public void applyAction(FormEntrySession formEntrySession) {
-		String operation = getRequest().getParameter(MSF_OPERATION_PARAMETER_NAME);
-		for (MsfSubmissionAction action : actions) {
-			action.apply(operation, formEntrySession);
-		}
-	}
-	
-	private HttpServletRequest getRequest() {
-		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-		if (requestAttributes instanceof ServletRequestAttributes) {
-			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-			return request;
-		} else {
-			throw new IllegalStateException("This really should not happen");
-		}
-	}
-	
-	@PostConstruct
-	public void setActions() {
-		//Sorry guys, not proud... was the least hacky trick I could think of
-		actions = _actions;
-	}
-	
-	@Autowired
-	private List<MsfSubmissionAction> _actions;
-	
+
+    public static List<MsfSubmissionAction> actions;
+
+    private static final String MSF_OPERATION_PARAMETER_NAME = "msf.operation";
+
+    @Override
+    public void applyAction(FormEntrySession formEntrySession) {
+        String operation = getRequest().getParameter(MSF_OPERATION_PARAMETER_NAME);
+        for (MsfSubmissionAction action : actions) {
+            action.apply(operation, formEntrySession);
+        }
+    }
+
+    private HttpServletRequest getRequest() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes) {
+            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+            return request;
+        } else {
+            throw new IllegalStateException("This really should not happen");
+        }
+    }
+
+    @PostConstruct
+    public void setActions() {
+        //Sorry guys, not proud... was the least hacky trick I could think of
+        actions = _actions;
+    }
+
+    @Autowired
+    private List<MsfSubmissionAction> _actions;
+
 }

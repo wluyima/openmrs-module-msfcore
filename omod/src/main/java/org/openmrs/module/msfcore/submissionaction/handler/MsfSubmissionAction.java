@@ -8,7 +8,7 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
  * @author Edrisse
  */
 public interface MsfSubmissionAction {
-	
-	void apply(String operation, FormEntrySession session);
-	
+
+    void apply(String operation, FormEntrySession session);
+
 }

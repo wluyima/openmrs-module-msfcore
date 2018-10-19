@@ -120,7 +120,6 @@
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
-								<!--<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.medication')"/> {prescription}</h4>-->
 									<obsgroup groupingConceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"> 
 										<div class="input-group">
 											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
