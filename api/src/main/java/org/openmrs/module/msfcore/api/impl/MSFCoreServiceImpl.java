@@ -19,12 +19,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.MSFCoreUtils;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
@@ -176,5 +180,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                             new Object[]{Context.getLocationService().getDefaultLocation().getName(), getInstanceId()}, null);
         }
         return "";
+    }
+
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination) {
+        return dao.getOrders(patient, type, concepts, pagination);
     }
 }

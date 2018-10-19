@@ -11,9 +11,19 @@
     ];
 </script>
 
+
+<style>
+	#results-print-close-wrapper {
+	    text-align: center;
+	}
+	#results-print-close {
+		display: inline-block;
+	}
+</style>
+
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
 <br />
 
-${ ui.includeFragment("msfcore", "results") }
+${ ui.includeFragment("msfcore", "results", [ fromResultNumber : 0, toResultNumber : 10 ]) }
 

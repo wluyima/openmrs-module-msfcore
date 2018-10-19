@@ -1,5 +1,5 @@
 package org.openmrs.module.msfcore.result;
 
-public class Filter {
-
+public enum Action {
+    EDIT, DELETE
 }

@@ -6,7 +6,7 @@ import org.openmrs.module.msfcore.result.ResultsData;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public class OrderResultHistoryPageController {
+public class ResultHistoryPageController {
     public void controller(PageModel pageModel, @RequestParam("patientId") Patient patient, @RequestParam("category") String category) {
         pageModel.addAttribute("patient", patient);
         ResultCategory resCat = ResultsData.parseCategory(category);

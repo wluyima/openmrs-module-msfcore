@@ -14,9 +14,13 @@ import java.util.List;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
+import org.openmrs.Patient;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
+import org.openmrs.module.msfcore.Pagination;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -49,4 +53,6 @@ public interface MSFCoreService extends OpenmrsService {
     public void overwriteSync2Configuration();
 
     public String getCurrentLocationIdentity();
+
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 }
