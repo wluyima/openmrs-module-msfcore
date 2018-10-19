@@ -1,16 +1,16 @@
-package org.openmrs.module.msfcore.submissionaction;
+package org.openmrs.module.msfcore.formaction;
 
 import org.openmrs.Visit;
 import org.openmrs.api.EncounterService;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
-import org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionAction;
+import org.openmrs.module.msfcore.formaction.handler.FormAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MsfLabOrderAction implements MsfSubmissionAction {
+public class LabOrderFormAction implements FormAction {
 
     @Autowired
     private EncounterService encounterService;

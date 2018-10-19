@@ -1,18 +1,18 @@
-package org.openmrs.module.msfcore.submissionaction;
+package org.openmrs.module.msfcore.formaction;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.NCDBaselineLinks;
+import org.openmrs.module.msfcore.formaction.handler.FormAction;
 import org.openmrs.module.msfcore.fragment.controller.LeftMenuFragmentController;
-import org.openmrs.module.msfcore.submissionaction.handler.MsfSubmissionAction;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MsfNavigationSubmissionAction implements MsfSubmissionAction {
+public class NavigationFormAction implements FormAction {
 
-    LeftMenuFragmentController controller = new LeftMenuFragmentController();
+    private LeftMenuFragmentController controller = new LeftMenuFragmentController();
 
     private static final String DASHBOARD_URL = "/coreapps/clinicianfacing/patient.page?patientId=%s&app=msfcore.app.clinicianDashboard";
 

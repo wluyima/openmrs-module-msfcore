@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.submissionaction.handler;
+package org.openmrs.module.msfcore.formaction.handler;
 
 import java.util.List;
 
@@ -15,22 +15,22 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * When a user clicks a submit button on a form, this is the class that handles the action and
- * applies all handlers that implement the {@link MsfSubmissionAction} interface and are registred
+ * applies all handlers that implement the {@link FormAction} interface and are registred
  * as spring beans.
  * 
  * @author Edrisse
  */
 @Component
-public class MsfSubmissionActionHandler implements CustomFormSubmissionAction {
+public class HtmlFormPostSubmissionAction implements CustomFormSubmissionAction {
 
-    public static List<MsfSubmissionAction> actions;
+    public static List<FormAction> actions;
 
     private static final String MSF_OPERATION_PARAMETER_NAME = "msf.operation";
 
     @Override
     public void applyAction(FormEntrySession formEntrySession) {
         String operation = getRequest().getParameter(MSF_OPERATION_PARAMETER_NAME);
-        for (MsfSubmissionAction action : actions) {
+        for (FormAction action : actions) {
             action.apply(operation, formEntrySession);
         }
     }
@@ -52,6 +52,6 @@ public class MsfSubmissionActionHandler implements CustomFormSubmissionAction {
     }
 
     @Autowired
-    private List<MsfSubmissionAction> _actions;
+    private List<FormAction> _actions;
 
 }
