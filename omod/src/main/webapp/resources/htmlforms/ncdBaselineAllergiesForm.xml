@@ -133,9 +133,7 @@
                                             <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="radio" answerSeparator=""/>
                                      </div>
                                     <div id="162554-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                    <obsgroup groupingConceptId="162554">
-                                            <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
-                                        </obsgroup>
+                                        	<obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
                                     </div>
                                 </section>
                                 <section>
