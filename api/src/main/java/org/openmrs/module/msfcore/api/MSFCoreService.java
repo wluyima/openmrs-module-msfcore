@@ -12,6 +12,7 @@ package org.openmrs.module.msfcore.api;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.api.OpenmrsService;
@@ -49,4 +50,6 @@ public interface MSFCoreService extends OpenmrsService {
     public void overwriteSync2Configuration();
 
     public String getCurrentLocationIdentity();
+
+    public void saveTestOrders(Encounter encounter);
 }
