@@ -141,8 +141,8 @@
 	</globalProperty>
 	<globalProperty>
 		<property>concept.medications</property>
-		<defaultValue>463560,463561,463562,463563,463564,463565,463566,463567,463568,463569,463543</defaultValue>
-		<description>Concept ids for the concepts defining medications</description>
+		<defaultValue>1000093</defaultValue>
+		<description>Concept id for the concept defining medications</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.notes</property>
@@ -157,7 +157,7 @@
 	<globalProperty>
 		<property>concept.labResults</property>
 		<defaultValue>463596,463630,463631,463632,463629,463582,463583,463574</defaultValue>
-		<description>Concept ids for the concepts defining medications</description>
+		<description>Concept ids for the concepts defining lab results</description>
 	</globalProperty>
 	<globalProperty>
 		<property>msfcore.otherVitals</property>
