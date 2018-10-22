@@ -171,8 +171,8 @@
 	</globalProperty>
 	<globalProperty>
 		<property>concept.historyOfTargetOrganDamage</property>
-		<defaultValue>463383,463384,463385,463386,463387,463388</defaultValue>
-		<description>Concept ids for the concepts defining history of targer organ damage</description>
+		<defaultValue>3000006</defaultValue>
+		<description>Concept id for the concept defining history of target organ damage</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.cardiovascularRiskScore</property>
@@ -187,7 +187,7 @@
 	<globalProperty>
 		<property>concept.socialHistory</property>
 		<defaultValue>463611,463614,465106,465107,463346</defaultValue>
-		<description>Concept ids for the concepts defining social hitory or lifestyle</description>
+		<description>Concept ids for the concepts defining social history or lifestyle</description>
 	</globalProperty>
 	<globalProperty>
 		<property>concept.complications</property>
