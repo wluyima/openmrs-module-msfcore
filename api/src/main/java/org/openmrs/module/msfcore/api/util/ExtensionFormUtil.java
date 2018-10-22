@@ -20,8 +20,6 @@ import java.util.Set;
 
 /**
  * Equivalent of HtmlFormUtil for ExtensionForm objects.
- *
- * @author Dimitri Renault
  */
 public class ExtensionFormUtil {
 

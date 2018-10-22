@@ -17,8 +17,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * When a user clicks a submit button on a form, this is the class that handles the action and
  * applies all handlers that implement the {@link FormAction} interface and are registred
  * as spring beans.
- * 
- * @author Edrisse
  */
 @Component
 public class HtmlFormPostSubmissionAction implements CustomFormSubmissionAction {
