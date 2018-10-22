@@ -45,7 +45,7 @@ public class HtmlFormPostSubmissionAction implements CustomFormSubmissionAction 
 
     @PostConstruct
     public void setActions() {
-        //Sorry guys, not proud... was the least hacky trick I could think of
+        //FIXME This approach is hacky and can/should be improved
         actions = _actions;
     }
 
