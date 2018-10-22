@@ -25,7 +25,8 @@
 
 	<span>
         {{ if ( (config.editable == null || config.editable) && encounter.canEdit) { }}
-            <i class="viewEncounter view-action icon-file-alt" data-mode="view" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.viewUrl) { }} data-view-url="{{- config.viewUrl }}" {{ } }} title="${ ui.message("coreapps.view") }"></i>
+	        <!-- hidden view button once we have view-details button -->
+            <!--<i class="viewEncounter view-action icon-file-alt" data-mode="view" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.viewUrl) { }} data-view-url="{{- config.viewUrl }}" {{ } }} title="${ ui.message("coreapps.view") }"></i>-->
             <i class="editEncounter edit-action icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.editUrl) { }} data-edit-url="{{- config.editUrl }}" {{ } }} title="${ ui.message("coreapps.edit") }"></i>
         {{ } }}
         {{ if ( encounter.canDelete ) { }}
