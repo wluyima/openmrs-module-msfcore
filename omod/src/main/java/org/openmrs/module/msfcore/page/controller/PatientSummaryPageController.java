@@ -12,6 +12,6 @@ public class PatientSummaryPageController {
                     @RequestParam(value = "representation", required = false) Representation representation,
                     @SpringBean("patientSummaryService") PatientSummaryService patientSummaryService) {
         patientSummaryService.setRepresentation(representation != null ? representation : Representation.SUMMARY);
-        pageModel.addAttribute("patientSummary", patientSummaryService.generatePatientSummary(patient));
+        pageModel.addAttribute("patientSummary", patientSummaryService.requestPatientSummary(patient));
     }
 }
