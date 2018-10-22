@@ -98,12 +98,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     public List<Location> getMSFLocations() {
         List<Location> locations = new ArrayList<Location>();
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
-        locations.addAll(Context.getLocationService().getLocationsByTag(
-                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         if (!locations.contains(defaultLocation)) {
             locations.add(defaultLocation);
@@ -131,8 +131,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     private LocationAttribute getLocationAttribute(Location location, String attributeTypeUuid) {
         if (location != null) {
-            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(Context.getLocationService()
-                            .getLocationAttributeTypeByUuid(attributeTypeUuid), location);
+            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(
+                            Context.getLocationService().getLocationAttributeTypeByUuid(attributeTypeUuid), location);
             if (!attrributes.isEmpty()) {
                 return attrributes.get(0);
             }
@@ -167,8 +167,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            SimpleJSON syncConfig = mapper.readValue(new FileInputStream(getClass().getClassLoader().getResource(
-                            MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()), SimpleJSON.class);
+            SimpleJSON syncConfig = mapper.readValue(new FileInputStream(
+                            getClass().getClassLoader().getResource(MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()),
+                            SimpleJSON.class);
             if (isConfigured()) {
                 String localFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
                 String parentFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
@@ -178,8 +179,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 if (StringUtils.isNotBlank(parentFeedUrl)) {
                     setGeneralPropertyInConfigJson(syncConfig, "parentFeedLocation", parentFeedUrl);
                 }
-                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId", (getInstanceId() + "_" + getLocationCode(defaultLocation))
-                                .toLowerCase());
+                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId",
+                                (getInstanceId() + "_" + getLocationCode(defaultLocation)).toLowerCase());
             }
             MSFCoreUtils.overWriteFile(getSync2ConfigFile(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(syncConfig));
         } catch (Exception e) {
@@ -200,19 +201,27 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
         Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
         CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-        for (Obs obs : encounter.getObsAtTopLevel(true)) {
+        List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
+        for (Obs obs : allObs) {
             if (!obs.getVoided() && obs.getOrder() == null) {
                 Concept concept = obs.getConcept();
                 TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, concept);
                 orderService.saveOrder(order, null);
 
-                /*So, now we are supposed to link the test order with the obs by setting obs.setOrder() but that will not work
-                because OpenMRS is not allowing to set Orders to and existing Obs. The methodo Obs.newInstance() that is 
-                called behind the scenes when you update and Obs, does not copy over the Order. So what we do next is manually 
-                copying the existing Obs and set the order on that copy that is not yet persisted. Then we manualy void the 
-                current Obs and create the copy. I did try to change openmrs-core code to make Obs.newInstance() copy the Order 
-                but that broke the test transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient 
-                so I will just leave it alone.*/
+                /*
+                 * So, now we are supposed to link the test order with the obs
+                 * by setting obs.setOrder() but that will not work because
+                 * OpenMRS is not allowing to set Orders to existing Obs. The
+                 * method Obs.newInstance() that is called behind the scenes
+                 * when you update an Obs, does not copy over the Order. So what
+                 * we do next is manually copying the existing Obs and set the
+                 * order on that copy that is not yet persisted. Then we manualy
+                 * void the current Obs and create the copy. I did try to change
+                 * openmrs-core code to make Obs.newInstance() copy the Order
+                 * but that broke the test
+                 * transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient
+                 * so I will just leave it alone.
+                 */
                 Obs newObs = Obs.newInstance(obs);
                 newObs.setOrder(order);
                 obs.setVoided(true);
@@ -224,7 +233,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         encounterService.saveEncounter(encounter);
     }
 
-    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
+    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
+                    Concept concept) {
         TestOrder order = new TestOrder();
         order.setOrderType(orderType);
         order.setConcept(concept);
