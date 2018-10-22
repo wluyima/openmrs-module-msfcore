@@ -146,7 +146,7 @@
 	</globalProperty>
 	<globalProperty>
 		<property>concept.notes</property>
-		<defaultValue>162169</defaultValue>
+		<defaultValue>465117</defaultValue>
 		<description>Concept id for the concepts defining clinical notes</description>
 	</globalProperty>
 	<globalProperty>
