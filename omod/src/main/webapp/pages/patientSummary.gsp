@@ -29,7 +29,7 @@
 	    	"${ui.message("msfcore.patientSummary.complications")}<% patientSummary.clinicalHistory.complications.each { o -> %>${o.value}, <% } %>",
 	    	"${ui.message("msfcore.patientSummary.historyOfTargetOrganDamage")}<% patientSummary.clinicalHistory.targetOrganDamages.each { o -> %><% if(o.value != "_") { %>${o.value}, <% } %><% } %>",
 	    	"${ui.message("msfcore.patientSummary.cardiovascularScore")}<% patientSummary.clinicalHistory.cardiovascularCholesterolScore.each { o -> %>${o.name}: ${o.value}, <% } %>",
-	    	"${ui.message("msfcore.patientSummary.blooodGlucose")}<% patientSummary.clinicalHistory.bloodGlucose.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}: ${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
+	    	// "${ui.message("msfcore.patientSummary.blooodGlucose")}<% patientSummary.clinicalHistory.bloodGlucose.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}: ${o.value}, <% } else { %>${o.value}, <% } %><% } %>",
 	    	"${ui.message("msfcore.patientSummary.patientEducation")}<% patientSummary.clinicalHistory.patientEducation.each { o -> %><% if(["false", "true", "Yes", "No"].contains(o.value) || o.value.isNumber()) { %>${o.name}: ${o.value}, <% } else { %>${o.value}, <% } %><% } %>"
 	    ], 1);
 	    	
@@ -90,28 +90,28 @@
 	
 	<h2/>
 	
-	<h3 >${ui.message("msfcore.patientSummary.demograpicDetails")}</h3>
+	<h4 >${ui.message("msfcore.patientSummary.demograpicDetails")}</h4>
 	<div id="demograpics"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")}</h4>
 	<div id="vitals"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.workingDiagnosis")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.workingDiagnosis")}</h4>
 	<div id="diagnoses"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.knownAllergies")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.knownAllergies")}</h4>
 	<div id="allergies"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.clinicalHistory")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.clinicalHistory")}</h4>
 	<div id="clinical-history"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.recentLabTest")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.recentLabTest")}</h4>
 	<div id="lab-tests"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.currentMedication")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.currentMedication")}</h4>
 	<div id="medications"></div>
 	
-	<h3>${ui.message("msfcore.patientSummary.clinicalNotes")}</h3>
+	<h4>${ui.message("msfcore.patientSummary.clinicalNotes")}</h4>
 	<div id="clinical-notes"></div>
 	
 	<div id="patient-summary-signature">
