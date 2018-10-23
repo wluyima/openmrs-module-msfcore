@@ -98,12 +98,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     public List<Location> getMSFLocations() {
         List<Location> locations = new ArrayList<Location>();
-        locations.addAll(Context.getLocationService()
-                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
-        locations.addAll(Context.getLocationService()
-                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
-        locations.addAll(Context.getLocationService()
-                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
+        locations.addAll(Context.getLocationService().getLocationsByTag(
+                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
+        locations.addAll(Context.getLocationService().getLocationsByTag(
+                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
+        locations.addAll(Context.getLocationService().getLocationsByTag(
+                        Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         if (!locations.contains(defaultLocation)) {
             locations.add(defaultLocation);
@@ -131,8 +131,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     private LocationAttribute getLocationAttribute(Location location, String attributeTypeUuid) {
         if (location != null) {
-            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(
-                            Context.getLocationService().getLocationAttributeTypeByUuid(attributeTypeUuid), location);
+            List<LocationAttribute> attrributes = dao.getLocationAttributeByTypeAndLocation(Context.getLocationService()
+                            .getLocationAttributeTypeByUuid(attributeTypeUuid), location);
             if (!attrributes.isEmpty()) {
                 return attrributes.get(0);
             }
@@ -167,9 +167,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            SimpleJSON syncConfig = mapper.readValue(new FileInputStream(
-                            getClass().getClassLoader().getResource(MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()),
-                            SimpleJSON.class);
+            SimpleJSON syncConfig = mapper.readValue(new FileInputStream(getClass().getClassLoader().getResource(
+                            MSFCoreConfig.SYNC2_NAME_OF_CUSTOM_CONFIGURATION).getFile()), SimpleJSON.class);
             if (isConfigured()) {
                 String localFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_LOCAL_FEED_URL);
                 String parentFeedUrl = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_PARENT_FEED_URL);
@@ -179,8 +178,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 if (StringUtils.isNotBlank(parentFeedUrl)) {
                     setGeneralPropertyInConfigJson(syncConfig, "parentFeedLocation", parentFeedUrl);
                 }
-                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId",
-                                (getInstanceId() + "_" + getLocationCode(defaultLocation)).toLowerCase());
+                setGeneralPropertyInConfigJson(syncConfig, "localInstanceId", (getInstanceId() + "_" + getLocationCode(defaultLocation))
+                                .toLowerCase());
             }
             MSFCoreUtils.overWriteFile(getSync2ConfigFile(), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(syncConfig));
         } catch (Exception e) {
@@ -233,8 +232,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         encounterService.saveEncounter(encounter);
     }
 
-    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
-                    Concept concept) {
+    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
         TestOrder order = new TestOrder();
         order.setOrderType(orderType);
         order.setConcept(concept);
