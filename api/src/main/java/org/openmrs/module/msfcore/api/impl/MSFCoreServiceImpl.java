@@ -16,9 +16,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.CareSetting;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Obs;
+import org.openmrs.OrderType;
+import org.openmrs.Provider;
+import org.openmrs.TestOrder;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -31,10 +39,19 @@ import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
+
+    private static final String ORDER_VOID_REASON = "Obs was voided";
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private EncounterService encounterService;
 
     MSFCoreDao dao;
 
@@ -176,5 +193,53 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                             new Object[]{Context.getLocationService().getDefaultLocation().getName(), getInstanceId()}, null);
         }
         return "";
+    }
+
+    @Override
+    public void saveTestOrders(Encounter encounter) {
+        OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
+        Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+        CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
+        List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
+        for (Obs obs : allObs) {
+            if (!obs.getVoided() && obs.getOrder() == null) {
+                Concept concept = obs.getConcept();
+                TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, concept);
+                orderService.saveOrder(order, null);
+
+                /*
+                 * So, now we are supposed to link the test order with the obs
+                 * by setting obs.setOrder() but that will not work because
+                 * OpenMRS is not allowing to set Orders to existing Obs. The
+                 * method Obs.newInstance() that is called behind the scenes
+                 * when you update an Obs, does not copy over the Order. So what
+                 * we do next is manually copying the existing Obs and set the
+                 * order on that copy that is not yet persisted. Then we manualy
+                 * void the current Obs and create the copy. I did try to change
+                 * openmrs-core code to make Obs.newInstance() copy the Order
+                 * but that broke the test
+                 * transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient
+                 * so I will just leave it alone.
+                 */
+                Obs newObs = Obs.newInstance(obs);
+                newObs.setOrder(order);
+                obs.setVoided(true);
+                encounter.addObs(newObs);
+            } else if (obs.getVoided() && obs.getOrder() != null && !obs.getOrder().getVoided()) {
+                orderService.voidOrder(obs.getOrder(), ORDER_VOID_REASON);
+            }
+        }
+        encounterService.saveEncounter(encounter);
+    }
+
+    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
+        TestOrder order = new TestOrder();
+        order.setOrderType(orderType);
+        order.setConcept(concept);
+        order.setPatient(encounter.getPatient());
+        order.setEncounter(encounter);
+        order.setOrderer(provider);
+        order.setCareSetting(careSetting);
+        return order;
     }
 }
