@@ -29,13 +29,14 @@ import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.util.DateUtils;
+import org.openmrs.module.msfcore.formaction.RequestApointmentFormAction;
 import org.openmrs.test.BaseContextMockTest;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RequestAppointmentActionTest extends BaseContextMockTest {
+public class RequestApointmentFormActionTest extends BaseContextMockTest {
 
     @InjectMocks
-    RequestAppointmentAction requestAppointmentAction;
+    RequestApointmentFormAction requestAppointmentAction;
 
     @Mock
     AppointmentService appointmentService;
@@ -43,9 +44,7 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
     @Test
     public void requestAppointment_shouldSaveCorrectlyIfDateIsAfterNow() {
         Date now = new Date();
-        System.out.println("now: " + now);
         Date requestAppointmentDate = DateUtils.addDays(now, 30);
-        System.out.println("now + 30: " + requestAppointmentDate);
 
         Patient patient = new Patient();
         Obs dateObs = new Obs();
@@ -58,9 +57,14 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
         Concept commentConcept = new Concept();
         commentConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID);
         commentObs.setConcept(commentConcept);
-        commentObs.setValueText("Comment");
 
-        Set<Obs> observations = Sets.newSet(dateObs, commentObs);
+        Obs appointmentTypeObs = new Obs();
+        Concept appointmentTypeConcept = new Concept();
+        appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
+        appointmentTypeObs.setConcept(appointmentTypeConcept);
+        appointmentTypeObs.setValueText(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID);
+
+        Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
 
         AppointmentType generalMedicine = new AppointmentType();
 
@@ -76,8 +80,6 @@ public class RequestAppointmentActionTest extends BaseContextMockTest {
         expected.setMinTimeFrameValue(DateUtils.getDaysBetweenDates(now, dateObs.getValueDate()));
         expected.setStatus(AppointmentRequestStatus.PENDING);
         expected.setRequestedOn(new Date());
-
-        System.out.println("days expected: " + expected.getMinTimeFrameValue());
 
         verify(appointmentService).saveAppointmentRequest(Mockito.any(AppointmentRequest.class));
         assertThat(actual.getAppointmentType().getUuid(), is(equalTo(expected.getAppointmentType().getUuid())));

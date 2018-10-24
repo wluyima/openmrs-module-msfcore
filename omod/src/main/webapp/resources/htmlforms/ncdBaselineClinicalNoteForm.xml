@@ -9,6 +9,30 @@
 		headerColor =#009d8e
 		fontOnHeaderColor = white
 	</macros>
+	<script type="text/javascript">
+        jq(document).ready(function () {
+        <ifMode mode="VIEW">
+                jq('button.no-print').hide();
+        </ifMode>
+        });
+	</script>
+
+	<script type="text/javascript">
+
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
 
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
@@ -43,60 +67,47 @@
 
 				<section>
 
-					<h3>9. <lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.title')"/></h3>
+					<h3>10. <lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.title')"/></h3>
 
-					<table class="baseline-aligned">
-						<tr>
-                            
-                            <td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:
-                                <obs conceptId="465117" style="textarea" rows="4" cols="60"/></td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.getConcept('463571').name"/>:
-							    <obs conceptId="463571" id="patient-education"/></td>
-						</tr>
+					<div>
+						<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:</h4>
+						<obs conceptId="465117" style="textarea" rows="4" cols="60"/>
+					</div>
+					<div>
+						<h4><lookup expression="fn.getConcept('463571').name"/>:</h4>
+						<obs conceptId="463571" id="patient-education"/>
+						<div>
+								<div class="input-group"><!-- Concept Disease Info -->
+									<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Skills -->
+									<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Adherence -->
+									<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
+								</div>
+								<div class="input-group"><!-- Concept Lifestyle -->
+									<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
+								</div>
+						</div>
+					</div>
 
-						<tr>
-							<td>
-                                <!-- Concept Disease Info -->
-								<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
-                                <!-- Concept Skills -->
-								<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
-                                <!-- Concept Adherence -->
-								<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
-                                <!-- Concept Lifestyle -->
-								<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
-							</td>
-						</tr>
-						<tr>
-							<td><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:
-							    <obs conceptId="465118" style="textarea" rows="4" cols="60"/></td>
-						</tr>
+					<div>
+						<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:</h4>
+						<obs conceptId="465118" style="textarea" rows="4" cols="60"/>
+					</div>
 
-					</table>
-					<submit submitLabel="Next >"/>
+
+		            <!-- Submit -->
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.clinicalnote.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.clinicalnote.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 			</div>
 
 		</div>
 	</div>
 
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'f09a3a3a-810e-4cf6-b432-3d43da303948' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-	</ifMode>
-	<postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=fc14cfa5-6cbc-47bf-9674-efdcc7628350&amp;patientId={{patient.id}}" />
-
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
+</htmlform>

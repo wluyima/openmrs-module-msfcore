@@ -1,3 +1,4 @@
+
 <htmlform
 	formUuid="f09a3a3a-810e-4cf6-b432-3d43da303911"
 	formName="Request Appointment"
@@ -9,6 +10,43 @@
 		headerColor =#009d8e
 		fontOnHeaderColor = white
 	</macros>
+	<script type="text/javascript">
+        jq(document).ready(function () {
+        <ifMode mode="VIEW">
+					<!-- hide the buttons in view -->
+                jq('button.no-print').hide();
+        </ifMode>
+        });
+	</script>
+
+    <script type="text/javascript">
+        if (jQuery) {
+            jq(document).ready(function () {
+                jq("#appointment-type-list").on("change", function() {
+                    setValue("appointment-type.value", jq("#appointment-type-list").val());
+                });
+
+                jq("#appointment-type-list").val(getValue("appointment-type.value"));
+            });
+        }
+    </script>
+
+	<script type="text/javascript">
+
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
 
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
@@ -45,41 +83,58 @@
 
 					<h3>11. <lookup expression="fn.message('msfcore.ncdbaseline.requestappointment.title')"/></h3>
 
-					<table class="baseline-aligned">
-						<tr>
-                            <td><lookup expression="fn.getConcept('MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A').name"/></td>
-                            <!-- Concept id ref term=581373 name=appointment_next_date -->
-            				<td><obs conceptId="MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A" id="appointment_next_date" allowFutureDates="true" allowTime="false"/></td>
-						</tr>
-			            <tr>
-				            <td><lookup expression="fn.getConcept('f3a76818-3ff4-4d94-9c51-be295cad43a1').name"/></td>
-                            <!-- Concept id=6000000 name=Request Appointment Comment -->
-				            <td><obs conceptId="f3a76818-3ff4-4d94-9c51-be295cad43a1" id="appointment_next_comment" rows="4" cols="80"/></td>
-			            </tr>
-					</table>
-					<submit submitLabel="Next >"/>
+					<div>
+						<h4><lookup expression="fn.getConcept('MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A').name"/></h4>
+						<!-- Concept id ref term=581373 name=appointment_next_date -->
+						<obs conceptId="MSF:4970888B-5114-4D8D-A8F6-B6110ECF330A" id="appointment_next_date" allowFutureDates="true" allowTime="false"/>
+					</div>
+					<div>
+						<h4><lookup expression="fn.message('msfcore.ncdbaseline.requestappointment.servicetype')"/></h4>
+						<!-- Concept id=6000009 name = Request Appointment Type-->
+						<span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5"/></span>
+						<select name="appointment-type" id="appointment-type-list">
+								<option value=""></option>
+								<option value="4da187c6-c436-11e4-a470-82b0ea87e2d8">Dermatology</option>
+								<option value="5ab6d8a8-c436-11e4-a470-82b0ea87e2d8">Dermatology (New Patient)</option>
+								<option value="7dd9ac8e-c436-11e4-a470-82b0ea87e2d8">General Medicine</option>
+								<option value="7e7d3e26-c436-11e4-a470-82b0ea87e2d8">General Medicine (New Patient)</option>
+								<option value="7efeaa60-c436-11e4-a470-82b0ea87e2d8">Gynecology</option>
+								<option value="95636ce6-c436-11e4-a470-82b0ea87e2d8">Gynecology (New Patient)</option>
+								<option value="9ebdc232-c436-11e4-a470-82b0ea87e2d8">Infectious Disease</option>
+								<option value="a62a40e0-c436-11e4-a470-82b0ea87e2d8">Infectious Disease (New Patient)</option>
+								<option value="ac71c996-c436-11e4-a470-82b0ea87e2d8">Mental Health</option>
+								<option value="b29be856-c436-11e4-a470-82b0ea87e2d8">Mental Health (New Patient)</option>
+								<option value="cba5a260-c436-11e4-a470-82b0ea87e2d8">Neurology</option>
+								<option value="d248c6c4-c436-11e4-a470-82b0ea87e2d8">Neurology (New Patient)</option>
+								<option value="0c617770-c437-11e4-a470-82b0ea87e2d8">Obstetrics</option>
+								<option value="136ed9a4-c437-11e4-a470-82b0ea87e2d8">Obstetrics (New Patient)</option>
+								<option value="1b2d98c4-c437-11e4-a470-82b0ea87e2d8">Oncology</option>
+								<option value="25873c9e-c437-11e4-a470-82b0ea87e2d8">Oncology (New Patient)</option>
+								<option value="2febe6a8-c437-11e4-a470-82b0ea87e2d8">Pediatrics</option>
+								<option value="38081afa-c437-11e4-a470-82b0ea87e2d8">Pediatrics (New Patient)</option>
+								<option value="3f5a8ca2-c437-11e4-a470-82b0ea87e2d8">Surgery</option>
+								<option value="452c596c-c437-11e4-a470-82b0ea87e2d8">Surgery (New Patient)</option>
+								<option value="4d3b6396-c437-11e4-a470-82b0ea87e2d8">Urology</option>
+								<option value="4d85dda4-c437-11e4-a470-82b0ea87e2d8e">Urology (New Patient)</option>
+						</select>
+					</div>
+					<div>
+						<h4><lookup expression="fn.getConcept('f3a76818-3ff4-4d94-9c51-be295cad43a1').name"/></h4>
+						<!-- Concept id=6000000 name=Request Appointment Comment -->
+						<obs conceptId="f3a76818-3ff4-4d94-9c51-be295cad43a1" id="appointment_next_comment" rows="4" cols="80"/>
+					</div>
+
+
+		            <!-- Submit -->
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.requestappointment.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="ncd.baseline.requestappointment.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
 				</section>
 			</div>
 
 		</div>
 	</div>
 
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('f09a3a3a-810e-4cf6-b432-3d43da303911'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'f09a3a3a-810e-4cf6-b432-3d43da303911' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-	</ifMode>
-    <postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=a9f3411c-03d8-4652-8143-886d572cbf4d&amp;patientId={{patient.id}}" />
-
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
+</htmlform>

@@ -8,18 +8,26 @@
 	</macros>
 
 	<script type="text/javascript">
-		
+
 		var NUMBER_ENTRIES = 10;
 
 		if (jQuery) {
 			jq(document).ready(function () {
 
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
 				<!-- hide entries that are not in use -->
 				jq.each(getUnusedContainers(), (index, value) => value.hide());
 
 				<!-- remove the buttons that will not be used -->
-				jq('#1-removeEntry').remove();
 				jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
+				if(jq(getUsedContainers()).length == 1){
+                 	jq('#1-removeEntry').remove();
+                 }
 
 				<!-- handle adding entries -->
                 jq('button.addEntry').on("click", function() {
@@ -31,24 +39,26 @@
 				<!-- handle removing entries -->
                 jq('button.removeEntry').on("click", function() {
 					var indexToHide =  getIndexFromId(this.id);
-					jq('#' + indexToHide + '-toggleContainer').hide();
+					jq('#' + indexToHide + '-toggleContainer').remove();
 					return false;
                 });
 
 				<!-- date calculations -->
-				for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
-					var frequencyFieldId = i + '-frequency.value';
-					var durationFieldId = i + '-duration.value';
-					var frequencyField = getField(frequencyFieldId);
-					var durationField = getField(durationFieldId);
-					if (frequencyField != null) {
-						frequencyField.change(callbackFor(i));
-					}
-					if (durationField != null) {
-						durationField.change(callbackFor(i));
-					}
-					if (frequencyField != null &#38;&#38; durationField != null) {
-						callbackFor(i)();
+				if (!isViewMode()) {
+					for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+						var frequencyFieldId = i + '-frequency.value';
+						var durationFieldId = i + '-duration.value';
+						var frequencyField = getField(frequencyFieldId);
+						var durationField = getField(durationFieldId);
+						if (frequencyField != null) {
+							frequencyField.change(callbackFor(i));
+						}
+						if (durationField != null) {
+							durationField.change(callbackFor(i));
+						}
+						if (frequencyField != null &#38;&#38; durationField != null) {
+							callbackFor(i)();
+						}
 					}
 				}
 
@@ -57,7 +67,7 @@
 			<!-- this is just to allow the usage of the loop variable inside a callback -->
 			<!-- see https://stackoverflow.com/questions/7053965/when-using-callbacks-inside-a-loop-in-javascript-is-there-any-way-to-save-a-var -->
 			function callbackFor(entryIndex) {
-				return function() { 
+				return function() {
 					var frequency = getValue(entryIndex + '-frequency.value');
 					var duration = getValue(entryIndex + '-duration.value');
 					var dates = [];
@@ -92,15 +102,40 @@
 				jq.each(getUnusedContainersIds(), (index, value) => unusedContainers.push(jq('#' + value)));
 				return unusedContainers;
 			}
+			
+            function getUsedContainers() {
+                var usedContainers = [];
+                for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                    var containerId = `${i}-toggleContainer`;
+                    if (i == 1 || isMeasureTypeFilled(i)) {
+                        usedContainers.push(jq(`#${i}-toggleContainer`));
+                    }
+                }
+                return usedContainers;
+            }
 
 			function getUnusedContainersIds() {
 				var unusedContainersIds = [];
 				for (var i = 2; i &lt;= NUMBER_ENTRIES; i++) {
-					if (getValue(i + '-measure.value') == "") {
+					if (!isMeasureTypeFilled(i)) {
 						unusedContainersIds.push(i + '-toggleContainer');
 					}
 				}
 				return unusedContainersIds;
+			}
+
+			function isMeasureTypeFilled(i) {
+				var filled;
+				if (!isViewMode()) {
+					filled = getValue(`${i}-measure.value`) != "";
+				} else {
+					filled = jq(`#${i}-measure`).children('.value').length > 0;
+				}
+				return filled;
+			}
+
+			function isViewMode() {
+				return typeof(getValue) == 'undefined';
 			}
 
 		}
@@ -140,61 +175,41 @@
 				<section>
 
 					<h3>
-						<a name="regular-patient-review">8. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
+						<a name="regular-patient-review">9. <lookup expression="fn.message('msfcore.ncdbaseline.regularpatientreview.title')"/></a>
 					</h3>
 
 					<repeat>
 				    	<template>
 							<div id="{entry}-toggleContainer">
 								<obsgroup groupingConceptId="62d411d1-78c7-4c4d-9104-abe0f4bf9bab">
-									<table class="baseline-aligned">
-										<tr>
-											<td>
-												<lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" />
-											</td>
-											<td colspan="2">
-												<obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" />
-											</td>
-											<td colspan="2">
-												<obs 
-													id="{entry}-duration"
-													conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a" 
-													answers="1,2,3" 
-													answerLabels="1 year,2 years,3 years" style="dropdown" />
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" />
-											</td>
-											<td>
-												<obs
-													id="{entry}-frequency"
-													conceptId="82138d7b-0765-4d57-8433-463aeec1f441" 
-													answers="3,6,9,12" 
-													answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
-													style="dropdown" />
-											</td>
-											<td>
-												<ul id="{entry}-dates">
-												</ul>
-											</td>
-										</tr>
 
-										<tfoot class="hide-on-view">
-											<tr>
-												<td span="3">
-													<button class="addEntry" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.add.entry')"/></button>
-													<button class="removeEntry" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.remove.entry')"/></button>
-												</td>
-											</tr>
-										</tfoot>
-									</table>
+                  <div>
+                    <h4><lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" /></h4>
+                    <obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
+                  </div>
+                  <div>
+                    <h4><lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" /></h4>
+                    <obs
+                      id="{entry}-duration"
+                      conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a"
+                      answers="1,2,3"
+                      answerLabels="1 year,2 years,3 years" style="dropdown" />
+                  </div>
+                  <div>
+                    <h4><lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" /></h4>
+                    <obs
+                      id="{entry}-frequency"
+                      conceptId="82138d7b-0765-4d57-8433-463aeec1f441"
+                      answers="3,6,9,12"
+                      answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
+                      style="dropdown" />
+                    <ul id="{entry}-dates"></ul>
+                  </div>
+                  <div class="hide-on-view">
+                    <button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
+                    <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                  </div>
+
 								</obsgroup>
 							</div>
 						</template>
@@ -209,28 +224,17 @@
 						<render entry="9" />
 						<render entry="10" />
 					</repeat>
-                    <submit submitLabel="Next >"/>
+
+		            <!-- Submit -->
+          <div class="bottom-of-form">
+  					<button class="msf-operation-button no-print" value="ncd.baseline.regularpatientreview.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+  					<button class="primary right msf-operation-button no-print" value="ncd.baseline.regularpatientreview.next"><lookup expression="fn.message('msfcore.next')"/></button>
+          </div>
 				</section>
 			</div>
 		</div>
 	</div>
 
-
-	<!-- Enusre that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'b450ec93-f4b5-4a4b-8143-4564d84028bc' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end" />
-
-	</ifMode>
-	<postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
-	<redirectOnSave url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=f09a3a3a-810e-4cf6-b432-3d43da303948&amp;patientId={{patient.id}}" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 
 </htmlform>

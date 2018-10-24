@@ -100,10 +100,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient, a
                 // create a new element for the encounter
                 jq('#encounterTypeList').append('<li id="'+ encounter_type + '-li">' +
                     '<ul id="'+ encounter_type + '-ul" class="encounter-list">' +
-                    '<span class="encounter-name">' + jq(this).attr('data-encounter-type-name') + '</span>' +
-                    '<div class="encounter-date"> <i class="icon-time"></i> <strong>' + jq(this).attr('data-encounter-time') + ' </strong>' + jq(this).attr('data-encounter-date') + ' </div>' +
-                    '${ ui.message("coreapps.by") } <strong class="provider">' +jq(this).attr('data-encounter-provider') + ' </strong> ' +
-                    '${ ui.message("coreapps.in") } <strong class="location">' +jq(this).attr('data-encounter-location') +' </strong> '+
+                        '<li class="encounter-summary" onclick="toggle()">' + '' +
+                            '<h4 class="encounter-name">' + jq(this).attr('data-encounter-type-name') + '</h4>' +
+                            '<div class="encounter-date"> <i class="icon-time"></i> <strong>' + jq(this).attr('data-encounter-time') + ' </strong>' + jq(this).attr('data-encounter-date') + ' </div>' +
+                            '<p>${ ui.message("coreapps.by") } <strong class="provider">' +jq(this).attr('data-encounter-provider') + ' </strong> ' +
+                                '${ ui.message("coreapps.in") } <strong class="location">' +jq(this).attr('data-encounter-location') +' </strong></p> '+
+                        '</li>'+
                     '</ul>' +
                     '</li>');
             }

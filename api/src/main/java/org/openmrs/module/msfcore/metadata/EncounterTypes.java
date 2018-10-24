@@ -51,4 +51,22 @@ public class EncounterTypes {
             return MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT;
         }
     };
+
+    // TODO: This was added to be able to test lab results in the patient summary. Will be replaced
+    // by story MOO-290 Lab Orders and results List
+    public static EncounterTypeDescriptor MSF_LAB_RESULTS_ENCOUNTER_TYPE = new EncounterTypeDescriptor() {
+        @Override
+        public String name() {
+            return "Lab results";
+        }
+
+        @Override
+        public String description() {
+            return "Lab results";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID;
+        }
+    };
 }

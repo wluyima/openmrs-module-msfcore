@@ -1,10 +1,4 @@
 /* FORMS */
-
-#login-form ul.select,
-#login-form #sessionLocation {
-    width:60%;
-}
-
 form, .form {
     overflow: visible
 }
@@ -15,13 +9,13 @@ htmlform {
     /*padding:24px;*/
 }
 
-form input, 
-form select, 
-form textarea, 
-form ul.select, 
-.form input, 
-.form select, 
-.form textarea, 
+form input,
+form select,
+form textarea,
+form ul.select,
+.form input,
+.form select,
+.form textarea,
 .form ul.select,
 input[type="search"] {
     background: #fff;
@@ -43,12 +37,12 @@ select,
 
 .simple-form-ui select#gender-field {
    height: 100%;
-} 
+}
 form input {
     margin-top: 0;
 }
 
-/* NCD LABELS 
+/* NCD LABELS
 form label, .form label {
     font-size: 14px;
     float:left;
@@ -56,9 +50,9 @@ form label, .form label {
     margin: 0 20px 0 24px;
 }*/
 
-form input[type="checkbox"], 
-form input[type="radio"], 
-.form input[type="checkbox"], 
+form input[type="checkbox"],
+form input[type="radio"],
+.form input[type="checkbox"],
 .form input[type="radio"] {
     float: left;
     display: initial;
@@ -67,7 +61,7 @@ form input[type="radio"],
     margin: 4px;
 }
 
-form input[type="checkbox"], 
+form input[type="checkbox"],
 .form input[type="checkbox"] {
     padding: 6px;
 }
@@ -83,7 +77,7 @@ form input[type="checkbox"]:checked,
     box-shadow: inset rgba(0,0,0,0.3) 0 1px 2px;
 }
 
-form input[type="checkbox"]:checked:after, 
+form input[type="checkbox"]:checked:after,
 .form input[type="checkbox"]:checked:after {
     font-size: 24px;
     color: #fff;
@@ -133,14 +127,14 @@ form#patient-search-form {
 }
 
 form input#patient-search {
-    min-width: 60%;
+    min-width: 56%;
     box-sizing: border-box;
     margin-top:28px;
 }
 
 #patient-search-filter {
     float:right;
-    min-width:38%;
+    min-width:39%;
     box-sizing: border-box;
 }
 
@@ -186,7 +180,7 @@ ul#formBreadcrumb li {
 
 /* TWEAKS TO STAGING */
 
-form input[type="checkbox"], 
+form input[type="checkbox"],
 .form input[type="checkbox"] {
     padding: 12px;
     border: 1px solid #ccc;
@@ -196,12 +190,12 @@ form input[type="checkbox"],
     margin-right: 8px;
 }
 
-.section form label, 
+.section form label,
 .section .form label {
     margin-top: 0;
 }
 
-form label, 
+form label,
 .form label {
     display: block;
     text-align: left;
@@ -209,7 +203,7 @@ form label,
     margin-top: 0px;
 }
 
-form input[type=radio] + label, 
+form input[type=radio] + label,
 .form input[type=radio] + label {
     margin: 0 4px 0 4px;
     float: left;
@@ -217,4 +211,101 @@ form input[type=radio] + label,
 
 .input-group input[type=radio] + label {
     margin-right: 24px;
+}
+
+#login-form ul.select, #login-form #sessionLocation {
+    width: 95%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+form#login-form {
+    width: 40%;
+    margin: 9rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: rgba(0,0,0,0.3) 0 8px 16px;
+}
+
+ul.select li {
+    width: 43%;
+    padding: 8px;
+    color: #4EC3AD;
+    border: 1px solid #ccc;
+    border-radius:4px;
+    box-shadow: rgba(0,0,0,0.1) 0 0 1px;
+    margin:4px;
+}
+
+ul.select li:hover {
+    background-color: #55D6BE;
+}
+
+ul.select li.selected {
+    background-color: #4EC3AD;
+    box-shadow: inset rgba(0,0,0,0.3) 0 2px 4px;
+    color: white;
+    border-color: transparent;
+}
+
+form#login-form fieldset {
+    border: none;
+}
+
+form#login-form fieldset legend {
+    padding: 16px;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    background: #424C55;
+    width: 105%;
+    box-sizing: border-box;
+    padding: 24px;
+    margin: -20px 0 32px -22px;
+    float: left;
+    border-radius: 8px 8px 0 0;
+}
+
+#login-form p input[type=submit] {
+    width: 100%;
+    float: left;
+    margin: 16px 22%;
+}
+
+#cantLogin {
+    float: left;
+    margin: 16px 36%;
+}
+
+/* Add New Allergies */
+
+div#allergy {
+    background: #fff;
+    padding: 24px;
+}
+
+div#allergens {
+    width:100%;
+}
+
+div#allergens ul {
+    display:flex;
+    flex-direction: column;
+}
+
+div#allergy > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#reactions ul li {
+    display: inline-block;
+    height: 40px;
+    width: 280px;
+}
+
+div#actions {
+    margin: 24px 0 -24px -24px;
+    width: calc(100% + 48px);
 }

@@ -62,6 +62,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
+				<artifactId>htmlformentry-api</artifactId>
+				<version>${htmlformentryVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
 				<artifactId>idgen-api</artifactId>
 				<version>${idgenVersion}</version>
 				<scope>provided</scope>
@@ -115,5 +121,7 @@
 		<htmlformentryVersion>3.7.0</htmlformentryVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <lombokVersion>1.18.0</lombokVersion>
+        <javaCompilerTarget>1.8</javaCompilerTarget>
+        <javaCompilerSource>1.8</javaCompilerSource>
 	</properties>
 </project>

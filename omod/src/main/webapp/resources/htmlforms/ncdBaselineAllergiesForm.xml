@@ -11,48 +11,78 @@
         fontOnHeaderColor = white
     </macros>
 
-    <script type="text/javascript">
-        if (jQuery) {
-            jq(document).ready(function () {
 
-                jq('button.addEntry').on("click", function(){
-                    var correctedAddButtonId = parseFloat(this.id) + 1;
-                    var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
-                    jq(contentAddId).toggle(true);
-                    jq('#' + this.id).toggle(false);
-                    jq('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
-                    return false;
-                });
-                jq('button.removeEntry').on("click", function () {
-                    var correctedRemoveButtonId = parseFloat(this.id) - 1;
-                    var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
-                    jq(contentAddId).toggle(false);
-                    jq(':input:not(:button)', contentAddId).val([]);
-                    jq('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
-                    jq('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
-                    return false;
-                });
-                // show any allergies that have been saved
-                var last_widget = 1;
-                for (i = 1; i &lt; 10; i++) {
-                    if (getValue('allergy-type-' + i + '.value') != false) {
-                        jq('#' + i + '-addEntry').toggle(false);
-                        jq('#' + i + '-toggleContainer').show();
-                        last_widget = i;
+    <script type="text/javascript">
+
+
+            var NUMBER_ENTRIES = 10;
+
+            if (jQuery) {
+                jq(document).ready(function () {
+                    <ifMode mode="VIEW">
+                            <!-- Hide the buttons in view mode -->
+                            jq('button.no-print').hide();
+                    </ifMode>
+
+                    <!-- handle operation buttons -->
+                    jq(".msf-operation-button").on("click", function() {
+                        jq("#msf-operation").attr("value", this.value);
+                        return true;
+                    });
+
+                    <!-- handle adding entries -->
+                    jq('button.addEntry').on("click", function() {
+                        var indexToShow =  getIndexFromId(this.id) + 1;
+                        jq(`#${indexToShow}-toggleContainer`).show();
+                        return false;
+                    });
+
+                    <!-- handle removing entries -->
+                    jq('button.removeEntry').on("click", function() {
+                        var indexToHide =  getIndexFromId(this.id);
+                        jq(`#${indexToHide}-toggleContainer`).remove();
+                        return false;
+                    });
+
+                    <!-- show entries that are in use -->
+                    jq.each(getUsedContainers(), (index, container) => container.show());
+
+                    <!-- remove the buttons that will not be used -->
+                    jq(`#${NUMBER_ENTRIES}-addEntry`).remove();
+                    if( jq(getUsedContainers()).length == 1){
+                   		jq(`#1-removeEntry`).remove();
+                   	 }
+                   });
+
+                function getUsedContainers() {
+                    var usedContainers = [];
+                    for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                        var containerId = `${i}-toggleContainer`;
+                        if (i == 1 || isAllergyTypeFilled(i)) {
+                            usedContainers.push(jq(`#${i}-toggleContainer`));
+                        }
                     }
+                    return usedContainers;
                 }
-                // show the add allergy for the last item as long as its not the first one
-                if (last_widget == 1) {
-                    // enabling and disabling the allergy sections there are only 10 so far
-                    jq('#1-removeEntry').remove();
-                    jq('#1-toggleContainer').show();
-                    jq('#10-addEntry').remove();
-                } else {
-                    jq('#' + last_widget + '-addEntry').show();
+
+                function isAllergyTypeFilled(i) {
+                    var filled;
+                    if (typeof(getValue) != 'undefined') {
+                        filled = getValue(`allergy-type-${i}.value`) != "";
+                    } else {
+                        filled = jq(`#allergy-type-${i}`).children('.value').length > 0;
+                    }
+                    return filled;
                 }
-            });
-        }
+
+                function getIndexFromId(id) {
+                    return parseInt(id.split('-')[0]);
+                }
+            }
+
+
     </script>
+
 
     <div class="wrapper">
         <uiInclude provider="msfcore" fragment="leftMenu"/>
@@ -87,137 +117,129 @@
                     <repeat>
                         <template>
                             <div id="{allergy}-toggleContainer" style="display: none;">
-
-
+                                <obsgroup groupingConceptId="cab5578c-0c62-4582-b668-28e3f218b635"> 
                                 <section>
-                                    <h3>
+                                    <h4>
                                         <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name"/>
-                                    </h3>
-                                        
+                                    </h4>
                                     <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635"
-                                            answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other"
+                                            answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" 
                                             style="radio" answerSeparator=""/>
                                     <br/>
                                     <div id="162553-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                        <obsgroup groupingConceptId="162553">
-                                            <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" style="radio" answerSeparator=""/>
-                                        </obsgroup>
+                                     	    <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" style="radio" answerSeparator=""/>
                                     </div>
                                     <div id="162552-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                        <obsgroup groupingConceptId="162552">
                                             <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="radio" answerSeparator=""/>
-                                        </obsgroup>
-                                    </div>
+                                     </div>
                                     <div id="162554-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                        <obsgroup groupingConceptId="162554">
-                                            <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
-                                        </obsgroup>
+                                        	<obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
                                     </div>
                                 </section>
-
                                 <section>
-                                        <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h3>
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')"/></h4>
                                         <div class="list-of-checkboxes">
-                                            <obsgroup groupingConceptId="162555">
-        
-                                            <div class="column">
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121629" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121677" style="checkbox"/>    
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148888" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139084" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148787" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="108" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="120148" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="143264" style="checkbox"/>
-                                                </div>
-                                            </div>
-        
-                                            <div class="column">
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="142412" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="118773" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140238" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140039" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139581" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="117399" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="136455" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159347" style="checkbox"/>
-                                                </div>
-                                            </div>
-        
-                                            <div class="column">
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="512" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159098" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="111061" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="1067" style="checkbox"/>
-                                                </div>
-                                                <div class="input-group">
-                                                    <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" answerConceptId="5622" style="checkbox"
-                                                        commentFieldLabel="Specify:"/>                                        
-                                                </div>
-                                            </div>
-
+                                            <obsgroup groupingConceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc">
+	                                            <div class="column">
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>    
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                            </div>
+	        
+	                                            <div class="column">
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="136455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                            </div>
+	        
+	                                            <div class="column">
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="456ce14a-a5f0-4c3e-bf13-2feb3dfb26dc" answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"/>
+	                                                </div>
+	                                                <div class="input-group">
+	                                                    <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox"
+	                                                        commentFieldLabel="Specify:"/>                                        
+	                                                </div>
+	                                            </div>
                                             </obsgroup>
                                         </div>
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')"/></h4>
                                     <div class="input-group">
-                                        <obs conceptId="162820" answerConceptIds="1498,1499,1500" style="radio"
-                                            answerLabels="Mild, Moderate, Severe"/>
+                                       <obsgroup groupingConceptId="162820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                        <obs conceptId="162820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="radio" />
+                                    	</obsgroup>
                                     </div>
                                 </section>
 
                                 <section>
-                                    <h3><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h3>
+                                    <h4><lookup expression="fn.message('msfcore.ncdbaseline.allergies.comment')"/></h4>
                                     <div class="input-group">
-                                        <obs conceptId="161011" style="textarea" rows="3"/>
+                                        <obsgroup groupingConceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                        	<obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="textarea" rows="3"/>
+										</obsgroup>
                                     </div>
                                 </section>
-
+								</obsgroup>
                                 <div class="hide-on-view">
-                                    <button class="addEntry" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.addallergy')"/></button> 
-                                    <button class="removeEntry" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.allergies.removeallergy')"/></button>
+                                    <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
+                                    <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                                 </div>
                                    
                             </div>
@@ -229,9 +251,11 @@
                                         disableFn(jq(".allergy-{allergy}"));
                                         enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
                                     });
-                                    if (getValue('allergy-type-{allergy}.value') != '') {
-                                        enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
-                                    }
+                                    <ifMode mode="VIEW" include="false">
+                                        if (getValue('allergy-type-{allergy}.value') != '') {
+                                            enableFn("#" + getValue('allergy-type-{allergy}.value') + "-{allergy}");
+                                        }
+                                    </ifMode>
                                 });
                             </script>
                         </template>
@@ -246,29 +270,18 @@
                         <render allergy="9"/>
                         <render allergy="10"/>
                     </repeat>
-                    <submit submitLabel="Next >"/>
+
+                    <!-- Submit -->
+                    <div class="bottom-of-form">
+                        <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+                        <button class="primary right msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                    </div>
                 </section>
             </div>
             
         </div>
     </div>
 
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 
-    <!-- Enusre that only one version of this form can exist at any one time -->
-    <ifMode mode="ENTER" include="true">
-        <lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == '30d1fda4-4161-4666-ad0c-e2ba20eb73a6' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-    </ifMode>
-    <postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
-	<redirectOnSave
-            url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=7ba65c3e-3e16-4637-824f-ce23ccb30746&amp;patientId={{patient.id}}"/>
 </htmlform>

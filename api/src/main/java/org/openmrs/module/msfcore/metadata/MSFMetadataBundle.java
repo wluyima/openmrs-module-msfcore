@@ -84,6 +84,7 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         log.info("Installing Encounter Types");
         install(EncounterTypes.MSF_NCD_BASELINE_ENCOUNTER_TYPE);
         install(EncounterTypes.MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE);
+        install(EncounterTypes.MSF_LAB_RESULTS_ENCOUNTER_TYPE);
 
         log.info("Installing Programs");
         install(Programs.NCD);

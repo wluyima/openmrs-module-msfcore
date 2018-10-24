@@ -73,4 +73,6 @@ public interface MSFCoreService extends OpenmrsService {
     public Map<String, ProgramWorkflowState> getMsfStages();
 
     public void manageNCDProgram(Encounter encounter);
+
+    public void saveTestOrders(Encounter encounter);
 }

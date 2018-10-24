@@ -10,6 +10,23 @@
 		fontOnHeaderColor = white
 	</macros>
 
+	<script type="text/javascript">
+
+		if (jQuery) {
+
+			jq(document).ready(function () {
+
+				<!-- handle operation buttons -->
+				jq(".msf-operation-button").on("click", function() {
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+			});
+
+		}
+	</script>
+
 	<div class="wrapper">
 		<uiInclude provider="msfcore" fragment="leftMenu"/>
 		<div class="right-form-display">
@@ -43,7 +60,7 @@
 
 				<section>
 					<H3><a name="referpatient">12. <lookup expression="fn.message('msfcore.ncdbaseline.referpatient.title')"/></a></H3>
-					<h5><lookup expression="fn.message('msfcore.ncdbaseline.referpatient.question')"/></h5>
+					<h4><lookup expression="fn.message('msfcore.ncdbaseline.referpatient.question')"/></h4>
 					<table class="baseline-aligned">
 						<tr>
 							<td width="30%">
@@ -93,11 +110,15 @@
 							<td colspan="2"><obs conceptId="MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9" id="referral_out_specialist_other"/></td>
 						</tr>
 					</table>
-					<h5><lookup expression="fn.message('msfcore.ncdbaseline.comments')"/>:</h5>
+					<h4><lookup expression="fn.message('msfcore.ncdbaseline.comments')"/>:</h4>
 					<!-- Comment id=1000000 name=Comment Refer Patient -->
 					<obs conceptId="830817c9-e1f9-48a7-a20b-c927bca52891" style="textarea" rows="2" cols="60" />
 
-					<submit submitLabel="Next >"/>
+		            <!-- Submit -->
+					<div class="bottom-of-form">
+						<button class="msf-operation-button no-print" value="ncd.baseline.referpatient.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="primary right msf-operation-button no-print" value="complete.action"><lookup expression="fn.message('msfcore.save.final')"/></button>
+					</div>
 				</section>
 
 			</div>
@@ -105,22 +126,5 @@
 		</div>
 	</div>
 
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'a9f3411c-03d8-4652-8143-886d572cbf4d' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-	</ifMode>
-	<postSubmissionAction class="org.openmrs.module.msfcore.formactions.HtmlFormsPostSubmissionAction"/>
-	<redirectOnSave
-			url="/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?formUuid=a9f3411c-03d8-4652-8143-886d572cbf4d&amp;patientId={{patient.id}}" />
-
-    </htmlform>
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
+</htmlform>
