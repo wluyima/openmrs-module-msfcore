@@ -553,3 +553,9 @@ table td:last-child {
 #appointmentRequestsGridTable .delete-item:after {
     display:none;
 }
+
+/* Lab orders and results */
+.pending {
+    background-color: gray;
+    font-weight: bold;
+}
