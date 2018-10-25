@@ -4,7 +4,7 @@
     "extensionPointId":"patientDashboard.overallActions",
     "type":"link",
     "label":"NCD Followup Form",
-    "url":"htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.patientId}}&visitId={{patient.activeVisitId}}&formUuid=8054636e-a5f5-4319-93a3-2843860a55f9",
+    "url":"htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.patientId}}&visitId={{patient.activeVisitId}}&formUuid=6b12c748-d81e-11e8-9bc4-074e329091e5",
     "icon":"icon-file",
     "order":22
   },

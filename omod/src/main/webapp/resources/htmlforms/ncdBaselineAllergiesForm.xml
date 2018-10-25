@@ -85,7 +85,7 @@
 
 
     <div class="wrapper">
-        <uiInclude provider="msfcore" fragment="leftMenu"/>
+        <uiInclude provider="msfcore" fragment="baselineLeftMenu"/>
         <div class="right-form-display">
             <div class="hidden">
                 <section headerLabel="Encounter Details">
