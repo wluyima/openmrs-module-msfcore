@@ -34,7 +34,9 @@ public class BaselineLeftMenuFragmentController {
     private NCDBaselineLinks getNCDBaselineLinks(String patientId, FragmentModel fragmentModel) {
         NCDBaselineLinks links = new NCDBaselineLinks();
 
-        List<Encounter> ncdEncounters = getAllEncountersByPatientIdAndEncounterTypeUuid(patientId,
+        Patient patient = getPatient(patientId);
+
+        List<Encounter> ncdEncounters = getAllEncountersByPatientIdAndEncounterTypeUuid(patient,
                         MSFCoreConfig.MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID);
         String medicalHistoryEncounterUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_NCD_BASELINE_MEDICAL_HISTORY_UUID);
         links
@@ -98,6 +100,17 @@ public class BaselineLeftMenuFragmentController {
         return links;
     }
 
+    public Patient getPatient(String patientId) {
+        Context.getEncounterService().getEncountersByPatient(patientId);
+        Patient patient;
+        if (isANumber(patientId)) {
+            patient = Context.getPatientService().getPatient(Integer.parseInt(patientId));
+        } else {
+            patient = Context.getPatientService().getPatientByUuid(patientId);
+        }
+        return patient;
+    }
+
     public String buildLink(String patientUuid, String formUuid, String encounterUuid) {
         if (encounterUuid == null) { // case of a new entry
             return String.format("enterHtmlFormWithStandardUi.page?formUuid=%s&patientId=%s", formUuid, patientUuid);
@@ -107,15 +120,7 @@ public class BaselineLeftMenuFragmentController {
         }
     }
 
-    public List<Encounter> getAllEncountersByPatientIdAndEncounterTypeUuid(String patientId, String encounterTypeUuid) {
-        Context.getEncounterService().getEncountersByPatient(patientId);
-        Patient patient;
-        if (isANumber(patientId)) {
-            patient = Context.getPatientService().getPatient(Integer.parseInt(patientId));
-        } else {
-            patient = Context.getPatientService().getPatientByUuid(patientId);
-        }
-
+    public List<Encounter> getAllEncountersByPatientIdAndEncounterTypeUuid(Patient patient, String encounterTypeUuid) {
         EncounterType encounterType = Context.getEncounterService().getEncounterTypeByUuid(encounterTypeUuid);
         EncounterSearchCriteria criteria = new EncounterSearchCriteria(patient, null, // location
                         null, // fromDate
