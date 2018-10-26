@@ -122,5 +122,7 @@
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <webservices.restVersion>2.21.0</webservices.restVersion>
         <lombokVersion>1.18.0</lombokVersion>
+        <javaCompilerTarget>1.8</javaCompilerTarget>
+        <javaCompilerSource>1.8</javaCompilerSource>
 	</properties>
 </project>

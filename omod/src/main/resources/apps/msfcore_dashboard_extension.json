@@ -14,5 +14,13 @@
     "label":"msfcore.labResultsHistory",
     "url":"msfcore/testOrderAndResult.page?patientId={{patient.patientId}}",
     "icon":"icon-beaker"
+  },
+  {
+	"id" : "mshforms.patientSummary",
+	"extensionPointId" : "patientDashboard.overallActions",
+	"type" : "link",
+	"label" : "msfcore.patientSummary",
+	"url" : "msfcore/patientSummary.page?patientId={{patient.patientId}}",
+	"icon" : "icon-suitcase"
   }
 ]

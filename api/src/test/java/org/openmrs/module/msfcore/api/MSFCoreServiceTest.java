@@ -12,18 +12,23 @@ package org.openmrs.module.msfcore.api;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+
 /**
  * This is a unit test, which verifies logic in MSFCoreService.
  */
@@ -110,4 +115,26 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("1", orders.get(0).getOrderNumber());
     }
+
+    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
+		executeDataSet("MSFCoreService.xml");
+		
+		Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
+		MSFCoreService service = Context.getService(MSFCoreService.class);
+		
+		//Order 1 is linked to a voided obs so it should be voided
+		Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
+		service.saveTestOrders(encounter);
+		Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
+		
+		Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
+		List<Obs> obs = new ArrayList<>(loadedEncounter.getObs());
+		Assert.assertEquals(3, obs.size());
+		Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
+		Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
+		Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
+		Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
+		Assert.assertEquals(CareSettingType.OUTPATIENT.name(),
+		    obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
+	}
 }

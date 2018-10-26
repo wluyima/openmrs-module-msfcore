@@ -14,7 +14,7 @@
 	    </li>
 	    <li>
 	        <div class="details-action">
-	            <a class="view-details collapsed" href='javascript:void(0);' data-encounter-id="{{- encounter.encounterId }}" data-encounter-form="{{- encounter.form != null}}" data-display-with-html-form="true" data-target="#encounter-summary{{- encounter.encounterId }}" data-toggle="collapse" data-target="#encounter-summary{{- encounter.encounterId }}">
+	            <a class="view-details collapsed" href='javascript:void(0);' data-encounter-id="{{- encounter.encounterId }}" data-encounter-form="{{- encounter.form != null}}" data-display-with-html-form="false" data-target="#encounter-summary{{- encounter.encounterId }}" data-toggle="collapse" data-target="#encounter-summary{{- encounter.encounterId }}">
 	                <span class="show-details">${ ui.message("coreapps.patientDashBoard.showDetails")}</span>
 	                <span class="hide-details">${ ui.message("coreapps.patientDashBoard.hideDetails")}</span>
 	                <i class="icon-caret-right"></i>
@@ -25,8 +25,7 @@
 
 	<span>
         {{ if ( (config.editable == null || config.editable) && encounter.canEdit) { }}
-            <i class="viewEncounter view-action icon-file-alt" data-mode="view" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.viewUrl) { }} data-view-url="{{- config.viewUrl }}" {{ } }} title="${ ui.message("coreapps.view") }"></i>
-            <i class="editEncounter edit-action icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.editUrl) { }} data-edit-url="{{- config.editUrl }}" {{ } }} title="${ ui.message("coreapps.edit") }"></i>
+	        <i class="editEncounter edit-action icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.editUrl) { }} data-edit-url="{{- config.editUrl }}" {{ } }} title="${ ui.message("coreapps.edit") }"></i>
         {{ } }}
         {{ if ( encounter.canDelete ) { }}
 	       <i class="deleteEncounterId delete-action icon-remove" data-visit-id="{{- encounter.visitId }}" data-encounter-id="{{- encounter.encounterId }}" title="${ ui.message("coreapps.delete") }"></i>
@@ -50,12 +49,12 @@
         {{}}}
     {{ }); }}
 
-    {{ _.each(orders, function(order) { }}
+ <!--   {{ _.each(orders, function(order) { }}
         <p>
             <small>${ ui.message("coreapps.patientDashBoard.orderNumber")}</small><span>{{- order.orderNumber }}</span>
         </p>
         <p>
             <small>${ ui.message("coreapps.patientDashBoard.order")}</small><span>{{- order.concept }}</span>
         </p>
-    {{ }); }}
+    {{ }); }} -->
 </script>

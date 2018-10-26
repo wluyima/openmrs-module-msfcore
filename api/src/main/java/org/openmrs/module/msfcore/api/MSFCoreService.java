@@ -12,6 +12,7 @@ package org.openmrs.module.msfcore.api;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Order;
@@ -55,4 +56,7 @@ public interface MSFCoreService extends OpenmrsService {
     public String getCurrentLocationIdentity();
 
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
+
+    public void saveTestOrders(Encounter encounter);
+
 }
