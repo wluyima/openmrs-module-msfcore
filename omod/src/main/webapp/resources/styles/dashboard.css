@@ -179,8 +179,40 @@
     padding: 16px;
 }
 
-#content .dashboard .info-body h3 {
-    font-size: 0.9em;
+.dashboard .info-body .section{margin-bottom: 0}
+
+#content .dashboard .info-body #vitals h3 {
+  font-size: 1.1em;
+  display: block;
+  width: auto;
+  text-align: left;
+  float: left;
+  color: #538CAC;
+  line-height: 45px;
+  font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
+}
+
+.dashboard .info-body #vitals fieldset {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.dashboard .info-body #vitals p, .dashboard .info-body #vitals #calculated-bmi-wrapper {
+  display: block;
+  float: right;
+  background: rgba(176,202,217, 0.4);
+  color: #538CAC;
+  padding: 5px 0;
+  border-radius: 3px;
+  font-size: 1em;
+  margin-top: 6px;
+}
+
+.dashboard .info-body #vitals p .obs-field{
+  margin-top: 0;
+  padding: 0 12px;
+}
+.dashboard .info-body #vitals p .obs-field span.value {
+  color: #538CAC;
 }
 
 section#vitals .title {
@@ -188,5 +220,6 @@ section#vitals .title {
     padding: 8px;
     background: #eee;
     display: block;
-    margin: -6px -4px 16px -4px;
+    /*margin: -6px -4px 16px -4px;*/
+    font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
 }
