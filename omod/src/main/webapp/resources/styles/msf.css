@@ -556,6 +556,7 @@ table td:last-child {
 
 /* Lab orders and results */
 .pending {
-    background-color: gray;
+    background-color: lightgray;
     font-weight: bold;
+    padding: 2px;
 }

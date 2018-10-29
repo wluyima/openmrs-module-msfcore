@@ -21,6 +21,10 @@ public class TestOrderAndResultPageController {
             testOrderAndResultService.saveTestResult(patient, testId, result, sampleDate, resultDate);
         }
 
+        if (operation.equals("REMOVE_TEST_RESULT")) {
+            testOrderAndResultService.removeTestOrder(patient, testId);
+        }
+
         List<TestOrderAndResultView> results = testOrderAndResultService.getTestsAndResults(patient.getUuid(), null, null, null, null,
                         null, 1, 10);
         pageModel.addAttribute("results", results);

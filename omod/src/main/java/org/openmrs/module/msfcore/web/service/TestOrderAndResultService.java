@@ -18,8 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestOrderAndResultService {
 
-    public List<TestOrderAndResultView> getTestsAndResults(String patientId, String testName, FulfillerStatus testOrderStatus,
-                    Date dateFrom, Date dateTo, DateType dateType, int currentPage, int itemsPerPage) {
+    public List<TestOrderAndResultView> getTestsAndResults(String patientId, String testName,
+            FulfillerStatus testOrderStatus, Date dateFrom, Date dateTo, DateType dateType, int currentPage,
+            int itemsPerPage) {
         new ArrayList<TestOrderAndResultView>();
 
         // Get all orders for the current patient
@@ -37,9 +38,14 @@ public class TestOrderAndResultService {
         // TODO Apply pagination
     }
 
-    public void saveTestResult(Patient patient, Integer testId, String result, String sampleDateString, String resultDateString)
-                    throws Exception {
+    public void saveTestResult(Patient patient, Integer testId, String result, String sampleDateString,
+                    String resultDateString) throws Exception {
         // TODO Implement saving test result
+    }
+
+    public void removeTestOrder(Patient patient, Integer testId) {
+        Order order = Context.getOrderService().getOrder(testId);
+        Context.getOrderService().voidOrder(order, "");
     }
 
     private List<Order> extractTestOrders(List<Order> orders) {
@@ -60,12 +66,12 @@ public class TestOrderAndResultService {
             TestOrderAndResultView result = new TestOrderAndResultView();
             result.setTestId(testOrder.getOrderId());
             result.setTestName(testOrder.getConcept().getName().getName());
-            result.setTestResult(TestOrderAndResultView.PENDING); // TODO implement mapping
+            result.setTestResult(getResult(testOrder));
             result.setUnitOfMeasure(getUnit(testOrder));
             result.setRange(getRange(testOrder));
             result.setOrderDate(Context.getDateFormat().format(testOrder.getDateCreated()));
-            result.setSampleDate(TestOrderAndResultView.PENDING); // TODO implement mapping
-            result.setResultDate(TestOrderAndResultView.PENDING); // TODO implement mapping
+            result.setSampleDate(getSampleDate(testOrder));
+            result.setResultDate(getResultDate(testOrder));
             results.add(result);
         }
         return results;
@@ -77,6 +83,30 @@ public class TestOrderAndResultService {
             return conceptNumeric.getUnits();
         } else {
             return "";
+        }
+    }
+
+    private String getResult(TestOrder testOrder) {
+        if (testOrder.getVoided()) {
+            return TestOrderAndResultView.CANCELLED;
+        } else {
+            return TestOrderAndResultView.PENDING; // TODO implement mapping test result
+        }
+    }
+
+    private String getSampleDate(TestOrder testOrder) {
+        if (testOrder.getVoided()) {
+            return TestOrderAndResultView.CANCELLED;
+        } else {
+            return TestOrderAndResultView.PENDING; // TODO implement mapping sample date
+        }
+    }
+
+    private String getResultDate(TestOrder testOrder) {
+        if (testOrder.getVoided()) {
+            return TestOrderAndResultView.CANCELLED;
+        } else {
+            return TestOrderAndResultView.PENDING; // TODO implement mapping result date
         }
     }
 

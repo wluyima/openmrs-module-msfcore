@@ -19,6 +19,7 @@
     	jQuery("#result-date-edit-"+testId).removeClass("hidden");
     	
     	jQuery("#edit-button-"+testId).addClass("hidden");
+    	jQuery("#delete-button-"+testId).addClass("hidden");
     	jQuery("#save-button-"+testId).removeClass("hidden");
     	jQuery("#cancel-button-"+testId).removeClass("hidden");
     }
@@ -42,6 +43,10 @@
     	var resultDate = jQuery("#result-date-edit-"+testId).val();
     	window.location.href = '/' + OPENMRS_CONTEXT_PATH + "/msfcore/testOrderAndResult.page?patientId=${patient.getId()}&testId="+testId+"&operation=ADD_TEST_RESULT&result="+result+"&sampleDate="+sampleDate+"&resultDate="+resultDate;
     }
+
+	function deleteTestOrder(testId) {
+		window.location.href = '/' + OPENMRS_CONTEXT_PATH + "/msfcore/testOrderAndResult.page?patientId=${patient.getId()}&testId="+testId+"&operation=REMOVE_TEST_RESULT";
+	}
 </script>
 
 
@@ -79,6 +84,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 					<td>
 						<% if(result.getTestResult() == "_PENDING") { %>
 							<span id="result-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+						<% } else if(result.getTestResult() == "_CANCELLED") { %>
+							<span id="result-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.cancelled")}</span>
 						<% } else { %>
 							<span id="result-view-${ result.getTestId() }">${result.getTestResult()}</span>
 						<% } %>
@@ -90,6 +97,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 					<td>
 						<% if(result.getSampleDate() == "_PENDING") { %>
 							<span id="sample-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+						<% } else if(result.getSampleDate() == "_CANCELLED") { %>
+							<span id="sample-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.cancelled")}</span>
 						<% } else { %>
 							<span id="sample-date-view-${ result.getTestId() }">${result.getSampleDate()}</span>
 						<% } %>
@@ -98,6 +107,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 					<td>
 						<% if(result.getResultDate() == "_PENDING") { %>
 							<span id="result-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+						<% } else if(result.getResultDate() == "_CANCELLED") { %>
+							<span id="result-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.cancelled")}</span>
 						<% } else { %>
 							<span id="result-date-view-${ result.getTestId() }">${result.getResultDate()}</span>
 						<% } %>
@@ -107,6 +118,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 						<i id="edit-button-${ result.getTestId() }" onclick="editTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-edit"></i>
 						<i id="save-button-${ result.getTestId() }" onclick="saveTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-check hidden"></i>
 						<i id="cancel-button-${ result.getTestId() }" onclick="cancel(${ result.getTestId() })" style="cursor:pointer" class="fas fa-times hidden"></i>
+						<% if(result.getTestResult() == "_PENDING") { %>
+							<i id="delete-button-${ result.getTestId() }" onclick="deleteTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-trash-alt"></i>
+						<% } %>
 					</td>
 		    	</tr>
 	    	<% } %>
