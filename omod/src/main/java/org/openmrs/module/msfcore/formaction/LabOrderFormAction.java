@@ -1,5 +1,7 @@
 package org.openmrs.module.msfcore.formaction;
 
+import java.util.Arrays;
+
 import org.openmrs.Visit;
 import org.openmrs.api.EncounterService;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -19,15 +21,22 @@ public class LabOrderFormAction implements FormAction {
     private MSFCoreService msfCoreService;
 
     /**
-     * Generate test orders when request investication section of baseline form is submited
+     * Generate test orders when request investication section of baseline form
+     * is submited
      */
     @Override
 	public void apply(String operation, FormEntrySession session) {
-		if (session.getForm().getUuid().equals(MSFCoreConfig.HTMLFORM_REQUEST_INVESTIGATION_UUID)) {
+
+		boolean isRequestInvestigationForm = Arrays
+				.asList(MSFCoreConfig.HTMLFORM_REQUEST_INVESTIGATION_UUID,
+						MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_INVESTIGATION_UUID)
+				.contains(session.getForm().getUuid());
+
+		if (isRequestInvestigationForm) {
+
 			Visit visit = session.getEncounter().getVisit();
-			encounterService.getEncountersByVisit(visit, false).stream()
-			        .filter(e -> e.getForm().getUuid().equals(MSFCoreConfig.HTMLFORM_REQUEST_INVESTIGATION_UUID)).findFirst()
-			        .ifPresent(e -> msfCoreService.saveTestOrders(e));
+			encounterService.getEncountersByVisit(visit, false).stream().filter(e -> isRequestInvestigationForm)
+					.findFirst().ifPresent(e -> msfCoreService.saveTestOrders(e));
 		}
 	}
 }
