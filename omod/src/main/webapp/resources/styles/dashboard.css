@@ -181,13 +181,13 @@
 
 .dashboard .info-body .section{margin-bottom: 0}
 
-#content .dashboard .info-body #vitals h3 {
+#content .dashboard .info-body #vitals h3, .dashboard .info-body li span {
   font-size: 1.1em;
   display: block;
   width: auto;
   text-align: left;
   float: left;
-  color: #538CAC;
+  color: #373F46;
   line-height: 45px;
   font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
 }
@@ -196,30 +196,54 @@
   border-bottom: 1px solid #eeeeee;
 }
 
-.dashboard .info-body #vitals p, .dashboard .info-body #vitals #calculated-bmi-wrapper {
+.dashboard .info-body #vitals p,
+.dashboard .info-body #vitals #calculated-bmi-wrapper {
   display: block;
   float: right;
-  background: rgba(176,202,217, 0.4);
-  color: #538CAC;
-  padding: 5px 0;
+  background: #eee;
+  color: #373F46;
+  padding: 6px 0;
   border-radius: 3px;
   font-size: 1em;
-  margin-top: 6px;
+  margin-top: 8px;
+  font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
 }
+.dashboard .info-body li span {
+  width: 270px
+}
+.dashboard .info-body li span:nth-child(2) {width: auto;}
 
+.dashboard .info-body li span strong.ng-binding {
+  background: #eee;
+  color: #373F46;
+  padding: 0 10px;
+  border-radius: 3px;
+  float: right;
+  line-height: 41px;
+}
 .dashboard .info-body #vitals p .obs-field{
   margin-top: 0;
   padding: 0 12px;
 }
 .dashboard .info-body #vitals p .obs-field span.value {
-  color: #538CAC;
+  color: #373F46;
 }
 
 section#vitals .title {
     text-align: center;
     padding: 8px;
-    background: #eee;
+    background: rgba(176,202,217, 0.4);
+    color: #538CAC;
     display: block;
     /*margin: -6px -4px 16px -4px;*/
     font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
+}
+.dashboard .info-body table.ng-scope {
+  box-shadow: 0 0 0 !important;
+}
+.dashboard .info-body table.ng-scope tr{
+  border:none;
+}
+.dashboard .info-body table thead th{
+  background: transparent;
 }
