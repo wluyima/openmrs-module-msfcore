@@ -37,6 +37,11 @@ public class TestOrderAndResultService {
         // TODO Apply pagination
     }
 
+    public void saveTestResult(Patient patient, Integer testId, String result, String sampleDateString, String resultDateString)
+                    throws Exception {
+        // TODO Implement saving test result
+    }
+
     private List<Order> extractTestOrders(List<Order> orders) {
         List<Order> labOrders = new ArrayList<Order>();
         for (Order order : orders) {
@@ -53,6 +58,7 @@ public class TestOrderAndResultService {
         for (Order order : orders) {
             TestOrder testOrder = (TestOrder) order;
             TestOrderAndResultView result = new TestOrderAndResultView();
+            result.setTestId(testOrder.getOrderId());
             result.setTestName(testOrder.getConcept().getName().getName());
             result.setTestResult(TestOrderAndResultView.PENDING); // TODO implement mapping
             result.setUnitOfMeasure(getUnit(testOrder));

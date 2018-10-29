@@ -12,7 +12,15 @@ public class TestOrderAndResultPageController {
 
     private TestOrderAndResultService testOrderAndResultService = new TestOrderAndResultService(); // FIXME use dependency injection here
 
-    public void controller(PageModel pageModel, @RequestParam("patientId") Patient patient) {
+    public void controller(PageModel pageModel, @RequestParam("patientId") Patient patient, @RequestParam("operation") String operation,
+                    @RequestParam(value = "testId", required = false) Integer testId,
+                    @RequestParam(value = "result", required = false) String result,
+                    @RequestParam(value = "sampleDate", required = false) String sampleDate,
+                    @RequestParam(value = "resultDate", required = false) String resultDate) throws Exception {
+        if (operation.equals("ADD_TEST_RESULT")) {
+            testOrderAndResultService.saveTestResult(patient, testId, result, sampleDate, resultDate);
+        }
+
         List<TestOrderAndResultView> results = testOrderAndResultService.getTestsAndResults(patient.getUuid(), null, null, null, null,
                         null, 1, 10);
         pageModel.addAttribute("results", results);

@@ -9,6 +9,39 @@
             link: "${ ui.pageLink("coreapps", "clinicianfacing/patient", [patientId: patient.uuid]) }" },
         { label: "${ ui.message("msfcore.labResultsHistory") }" }
     ];
+    
+    function editTestOrder(testId) {
+    	jQuery("#result-view-"+testId).addClass("hidden");
+    	jQuery("#sample-date-view-"+testId).addClass("hidden");
+    	jQuery("#result-date-view-"+testId).addClass("hidden");
+    	jQuery("#result-edit-"+testId).removeClass("hidden");
+    	jQuery("#sample-date-edit-"+testId).removeClass("hidden");
+    	jQuery("#result-date-edit-"+testId).removeClass("hidden");
+    	
+    	jQuery("#edit-button-"+testId).addClass("hidden");
+    	jQuery("#save-button-"+testId).removeClass("hidden");
+    	jQuery("#cancel-button-"+testId).removeClass("hidden");
+    }
+    
+    function cancel(testId) {
+    	jQuery("#result-view-"+testId).removeClass("hidden");
+    	jQuery("#sample-date-view-"+testId).removeClass("hidden");
+    	jQuery("#result-date-view-"+testId).removeClass("hidden");
+    	jQuery("#result-edit-"+testId).addClass("hidden");
+    	jQuery("#sample-date-edit-"+testId).addClass("hidden");
+    	jQuery("#result-date-edit-"+testId).addClass("hidden");
+    	
+    	jQuery("#edit-button-"+testId).removeClass("hidden");
+    	jQuery("#save-button-"+testId).addClass("hidden");
+    	jQuery("#cancel-button-"+testId).addClass("hidden");
+    }
+    
+    function saveTestOrder(testId) {
+    	var result = jQuery("#result-edit-"+testId).val();
+    	var sampleDate = jQuery("#sample-date-edit-"+testId).val();
+    	var resultDate = jQuery("#result-date-edit-"+testId).val();
+    	window.location.href = '/' + OPENMRS_CONTEXT_PATH + "/msfcore/testOrderAndResult.page?patientId=${patient.getId()}&testId="+testId+"&operation=ADD_TEST_RESULT&result="+result+"&sampleDate="+sampleDate+"&resultDate="+resultDate;
+    }
 </script>
 
 
@@ -45,29 +78,36 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 					<td>${result.getTestName()}</td>
 					<td>
 						<% if(result.getTestResult() == "_PENDING") { %>
-							<span class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+							<span id="result-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
 						<% } else { %>
-							<span>${result.getTestResult()}</span>
+							<span id="result-view-${ result.getTestId() }">${result.getTestResult()}</span>
 						<% } %>
+						<input id="result-edit-${ result.getTestId() }" class="hidden"/>
 					</td>
 					<td>${result.getUnitOfMeasure()}</td>
 					<td>${result.getRange()}</td>
 					<td>${result.getOrderDate()}</td>
 					<td>
 						<% if(result.getSampleDate() == "_PENDING") { %>
-							<span class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+							<span id="sample-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
 						<% } else { %>
-							<span>${result.getSampleDate()}</span>
+							<span id="sample-date-view-${ result.getTestId() }">${result.getSampleDate()}</span>
 						<% } %>
+						<input id="sample-date-edit-${ result.getTestId() }" type="date" class="hidden"/>
 					</td>
 					<td>
 						<% if(result.getResultDate() == "_PENDING") { %>
-							<span class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
+							<span id="result-date-view-${ result.getTestId() }" class="pending">${ui.message("msfcore.testorderandresult.pending")}</span>
 						<% } else { %>
-							<span>${result.getResultDate()}</span>
+							<span id="result-date-view-${ result.getTestId() }">${result.getResultDate()}</span>
 						<% } %>
+						<input id="result-date-edit-${ result.getTestId() }" type="date" class="hidden"/>
 					</td>
-					<td></td>
+					<td>
+						<i id="edit-button-${ result.getTestId() }" onclick="editTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-edit"></i>
+						<i id="save-button-${ result.getTestId() }" onclick="saveTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-check hidden"></i>
+						<i id="cancel-button-${ result.getTestId() }" onclick="cancel(${ result.getTestId() })" style="cursor:pointer" class="fas fa-times hidden"></i>
+					</td>
 		    	</tr>
 	    	<% } %>
 	    </tbody>
