@@ -115,7 +115,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 						<input id="result-date-edit-${ result.getTestId() }" type="date" class="hidden"/>
 					</td>
 					<td>
-						<i id="edit-button-${ result.getTestId() }" onclick="editTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-edit"></i>
+						<% if(result.getTestResult() != "_CANCELLED") { %>
+							<i id="edit-button-${ result.getTestId() }" onclick="editTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-edit"></i>
+						<% } %>
 						<i id="save-button-${ result.getTestId() }" onclick="saveTestOrder(${ result.getTestId() })" style="cursor:pointer" class="fas fa-check hidden"></i>
 						<i id="cancel-button-${ result.getTestId() }" onclick="cancel(${ result.getTestId() })" style="cursor:pointer" class="fas fa-times hidden"></i>
 						<% if(result.getTestResult() == "_PENDING") { %>
