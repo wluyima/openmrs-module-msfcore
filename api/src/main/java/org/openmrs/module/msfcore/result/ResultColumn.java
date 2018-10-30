@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Filters {
-    private StatusFilter status;
-
-    public enum StatusFilter {
-        Pending, Cancelled, Completed
-    }
+public class ResultColumn {
+    @Builder.Default
+    private boolean editable = false;
+    private Object value;
 }
