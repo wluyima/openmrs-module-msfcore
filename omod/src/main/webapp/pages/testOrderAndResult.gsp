@@ -36,6 +36,18 @@
     	jQuery("#save-button-"+testId).addClass("hidden");
     	jQuery("#cancel-button-"+testId).addClass("hidden");
     }
+
+	function launchSearch() {
+		var queryParameters = "statusSearch=" + jQuery("#status-search").val() + "&dateTypeSearch=" + jQuery("#date-type-search").val() + "&";
+		if(jQuery("#test-name-search").val()) {
+			queryParameters += "testNameSearch=" + jQuery("#test-name-search").val() + "&";
+		}
+		if(jQuery("#start-date-search").val() && jQuery("#end-date-search").val()) {
+			queryParameters += "startDateSearch=" + jQuery("#start-date-search").val() + "&endDateSearch=" + jQuery("#end-date-search").val();
+		}
+
+		window.location.href = '/' + OPENMRS_CONTEXT_PATH + "/msfcore/testOrderAndResult.page?patientId=${patient.getId()}&operation=VIEW_TEST_RESULT&" + queryParameters;
+	}
     
     function saveTestOrder(testId) {
     	var result = jQuery("#result-edit-"+testId).val();
@@ -49,6 +61,18 @@
 	}
 </script>
 
+<script type="text/javascript">
+if (jQuery) {
+    jq(document).ready(function () {
+		if ("${ statusSearch }") {
+			jQuery("#status-search").val("${ statusSearch }");
+		}
+		if ("${ dateTypeSearch }") {
+			jQuery("#date-type-search").val("${ dateTypeSearch }");
+		}
+	})
+}
+</script>
 
 <style>
 	#results-print-close-wrapper {
@@ -62,6 +86,24 @@
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
 <br />
+
+<div>
+	Test name search <input id="test-name-search" value="${ testNameSearch }"/> <input type="button" value="SEARCH" onclick="launchSearch()" /> |
+	Filter
+		<select id="status-search" onchange="launchSearch()">
+			<option value="ALL">Status: All</option>
+			<option value="PENDING">Pending</option>
+			<option value="CANCELLED">Cancelled</option>
+			<option value="COMPLETED">Completed</option>
+		</select> |
+	Date filter <input id="start-date-search" type="date" /> <input id="end-date-search" type="date" />
+		<select id="date-type-search" onchange="launchSearch()">
+			<option value="ALL">All</option>
+			<option value="ORDER_DATE">Order date</option>
+			<option value="SAMPLE_DATE">Sample date</option>
+			<option value="RESULT_DATE">Result date</option>
+		</select>
+</div>
 
 <div id="results-data">
 	<table>

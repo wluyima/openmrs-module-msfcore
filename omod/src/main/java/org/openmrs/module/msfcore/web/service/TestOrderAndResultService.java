@@ -11,6 +11,7 @@ import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.result.DateType;
 import org.openmrs.module.msfcore.result.TestOrderAndResultView;
 import org.springframework.stereotype.Component;
@@ -18,14 +19,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestOrderAndResultService {
 
-    public List<TestOrderAndResultView> getTestsAndResults(String patientId, String testName,
-            FulfillerStatus testOrderStatus, Date dateFrom, Date dateTo, DateType dateType, int currentPage,
-            int itemsPerPage) {
+    public List<TestOrderAndResultView> getTestsAndResults(Patient patient, String testName, FulfillerStatus testOrderStatus,
+                    Date dateFrom, Date dateTo, DateType dateType, int currentPage, int itemsPerPage) {
         new ArrayList<TestOrderAndResultView>();
 
         // Get all orders for the current patient
-        Patient patient = Context.getPatientService().getPatientByUuid(patientId);
-        List<Order> orders = Context.getOrderService().getAllOrdersByPatient(patient);
+        // List<Order> orders = Context.getOrderService().getAllOrdersByPatient(patient);
+        MSFCoreDao msfDao = new MSFCoreDao();
+        List<Order> orders = msfDao.getOrders(patient, null, null, null);
 
         // Filter test orders
         List<Order> labOrders = extractTestOrders(orders);
@@ -38,8 +39,8 @@ public class TestOrderAndResultService {
         // TODO Apply pagination
     }
 
-    public void saveTestResult(Patient patient, Integer testId, String result, String sampleDateString,
-                    String resultDateString) throws Exception {
+    public void saveTestResult(Patient patient, Integer testId, String result, String sampleDateString, String resultDateString)
+                    throws Exception {
         // TODO Implement saving test result
     }
 
