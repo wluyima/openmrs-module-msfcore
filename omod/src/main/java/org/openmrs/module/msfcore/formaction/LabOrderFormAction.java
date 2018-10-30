@@ -35,8 +35,9 @@ public class LabOrderFormAction implements FormAction {
 		if (isRequestInvestigationForm) {
 
 			Visit visit = session.getEncounter().getVisit();
-			encounterService.getEncountersByVisit(visit, false).stream().filter(e -> isRequestInvestigationForm)
-					.findFirst().ifPresent(e -> msfCoreService.saveTestOrders(e));
+			encounterService.getEncountersByVisit(visit, false).stream()
+					.filter(e -> e.getForm().getUuid().equals(session.getForm().getUuid())).findFirst()
+					.ifPresent(e -> msfCoreService.saveTestOrders(e));
 		}
 	}
 }
