@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "id":"mshforms.drugListHistory",
     "extensionPointId":"patientDashboard.overallActions",
     "type":"link",
@@ -14,5 +15,13 @@
     "label":"msfcore.labResultsHistory",
     "url":"msfcore/resultHistory.page?patientId={{patient.patientId}}&category=labResults",
     "icon":"icon-beaker"
+=======
+	"id" : "mshforms.patientSummary",
+	"extensionPointId" : "patientDashboard.overallActions",
+	"type" : "link",
+	"label" : "msfcore.patientSummary",
+	"url" : "msfcore/patientSummary.page?patientId={{patient.patientId}}",
+	"icon" : "icon-suitcase"
+>>>>>>> f79ddea0cb91b85273d2138bd5be0df593974c83
   }
 ]

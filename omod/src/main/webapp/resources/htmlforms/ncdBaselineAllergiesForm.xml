@@ -40,7 +40,7 @@
                     <!-- handle removing entries -->
                     jq('button.removeEntry').on("click", function() {
                         var indexToHide =  getIndexFromId(this.id);
-                        jq(`#${indexToHide}-toggleContainer`).hide();
+                        jq(`#${indexToHide}-toggleContainer`).remove();
                         return false;
                     });
 
@@ -48,10 +48,11 @@
                     jq.each(getUsedContainers(), (index, container) => container.show());
 
                     <!-- remove the buttons that will not be used -->
-                    jq(`#1-removeEntry`).remove();
                     jq(`#${NUMBER_ENTRIES}-addEntry`).remove();
-
-                });
+                    if( jq(getUsedContainers()).length == 1){
+                   		jq(`#1-removeEntry`).remove();
+                   	 }
+                   });
 
                 function getUsedContainers() {
                     var usedContainers = [];
@@ -132,9 +133,7 @@
                                             <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="radio" answerSeparator=""/>
                                      </div>
                                     <div id="162554-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                    <obsgroup groupingConceptId="162554">
-                                            <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
-                                        </obsgroup>
+                                        	<obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator=""/>
                                     </div>
                                 </section>
                                 <section>
@@ -240,7 +239,7 @@
 								</obsgroup>
                                 <div class="hide-on-view">
                                     <button class="addEntry no-print" id="{allergy}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button> 
-                                   <!--  <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button> -->
+                                    <button class="removeEntry no-print" id="{allergy}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
                                 </div>
                                    
                             </div>
@@ -275,7 +274,7 @@
                     <!-- Submit -->
                     <div class="bottom-of-form">
                         <button class="msf-operation-button no-print" value="ncd.baseline.alergies.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
-                        <button class="msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
+                        <button class="primary right msf-operation-button no-print" value="ncd.baseline.alergies.next"><lookup expression="fn.message('msfcore.next')"/></button>
                     </div>
                 </section>
             </div>
@@ -283,22 +282,6 @@
         </div>
     </div>
 
-
-    <!-- Enusre that only one version of this form can exist at any one time -->
-    <ifMode mode="ENTER" include="true">
-        <lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('fa6f3ff5-b784-43fb-ab35-a08ab7dbf074'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == '30d1fda4-4161-4666-ad0c-e2ba20eb73a6' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-    </ifMode>
-
-	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 
 </htmlform>

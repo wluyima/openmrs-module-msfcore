@@ -253,6 +253,7 @@ public class MSFCoreConfig {
     // Encounter types
     public static final String MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
     public static final String MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+    public static final String MSF_LAB_RESULTS_ENCOUNTER_TYPE_UUID = "5dd6553b-be5a-413a-93fc-23962bc594e8";
 
     public final static String LOCATION_ATTR_TYPE_UID_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0000";
 
@@ -372,10 +373,36 @@ public class MSFCoreConfig {
 
     public static final String HTMLFORM_REQUEST_APPOINTMENT_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303911";
 
+    public static final String HTMLFORM_REQUEST_INVESTIGATION_UUID = "fc14cfa5-6cbc-47bf-9674-efdcc7628350";
+
     public static final String CONCEPT_REQUEST_APPOINTMENT_DATE_UUID = "c72e7dce-e9eb-44e9-8114-94f9550ad5b0";
 
     public static final String CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID = "f3a76818-3ff4-4d94-9c51-be295cad43a1";
 
     public static final String CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID = "d0475b32-6987-43b3-a618-b975f4967ba5";
 
+    // Form UUIDS
+    public static final String FORM_MEDICAL_HISTORY_UUID = "06807e2b-ce97-4d65-8796-e955fcbe057d";
+
+    public static final String FORM_LIFESTYLE_UUID = "3209cd5f-656e-42f4-984e-ab466a5b77ef";
+
+    public static final String FORM_ALLERGIES_UUID = "30d1fda4-4161-4666-ad0c-e2ba20eb73a6";
+
+    public static final String FORM_DIAGNOSIS_UUID = "860d4952-7490-4a70-9e75-8cf4ebf10df8";
+
+    public static final String FORM_COMPLICATIONS_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303933";
+
+    public static final String FORM_REQUEST_INVESTIGATION_UUID = "fc14cfa5-6cbc-47bf-9674-efdcc7628350";
+
+    public static final String FORM_PRESCRIBE_MEDICATION_UUID = "aab2cab6-c280-438b-9afd-3c54e799ef2a";
+
+    public static final String FORM_PATIENT_TARGET_UUID = "f88f341a-2a37-47e9-ac81-b5dae813ab26";
+
+    public static final String FORM_REGULAR_PATIENT_REVIEW_UUID = "b450ec93-f4b5-4a4b-8143-4564d84028bc";
+
+    public static final String FORM_CLINICAL_NOTE_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303948";
+
+    public static final String FORM_REQUEST_APPOINTMENT_UUID = "f09a3a3a-810e-4cf6-b432-3d43da303911";
+
+    public static final String FORM_REFER_PATIENT_UUID = "a9f3411c-03d8-4652-8143-886d572cbf4d";
 }

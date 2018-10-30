@@ -93,6 +93,7 @@
 						<!-- Concept id=6000009 name = Request Appointment Type-->
 						<span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5"/></span>
 						<select name="appointment-type" id="appointment-type-list">
+								<option value=""></option>
 								<option value="4da187c6-c436-11e4-a470-82b0ea87e2d8">Dermatology</option>
 								<option value="5ab6d8a8-c436-11e4-a470-82b0ea87e2d8">Dermatology (New Patient)</option>
 								<option value="7dd9ac8e-c436-11e4-a470-82b0ea87e2d8">General Medicine</option>
@@ -135,20 +136,5 @@
 		</div>
 	</div>
 
-	<!-- Ensure that only one version of this form can exist at any one time -->
-	<ifMode mode="ENTER" include="true">
-		<lookup complexExpression="
-            #set( $encounter = 0 )
-            #set( $encounter = $fn.allEncounters('f09a3a3a-810e-4cf6-b432-3d43da303911'))
-            #foreach($encounter in $fn.allEncounters(null))
-                #if( $encounter.form.uuid == 'f09a3a3a-810e-4cf6-b432-3d43da303911' )
-                    &lt;script type=&quot;text/javascript&quot;>
-                        window.location.href = window.location.protocol + &quot;//&quot; + window.location.host + &quot;/&quot;+ OPENMRS_CONTEXT_PATH + &quot;/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?formUuid=$encounter.form.uuid&amp;patientId=$patient.uuid&amp;encounterId=$encounter.uuid&amp;&quot;;
-                    &lt;/script>
-                #end
-            #end"/>
-
-	</ifMode>
-
-	<postSubmissionAction class="org.openmrs.module.msfcore.submissionaction.MsfStandardSubmissionAction" />
+	<postSubmissionAction class="org.openmrs.module.msfcore.formaction.handler.HtmlFormPostSubmissionAction" />
 </htmlform>

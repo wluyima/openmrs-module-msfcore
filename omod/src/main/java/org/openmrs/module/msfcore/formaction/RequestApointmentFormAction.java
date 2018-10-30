@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.formactions;
+package org.openmrs.module.msfcore.formaction;
 
 import java.util.Date;
 import java.util.List;
@@ -8,16 +8,32 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
-import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
+import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.TimeFrameUnits;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.util.DateUtils;
+import org.openmrs.module.msfcore.formaction.handler.FormAction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class RequestAppointmentAction {
+@Component
+public class RequestApointmentFormAction implements FormAction {
 
-    AppointmentService appointmentService;
+    @Autowired
+    private AppointmentService appointmentService;
+
+    @Override
+    public void apply(String operation, FormEntrySession session) {
+        String formUuid = session.getForm().getUuid();
+        if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
+            Patient patient = session.getEncounter().getPatient();
+            Set<Obs> observations = session.getEncounter().getObsAtTopLevel(false);
+            requestAppointment(patient, observations);
+        }
+    }
 
     public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations) {
         String notes = "";
@@ -68,4 +84,5 @@ public class RequestAppointmentAction {
 
         return appointmentRequest;
     }
+
 }

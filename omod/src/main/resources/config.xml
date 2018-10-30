@@ -110,6 +110,101 @@
 		<defaultValue></defaultValue>
 		<description>parent feed url</description>
 	</globalProperty>
+	<globalProperty>
+		<property>concept.temperature</property>
+		<defaultValue>5088</defaultValue>
+		<description>Concept id for the concept defining temperature</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.pulse</property>
+		<defaultValue>5087</defaultValue>
+		<description>Concept id for the concept defining pulse</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.respiratoryRate</property>
+		<defaultValue>5242</defaultValue>
+		<description>Concept id for the concept defining respiratoryRate</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.systolicBloodPressure</property>
+		<defaultValue>5085</defaultValue>
+		<description>Concept id for the concept defining systolic blood pressure</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.diastolicBloodPressure</property>
+		<defaultValue>5086</defaultValue>
+		<description>Concept id for the concept defining diastolic blood pressure</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.bloodOxygenSaturation</property>
+		<defaultValue>5092</defaultValue>
+		<description>Concept id for the concept defining blood oxygen saturation</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.medications</property>
+		<defaultValue>1000093</defaultValue>
+		<description>Concept id for the concept defining medications</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.notes</property>
+		<defaultValue>465117</defaultValue>
+		<description>Concept id for the concepts defining clinical notes</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.vitalsEncounterTypeId</property>
+		<defaultValue>2</defaultValue>
+		<description>Encounter type id for vitals</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.labResults</property>
+		<defaultValue>463596,463630,463631,463632,463629,463582,463583,463574</defaultValue>
+		<description>Concept ids for the concepts defining lab results</description>
+	</globalProperty>
+	<globalProperty>
+		<property>msfcore.otherVitals</property>
+		<defaultValue></defaultValue>
+		<description>concept ids for other vitals if any</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.pastMedicalHistory</property>
+		<defaultValue>160221,463375,463376,463377,463378,463379,463380,463381,463382</defaultValue>
+		<description>Concept ids for the concepts defining past medical history</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.historyOfTargetOrganDamage</property>
+		<defaultValue>3000006</defaultValue>
+		<description>Concept id for the concept defining history of target organ damage</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.cardiovascularRiskScore</property>
+		<defaultValue>463603,463604</defaultValue>
+		<description>Concept ids for the concepts defining cardiovascular risk score</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.familyHistory</property>
+		<defaultValue>463615</defaultValue>
+		<description>Concept id for the concept defining family history</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.socialHistory</property>
+		<defaultValue>463611,463614,465106,465107,463346</defaultValue>
+		<description>Concept ids for the concepts defining social history or lifestyle</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.complications</property>
+		<defaultValue>463619</defaultValue>
+		<description>Concept id for the concept defining medical complications</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.bloodGlucose</property>
+		<defaultValue>463415</defaultValue>
+		<description>Concept id for the concept defining blood glucose</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.patientEducation</property>
+		<defaultValue>463571</defaultValue>
+		<description>Concept id for the concept defining blood glucose</description>
+	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
 	
