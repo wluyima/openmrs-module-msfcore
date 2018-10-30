@@ -16,7 +16,7 @@ public class NCDFollowUpLinks {
 
     private String requestInvestigationLink;
 
-    private String scheduleAppointmentLink;
+    private String requestAppointmentLink;
 
     public String getVisitDetailsLink() {
         return visitDetailsLink;
@@ -74,12 +74,12 @@ public class NCDFollowUpLinks {
         this.requestInvestigationLink = requestInvestigationLink;
     }
 
-    public String getScheduleAppointmentLink() {
-        return scheduleAppointmentLink;
+    public String getRequestAppointmentLink() {
+        return requestAppointmentLink;
     }
 
-    public void setScheduleAppointmentLink(String scheduleAppointmentLink) {
-        this.scheduleAppointmentLink = scheduleAppointmentLink;
+    public void setRequestAppointmentLink(String requestAppointmentLink) {
+        this.requestAppointmentLink = requestAppointmentLink;
     }
 
 }
