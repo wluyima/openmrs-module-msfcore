@@ -36,7 +36,7 @@ public class BaselineLeftMenuFragmentController {
 
 		Patient patient = getPatient(patientId);
 
-		List<Encounter> ncdEncounters = getAllEncountersByPatientIdAndEncounterTypeUuid(patient,
+		List<Encounter> ncdEncounters = getAllEncountersByPatientAndEncounterTypeUuid(patient,
 				MSFCoreConfig.MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID);
 		String medicalHistoryEncounterUuid = getEncounterUuidByFormUuid(ncdEncounters,
 				MSFCoreConfig.FORM_NCD_BASELINE_MEDICAL_HISTORY_UUID);
@@ -132,7 +132,7 @@ public class BaselineLeftMenuFragmentController {
 		}
 	}
 
-	public List<Encounter> getAllEncountersByPatientIdAndEncounterTypeUuid(Patient patient, String encounterTypeUuid) {
+    public List<Encounter> getAllEncountersByPatientAndEncounterTypeUuid(Patient patient, String encounterTypeUuid) {
 		EncounterType encounterType = Context.getEncounterService().getEncounterTypeByUuid(encounterTypeUuid);
 		EncounterSearchCriteria criteria = new EncounterSearchCriteria(patient, null, // location
 				null, // fromDate
