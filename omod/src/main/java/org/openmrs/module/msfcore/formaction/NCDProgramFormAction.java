@@ -14,10 +14,10 @@ public class NCDProgramFormAction implements FormAction {
     @Override
     public void apply(String operation, FormEntrySession session) {
         EncounterType encounterType = session.getEncounter().getEncounterType();
-        if (encounterType != null && encounterType.getUuid()
-                .matches(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE + "|"
-                        + MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP + "|"
-                        + MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT)) {
+        if (encounterType != null
+                        && encounterType.getUuid().matches(
+                                        MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE + "|" + MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP + "|"
+                                                        + MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT)) {
             Context.getService(MSFCoreService.class).manageNCDProgram(session.getEncounter());
         }
     }
