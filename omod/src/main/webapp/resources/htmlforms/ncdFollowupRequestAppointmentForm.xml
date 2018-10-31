@@ -113,7 +113,7 @@
 					
 		            <!-- Submit -->
 					<div class="bottom-of-form">
-						<button class="msf-operation-button no-print" value="ncd.followup.scheduleAppointment.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
+						<button class="msf-operation-button no-print" value="ncd.followup.requestappointment.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
 						<button class="primary right msf-operation-button no-print" value="complete.action"><lookup expression="fn.message('msfcore.save.final')"/></button>
 					</div>
 				</section>

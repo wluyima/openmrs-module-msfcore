@@ -101,7 +101,7 @@ public class NavigationFormAction implements FormAction {
                         .getReferPatientLink()));
         operationToUrl.put("ncd.followup.requestinvestigation.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
                         .getRequestAppointmentLink()));
-        operationToUrl.put("ncd.followup.scheduleAppointment.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+        operationToUrl.put("ncd.followup.requestappointment.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
                         .getRequestInvestigationLink()));
 
         return operationToUrl;
