@@ -100,8 +100,8 @@ public class NavigationFormAction implements FormAction {
         operationToUrl.put("ncd.followup.requestinvestigation.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
                         .getReferPatientLink()));
         operationToUrl.put("ncd.followup.requestinvestigation.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
-                        .getScheduleAppointmentLink()));
-        operationToUrl.put("ncd.followup.scheduleAppointment.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getRequestAppointmentLink()));
+        operationToUrl.put("ncd.followup.requestappointment.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
                         .getRequestInvestigationLink()));
 
         return operationToUrl;

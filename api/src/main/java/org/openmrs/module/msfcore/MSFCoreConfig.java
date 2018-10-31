@@ -420,6 +420,6 @@ public class MSFCoreConfig {
 
     public static final String FORM_NCD_FOLLOWUP_REQUEST_INVESTIGATION_UUID = "034fe066-d821-11e8-8cd0-e39488e68b96";
 
-    public static final String FORM_NCD_FOLLOWUP_SCHEDULE_APPOINTMENT_UUID = "5ec65100-d821-11e8-a2f8-07cd972bc32b";
+    public static final String FORM_NCD_FOLLOWUP_REQUEST_APPOINTMENT_UUID = "5ec65100-d821-11e8-a2f8-07cd972bc32b";
 
 }

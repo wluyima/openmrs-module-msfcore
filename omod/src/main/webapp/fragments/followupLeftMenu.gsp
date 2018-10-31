@@ -24,8 +24,8 @@ if (jQuery) {
         if (currentFormName == "Request Investigation Followup") {
             jq("#investigationrequest").attr("class","active");
         }
-        if (currentFormName == "Schedule Appointment Followup") {
-            jq("#scheduleappointmentfollowup").attr("class","active");
+        if (currentFormName == "Request Appointment Followup") {
+            jq("#requestappointmentfollowup").attr("class","active");
         }
 
         if (window.location.href.indexOf("htmlform/viewEncounterWithHtmlForm.page") != -1) {
@@ -69,7 +69,7 @@ if (jQuery) {
                 <a id="investigationrequest" href="<% print requestInvestigationLink %>">${ui.message("msfcore.ncdbaseline.investigationrequest.title")}</a>
             </li>
             <li>
-                <a id="scheduleappointmentfollowup" href="<% print scheduleAppointmentLink %>">${ui.message("msfcore.ncdfollowup.scheduleappointment.title")}</a>
+                <a id="requestappointmentfollowup" href="<% print requestAppointmentLink %>">${ui.message("msfcore.ncdbaseline.requestappointment.title")}</a>
             </li>
          
         </ol>

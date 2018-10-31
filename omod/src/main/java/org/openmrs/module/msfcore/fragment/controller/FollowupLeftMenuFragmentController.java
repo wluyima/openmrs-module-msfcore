@@ -80,8 +80,8 @@ public class FollowupLeftMenuFragmentController {
                         MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_INVESTIGATION_UUID, requestInvestigationEncounter));
 
         String scheduleAppointment = getEncounterUuidByFormUuid(patient, ncdEncounters,
-                        MSFCoreConfig.FORM_NCD_FOLLOWUP_SCHEDULE_APPOINTMENT_UUID);
-        links.setScheduleAppointmentLink(baselineController.buildLink(patientId, MSFCoreConfig.FORM_NCD_FOLLOWUP_SCHEDULE_APPOINTMENT_UUID,
+                        MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_APPOINTMENT_UUID);
+        links.setRequestAppointmentLink(baselineController.buildLink(patientId, MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_APPOINTMENT_UUID,
                         scheduleAppointment));
 
         if (fragmentModel != null) {
@@ -92,7 +92,7 @@ public class FollowupLeftMenuFragmentController {
             fragmentModel.addAttribute("clinicalNoteLink", links.getClinicalNoteLink());
             fragmentModel.addAttribute("referPatientLink", links.getReferPatientLink());
             fragmentModel.addAttribute("requestInvestigationLink", links.getRequestInvestigationLink());
-            fragmentModel.addAttribute("scheduleAppointmentLink", links.getScheduleAppointmentLink());
+            fragmentModel.addAttribute("requestAppointmentLink", links.getRequestAppointmentLink());
         }
 
         return links;
