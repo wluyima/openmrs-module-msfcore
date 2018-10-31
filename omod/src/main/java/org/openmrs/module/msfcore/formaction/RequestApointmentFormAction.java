@@ -1,5 +1,6 @@
 package org.openmrs.module.msfcore.formaction;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,9 @@ public class RequestApointmentFormAction implements FormAction {
     @Override
     public void apply(String operation, FormEntrySession session) {
         String formUuid = session.getForm().getUuid();
-        if (formUuid.equals(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID)) {
+
+        if (Arrays.asList(MSFCoreConfig.HTMLFORM_REQUEST_APPOINTMENT_UUID, MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_APPOINTMENT_UUID)
+                        .contains(formUuid)) {
             Patient patient = session.getEncounter().getPatient();
             Set<Obs> observations = session.getEncounter().getObsAtTopLevel(false);
             requestAppointment(patient, observations);

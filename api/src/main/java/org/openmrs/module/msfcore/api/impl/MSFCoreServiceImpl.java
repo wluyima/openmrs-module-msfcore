@@ -220,11 +220,11 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 return null;
             }
             if (encounter != null && encounter.getEncounterType() != null) {
-                if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE)) {
+                if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID)) {
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
-                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP)) {
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID)) {
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION);
-                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT)) {
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID)) {
                     patientProgram.setDateCompleted(date);
                     stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
                     for (Obs o : encounter.getObs()) {

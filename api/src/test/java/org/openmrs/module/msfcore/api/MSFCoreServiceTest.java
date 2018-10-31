@@ -175,7 +175,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Encounter encounter = new Encounter(3);
 
         // starting with any other stage besides enrollment should return null
-        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE));
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID));
         PatientProgram patientProgram = generatePatientProgram(false, new PatientProgram(), encounter, enrollStage, resultsStage,
                         baselineStage, followUpStage, exitStage);
         Assert.assertNull(patientProgram);
@@ -187,7 +187,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(patientProgram.getStates().iterator().next().getState(), is(enrollStage));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE));
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(2));
@@ -195,7 +195,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP));
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(3));
@@ -204,7 +204,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
-        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT));
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID));
         patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
                         exitStage);
         assertThat(patientProgram.getStates().size(), is(4));
@@ -215,7 +215,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
         // exiting should set outcome when obs exists
-        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT));
+        encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID));
         Obs outcome = new Obs();
         Concept qn = new Concept();
         qn.setUuid(MSFCoreConfig.NCD_PROGRAM_OUTCOMES_CONCEPT_UUID);

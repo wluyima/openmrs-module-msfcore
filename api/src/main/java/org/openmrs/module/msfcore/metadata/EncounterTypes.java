@@ -16,7 +16,7 @@ public class EncounterTypes {
         }
 
         public String uuid() {
-            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_BASELINE;
+            return MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID;
         }
     };
 
@@ -32,7 +32,7 @@ public class EncounterTypes {
         }
 
         public String uuid() {
-            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_FOLLOWUP;
+            return MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID;
         }
     };
 
@@ -48,7 +48,7 @@ public class EncounterTypes {
         }
 
         public String uuid() {
-            return MSFCoreConfig.ENCOUNTER_TYPE_UUID_EXIT;
+            return MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID;
         }
     };
 

@@ -38,12 +38,36 @@
 </li>
 </script>
 
+<script type="text/javascript">
+
+	function replaceAllValues(content, searchValue, newValue) {
+		var currentContent = content;
+		var changed;
+		do {
+			var newContent = currentContent.replace(searchValue, newValue);
+			changed = newContent !== currentContent;
+			currentContent = newContent;
+		} while (changed);
+		return currentContent;
+	}
+
+	function removeObservationRedundancy(o) {
+		o.answer = o.answer.toUpperCase();
+		o.question = o.question.toUpperCase();
+		var cleanAnswer = replaceAllValues(o.answer, o.question + ': ', '');
+		o.answer = cleanAnswer;
+	}
+
+</script>
+
 <script type="text/template" id="defaultEncounterDetailsTemplate">
+
     {{ _.each(_.filter(diagnoses, function(d) { return d.answer }), function(d) { }}
         <p><small>{{- d.question}}</small><span>{{- d.answer}}</span></p>
     {{ }); }}
 
     {{ _.each(observations, function(observation) { }}
+		{{ removeObservationRedundancy(observation); }}
         {{ if(observation.answer != null) {}}
             <p><small>{{- observation.question}}</small><span>{{- observation.answer}}</span></p>
         {{}}}
