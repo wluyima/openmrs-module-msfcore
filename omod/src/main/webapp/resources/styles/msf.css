@@ -344,6 +344,10 @@ table tr:nth-child(even) {
     background: #fff;
 }
 
+.dialog-header i.icon-plus {
+    display: none;
+}
+
 /* HIDDEN */
 #filter-tags {
     display: none;
@@ -629,5 +633,5 @@ h2.scheduleAppointmentTitle {
 
 #allAppointmentTypesModal {
     position: relative;
-    
+
 }

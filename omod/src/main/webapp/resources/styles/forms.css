@@ -24,7 +24,7 @@ input[type="search"] {
     border-bottom: 2px solid #ccc;
     border-radius:4px;
     outline: none;
-    min-width: 10%;
+    /*min-width: 10%; Problematic on Modal Inputs */
     padding: 8px 16px;
     box-shadow: inset rgba(0,0,0,0.3) 0 0 2px;
 }
@@ -188,7 +188,23 @@ ul#formBreadcrumb li {
 }
 /* Icon Addon */
 .add-on {
-    left: -40px;
+    background: #55D6BE;
+    box-shadow: rgba(0,0,0,0.3) 0 1px 4px;
+    border-radius: 0 4px 4px 0;
+    color:#fff;
+    cursor: pointer;
+    display: inline-block;
+    padding: 9px 8px;
+}
+
+#retrospective-visit-creation-dialog .add-on {
+    top:1px;
+    left:-6px !important;
+}
+
+input#retrospectiveVisitStartDate-display,
+input#retrospectiveVisitStartDate-field {
+    border-radius: 4px 0 0 4px;
 }
 
 #htmlform {

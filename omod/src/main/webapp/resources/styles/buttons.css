@@ -116,14 +116,14 @@ a.button.task:visited,
     cursor: pointer;
 }
 
-
+/* This causes issues with buttons breaking out of the modals.
 input[type=button] [value=value],
 a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel {
     float:left;
-}
+}*/
 
 .button:hover,
 a.button:hover
