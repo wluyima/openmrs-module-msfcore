@@ -181,6 +181,7 @@ ul#formBreadcrumb li span#confirmation_label,
     text-align: center;
     color:#BABDC1;
     font-size:1.1em;
+    overflow: hidden;
 }
 
 .dashboard .info-body .section{margin-bottom: 0}
@@ -284,3 +285,23 @@ section#vitals .title {
   min-height: 50px;
   height: auto;
 }
+
+.att_header {
+  background: #B0CAD9;
+  position: unset !important;
+  height: auto !important;
+}
+.att_header .att_date-time{color:#fff;}
+.att_thumbnail-frame,.att_thumbnail-image-section {height: 80px !important;}
+.att_thumbnail-frame {border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;}
+.att_thumbnail-container img {max-height: 80px !important;}
+.dashboard .info-body .tag {
+  background: #eee;
+  line-height: 1.2em;
+  font-size: 0.8rem;
+  text-align: left;
+  border-radius: 3px;
+  color: #373F46;
+  padding: 5px 8px;
+}
+.dashboard .info-body li {}
