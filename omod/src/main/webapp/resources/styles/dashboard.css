@@ -175,14 +175,19 @@
 .dashboard .info-body {
     color:#373F46;
     border-radius: 0 0 8px 8px;
-    min-height: 32px;
+    min-height: 23px;
     padding: 16px;
+    text-align: center;
+    color:#BABDC1;
+    font-size:1.1em;
 }
 
 .dashboard .info-body .section{margin-bottom: 0}
-
+#content .dashboard .info-body #vitals h3 {font-size: 1em;}
+#content .dashboard .info-header h3 {
+  line-height: 25px;
+}
 #content .dashboard .info-body #vitals h3, .dashboard .info-body li span {
-  font-size: 1.1em;
   display: block;
   width: auto;
   text-align: left;
@@ -191,11 +196,30 @@
   line-height: 45px;
   font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
 }
+.dashboard .info-body ul#miniPatientAppointmentRequests li{
+  font-size: 1.1rem !important;
+  line-height: 1.3rem;
+  padding: 20px 0;
+}
+.dashboard .info-body ul#miniPatientAppointmentRequests li:first-child{
+  padding-top:0;
+}
+.dashboard .info-body ul#miniPatientAppointmentRequests li:last-child{
+  padding-bottom:0;
+}
 
+.dashboard .info-body li{
+  line-height: 45px;
+  margin-bottom: 0 !important;
+  color: #373F46;
+  text-align: left;
+}
 .dashboard .info-body #vitals fieldset {
   border-bottom: 1px solid #eeeeee;
 }
-
+.dashboard .info-body #vitals fieldset:last-child {
+  border:0;
+}
 .dashboard .info-body #vitals p,
 .dashboard .info-body #vitals #calculated-bmi-wrapper {
   display: block;
@@ -204,8 +228,7 @@
   color: #373F46;
   padding: 6px 0;
   border-radius: 3px;
-  font-size: 1em;
-  margin-top: 8px;
+  margin-top: 7px;
   font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
 }
 .dashboard .info-body li span {
@@ -219,7 +242,8 @@
   padding: 0 10px;
   border-radius: 3px;
   float: right;
-  line-height: 41px;
+  line-height: 30px;
+  margin-top:8px;
 }
 .dashboard .info-body #vitals p .obs-field{
   margin-top: 0;
@@ -246,4 +270,18 @@ section#vitals .title {
 }
 .dashboard .info-body table thead th{
   background: transparent;
+}
+.dashboard .info-body .att_thumbnail-caption-section p.ng-binding{
+  color: #373F46 !important;
+  font-size: 0.9rem !important;
+  line-height: 1rem !important;
+  font-weight: normal !important;
+}
+.att_thumbnail-container {
+  width: 159px !important;
+  min-height: 50px;
+  height: auto;
+}
+.att_header {
+
 }
