@@ -626,7 +626,7 @@
   <concept_set concept_set_id="3000038" concept_id="5085" concept_set="7000006" sort_weight="5.0" creator="1" date_created="2018-10-29 17:24:44.0" uuid="aa9aac8b-c41c-4732-8af5-6d9c591cec7a" />
   <concept_set concept_set_id="3000039" concept_id="5086" concept_set="7000006" sort_weight="6.0" creator="1" date_created="2018-10-29 17:24:44.0" uuid="f382e972-149a-4929-9348-6ed686b68833" />
   <concept_set concept_set_id="3000040" concept_id="5092" concept_set="7000006" sort_weight="7.0" creator="1" date_created="2018-10-29 17:24:44.0" uuid="765d4326-2a60-4cce-9d9b-99c67ab30e8a" />
-
+  
   <!-- Allergy group set -->
   <concept concept_id="7000007" retired="false" datatype_id="4" class_id="10" is_set="true" creator="1" date_created="2018-10-30 12:44:44.0" changed_by="1" date_changed="2018-10-30 12:48:11.0" retired_by="1" uuid="73c9a85e-7de9-4b35-97ec-03d693f56fab" />
   <concept_description concept_description_id="18163" concept_id="7000007" description="Set used to group all the allergy information as allergy type, reactions, etc." locale="en" creator="1" date_created="2018-10-30 12:44:44.0" changed_by="1" uuid="021f6b32-767b-417b-9532-0334293f55f4" />
