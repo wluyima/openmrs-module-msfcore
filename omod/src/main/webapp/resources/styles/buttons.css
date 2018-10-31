@@ -347,6 +347,15 @@ button.confirm.big i.icon-arrow-right {float: right;}
     margin-top:2rem;
 }
 
+.patient-header+#edit-patient-identifier-dialog+.actions.dropdown {
+    background: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin: -18px 0 0 1024px;
+    width: 10rem;
+}
+
 /* Attachments */
 
 .att_upload-container button.confirm, button#allergyui-addNewAllergy {

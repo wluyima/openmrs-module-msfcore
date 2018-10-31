@@ -84,6 +84,7 @@ header .logo {
 
 /* Containers for forms and page elements */
 
+table#active-visits + input + input + div,
 .create-appointment-type,
 .scheduleAppointment,
 .patient-header+#edit-patient-identifier-dialog+h3,
@@ -97,6 +98,9 @@ header .logo {
 }
 
 /* Standard Drop Shadow */
+/* Merge Visits */
+
+table#active-visits + input + input + div,
 .dashboard, table,
 .scheduleAppointment,
 .create-appointment-type,
@@ -111,6 +115,7 @@ header .logo {
 }
 
 /* Bottom Rounded Corners for these boxes */
+table#active-visits + input + input + div,
 .scheduleAppointment,
 .patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
     border-radius: 0 0 8px 8px;
@@ -445,15 +450,6 @@ span.value {
     box-sizing: border-box;
 }
 
-.patient-header+#edit-patient-identifier-dialog+.actions.dropdown {
-    background: #fff;
-    border: none;
-    border-radius: 1.5rem;
-    height: 3rem;
-    margin: -18px 0 0 1024px;
-    width: 10rem;
-}
-
 .patient-header+#edit-patient-identifier-dialog+.actions.dropdown .dropdown-name {
     color: #373F46;
 }
@@ -633,5 +629,4 @@ h2.scheduleAppointmentTitle {
 
 #allAppointmentTypesModal {
     position: relative;
-
 }

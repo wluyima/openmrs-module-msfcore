@@ -115,9 +115,10 @@ daterangepicker .angular-datepicker table td {
     padding:2px;
 }
 
+/*
 #appointmentscheduling-patientAppointments i.icon-calendar.small.add-on {
     margin-left: -32px;
-}
+}*/
 
 /* This is the unit added next to an input e.g. Adding Vitals */
 .append-to-value {
@@ -200,6 +201,15 @@ ul#formBreadcrumb li {
 #retrospective-visit-creation-dialog .add-on {
     top:1px;
     left:-6px !important;
+}
+
+
+a.date-range-picker-clear-link.add-on {
+    margin-left: -5px;
+    padding: 10px 8px;
+    top: -2px;
+    background: #fff;
+    color: red;
 }
 
 input#retrospectiveVisitStartDate-display,
