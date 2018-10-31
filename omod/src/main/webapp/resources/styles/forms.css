@@ -9,6 +9,7 @@ htmlform {
     /*padding:24px;*/
 }
 
+input,
 form input,
 form select,
 form textarea,
@@ -25,7 +26,7 @@ input[type="search"] {
     outline: none;
     min-width: 10%;
     padding: 8px 16px;
-    box-shadow: rgba(0,0,0,0.3) 0 0 2px;
+    box-shadow: inset rgba(0,0,0,0.3) 0 0 2px;
 }
 
 select,
@@ -99,6 +100,23 @@ form ul.select:focus,
 .input-group textarea {
     width: 90%;
     margin: 24px;
+}
+
+/* Manage Appointments */
+
+daterangepicker button {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 2px;
+    font-family: 'OpenSansRegular';
+}
+
+daterangepicker .angular-datepicker table td {
+    padding:2px;
+}
+
+#appointmentscheduling-patientAppointments i.icon-calendar.small.add-on {
+    margin-left: -32px;
 }
 
 /* This is the unit added next to an input e.g. Adding Vitals */
@@ -199,7 +217,7 @@ form label,
 .form label {
     display: block;
     text-align: left;
-    margin-bottom: 0px;
+    margin-bottom: 4px;
     margin-top: 0px;
 }
 
@@ -308,4 +326,13 @@ div#allergy > form {
 div#actions {
     margin: 24px 0 -24px -24px;
     width: calc(100% + 48px);
+}
+
+#mark-patient-dead > fieldset {
+    border:none;
+    padding:0;
+}
+
+#deceased-container + p {
+    margin-top:16px;
 }

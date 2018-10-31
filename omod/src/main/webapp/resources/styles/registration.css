@@ -10,6 +10,12 @@ ul#formBreadcrumb li.doing > span#lifestyleInfo_label
     display:none;
 }
 
+div#content div#content #dataCanvas h2 {
+    background: none;
+    color: #424C55;
+    padding:0 0 24px 0;
+}
+
 #registration {
     display:flex;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;

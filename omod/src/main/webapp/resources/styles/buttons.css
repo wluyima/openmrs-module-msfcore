@@ -54,7 +54,8 @@ button.task:visited,
 input[type="submit"].task:visited,
 input[type="button"].task:visited,
 input[type="submit"].task:visited,
-a.button.task:visited {
+a.button.task:visited,
+#viewAllAppointmentTypes a {
     background: #fff;
     background-color: #fff;
     border: none;
@@ -257,6 +258,12 @@ a.view-details {
     text-decoration: none;
 }
 
+#viewAllAppointmentTypes a,
+.date-range-picker-clear-link {
+    cursor: pointer;
+}
+
+
 .edit-info {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
@@ -402,7 +409,9 @@ button.primary:hover {background: #55D6BE}
 button.right {float: right}
 
 button.addEntry::before {
-  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  content: "\f055";
   margin-right: 5px;
 }
 button.removeEntry {

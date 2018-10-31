@@ -31,7 +31,7 @@
     color:#fff;
     font-family: "OpenSansSemiBold", Arial Bold, Arial, Helvetica, sans-serif;
     font-size:2rem;
-    margin-left: 24px;
+    margin-left: 8px;
     height:3rem;
 }
 
@@ -75,7 +75,6 @@
 
 .dashboard {
     border-radius: 8px;
-    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
     display:flex;
     flex-direction: row-reverse;
     padding:16px 16px 16px 0;
@@ -100,23 +99,25 @@
     margin-top:0;
 }
 
-.dashboard .action-section h3,
 .dashboard .action-section a:not(.button),
 .dashboard .action-section ul li a {
     color:#fff;
-    font-family: 'OpenSansSemiBold', Arial, sans-serif;
-    font-size:1.1em;
+    font-size:1.1rem;
     padding: 4px;
 }
 
+ul#formBreadcrumb li.doing > span, 
+ul#formBreadcrumb li span#confirmation_label,
 .dashboard .action-section h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    border-bottom: 1px solid white;
     margin-top:0px;
+    margin-bottom: 8px;
 }
 
 .dashboard .action-section ul {
     background: none ;
-    padding: 16px 32px;
+    padding: 16px 24px;
 }
 
 .dashboard .action-section li a i {
@@ -182,7 +183,7 @@
 .dashboard .info-body .section{margin-bottom: 0}
 
 #content .dashboard .info-body #vitals h3, .dashboard .info-body li span {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   display: block;
   width: auto;
   text-align: left;
