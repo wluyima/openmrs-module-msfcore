@@ -24,12 +24,12 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
+import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.ProgramWorkflowState;
-import org.openmrs.OrderType;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
@@ -46,19 +46,12 @@ import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 
     private static final String ORDER_VOID_REASON = "Obs was voided";
-
-    @Autowired
-    private OrderService orderService;
-
-    @Autowired
-    private EncounterService encounterService;
 
     MSFCoreDao dao;
 
@@ -299,6 +292,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     @Override
     public void saveTestOrders(Encounter encounter) {
+        OrderService orderService = Context.getOrderService();
+        EncounterService encounterService = Context.getEncounterService();
         OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
         Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
         CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
