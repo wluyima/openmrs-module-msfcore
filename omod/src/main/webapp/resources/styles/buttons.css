@@ -418,8 +418,8 @@ button.primary:hover {background: #55D6BE}
 button.right {float: right}
 
 button.addEntry::before {
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f055";
   margin-right: 5px;
 }
@@ -437,3 +437,7 @@ button.removeEntry:hover {
   color: #FF0000;
 }
 button {outline: none}
+
+.button.confirm.active, button.confirm.active, input[type="submit"].confirm.active, input[type="button"].confirm.active, input[type="submit"].confirm.active, a.button.confirm.active {
+  background: #D0FEF5;
+}

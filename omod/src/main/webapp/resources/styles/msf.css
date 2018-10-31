@@ -10,6 +10,7 @@ In production a single concatonated and minified file should be used instead. @I
 @import url('ncd.css');
 @import url('attachments.css');
 @import url('visit-history.css');
+@import url('addNewAllergy.css');
 
 /* COLORS
 
@@ -111,7 +112,7 @@ table#active-visits + input + input + div,
 
 /* All four rounded corners */
 .create-appointment-type {
-    border-radius: 8px; 
+    border-radius: 8px;
 }
 
 /* Bottom Rounded Corners for these boxes */
