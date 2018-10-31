@@ -60,11 +60,15 @@
 
 			<section>
 				<H3><a name="visitdetails">1. <lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.title')"/></a></H3>
-					
-	            <!-- Submit -->
-				<div class="bottom-of-form">
-					<button class="primary right msf-operation-button no-print" value="ncd.followup.visitdetails.next"><lookup expression="fn.message('msfcore.next')"/></button>
-				</div>
+				<section>
+					<h4><lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.placeofvisit')" /></h4>
+					<obs conceptId="ea5f66f0-c622-4db3-bf96-c031f95c5457" style="no_yes"/>
+
+					<!-- Submit -->
+					<div class="bottom-of-form">
+						<button class="primary right msf-operation-button no-print" value="ncd.followup.visitdetails.next"><lookup expression="fn.message('msfcore.next')"/></button>
+					</div>
+				</section>
 			</section>
 
 			</div>

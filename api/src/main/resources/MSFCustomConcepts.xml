@@ -120,6 +120,7 @@
   <concept concept_id="1000092" retired="0" datatype_id="4" class_id="3" is_set="0" creator="1" date_created="2018-10-04 12:41:54" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="42043823-e5eb-45cc-b3b9-af3c256c64bb" />
   <concept concept_id="1000093" retired="0" datatype_id="2" class_id="9" is_set="0" creator="1" date_created="2018-10-04 15:37:20" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="17110937-6cb2-42f9-b932-3f79e9506a1d" />
   <concept concept_id="1000094" retired="0" datatype_id="2" class_id="5" is_set="0" creator="1" date_created="2018-10-04 22:52:14" changed_by="1" date_changed="2018-10-04 22:52:14" uuid="d09764da-2bf1-4ab6-933f-07a50add8f33" />
+  <concept concept_id="1000095" retired="0" datatype_id="10" class_id="7" is_set="0" creator="1" date_created="2018-10-04 13:13:48" changed_by="1" date_changed="2018-10-04 21:37:30" uuid="ea5f66f0-c622-4db3-bf96-c031f95c5457" />
 
   <concept_answer concept_answer_id="307100" concept_id="465115" answer_concept="162554" creator="1" date_created="2018-09-26 05:47:04" uuid="022ebc9a-1acb-41fb-b613-bc06801ae181" sort_weight="3" />
   <concept_answer concept_answer_id="307101" concept_id="465115" answer_concept="162553" creator="1" date_created="2018-09-26 05:47:04" uuid="b671ae94-edc3-4275-ab2e-a304347a3b85" sort_weight="2" />
@@ -320,6 +321,7 @@
   <concept_name concept_id="465112" name="Drug Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291602" voided="false" uuid="b8964561-5b54-43f0-9fc6-b5a8142216f3" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465113" name="Other Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291603" voided="false" uuid="cac06f69-dd67-4d7d-84fc-01a36fce7eb8" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465114" name="Allergic Reactions" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291604" voided="false" uuid="c3c41ce1-7f18-4a58-b49b-9afac9215517" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
+  <concept_name concept_id="1000095" name="There has been change in theh patient diagnosis" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="1000096" voided="false" uuid="b8976841-e40c-4272-ba19-63c0579d3630" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
 
 
   <concept_name concept_name_id="2291608" concept_id="1000001" name="FLUTICASONE 125µg/SALMETEROL 25µg /puff, aeroso" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 13:13:48" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a56a0c20-d70e-4f18-b3a6-23785d4d092c" />

@@ -22,6 +22,15 @@
 					return true;
 				});
 
+				jq("#question").on("change", function() {
+					if (getValue('question.value') == "true") {
+						jq("#diagnoses").show();
+					} else {
+						jq("#diagnoses").hide();
+					}
+				});
+
+				jq("#question").trigger("change");
 			});
 
 		}
@@ -60,8 +69,15 @@
 
 			<section>
 				<H3><a name="diagnosisFU">2. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></a></H3>
-				<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
-                <div class="add-box" id="encounter-diagnoses-target"></div>
+				
+				<h4><lookup expression="fn.message('msfcore.ncdfollowup.diagnosis.question')" /></h4>
+				<obs id="question" conceptId="ea5f66f0-c622-4db3-bf96-c031f95c5457" defaultValue="false" style="no_yes"/>
+				<br/><br/>
+
+				<div id="diagnoses" class="hidden">
+					<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+					<div class="add-box" id="encounter-diagnoses-target"></div>
+				</div>
 
 	            <!-- Submit -->
 				<div class="bottom-of-form">
