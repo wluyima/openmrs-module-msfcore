@@ -96,9 +96,7 @@ public class MSFCoreDao {
         if (concepts != null && !concepts.isEmpty()) {
             crit.add(Restrictions.in("concept", concepts));
         }
-        if (pagination == null) {
-            pagination = Pagination.builder().build();
-        }
+
         pagination.setTotalResultNumber((int) (long) (Long) crit.setProjection(Projections.rowCount()).uniqueResult());
         crit.setFirstResult(pagination.getFromResultNumber());
         crit.setMaxResults(pagination.getToResultNumber());

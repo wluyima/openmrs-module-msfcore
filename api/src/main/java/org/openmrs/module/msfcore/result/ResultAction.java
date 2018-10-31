@@ -1,5 +1,5 @@
 package org.openmrs.module.msfcore.result;
 
-public enum Action {
+public enum ResultAction {
     EDIT, DELETE
 }

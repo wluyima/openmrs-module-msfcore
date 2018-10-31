@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Filters {
-    private List<StatusFilter> statuses;
-
-    public enum StatusFilter {
-        Pending, Cancelled, Completed
-    }
+public class ResultFilters {
+    private List<ResultStatus> statuses;
+    private List<String> dates;
 }

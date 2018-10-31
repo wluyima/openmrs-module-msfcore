@@ -28,7 +28,7 @@ public class ResultsDataResource extends BaseDataResource {
             // TODO set paginationBuilder from body
             ResultsData resultsData = resultsDataBuilder.resultCategory(ResultsData.parseCategory(context.getParameter("category")))
                             .pagination(paginationBuilder.build()).build();
-            resultsData.addRetriedResults();
+            resultsData.addRetrievedResults();
             return new AlreadyPaged<ResultsData>(context, Arrays.asList(resultsData), false);
         }
         return new AlreadyPaged<ResultsData>(context, Arrays.asList(resultsDataBuilder.build()), false);

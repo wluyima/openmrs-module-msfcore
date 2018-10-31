@@ -33,7 +33,7 @@ public class ResultsFragmentController {
             }
             resultsData = resultsDataBuilder.resultCategory(ResultsData.parseCategory(category)).pagination(paginationBuilder.build())
                             .build();
-            resultsData.addRetriedResults();
+            resultsData.addRetrievedResults();
         }
         fragmentModel.addAttribute("resultsData", resultsData);
     }

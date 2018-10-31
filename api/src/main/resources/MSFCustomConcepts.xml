@@ -569,23 +569,6 @@
   <concept_set concept_set_id="3000019" concept_id="463603" concept_set="3000007" sort_weight="0.0" creator="1" date_created="2018-10-15 16:01:25.0" uuid="5be92adb-923f-408f-8990-b96f12859095"/>
   <concept_set concept_set_id="3000020" concept_id="463604" concept_set="3000007" sort_weight="1.0" creator="1" date_created="2018-10-15 16:01:25.0" uuid="db17144a-b79e-4166-842f-67aec6a14fd9"/>
 
-  <!-- Lab test results set concepts -->
-  <concept concept_id="7000005" retired="false" datatype_id="4" class_id="8" is_set="true" creator="1" date_created="2018-10-29 16:41:23.0" changed_by="1" date_changed="2018-10-29 16:41:23.0" retired_by="1" uuid="23281464-74d8-47d9-9a39-7a1f1d7caa4f" />
-  <concept concept_id="463574" retired="false" datatype_id="2" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:44.0" changed_by="1" date_changed="2018-10-29 16:56:50.0" retired_by="1" uuid="4b74a157-01eb-4211-abc4-bf6b54ec24b8" />
-  <concept concept_id="463575" retired="false" datatype_id="2" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:44.0" changed_by="1" date_changed="2018-10-29 17:02:10.0" retired_by="1" uuid="2a508d31-7561-45a0-af40-2700a72037a1" />
-  <concept concept_id="463579" retired="false" datatype_id="10" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:48.0" changed_by="1" date_changed="2018-10-29 16:59:27.0" retired_by="1" uuid="45e71ca1-b970-4ac3-b3f2-5720bdcd16e1" />
-  <concept concept_id="463582" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:50.0" changed_by="1" date_changed="2018-10-29 16:49:40.0" retired_by="1" uuid="6eac5d6b-3856-4011-9b27-1a31783b8075" />
-  <concept concept_id="463583" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:51.0" changed_by="1" date_changed="2018-10-29 17:00:07.0" retired_by="1" uuid="eb4af9c5-1398-4667-b905-a09d4a7cd8be" />
-  <concept concept_id="463584" retired="false" datatype_id="10" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:47:53.0" changed_by="1" date_changed="2018-10-29 17:00:20.0" retired_by="1" uuid="51954205-f1e8-4aa7-9aad-0c7a9dc82f75" />
-  <concept concept_id="463589" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:48:10.0" changed_by="1" date_changed="2018-10-29 17:00:51.0" retired_by="1" uuid="b3777f51-8452-4370-b6b8-ed80ed1a5102" />
-  <concept concept_id="463590" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-10-31 18:48:16.0" changed_by="1" date_changed="2018-10-29 16:57:45.0" retired_by="1" uuid="9a4aa84a-d593-40cb-a847-07455e778831" />
-  <concept concept_id="463596" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-29 16:58:38.0" retired_by="1" uuid="00463596-0765-4d57-8433-463aeec1f441" />
-  <concept concept_id="463629" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-12-16 23:31:36.0" changed_by="1" date_changed="2018-10-29 16:59:55.0" retired_by="1" uuid="bc0f0544-98db-4e1e-b36c-e0094b9a265c" />
-  <concept concept_id="463631" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2017-12-16 23:35:08.0" changed_by="1" date_changed="2018-10-29 16:59:42.0" retired_by="1" uuid="000190b0-7cbd-400e-8441-b1751c43c29c" />
-  <concept concept_id="463632" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-29 16:59:09.0" retired_by="1" uuid="00463632-0765-4d57-8433-463aeec1f441" />
-
-  <concept_name concept_name_id="7000007" concept_id="7000005" name="Lab Test Results" locale="en" locale_preferred="true" creator="1" date_created="2018-10-29 16:41:23.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="e71ff59b-d79c-4619-bebe-e6b273efd297" changed_by="1" />
-
   <concept_numeric concept_id="463582" allow_decimal="false" />
   <concept_numeric concept_id="463583" allow_decimal="false" />
   <concept_numeric concept_id="463589" allow_decimal="true" display_precision="2" />

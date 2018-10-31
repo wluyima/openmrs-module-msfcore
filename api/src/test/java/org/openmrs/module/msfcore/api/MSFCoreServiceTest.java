@@ -74,23 +74,23 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void getOrders_shouldDefaultPaginationToFirst10ResultsWithNoResults() {
+    public void getOrders_shouldDefaultPaginationToFirst25ResultsWithNoResults() {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(6),
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(Integer.valueOf(0), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(10), pagination.getToResultNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(0), pagination.getTotalResultNumber());
         Assert.assertEquals(0, orders.size());
     }
 
     @Test
-    public void getOrders_shouldDefaultPaginationToFirst10Results() {
+    public void getOrders_shouldDefaultPaginationToFirst25Results() {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(Integer.valueOf(0), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(10), pagination.getToResultNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
         Assert.assertEquals(2, orders.size());
     }

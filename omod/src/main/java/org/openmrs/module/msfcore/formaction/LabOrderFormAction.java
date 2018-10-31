@@ -19,7 +19,7 @@ public class LabOrderFormAction implements FormAction {
     private MSFCoreService msfCoreService;
 
     /**
-     * Generate test orders when request investication section of baseline form is submited
+     * Generate test orders when request investigation section of baseline form is submited
      */
     @Override
 	public void apply(String operation, FormEntrySession session) {

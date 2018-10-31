@@ -12,7 +12,7 @@ public class Pagination {
     @Builder.Default
     private Integer fromResultNumber = 0;
     @Builder.Default
-    private Integer toResultNumber = 10;
+    private Integer toResultNumber = 25;
     @Builder.Default
     private Integer totalResultNumber = 0;
 }
