@@ -294,7 +294,6 @@ table tr:nth-child(even) {
     background: rgba(250, 250, 250, 1);
 }
 
-
 .fg-toolbar,
 .tabs.ui-tabs.ui-widget.ui-widget-content.ui-corner-all {
     border-radius: 0 0 8px 8px;
@@ -336,6 +335,12 @@ table tr:nth-child(even) {
     border-radius: 8px 8px 0 0;
 }
 
+.dialog .dialog-header h3, 
+.ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header h3 {
+    font-size: 1.6rem;
+    padding: 8px 0;
+}
+
 .dialog .dialog-content li.info,
 .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-content li.info {
     border: none;
@@ -349,6 +354,7 @@ table tr:nth-child(even) {
     background: #fff;
 }
 
+.dialog-header i.icon-remove,
 .dialog-header i.icon-plus {
     display: none;
 }
