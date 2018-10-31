@@ -321,7 +321,7 @@
   <concept_name concept_id="465112" name="Drug Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291602" voided="false" uuid="b8964561-5b54-43f0-9fc6-b5a8142216f3" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465113" name="Other Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291603" voided="false" uuid="cac06f69-dd67-4d7d-84fc-01a36fce7eb8" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465114" name="Allergic Reactions" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291604" voided="false" uuid="c3c41ce1-7f18-4a58-b49b-9afac9215517" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
-  <concept_name concept_id="1000095" name="There has been change in theh patient diagnosis" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="1000096" voided="false" uuid="b8976841-e40c-4272-ba19-63c0579d3630" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
+  <concept_name concept_id="1000095" name="There has been change in the patient diagnosis" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="1000096" voided="false" uuid="b8976841-e40c-4272-ba19-63c0579d3630" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
 
 
   <concept_name concept_name_id="2291608" concept_id="1000001" name="FLUTICASONE 125µg/SALMETEROL 25µg /puff, aeroso" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 13:13:48" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a56a0c20-d70e-4f18-b3a6-23785d4d092c" />
