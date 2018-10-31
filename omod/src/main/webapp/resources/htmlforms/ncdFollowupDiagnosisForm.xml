@@ -60,7 +60,9 @@
 
 			<section>
 				<H3><a name="diagnosisFU">2. <lookup expression="fn.message('msfcore.ncdbaseline.diagnosis.title')"/></a></H3>
-					
+				<encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+                <div class="add-box" id="encounter-diagnoses-target"></div>
+
 	            <!-- Submit -->
 				<div class="bottom-of-form">
 					<button class="msf-operation-button no-print" value="ncd.followup.diagnosis.previous"><lookup expression="fn.message('msfcore.previous')"/></button>
