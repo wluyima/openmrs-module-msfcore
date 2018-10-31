@@ -12,4 +12,10 @@ public class ResultColumn {
     @Builder.Default
     private boolean editable = false;
     private Object value;
+    @Builder.Default
+    private Type type = Type.DATE;
+    
+    public enum Type {
+        STRING, DATE
+    }
 }

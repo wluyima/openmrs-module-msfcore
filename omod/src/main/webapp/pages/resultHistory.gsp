@@ -25,5 +25,5 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
 <br />
 
-${ ui.includeFragment("msfcore", "results", [ fromResultNumber : 0, toResultNumber : 10 ]) }
+${ ui.includeFragment("msfcore", "results", [ fromResultNumber : 0, toResultNumber : 25 ]) }
 

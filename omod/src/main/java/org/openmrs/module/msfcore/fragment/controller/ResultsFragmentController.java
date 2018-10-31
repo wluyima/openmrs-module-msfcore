@@ -6,6 +6,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.OrderService;
 import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
+import org.openmrs.module.msfcore.result.ResultCategory;
 import org.openmrs.module.msfcore.result.ResultsData;
 import org.openmrs.module.msfcore.result.ResultsData.ResultsDataBuilder;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -19,6 +20,14 @@ public class ResultsFragmentController {
                     HttpServletRequest request) {
         ResultsData resultsData = null;
         if (patient != null) {
+            fragmentModel.addAttribute("patient", patient);
+            ResultCategory resCat = ResultsData.parseCategory(category);
+            if (resCat.equals(ResultCategory.DRUG_LIST)) {
+                fragmentModel.addAttribute("pageLabel", "msfcore.drugListHistory");
+            } else if (resCat.equals(ResultCategory.LAB_RESULTS)) {
+                fragmentModel.addAttribute("pageLabel", "msfcore.labResultsHistory");
+            }
+
             ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);
             PaginationBuilder paginationBuilder = Pagination.builder();
             if (!config.containsKey("fromResultNumber")) {

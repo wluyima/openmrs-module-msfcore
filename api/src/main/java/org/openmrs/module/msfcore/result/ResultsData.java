@@ -18,13 +18,14 @@ import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.result.ResultColumn.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 /**
- * Used to populate and handle data from results.gsp widget for drug orders,
+ * Used to populate and handle data to from results.gsp widget for drug orders,
  * test orders and any others results widget
  */
 @lombok.Data
@@ -44,8 +45,6 @@ public class ResultsData {
     private List<Map<String, ResultColumn>> results = new ArrayList<Map<String, ResultColumn>>();
     @Builder.Default
     private ResultFilters filters = ResultFilters.builder().build();
-    @Builder.Default
-    private List<ResultAction> actions = new ArrayList<ResultAction>();
 
     public void addRetrievedResults() {
         if (resultCategory.equals(ResultCategory.DRUG_LIST) || resultCategory.equals(ResultCategory.LAB_RESULTS)) {
@@ -61,7 +60,6 @@ public class ResultsData {
             keys.addAll(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
                             "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus"));
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
-            actions.addAll(Arrays.asList(ResultAction.values()));
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
             filters.setDates(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate"));
@@ -88,25 +86,30 @@ public class ResultsData {
             Obs resultObs = getLabTestResultObs(testOrder.getPatient(), concept, testOrder.getEncounter());
             resultRow.put("id", ResultColumn.builder().value(testOrder.getOrderId()).build());
             Object status = null;
+            List<ResultAction> actions = new ArrayList<ResultAction>();
             if (testOrder.getVoided()) {
                 status = ResultStatus.CANCELLED;
             } else if (resultObs == null) {
                 status = ResultStatus.PENDING;
+                actions.add(ResultAction.EDIT);
+                actions.add(ResultAction.DELETE);
             } else {
                 status = ResultStatus.COMPLETED;
+                actions.add(ResultAction.EDIT);
             }
             resultRow.put("status", ResultColumn.builder().value(status).build());
+            resultRow.put("actions", ResultColumn.builder().value(actions).build());
             resultRow.put("msfcore.labTest", ResultColumn.builder().value(concept.getName().getName()).build());
             resultRow.put("msfcore.result", resultObs != null ? ResultColumn.builder().editable(true).value(
-                            resultObs.getValueAsString(Context.getLocale())).build() : null); // TODO
+                            resultObs.getValueAsString(Context.getLocale())).build() : null);
             resultRow.put("msfcore.uom", ResultColumn.builder().value(getUnit(concept)).build());
             resultRow.put("msfcore.range", resultObs != null
                             ? ResultColumn.builder().value(getRange(resultObs.getConcept())).build()
                             : null);
-            resultRow.put("msfcore.orderDate", ResultColumn.builder().editable(true).value(
-                            Context.getDateFormat().format(testOrder.getDateCreated())).build()); // TODO
+            resultRow.put("msfcore.orderDate", ResultColumn.builder().editable(true).type(Type.DATE).value(
+                            Context.getDateFormat().format(testOrder.getDateCreated())).build());
             resultRow.put("msfcore.sampleDate", null); // TODO
-            resultRow.put("msfcore.resultDate", resultObs != null ? ResultColumn.builder().editable(true).value(
+            resultRow.put("msfcore.resultDate", resultObs != null ? ResultColumn.builder().editable(true).type(Type.DATE).value(
                             Context.getDateFormat().format(resultObs.getObsDatetime())).build() : null);
             addResultRow(resultRow);
         }
@@ -118,6 +121,8 @@ public class ResultsData {
         Map<String, ResultColumn> resultRow = new HashMap<String, ResultColumn>();
         DrugOrder drugOrder = (DrugOrder) o;
         resultRow.put("id", ResultColumn.builder().value(drugOrder.getOrderId()).build());
+        resultRow.put("status", ResultColumn.builder().build());
+        resultRow.put("actions", ResultColumn.builder().build());
         resultRow.put("msfcore.drugName", ResultColumn.builder().value(drugOrder.getDrug().getName()).build());
         resultRow.put("msfcore.frequency", ResultColumn.builder().value(
                         drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null ? drugOrder
