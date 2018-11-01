@@ -36,7 +36,8 @@ public class BaselineLeftMenuFragmentController {
 
         Patient patient = getPatient(patientId);
 
-        List<Encounter> ncdEncounters = getAllEncountersByPatientAndEncounterTypeUuid(patient, MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID);
+        List<Encounter> ncdEncounters = getAllEncountersByPatientAndEncounterTypeUuid(patient,
+                        MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID);
         String medicalHistoryEncounterUuid = getEncounterUuidByFormUuid(ncdEncounters, MSFCoreConfig.FORM_NCD_BASELINE_MEDICAL_HISTORY_UUID);
         links
                         .setMedicalHistoryLink(buildLink(patientId, MSFCoreConfig.FORM_NCD_BASELINE_MEDICAL_HISTORY_UUID,

@@ -12,15 +12,14 @@ package org.openmrs.module.msfcore.api;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.hibernate.FlushMode;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.CareSetting.CareSettingType;
@@ -33,10 +32,7 @@ import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.ProgramWorkflow;
 import org.openmrs.ProgramWorkflowState;
-import org.openmrs.Obs;
-import org.openmrs.Order;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -101,8 +97,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     public void generatePatientProgram_testEnrollement() {
         ProgramWorkflowState enrollStage = new ProgramWorkflowState();
         enrollStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL);
-        ProgramWorkflowState resultsStage = new ProgramWorkflowState();
-        resultsStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS);
         ProgramWorkflowState baselineStage = new ProgramWorkflowState();
         baselineStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
         ProgramWorkflowState followUpStage = new ProgramWorkflowState();
@@ -111,8 +105,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         exitStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
         PatientProgram pp = new PatientProgram();
 
-        PatientProgram patientProgram = generatePatientProgram(true, pp, null, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        PatientProgram patientProgram = generatePatientProgram(true, pp, null, enrollStage, baselineStage, followUpStage, exitStage);
 
         assertThat(patientProgram.getStates().size(), is(1));
         assertThat(patientProgram.getStates().iterator().next().getState(), is(enrollStage));
@@ -120,7 +113,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         // enroll and exit patient from program if dateCompleted is set
         pp.setDateCompleted(new Date());
         pp.getStates().clear();
-        patientProgram = generatePatientProgram(true, pp, null, enrollStage, resultsStage, baselineStage, followUpStage, exitStage);
+        patientProgram = generatePatientProgram(true, pp, null, enrollStage, baselineStage, followUpStage, exitStage);
         assertThat(patientProgram.getStates().size(), is(2));
         assertThat(stagesContainState(patientProgram.getStates(), enrollStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), exitStage), is(true));
@@ -130,8 +123,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     public void generatePatientProgram_testFormSubmissionWithoutBaselineOrFormOrPatientProgram() {
         ProgramWorkflowState enrollStage = new ProgramWorkflowState();
         enrollStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL);
-        ProgramWorkflowState resultsStage = new ProgramWorkflowState();
-        resultsStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS);
         ProgramWorkflowState baselineStage = new ProgramWorkflowState();
         baselineStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
         ProgramWorkflowState followUpStage = new ProgramWorkflowState();
@@ -140,12 +131,11 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         exitStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
         Encounter encounter = new Encounter(3);
         encounter.setForm(new Form());
-        PatientProgram patientProgram = generatePatientProgram(false, null, null, enrollStage, resultsStage, baselineStage, followUpStage,
+        PatientProgram patientProgram = generatePatientProgram(false, null, null, enrollStage, baselineStage, followUpStage, exitStage);
+        PatientProgram patientProgram1 = generatePatientProgram(false, null, encounter, enrollStage, baselineStage, followUpStage,
                         exitStage);
-        PatientProgram patientProgram1 = generatePatientProgram(false, null, encounter, enrollStage, resultsStage, baselineStage,
+        PatientProgram patientProgram2 = generatePatientProgram(false, new PatientProgram(4), null, enrollStage, baselineStage,
                         followUpStage, exitStage);
-        PatientProgram patientProgram2 = generatePatientProgram(false, new PatientProgram(4), null, enrollStage, resultsStage,
-                        baselineStage, followUpStage, exitStage);
 
         Assert.assertNull(patientProgram);
         Assert.assertNull(patientProgram1);
@@ -162,8 +152,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     public void generatePatientProgram_testFormsAfterEnrollement() {
         ProgramWorkflowState enrollStage = new ProgramWorkflowState();
         enrollStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL);
-        ProgramWorkflowState resultsStage = new ProgramWorkflowState();
-        resultsStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS);
         ProgramWorkflowState baselineStage = new ProgramWorkflowState();
         baselineStage.setUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
         baselineStage.setInitial(true);
@@ -176,43 +164,38 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
 
         // starting with any other stage besides enrollment should return null
         encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID));
-        PatientProgram patientProgram = generatePatientProgram(false, new PatientProgram(), encounter, enrollStage, resultsStage,
-                        baselineStage, followUpStage, exitStage);
+        PatientProgram patientProgram = generatePatientProgram(false, new PatientProgram(), encounter, enrollStage, baselineStage,
+                        followUpStage, exitStage);
         Assert.assertNull(patientProgram);
 
-        patientProgram = generatePatientProgram(true, new PatientProgram(), null, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        patientProgram = generatePatientProgram(true, new PatientProgram(), null, enrollStage, baselineStage, followUpStage, exitStage);
 
         assertThat(patientProgram.getStates().size(), is(1));
         assertThat(patientProgram.getStates().iterator().next().getState(), is(enrollStage));
-        assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
+        assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(false));
 
         encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID));
-        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, baselineStage, followUpStage, exitStage);
         assertThat(patientProgram.getStates().size(), is(2));
         assertThat(stagesContainState(patientProgram.getStates(), enrollStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
-        assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
+        assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(false));
 
         encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID));
-        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, baselineStage, followUpStage, exitStage);
         assertThat(patientProgram.getStates().size(), is(3));
         assertThat(stagesContainState(patientProgram.getStates(), enrollStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(true));
-        assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
+        assertThat(stagesContainState(patientProgram.getStates(), exitStage), is(false));
 
         encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID));
-        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, baselineStage, followUpStage, exitStage);
         assertThat(patientProgram.getStates().size(), is(4));
         assertThat(stagesContainState(patientProgram.getStates(), enrollStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), exitStage), is(true));
-        assertThat(stagesContainState(patientProgram.getStates(), resultsStage), is(false));
 
         // exiting should set outcome when obs exists
         encounter.setEncounterType(newEncounterType(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID));
@@ -224,10 +207,8 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         outcome.setConcept(qn);
         outcome.setValueCoded(an);
         encounter.addObs(outcome);
-        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, resultsStage, baselineStage, followUpStage,
-                        exitStage);
+        patientProgram = generatePatientProgram(false, patientProgram, encounter, enrollStage, baselineStage, followUpStage, exitStage);
         assertThat(patientProgram.getStates().size(), is(5));// exit is repeated
-        assertThat(stagesContainState(patientProgram.getStates(), enrollStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), baselineStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), followUpStage), is(true));
         assertThat(stagesContainState(patientProgram.getStates(), exitStage), is(true));
@@ -260,10 +241,9 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
                 }
             }
             stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, states[0]);
-            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS, states[1]);
-            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, states[2]);
-            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, states[3]);
-            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, states[4]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, states[1]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, states[2]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, states[3]);
         }
         return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
     }

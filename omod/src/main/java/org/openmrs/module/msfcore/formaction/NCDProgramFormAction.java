@@ -16,7 +16,8 @@ public class NCDProgramFormAction implements FormAction {
         EncounterType encounterType = session.getEncounter().getEncounterType();
         if (encounterType != null
                         && encounterType.getUuid().matches(
-                                        MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID + "|" + MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID + "|"
+                                        MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID + "|"
+                                                        + MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID + "|"
                                                         + MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID)) {
             Context.getService(MSFCoreService.class).manageNCDProgram(session.getEncounter());
         }

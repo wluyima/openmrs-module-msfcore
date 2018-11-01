@@ -214,7 +214,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 patientState.setStartDate(patientProgram.getDateCompleted());
                 patientProgram.transitionToState(states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT), date);
             }
-            // TODO handle investigation results state
         } else {// transition to other stages after enrollment
             if (patientProgram.getStates().isEmpty()) {
                 return null;
@@ -249,10 +248,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         Map<String, ProgramWorkflowState> stages = new HashMap<String, ProgramWorkflowState>();
         stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, Context.getProgramWorkflowService().getStateByUuid(
                         MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL));
-        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS, Context.getProgramWorkflowService().getStateByUuid(
-                        MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS));
-        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ACTIVE_COHORT, Context.getProgramWorkflowService().getStateByUuid(
-                        MSFCoreConfig.WORKFLOW_STATE_UUID_ACTIVE_COHORT));
         stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
                         MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION));
         stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
@@ -277,11 +272,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
             patientPrograms.add(Context.getProgramWorkflowService().savePatientProgram(
                             generatePatientProgram(true, getMsfStages(), pp, null)));
         }
-        for (PatientProgram pp : patientPrograms) {
-            if (pp.getPatient().equals(patient)) {
-                patientProgram = pp;
-            }
-        }
+        patientProgram = patientPrograms.get(0);
         if (patientProgram != null) {
             patientProgram = generatePatientProgram(false, getMsfStages(), patientProgram, encounter);
             if (patientProgram != null) {

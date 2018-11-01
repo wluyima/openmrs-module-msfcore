@@ -123,10 +123,8 @@
   <concept concept_id="500001" retired="0" datatype_id="4" class_id="11" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1401" />
   <concept concept_id="500002" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1402" />
   <concept concept_id="500003" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1403" />
-  <concept concept_id="500004" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1404" />
   <concept concept_id="500005" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1405" />
   <concept concept_id="500006" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1406" />
-  <concept concept_id="500007" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1407" />
   <concept concept_id="500008" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1408" />
 
   <concept_answer concept_answer_id="307100" concept_id="465115" answer_concept="162554" creator="1" date_created="2018-09-26 05:47:04" uuid="022ebc9a-1acb-41fb-b613-bc06801ae181" sort_weight="3" />
@@ -427,10 +425,8 @@
   <concept_name concept_name_id="500001" concept_id="500001" name="NCD" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1431" />
   <concept_name concept_name_id="500002" concept_id="500002" name="Enroll" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1432" />
   <concept_name concept_name_id="500003" concept_id="500003" name="Baseline consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1433" />
-  <concept_name concept_name_id="500004" concept_id="500004" name="Investigation results" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1434" />
   <concept_name concept_name_id="500005" concept_id="500005" name="Follow up consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1435" />
   <concept_name concept_name_id="500006" concept_id="500006" name="Exit" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1436" />
-  <concept_name concept_name_id="500007" concept_id="500007" name="Active cohort" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1437" />
   <concept_name concept_name_id="500008" concept_id="500008" name="Stage" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 19:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1438" />
 
   <concept_numeric concept_id="465098" allow_decimal="false" />

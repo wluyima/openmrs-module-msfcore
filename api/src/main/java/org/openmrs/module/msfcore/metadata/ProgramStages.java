@@ -28,8 +28,7 @@ public class ProgramStages {
 
         @Override
         public Set<ProgramWorkflowStateDescriptor> states() {
-            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ENROLL, BASELINE_CONSULTATION, INVESTIGATION_RESULTS,
-                            FOLLOWUP_CONSULTATION, EXIT, ACTIVE_COHORT));
+            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ENROLL, BASELINE_CONSULTATION, FOLLOWUP_CONSULTATION, EXIT));
         }
 
     };
@@ -78,34 +77,6 @@ public class ProgramStages {
         @Override
         public String name() {
             return "Baseline consultation";
-        }
-
-        @Override
-        public Boolean initial() {
-            return false;
-        }
-
-        @Override
-        public Boolean terminal() {
-            return false;
-        }
-    };
-
-    private static ProgramWorkflowStateDescriptor INVESTIGATION_RESULTS = new ProgramWorkflowStateDescriptor() {
-
-        @Override
-        public String uuid() {
-            return MSFCoreConfig.WORKFLOW_STATE_UUID_INVESTIGATION_RESULTS;
-        }
-
-        @Override
-        public String conceptUuid() {
-            return MSFCoreConfig.CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_INVESTIGATION_RESULTS;
-        }
-
-        @Override
-        public String name() {
-            return "Investigation results";
         }
 
         @Override
@@ -172,34 +143,6 @@ public class ProgramStages {
         @Override
         public Boolean terminal() {
             return true;
-        }
-    };
-
-    private static ProgramWorkflowStateDescriptor ACTIVE_COHORT = new ProgramWorkflowStateDescriptor() {
-
-        @Override
-        public String uuid() {
-            return MSFCoreConfig.WORKFLOW_STATE_UUID_ACTIVE_COHORT;
-        }
-
-        @Override
-        public String conceptUuid() {
-            return MSFCoreConfig.CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_ACTIVE_COHORT;
-        }
-
-        @Override
-        public String name() {
-            return "Active Cohort";
-        }
-
-        @Override
-        public Boolean initial() {
-            return false;
-        }
-
-        @Override
-        public Boolean terminal() {
-            return false;
         }
     };
 }
