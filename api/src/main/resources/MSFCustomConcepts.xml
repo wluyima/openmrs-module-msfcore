@@ -641,4 +641,6 @@
   
   <!-- Prescribe medication follow up-->
   <concept_numeric concept_id="463540" allow_decimal="false" />
+  <concept_numeric concept_id="463539" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463540" low_absolute="0" allow_decimal="false" />
 </dataset>
