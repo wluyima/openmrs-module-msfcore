@@ -246,8 +246,9 @@ table thead th {
     padding: 0.75rem;
 }
 
-tr[id*="visit-"] td {
-    padding: 12px;
+#active-visits tr td:first-child,
+#active-visits tr th:first-child {
+    padding:12px 12px 12px 24px;
 }
 
 /* Date Picker */
