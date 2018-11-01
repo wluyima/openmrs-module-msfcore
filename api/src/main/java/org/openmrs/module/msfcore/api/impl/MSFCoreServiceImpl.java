@@ -12,6 +12,8 @@ package org.openmrs.module.msfcore.api.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,11 @@ import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
+import org.openmrs.PatientState;
 import org.openmrs.Person;
+import org.openmrs.Program;
+import org.openmrs.ProgramWorkflowState;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
@@ -192,8 +198,90 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return "";
     }
 
-    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination) {
-        return dao.getOrders(patient, type, concepts, pagination);
+    public PatientProgram generatePatientProgram(boolean enrollment, Map<String, ProgramWorkflowState> states,
+                    PatientProgram patientProgram, Encounter encounter) {
+        if (patientProgram == null || states.isEmpty()) {
+            return null;
+        }
+        Date date = new Date();
+        ProgramWorkflowState stage = null;
+
+        if (enrollment) {// enrollment is the first stage
+            stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL);
+            PatientState patientState = new PatientState();
+            patientState.setPatientProgram(patientProgram);
+            patientState.setState(stage);
+            patientState.setStartDate(date);
+            patientProgram.getStates().add(patientState);
+            if (patientProgram.getDateCompleted() != null) {
+                patientState.setStartDate(patientProgram.getDateCompleted());
+                patientProgram.transitionToState(states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT), date);
+            }
+        } else {// transition to other stages after enrollment
+            if (patientProgram.getStates().isEmpty()) {
+                return null;
+            }
+            if (encounter != null && encounter.getEncounterType() != null) {
+                if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_BASELINE_UUID)) {
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION);
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID)) {
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION);
+                } else if (encounter.getEncounterType().getUuid().equals(MSFCoreConfig.ENCOUNTER_TYPE_NCD_EXIT_UUID)) {
+                    patientProgram.setDateCompleted(date);
+                    stage = states.get(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT);
+                    for (Obs o : encounter.getObs()) {
+                        if (o.getConcept().getUuid().equals(MSFCoreConfig.NCD_PROGRAM_OUTCOMES_CONCEPT_UUID)) {
+                            patientProgram.setOutcome(o.getValueCoded());
+                        }
+                    }
+                }
+                if (stage != null && !patientProgram.getCurrentStates().iterator().next().getState().equals(stage)) {
+                    patientProgram.transitionToState(stage, date);
+                }
+            }
+        }
+        if (patientProgram != null && !patientProgram.getStates().isEmpty()) {
+            return patientProgram;
+        } else {
+            return null;
+        }
+    }
+
+    public Map<String, ProgramWorkflowState> getMsfStages() {
+        Map<String, ProgramWorkflowState> stages = new HashMap<String, ProgramWorkflowState>();
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, Context.getProgramWorkflowService().getStateByUuid(
+                        MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT));
+        return stages;
+    }
+
+    public void manageNCDProgram(Encounter encounter) {
+        Patient patient = encounter.getPatient();
+        Program ncdPrgram = Context.getProgramWorkflowService().getProgramByUuid(MSFCoreConfig.NCD_PROGRAM_UUID);
+        PatientProgram patientProgram = null;
+        List<PatientProgram> patientPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, ncdPrgram, null, null, null,
+                        null, false);
+        // TODO if patientPrograms is empty, first auto enroll?
+        if (patientPrograms.isEmpty()) {
+            PatientProgram pp = new PatientProgram();
+            pp.setPatient(patient);
+            pp.setProgram(ncdPrgram);
+            pp.setDateEnrolled(new Date());
+            patientPrograms.add(Context.getProgramWorkflowService().savePatientProgram(
+                            generatePatientProgram(true, getMsfStages(), pp, null)));
+        }
+        patientProgram = patientPrograms.get(0);
+        if (patientProgram != null) {
+            patientProgram = generatePatientProgram(false, getMsfStages(), patientProgram, encounter);
+            if (patientProgram != null) {
+                Context.getProgramWorkflowService().savePatientProgram(patientProgram);
+            }
+        }
     }
 
     @Override
@@ -244,6 +332,10 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         order.setOrderer(provider);
         order.setCareSetting(careSetting);
         return order;
+    }
+
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination) {
+        return dao.getOrders(patient, type, concepts, pagination);
     }
 
     public List<Obs> getObservationsByPersonAndOrder(Person person, Order order) {

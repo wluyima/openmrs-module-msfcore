@@ -1,6 +1,5 @@
 package org.openmrs.module.msfcore.metadata;
 
-import org.omg.IOP.ENCODING_CDR_ENCAPS;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.springframework.stereotype.Component;
 
@@ -86,6 +85,12 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(EncounterTypes.MSF_NCD_BASELINE_ENCOUNTER_TYPE);
         install(EncounterTypes.MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE);
         install(EncounterTypes.MSF_LAB_RESULTS_ENCOUNTER_TYPE);
+
+        log.info("Installing Programs");
+        install(Programs.NCD);
+
+        log.info("Installing Privileges");
+        install(Privileges.ENROLL_IN_PROGRAM);
     }
 
 }

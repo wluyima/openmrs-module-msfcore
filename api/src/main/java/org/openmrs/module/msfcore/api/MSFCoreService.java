@@ -10,6 +10,7 @@
 package org.openmrs.module.msfcore.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
@@ -19,7 +20,9 @@ import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
 import org.openmrs.Person;
+import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
@@ -57,9 +60,29 @@ public interface MSFCoreService extends OpenmrsService {
 
     public String getCurrentLocationIdentity();
 
-    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
+    /**
+     * @param enrollment,
+     *            is this an enrollment or not
+     * @param patient
+     * @param program
+     * @param states,
+     *            maps states to their respective uuid
+     * @param patientProgram,
+     *            must never be null
+     * @param form,
+     *            used for form managed states
+     * @return patientProgram generated or null
+     */
+    public PatientProgram generatePatientProgram(boolean enrollment, Map<String, ProgramWorkflowState> states,
+                    PatientProgram patientProgram, Encounter ecnounter);
+
+    public Map<String, ProgramWorkflowState> getMsfStages();
+
+    public void manageNCDProgram(Encounter encounter);
 
     public void saveTestOrders(Encounter encounter);
+
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
     public List<Obs> getObservationsByPersonAndOrder(Person person, Order order);
 }

@@ -120,6 +120,12 @@
   <concept concept_id="1000092" retired="0" datatype_id="4" class_id="3" is_set="0" creator="1" date_created="2018-10-04 12:41:54" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="42043823-e5eb-45cc-b3b9-af3c256c64bb" />
   <concept concept_id="1000093" retired="0" datatype_id="2" class_id="9" is_set="0" creator="1" date_created="2018-10-04 15:37:20" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="17110937-6cb2-42f9-b932-3f79e9506a1d" />
   <concept concept_id="1000094" retired="0" datatype_id="2" class_id="5" is_set="0" creator="1" date_created="2018-10-04 22:52:14" changed_by="1" date_changed="2018-10-04 22:52:14" uuid="d09764da-2bf1-4ab6-933f-07a50add8f33" />
+  <concept concept_id="500001" retired="0" datatype_id="4" class_id="11" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1401" />
+  <concept concept_id="500002" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1402" />
+  <concept concept_id="500003" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1403" />
+  <concept concept_id="500005" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1405" />
+  <concept concept_id="500006" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1406" />
+  <concept concept_id="500008" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1408" />
 
   <concept_answer concept_answer_id="307100" concept_id="465115" answer_concept="162554" creator="1" date_created="2018-09-26 05:47:04" uuid="022ebc9a-1acb-41fb-b613-bc06801ae181" sort_weight="3" />
   <concept_answer concept_answer_id="307101" concept_id="465115" answer_concept="162553" creator="1" date_created="2018-09-26 05:47:04" uuid="b671ae94-edc3-4275-ab2e-a304347a3b85" sort_weight="2" />
@@ -416,6 +422,12 @@
   <concept_name concept_name_id="2291699" concept_id="1000092" name="BECLOMETASONE dipropionate, 0.05mg/puff, 200 puffs,aerosol" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 12:41:54" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="5fd6a90a-59b7-46ef-bfc8-a73f4cc04dd2" />
   <concept_name concept_name_id="2291700" concept_id="1000093" name="Prescribed medication" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 15:37:20" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="6155103c-23c9-422a-9c59-a3095d569750" />
   <concept_name concept_name_id="2291701" concept_id="1000094" name="Medication dosing units coded" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 15:37:20" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="54fffb61-358c-43b0-9dd9-b3986d6f4106" />
+  <concept_name concept_name_id="500001" concept_id="500001" name="NCD" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1431" />
+  <concept_name concept_name_id="500002" concept_id="500002" name="Enroll" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1432" />
+  <concept_name concept_name_id="500003" concept_id="500003" name="Baseline consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1433" />
+  <concept_name concept_name_id="500005" concept_id="500005" name="Follow up consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1435" />
+  <concept_name concept_name_id="500006" concept_id="500006" name="Exit" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1436" />
+  <concept_name concept_name_id="500008" concept_id="500008" name="Stage" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 19:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1438" />
 
   <concept_numeric concept_id="465098" allow_decimal="false" />
   <concept_numeric concept_id="465099" allow_decimal="false" />
@@ -487,6 +499,7 @@
   <concept concept_id="7000002" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:08.0" changed_by="1" date_changed="2018-10-09 11:26:08.0" uuid="8a20bf07-8541-4b16-ac65-db3c564c0e8a"/>
   <concept concept_id="7000003" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="82138d7b-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="7000004" retired="false" datatype_id="6" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:27:43.0" changed_by="1" date_changed="2018-10-09 11:27:43.0" uuid="bfc2de0c-35da-453a-ac12-e1173b32aaae"/>
+  <concept concept_id="7000008" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-10-30 15:10:51.0" changed_by="1" date_changed="2018-10-30 15:10:51.0" uuid="f1af211e-64e0-46e6-bc9d-e848935e2202"/>
 
   <concept concept_id="465098" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465098-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="463596" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00463596-0765-4d57-8433-463aeec1f441"/>
@@ -512,6 +525,7 @@
   <concept_name concept_name_id="7000003" concept_id="7000001" name="Review Type" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:25:21.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="671413e7-0aaf-4aac-a9e4-65552b6684dd"/>
   <concept_name concept_name_id="7000004" concept_id="7000002" name="For how many years" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:08.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="3fb1b8cc-e8e9-4156-a516-c7d23fad68e6"/>
   <concept_name concept_name_id="7000006" concept_id="7000003" name="Review period" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="41d42e09-e789-4bc4-bd61-1917c11be6a2"/>
+  <concept_name concept_name_id="7000010" concept_id="7000008" name="Prescribed Medication Group" locale="en" locale_preferred="true" creator="1" date_created="2018-10-30 15:10:51.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="a9c55b98-06aa-4d78-86fc-36606d086933"/>
 
   <concept_name concept_id="465098" name="FBG" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000011" voided="false" uuid="06000011-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   <concept_name concept_id="463596" name="HbA1c" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000012" voided="true" uuid="06000012-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
@@ -608,6 +622,17 @@
   <concept_set concept_set_id="3000039" concept_id="5086" concept_set="7000006" sort_weight="6.0" creator="1" date_created="2018-10-29 17:24:44.0" uuid="f382e972-149a-4929-9348-6ed686b68833" />
   <concept_set concept_set_id="3000040" concept_id="5092" concept_set="7000006" sort_weight="7.0" creator="1" date_created="2018-10-29 17:24:44.0" uuid="765d4326-2a60-4cce-9d9b-99c67ab30e8a" />
   
+  <!-- Allergy group set -->
+  <concept concept_id="7000007" retired="false" datatype_id="4" class_id="10" is_set="true" creator="1" date_created="2018-10-30 12:44:44.0" changed_by="1" date_changed="2018-10-30 12:48:11.0" retired_by="1" uuid="73c9a85e-7de9-4b35-97ec-03d693f56fab" />
+  <concept_description concept_description_id="18163" concept_id="7000007" description="Set used to group all the allergy information as allergy type, reactions, etc." locale="en" creator="1" date_created="2018-10-30 12:44:44.0" changed_by="1" uuid="021f6b32-767b-417b-9532-0334293f55f4" />
+  <concept_name concept_name_id="7000009" concept_id="7000007" name="Allergy" locale="en" locale_preferred="true" creator="1" date_created="2018-10-30 12:44:44.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="f3399fa2-e56b-4a7a-b079-01683b069637" changed_by="1" />
+  <concept_set concept_set_id="3000041" concept_id="465115" concept_set="7000007" sort_weight="0.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="ce81ffb0-ae3c-41b4-91c2-5d8484914802" />
+  <concept_set concept_set_id="3000042" concept_id="465116" concept_set="7000007" sort_weight="1.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="bef5e0d8-3398-4623-8f67-698690a52008" />
+  <concept_set concept_set_id="3000043" concept_id="465112" concept_set="7000007" sort_weight="2.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="7c424025-f9d9-43b0-b4ad-d7fcce9828dd" />
+  <concept_set concept_set_id="3000044" concept_id="465113" concept_set="7000007" sort_weight="3.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="40242764-ac42-450c-a5a4-56a15b13d0a7" />
+  <concept_set concept_set_id="3000045" concept_id="465114" concept_set="7000007" sort_weight="4.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="7e5c7d0c-787a-4a05-924c-66f9893bca39" />
+  <concept_set concept_set_id="3000046" concept_id="161011" concept_set="7000007" sort_weight="5.0" creator="1" date_created="2018-10-30 12:46:34.0" uuid="38393973-1a61-4b91-b4e2-23a7dab003b9" />
+  <concept_set concept_set_id="3000047" concept_id="162820" concept_set="7000007" sort_weight="6.0" creator="1" date_created="2018-10-30 12:48:11.0" uuid="405a2ccf-a5e6-4458-83f1-31c48656fb71" />
   
   <!-- lab orders and results concepts start -->
   <concept concept_id="500019" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 17:49:45" changed_by="1" date_changed="2017-12-15 15:44:59" uuid="500019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
@@ -682,6 +707,4 @@
   <concept_set concept_set_id="500031" concept_set="500018" concept_id="500031" sort_weight="0.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="500031CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" />
   <concept_set concept_set_id="500032" concept_set="500020" concept_id="500032" sort_weight="0.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="500032CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" />
   <concept_set concept_set_id="500033" concept_set="500021" concept_id="500033" sort_weight="0.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="500033CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" />
-
-  <!-- lab orders and results concepts end -->
 </dataset>
