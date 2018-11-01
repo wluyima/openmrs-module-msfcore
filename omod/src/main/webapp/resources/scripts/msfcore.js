@@ -97,3 +97,21 @@ function enableFn(group){
     jq(group).children("#disabled").find("input").attr("disabled",false);
 }
 
+function validateRequiredFields(requiredFieldIds, requiredMessage) {
+    var allValid = true;
+    requiredFieldIds.forEach(function(id) {
+        allValid = allValid && validateRequiredField(id, requiredMessage);
+    });
+    return allValid;
+}
+
+function validateRequiredField(id, requiredMessage) {
+    if (getValue(`${id}.value`) == '') {
+        getField(`${id}.error`).html(requiredMessage).show();
+        return false;
+    } else {
+        getField(`${id}.error`).html('').show();
+        return true;
+    }
+}
+
