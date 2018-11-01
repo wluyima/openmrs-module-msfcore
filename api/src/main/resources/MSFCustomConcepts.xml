@@ -639,4 +639,6 @@
   <concept_set concept_set_id="3000046" concept_id="161011" concept_set="7000007" sort_weight="5.0" creator="1" date_created="2018-10-30 12:46:34.0" uuid="38393973-1a61-4b91-b4e2-23a7dab003b9" />
   <concept_set concept_set_id="3000047" concept_id="162820" concept_set="7000007" sort_weight="6.0" creator="1" date_created="2018-10-30 12:48:11.0" uuid="405a2ccf-a5e6-4458-83f1-31c48656fb71" />
   
+  <!-- Prescribe medication follow up-->
+  <concept_numeric concept_id="463540" allow_decimal="false" />
 </dataset>
