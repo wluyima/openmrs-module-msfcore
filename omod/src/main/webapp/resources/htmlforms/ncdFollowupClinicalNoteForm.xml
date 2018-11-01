@@ -60,6 +60,36 @@
 
 			<section>
 				<H3><a name="clinicalnote">5. <lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.title')"/></a></H3>
+				<div>
+					<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments1')"/>:</h4>
+					<obs conceptId="465117" style="textarea" rows="4" cols="60"/>
+				</div>
+				<div>
+					<h4><lookup expression="fn.message('msfcore.ncdfollowup.clinicalnote.assessmentpatient.question')"/>:</h4>
+					<obs conceptId="463570" id="assessment-patient-condition" style="dropdown" />
+				</div>
+				<div>
+					<h4><lookup expression="fn.getConcept('463571').name"/></h4>
+					<obs conceptId="463571" id="patient-education" style="dropdown"/>
+					<div>
+						<div class="input-group"><!-- Concept Disease Info -->
+							<obs conceptId="465108" labelNameTag="default" id="desease-info" style="checkbox"/>
+						</div>
+						<div class="input-group"><!-- Concept Skills -->
+							<obs conceptId="465109" labelNameTag="default" id="skills" style="checkbox"/>
+						</div>
+						<div class="input-group"><!-- Concept Adherence -->
+							<obs conceptId="465110" labelNameTag="default" id="adherence" style="checkbox"/>
+						</div>
+						<div class="input-group"><!-- Concept Lifestyle -->
+							<obs conceptId="465119" labelNameTag="default" id="lifestyle" style="checkbox"/>
+						</div>
+					</div>
+				</div>
+				<div>
+					<h4><lookup expression="fn.message('msfcore.ncdbaseline.clinicalnote.comments2')"/>:</h4>
+					<obs conceptId="465118" style="textarea" rows="4" cols="60"/>
+				</div>
 					
 	            <!-- Submit -->
 				<div class="bottom-of-form">
@@ -67,9 +97,8 @@
 					<button class="primary right msf-operation-button no-print" value="ncd.followup.clinicalnote.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</div>
 			</section>
-
+			
 			</div>
-
 		</div>
 	</div>
 
