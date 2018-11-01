@@ -14,7 +14,7 @@ public class ResultColumn {
     private Object value;
     @Builder.Default
     private Type type = Type.DATE;
-    
+
     public enum Type {
         STRING, DATE
     }

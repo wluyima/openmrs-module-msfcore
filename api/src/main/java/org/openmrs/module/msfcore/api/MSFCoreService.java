@@ -15,9 +15,11 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
@@ -58,4 +60,6 @@ public interface MSFCoreService extends OpenmrsService {
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
     public void saveTestOrders(Encounter encounter);
+
+    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order);
 }

@@ -83,7 +83,7 @@ public class ResultsData {
         // order concept must be a labSet with expected result concepts members
         for (Concept concept : testOrder.getConcept().getSetMembers()) {
             // TODO fix for other investigation order
-            Obs resultObs = getLabTestResultObs(testOrder.getPatient(), concept, testOrder.getEncounter());
+            Obs resultObs = getLabTestResultObs(testOrder.getPatient(), testOrder);
             resultRow.put("id", ResultColumn.builder().value(testOrder.getOrderId()).build());
             Object status = null;
             List<ResultAction> actions = new ArrayList<ResultAction>();
@@ -156,9 +156,8 @@ public class ResultsData {
         return range;
     }
 
-    private Obs getLabTestResultObs(Patient patient, Concept concept, Encounter encounter) {
-        List<Obs> obs = Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), Arrays.asList(encounter),
-                        Arrays.asList(concept), null, null, null, null, null, null, null, null, false);
+    private Obs getLabTestResultObs(Patient patient, Order order) {
+        List<Obs> obs = Context.getService(MSFCoreService.class).getObservationsByPersonAndOrder(patient, order);
 
         // TODO one order is currently expected to contain one result
         return !obs.isEmpty() ? obs.get(0) : null;

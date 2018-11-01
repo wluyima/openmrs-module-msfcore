@@ -14,7 +14,6 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void addRetriedResults_shouldAddLabTestOrders() {
-        executeDataSet("CIELConcepts.xml");
         executeDataSet("ResultsData.xml");
 
         // should retrieve and add lab test orders with matching results
@@ -38,10 +37,10 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value("0.97").editable(true).build(), resultsData.getResults().get(0).get("msfcore.result"));
         assertEquals(ResultColumn.builder().value("mg/dL").build(), resultsData.getResults().get(0).get("msfcore.uom"));
         assertEquals(ResultColumn.builder().value("0.5 - 1.1").build(), resultsData.getResults().get(0).get("msfcore.range"));
-        assertEquals(ResultColumn.builder().value("31/10/2018").editable(true).type(Type.DATE).build(), resultsData.getResults().get(0).get(
-                        "msfcore.orderDate"));
-        assertEquals(ResultColumn.builder().value("01/11/2018").editable(true).type(Type.DATE).build(), resultsData.getResults().get(0).get(
-                        "msfcore.resultDate"));
+        assertEquals(ResultColumn.builder().value("31/10/2018").editable(true).type(Type.DATE).build(), resultsData.getResults().get(0)
+                        .get("msfcore.orderDate"));
+        assertEquals(ResultColumn.builder().value("01/11/2018").editable(true).type(Type.DATE).build(), resultsData.getResults().get(0)
+                        .get("msfcore.resultDate"));
 
         // should retrieve a pending result
         assertEquals(ResultColumn.builder().value(51).build(), resultsData.getResults().get(1).get("id"));

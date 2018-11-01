@@ -115,13 +115,14 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("1", orders.get(0).getOrderNumber());
     }
+
     public void saveTestOrders_shouldCreateTestOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");
 
         Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
         MSFCoreService service = Context.getService(MSFCoreService.class);
 
-        //Order 1 is linked to a voided obs so it should be voided
+        // Order 1 is linked to a voided obs so it should be voided
         Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
         service.saveTestOrders(encounter);
         Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
@@ -134,5 +135,14 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
         Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
         Assert.assertEquals(CareSettingType.OUTPATIENT.name(), obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
+    }
+
+    @Test
+    public void getObservationsByPatientAndOrder() {
+        executeDataSet("MSFCoreService.xml");
+
+        Assert.assertEquals("207d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
+                        .getObservationsByPersonAndOrder(Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1))
+                        .get(0).getUuid());
     }
 }

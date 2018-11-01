@@ -25,6 +25,7 @@ import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
@@ -243,5 +244,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         order.setOrderer(provider);
         order.setCareSetting(careSetting);
         return order;
+    }
+
+    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order) {
+        return dao.getObservationsByPersonAndOrder(person, order);
     }
 }

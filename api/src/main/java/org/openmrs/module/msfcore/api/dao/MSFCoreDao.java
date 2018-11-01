@@ -22,6 +22,7 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
@@ -103,6 +104,18 @@ public class MSFCoreDao {
         crit.setProjection(null);
         crit.addOrder(desc("dateActivated"));
 
+        return crit.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order) {
+        Criteria crit = getSession().createCriteria(Obs.class);
+        if (person != null) {
+            crit.add(Restrictions.eq("person", person));
+        }
+        if (order != null) {
+            crit.add(Restrictions.eq("order", order));
+        }
         return crit.list();
     }
 }
