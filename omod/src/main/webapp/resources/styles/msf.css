@@ -196,10 +196,6 @@ a.visited {
     box-shadow: rgba(0,0,0,0.1) 0 4px 8px;*/
 }
 
-.simple-form-ui form#htmlform {
-    display: flex;
-}
-
 /* UTILITY CLASSES */
 
 .float-left {
@@ -248,6 +244,10 @@ table thead th {
     font-family: "OpenSans";
     font-size: 1rem;
     padding: 0.75rem;
+}
+
+tr[id*="visit-"] td {
+    padding: 12px;
 }
 
 /* Date Picker */
@@ -637,5 +637,13 @@ h2.scheduleAppointmentTitle {
 #allAppointmentTypesModal {
     top: 72px;
     left: 23vw;
-    z-index: 99999;
+    z-index: 999;
+}   
+
+#appointment-request-notes {
+    z-index: 999;
+    overflow: hidden;
+    top: 404px;
+    right: 10vw;
+    position: absolute;
 }

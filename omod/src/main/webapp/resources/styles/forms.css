@@ -3,10 +3,15 @@ form, .form {
     overflow: visible
 }
 
-htmlform {
+htmlform,
+.simple-form-ui form#htmlform {
     display:flex;
     flex-direction: column;
-    /*padding:24px;*/
+    background:#fff;
+}
+
+.simple-form-ui form#htmlform {
+    flex-direction: row;
 }
 
 input,
@@ -184,9 +189,11 @@ ul#formBreadcrumb {
     padding: 1rem;
 }
 
-ul#formBreadcrumb li {
+ul#formBreadcrumb li,
+ul#formBreadcrumb li:last-child {
     border:none;
 }
+
 /* Icon Addon */
 .add-on {
     background: #55D6BE;
