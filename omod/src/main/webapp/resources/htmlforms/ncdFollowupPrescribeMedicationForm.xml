@@ -28,6 +28,16 @@
 					return true;
 				});
 
+				jq("#question").on("change", function() {
+					if (getValue('question.value') == "true") {
+						jq("#medications").show();
+					} else {
+						jq("#medications").hide();
+					}
+				});
+
+				jq("#question").trigger("change");
+
 				// enabling and disabling the allergy sections there are only 5 so far
                 if( jq(getUsedContainers()).length == 1){
                     jq('#1-removeEntry').remove();
@@ -145,60 +155,62 @@
 
                 <div>
                   <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question5')"/></h4>
-                  <obs class="text-left" conceptId="463533" style="no_yes" />
+                  <obs id="question" class="text-left" conceptId="463533" style="no_yes" />
                 </div>
 
                 <br /><br />
 
-				<repeat>
-					<template>
-						<div id="{prescription}-toggleContainer" style="display: none;">
-							<!-- <obsgroup groupingConceptId="f1af211e-64e0-46e6-bc9d-e848935e2202">  -->
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
-									<obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
-								</div>
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
-									<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
-									<obs id="doseUnit{prescription}" class="doseInput select-arrow" conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33"
-											answerConceptIds="161553,161554,162263,162376,1608,1513,162356,162366,162370,162264" />
-								</div>
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
-									<obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
-								</div>
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></h4>
-									<obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
-								</div>
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
-									<obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
-								</div>
-								<div class="input-group">
-									<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
-									<obs id="instructions{prescription}" class="medication-instructions" conceptId="163106" style="textarea" rows="3" cols="80"/>
-								</div>
-								<div class="hide-on-view">
-									<button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/>
-									</button>
-									<button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
-								</div>
-							<!-- </obsgroup> -->
-						</div>
-					</template>
-					<render prescription="1"/>
-					<render prescription="2"/>
-					<render prescription="3"/>
-					<render prescription="4"/>
-					<render prescription="5"/>
-					<render prescription="6"/>
-					<render prescription="7"/>
-					<render prescription="8"/>
-					<render prescription="9"/>
-					<render prescription="10"/>
-				</repeat>
+                <div id="medications">
+                    <repeat>
+                        <template>
+                            <div id="{prescription}-toggleContainer" style="display: none;">
+                                <!-- <obsgroup groupingConceptId="f1af211e-64e0-46e6-bc9d-e848935e2202">  -->
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
+                                        <obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
+                                        <obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
+                                        <obs id="doseUnit{prescription}" class="doseInput select-arrow" conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33"
+                                                answerConceptIds="161553,161554,162263,162376,1608,1513,162356,162366,162370,162264" />
+                                    </div>
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
+                                        <obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
+                                    </div>
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></h4>
+                                        <obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
+                                        <obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
+                                        <obs id="instructions{prescription}" class="medication-instructions" conceptId="163106" style="textarea" rows="3" cols="80"/>
+                                    </div>
+                                    <div class="hide-on-view">
+                                        <button class="addEntry" id="{prescription}-addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/>
+                                        </button>
+                                        <button class="removeEntry" id="{prescription}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+                                    </div>
+                                <!-- </obsgroup> -->
+                            </div>
+                        </template>
+                        <render prescription="1"/>
+                        <render prescription="2"/>
+                        <render prescription="3"/>
+                        <render prescription="4"/>
+                        <render prescription="5"/>
+                        <render prescription="6"/>
+                        <render prescription="7"/>
+                        <render prescription="8"/>
+                        <render prescription="9"/>
+                        <render prescription="10"/>
+                    </repeat>
+                </div>
 
 	            <!-- Submit -->
 				<div class="bottom-of-form">
