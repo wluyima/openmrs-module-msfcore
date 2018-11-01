@@ -124,27 +124,27 @@
 				<H3><a name="prescribemedication">4. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></a></H3>
 
 				<div>
-                  <h5><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question1')"/></h5>
+                  <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question1')"/></h4>
                   <obs conceptId="463618" type="text" maxlength="1" placeholder="0-7 days" size="1"/>
                 </div>
 
                 <div>
-                  <h5><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question2')"/></h5>
+                  <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question2')"/></h4>
                   <obs class="text-left" conceptId="463533" style="no_yes" />
                 </div>
 
                 <div>
-                  <h5><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question3')"/></h5>
+                  <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question3')"/></h4>
                   <obs conceptId="463539" />
                 </div>
 
                 <div>
-                  <h5><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question4')"/></h5>
+                  <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question4')"/></h4>
                   <obs conceptId="463540" />
                 </div>
 
                 <div>
-                  <h5><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question5')"/></h5>
+                  <h4><lookup expression="fn.message('msfcore.ncdfollowup.prescribemedication.question5')"/></h4>
                   <obs class="text-left" conceptId="463533" style="no_yes" />
                 </div>
 
