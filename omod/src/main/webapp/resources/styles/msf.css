@@ -635,5 +635,7 @@ h2.scheduleAppointmentTitle {
 }
 
 #allAppointmentTypesModal {
-    position: relative;
+    top: 72px;
+    left: 23vw;
+    z-index: 99999;
 }
