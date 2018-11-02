@@ -97,4 +97,13 @@
 			<column name="uuid" value="fc339d1c-b11b-11e8-96f8-529269fb1459" />
 		</insert>
 	</changeSet>
+	<changeSet id="20181031-1354" author="maimoonak">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT COUNT(*) FROM serialized_object WHERE uuid = '77f28238-0e5d-49b0-828c-e05f35a4ec23'
+			</sqlCheck>
+		</preConditions>
+		<comment>Inserting data for report Patients Scheduled for Appointments</comment>
+		<sqlFile path="report_patient_scheduled_for_appointment_54.sql"/>
+	</changeSet>
 </databaseChangeLog>

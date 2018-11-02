@@ -216,6 +216,9 @@
 		<point>org.openmrs.module.registrationcore.api.RegistrationCoreService</point>
 		<class>org.openmrs.module.msfcore.aop.RegisterPatientAdvice</class>
 	</advice>
-	
+	<advice>
+		<point>org.openmrs.module.reporting.report.service.ReportService</point>
+		<class>org.openmrs.module.msfcore.aop.ReportAuditLogAdvice</class>
+	</advice>
 </module>
 
