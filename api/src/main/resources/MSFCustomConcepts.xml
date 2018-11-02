@@ -640,8 +640,8 @@
   <concept_set concept_set_id="3000047" concept_id="162820" concept_set="7000007" sort_weight="6.0" creator="1" date_created="2018-10-30 12:48:11.0" uuid="405a2ccf-a5e6-4458-83f1-31c48656fb71" />
   
   <!-- Complications since last visit -->
-  <concept_numeric concept_id="463535" allow_decimal="false" />
-  <concept_numeric concept_id="463537" allow_decimal="false" />
-  <concept_numeric concept_id="463538" allow_decimal="false" />
-  <concept_numeric concept_id="463536" allow_decimal="false" />
+  <concept_numeric concept_id="463535" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463537" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463538" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463536" low_absolute="0" allow_decimal="false" />
 </dataset>
