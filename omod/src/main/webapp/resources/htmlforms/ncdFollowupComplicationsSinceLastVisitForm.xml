@@ -22,7 +22,18 @@
 					return true;
 				});
 
+				jq("#question").on("change", function() {
+					if (getValue('question.value') == "true") {
+						jq("#hospitalization-details").show();
+					} else {
+						jq("#hospitalization-details").hide();
+					}
+				});
+
+				jq("#question").trigger("change");
+
 			});
+
 
 		}
 	</script>
@@ -99,12 +110,12 @@
 					<br />
 
 					<div>
-						<h5><lookup expression="fn.message('msfcore.ncdfollowup.complicationssincelastvisit.wasthispersonhospitalized')"/></h5>
-						<obs conceptId="463532" style="no_yes" />
+						<h4><lookup expression="fn.message('msfcore.ncdfollowup.complicationssincelastvisit.wasthispersonhospitalized')"/></h4>
+						<obs id="question" conceptId="463532" style="no_yes" />
 
 						<br /><br />
 
-						<table>
+						<table id="hospitalization-details">
 							<tr>
 								<td><obs conceptId="463535" labelNameTag="default" /></td>
 								<td><obs conceptId="463537" labelNameTag="default" /></td>
