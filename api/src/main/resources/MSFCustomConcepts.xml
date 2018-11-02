@@ -641,4 +641,10 @@
   <concept_set concept_set_id="3000046" concept_id="161011" concept_set="7000007" sort_weight="5.0" creator="1" date_created="2018-10-30 12:46:34.0" uuid="38393973-1a61-4b91-b4e2-23a7dab003b9" />
   <concept_set concept_set_id="3000047" concept_id="162820" concept_set="7000007" sort_weight="6.0" creator="1" date_created="2018-10-30 12:48:11.0" uuid="405a2ccf-a5e6-4458-83f1-31c48656fb71" />
   
+  <!-- Synthesis on patient's condition Answers -->
+  <concept_answer concept_answer_id="7000118" concept_id="463570" answer_concept="463521" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="1.0" uuid="3dcc91be-04b4-4225-a554-7cfcdf0d0db3"/>
+  <concept_answer concept_answer_id="7000119" concept_id="463570" answer_concept="463522" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="2.0" uuid="0ed11cc8-0f8b-4b0d-a8be-9b989c611af2"/>
+  <concept_answer concept_answer_id="7000120" concept_id="463570" answer_concept="463523" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="3.0" uuid="95d5509e-07d9-45c2-943d-53bbd1293c73"/>
+  <concept_answer concept_answer_id="7000121" concept_id="463570" answer_concept="463524" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="4.0" uuid="964f2cd3-14f1-43ab-81e7-ae01bfb97e1d"/>
+  
 </dataset>
