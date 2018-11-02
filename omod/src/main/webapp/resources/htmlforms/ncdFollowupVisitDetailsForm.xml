@@ -57,16 +57,23 @@
             </div>
 
 			<div class="sections-container">
-
-			<section>
 				<H3><a name="visitdetails">1. <lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.title')"/></a></H3>
-					
-	            <!-- Submit -->
+				<section>
+					<h4><lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.placeofvisit')" />:</h4>
+					<obs conceptId="88ce7759-2f00-4c2a-8d95-7aa0bc969b5d" />
+					<br />
+					<h4><lookup expression="fn.getConcept('5a6fd31e-ff1b-42da-a6f5-3cfeaf568ad3').name"/></h4>
+					<obs conceptId="5a6fd31e-ff1b-42da-a6f5-3cfeaf568ad3" />
+					<br />
+					<h4><lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.initialsofclinician')" />:</h4>
+					<obs conceptId="82f52e65-ba15-4fe5-8866-4b6812b74dcd" />
+					<br />
+					<h4><lookup expression="fn.message('msfcore.ncdfollowup.visitdetails.typeofvisit')" />:</h4>
+					<obs conceptId="9b0c5ab3-9b9b-478a-b7c6-ad7f20e75096" />
+				</section>
 				<div class="bottom-of-form">
 					<button class="primary right msf-operation-button no-print" value="ncd.followup.visitdetails.next"><lookup expression="fn.message('msfcore.next')"/></button>
 				</div>
-			</section>
-
 			</div>
 
 		</div>
