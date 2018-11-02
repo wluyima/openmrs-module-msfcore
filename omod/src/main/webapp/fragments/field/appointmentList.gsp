@@ -3,6 +3,7 @@
     options = options.collect {
         [ label: it.label, value: it.value ]
     }
+    options = options.sort { a, b -> a.label <=> b.label }
 %>
 
 <select name="appointment-type" id="appointment-type-list">
