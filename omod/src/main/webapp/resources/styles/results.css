@@ -2,3 +2,14 @@
 	background-color: #acacac;
 }
 
+.icon-edit,.icon-trash {
+	cursor:pointer;
+}
+
+#results-print-close-wrapper {
+    text-align: center;
+}
+
+#results-print-close {
+	display: inline-block;
+}

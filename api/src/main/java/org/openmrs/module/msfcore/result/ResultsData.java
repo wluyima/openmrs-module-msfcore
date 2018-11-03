@@ -9,7 +9,6 @@ import java.util.Map;
 import org.openmrs.Concept;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.DrugOrder;
-import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
@@ -53,18 +52,26 @@ public class ResultsData {
         // TODO from config, messageName:[conceptIDs] for obs listing
     }
 
+    private List<String> getLocalizedKeys(List<String> keys) {
+        List<String> localizedKeys = new ArrayList<String>();
+        for (String key : keys) {
+            localizedKeys.add(Context.getMessageSourceService().getMessage(key));
+        }
+        return localizedKeys;
+    }
+
     private void addOrders() {
         OrderType orderType = null;
         if (resultCategory.equals(ResultCategory.DRUG_LIST)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
-            keys.addAll(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
-                            "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus"));
+            keys.addAll(getLocalizedKeys(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
+                            "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus")));
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
-            filters.setDates(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate"));
-            keys.addAll(Arrays.asList("msfcore.labTest", "msfcore.result", "msfcore.uom", "msfcore.range", "msfcore.orderDate",
-                            "msfcore.sampleDate", "msfcore.resultDate"));
+            filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
+            keys.addAll(getLocalizedKeys(Arrays.asList("msfcore.testName", "msfcore.result", "msfcore.uom", "msfcore.range",
+                            "msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
         }
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(patient, orderType, null, pagination);
         for (Order o : orders) {
@@ -84,7 +91,7 @@ public class ResultsData {
         for (Concept concept : testOrder.getConcept().getSetMembers()) {
             // TODO fix for other investigation order
             Obs resultObs = getLabTestResultObs(testOrder.getPatient(), testOrder);
-            resultRow.put("id", ResultColumn.builder().value(testOrder.getOrderId()).build());
+            resultRow.put("uuid", ResultColumn.builder().value(testOrder.getUuid()).build());
             Object status = null;
             List<ResultAction> actions = new ArrayList<ResultAction>();
             if (testOrder.getVoided()) {
@@ -99,18 +106,23 @@ public class ResultsData {
             }
             resultRow.put("status", ResultColumn.builder().value(status).build());
             resultRow.put("actions", ResultColumn.builder().value(actions).build());
-            resultRow.put("msfcore.labTest", ResultColumn.builder().value(concept.getName().getName()).build());
-            resultRow.put("msfcore.result", resultObs != null ? ResultColumn.builder().editable(true).value(
-                            resultObs.getValueAsString(Context.getLocale())).build() : null);
-            resultRow.put("msfcore.uom", ResultColumn.builder().value(getUnit(concept)).build());
-            resultRow.put("msfcore.range", resultObs != null
-                            ? ResultColumn.builder().value(getRange(resultObs.getConcept())).build()
-                            : null);
-            resultRow.put("msfcore.orderDate", ResultColumn.builder().editable(true).type(Type.DATE).value(
-                            Context.getDateFormat().format(testOrder.getDateCreated())).build());
-            resultRow.put("msfcore.sampleDate", null); // TODO
-            resultRow.put("msfcore.resultDate", resultObs != null ? ResultColumn.builder().editable(true).type(Type.DATE).value(
-                            Context.getDateFormat().format(resultObs.getObsDatetime())).build() : null);
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"), ResultColumn.builder().value(
+                            concept.getName().getName()).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"), resultObs != null ? ResultColumn.builder()
+                            .editable(true).value(resultObs.getValueAsString(Context.getLocale())).build() : ResultColumn.builder()
+                            .editable(true).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"), ResultColumn.builder().value(getUnit(concept))
+                            .build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))
+                            .build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(
+                            Type.DATE).value(Context.getDateFormat().format(testOrder.getDateCreated())).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.sampleDate"), ResultColumn.builder().editable(true).value(
+                            "").build()); // TODO
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null
+                            ? ResultColumn.builder().editable(true).type(Type.DATE).value(
+                                            Context.getDateFormat().format(resultObs.getObsDatetime())).build()
+                            : ResultColumn.builder().editable(true).value("").build());
             addResultRow(resultRow);
         }
 
@@ -120,18 +132,21 @@ public class ResultsData {
     private void addDrugOrders(Order o) {
         Map<String, ResultColumn> resultRow = new HashMap<String, ResultColumn>();
         DrugOrder drugOrder = (DrugOrder) o;
-        resultRow.put("id", ResultColumn.builder().value(drugOrder.getOrderId()).build());
+        resultRow.put("uuid", ResultColumn.builder().value(drugOrder.getUuid()).build());
         resultRow.put("status", ResultColumn.builder().build());
         resultRow.put("actions", ResultColumn.builder().build());
-        resultRow.put("msfcore.drugName", ResultColumn.builder().value(drugOrder.getDrug().getName()).build());
-        resultRow.put("msfcore.frequency", ResultColumn.builder().value(
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.drugName"), ResultColumn.builder().value(
+                        drugOrder.getDrug().getName()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.frequency"), ResultColumn.builder().value(
                         drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null ? drugOrder
                                         .getFrequency().getFrequencyPerDay() : "").build());
-        resultRow.put("msfcore.duration", ResultColumn.builder().value(drugOrder.getDuration()).build());
-        resultRow.put("msfcore.notes", ResultColumn.builder().value("").build());// TODO
-        resultRow.put("msfcore.datePrescribed", ResultColumn.builder().value(drugOrder.getEffectiveStartDate()).build());// TODO
-        resultRow.put("msfcore.prescriptionStatus", ResultColumn.builder().value("").build());// TODO
-        resultRow.put("msfcore.dispenseStatus", ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.duration"), ResultColumn.builder().value(
+                        drugOrder.getDuration()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.notes"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().value(
+                        drugOrder.getEffectiveStartDate()).build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.prescriptionStatus"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseStatus"), ResultColumn.builder().value("").build());// TODO
         addResultRow(resultRow);
     }
 

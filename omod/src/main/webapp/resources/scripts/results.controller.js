@@ -1,33 +1,57 @@
-var app = angular.module("resultsApp",
-    ['app.restfulServices', 'app.models', 'app.commonFunctionsFactory']);
+var app = angular.module("resultsApp", []);
+var url;
 
 app.controller("ResultsController", ResultsController);
-ResultsController.$inject = ['$scope', 'RestfulService', 'CommonFunctions'];
+ResultsController.$inject = ['$scope'];
 
-function ResultsController($scope, RestfulService, CommonFunctions) {
-    var self = this;
-    RestfulService.setBaseUrl('/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/msfcore');
-    
-    self.retrieveResults = self.retrieveResults || function (patientUuid, category) {
-        if (patientUuid == null || patientUuid == undefined) {
-	   		patientUuid = CommonFunctions.extractUrlArgs(window.location.search)['patientId'];
-	    }
-        if (category == null || category == undefined) {
-        	category = CommonFunctions.extractUrlArgs(window.location.search)['category'];
-	    }
-	    if (patientUuid !== null && patientUuid !== undefined) {
-	    	RestfulService.get('resultData', {"patientUuid": patientUuid, "category" : category},
-	    		function (data) {
-	    			$scope.results = data;
-	            }, function (error) {}
-	        );
-	    }
+function ResultsController($scope) {
+  this.retrieveResults = this.retrieveResults || function() {
+    if(!url) {
+      var urlParams = new URLSearchParams(window.location.search);
+      patientId = urlParams.get('patientId');
+      category = urlParams.get('category');	
+      url = '/' + OPENMRS_CONTEXT_PATH +
+        '/ws/rest/v1/msfcore/resultData?patientId=' + patientId +
+        "&category=" + category;
+  	}
+    jQuery.get(url, function(data) {
+      $scope.results = data.results[0];
+      $scope.$apply();
+    });
+  }
+  
+  // page is page number/next/previous
+  this.paginate = this.paginate || function(page) {
+	  // TODO add fromResultNumber & toResultNumber to url
+	  //$scope.retrieveResults();
+  }
+
+  this.resultPendingWhenEditable = this.resultPendingWhenEditable ||
+    function(result, key) {
+      return result[key].editable &&
+        result.status.value != 'COMPLETED';
     }
-    
-    self.resultPending(result, key) {
-    	return result[key]['editable'] && result['status'] != 'COMPLETED';
+
+  this.edit = this.edit || function(result, key) {
+    // locate result and replace labels with text fields on editable columns
+    console.log("");
+  }
+
+  this.purge = this.purge || function(result) {
+    // TODO use ${ui.message('msfcore.resultList.confirmCancel')}
+    if (confirm("Are you sure you want to Cancel this Record?")) {
+    	jQuery.ajax({
+    	  url: '/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/order/' + result.uuid.value + '?!purge',
+    	  type: 'DELETE',
+    	  success: function(result) {
+    		  $scope.retrieveResults();
+    	  }
+    	});
     }
-    
-    $scope.retrieveResults = self.retrieveResults;
-    $scope.resultPending = self.resultPending;
+  }
+
+  $scope.retrieveResults = this.retrieveResults;
+  $scope.resultPendingWhenEditable = this.resultPendingWhenEditable;
+  $scope.edit = this.edit;
+  $scope.purge = this.purge;
 }

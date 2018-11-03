@@ -13,7 +13,7 @@ public class ResultColumn {
     private boolean editable = false;
     private Object value;
     @Builder.Default
-    private Type type = Type.DATE;
+    private Type type = Type.STRING;
 
     public enum Type {
         STRING, DATE

@@ -21,7 +21,13 @@ public class ResultsDataResource extends BaseDataResource {
 
     @Override
     protected AlreadyPaged<ResultsData> doSearch(RequestContext context) throws ResponseException {
-        Patient patient = Context.getPatientService().getPatientByUuid(context.getParameter("patientUuid"));
+        Patient patient;
+        try {
+            int id = Integer.valueOf(context.getParameter("patientId"));
+            patient = Context.getPatientService().getPatient(id);
+        } catch (NumberFormatException e) {
+            patient = Context.getPatientService().getPatientByUuid(context.getParameter("patientId"));
+        }
         ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);
         if (patient != null) {
             PaginationBuilder paginationBuilder = Pagination.builder();
@@ -43,7 +49,6 @@ public class ResultsDataResource extends BaseDataResource {
         description.addProperty("resultCategory");
         description.addProperty("results");
         description.addProperty("filters");
-        description.addProperty("actions");
 
         return description;
     }
