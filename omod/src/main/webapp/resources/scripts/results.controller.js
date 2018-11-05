@@ -6,7 +6,7 @@ ResultsController.$inject = ['$scope'];
 
 function ResultsController($scope) {
     $scope.resultsPerPage = "25";
-    this.retrieveResults = this.retrieveResults || function() {
+    this.retrieveResults = this.retrieveResults || function(renderPagination) {
         // TODO probably wrap in some loading...
         if (isEmpty(url)) {
             var urlParams = new URLSearchParams(window.location.search);
@@ -17,21 +17,21 @@ function ResultsController($scope) {
                 "&category=" + category;
         }
         jQuery.get(url, function(data) {
-            // render pagination on first page load
-        	var pagination = data.results[0].pagination;
+            // render pagination on first page load or resultsPerPage change
+            var pagination = data.results[0].pagination;
             if (isEmpty(pagination.toResultNumber) || pagination.totalResultNumber <= pagination.toResultNumber) {
                 pagination.toResultNumber = pagination.totalResultNumber;
             }
-            $scope.pages = [];
-            // one page
-            if (pagination.toResultNumber == pagination.totalResultNumber) {
-                $scope.pages[1] = {
-                    "page": 1,
-                    "url": url
-                };
-            } else { // more than one pages
-            	$scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
-            	$scope.nextPage = $scope.pages[2];
+            if (renderPagination) {
+                $scope.pages = [];
+                // one page
+                if (pagination.toResultNumber == pagination.totalResultNumber) {
+                    $scope.pages[1] = getPageObject(1, url);
+                } else { // more than one pages
+                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
+                    $scope.currentPage = 1;
+                    setNextAndPreviousPages($scope, $scope.pages[0]);
+                }
             }
             //initialise results list
             $scope.results = data.results[0];
@@ -42,22 +42,19 @@ function ResultsController($scope) {
     // page is page number/next/previous
     this.paginate = this.paginate || function(page) {
         if (page) {
-        	url = page.url;
-            var paginationAttempts = $scope.results.pagination.totalResultNumber / parseInteger($scope.resultsPerPage);
-            if (paginationAttempts >= 1) {
-                $scope.nextPage = $scope.pages[page.page + paginationAttempts];
-                $scope.previousPage = $scope.pages[page.page - paginationAttempts];
-            }
+            url = page.url;
+            $scope.currentPage = page.page;
             $scope.retrieveResults();
+            setNextAndPreviousPages($scope, page);
         }
     }
 
     //change results per page
     this.pagination = this.pagination || function() {
-    	//remove and re-add pagination to url
-		url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
+        //remove and re-add pagination to url
+        url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
         //retrive new results by new url
-        $scope.retrieveResults();
+        $scope.retrieveResults(true);
     }
 
     this.resultPendingWhenEditable = this.resultPendingWhenEditable ||
@@ -95,50 +92,62 @@ function ResultsController($scope) {
  * Replace pagination params from in if they exist
  */
 function replacePaginationInURL(urlString, from, to) {
-	if (urlString.indexOf("&fromResultNumber=") > 0) {
-    	urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
+    if (urlString.indexOf("&fromResultNumber=") > 0) {
+        urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
     }
-	return urlString + "&fromResultNumber=" + from + "&toResultNumber=" + to;
+    return urlString + "&fromResultNumber=" + from + "&toResultNumber=" + to;
 }
 
 /**
  * Check if an object is not existing or empty/blank
  */
 function isEmpty(object) {
-	return !object || object == null || object == undefined;
+    return !object || object == null || object == undefined;
 }
 
 function parseInteger(string) {
-	if(string == 'all') {
-		return Number.MAX_SAFE_INTEGER;
-	} else {
-		return parseInt(string);
-	}
+    if (string == 'all') {
+        return Number.MAX_SAFE_INTEGER;
+    } else {
+        return parseInt(string);
+    }
 }
 
 function getPossiblePages(urlString, resultsPerPage, totalResultNumber) {
-	var pages = [];
-	var paginationAttempts = Math.ceil(totalResultNumber / resultsPerPage);
-	// i is the pagecount to display
-	var from = 1;
-	for (i = 1; i <= paginationAttempts; i++) {
+    var pages = [];
+    var paginationAttempts = Math.ceil(totalResultNumber / resultsPerPage);
+    // i is the pagecount to display
+    var from = 1;
+    for (i = 1; i <= paginationAttempts; i++) {
         var to;
         if (i == 1) {
-        	to = resultsPerPage;
+            to = resultsPerPage;
         } else {
-	        if(from >= totalResultNumber) {
-	        	to = totalResultNumber;
-	        } else {
-	        	to = (from - 1) + resultsPerPage;
-	        }
+            if (from >= totalResultNumber) {
+                to = totalResultNumber;
+            } else {
+                to = (from - 1) + resultsPerPage;
+            }
         }
         urlString = replacePaginationInURL(urlString, from, to);
-        pages[i] = {
-            "page": i,
-            "url": urlString
-        };
+        pages[i] = getPageObject(i, urlString);
         from = to + 1;
     }
-	//return compact pages
-	return pages.filter(function() { return true; });
+    //return compact pages
+    return pages.filter(function() {
+        return true;
+    });
+}
+
+function getPageObject(page, pageUrl) {
+	//page is non 0 index whereas $scope.pages is
+    return {
+        "page": page,
+        "url": pageUrl
+    };
+}
+
+function setNextAndPreviousPages($scope, currentPage) {
+    $scope.nextPage = $scope.pages[currentPage.page];
+    $scope.previousPage = $scope.pages[currentPage.page - 2];
 }

@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
+import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Form;
@@ -33,6 +34,7 @@ import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.ProgramWorkflow;
 import org.openmrs.ProgramWorkflowState;
+import org.openmrs.SimpleDosingInstructions;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
@@ -321,12 +323,49 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
                         .getObservationsByPersonAndOrder(Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1))
                         .get(0).getUuid());
     }
-    
+
     @Test
     public void getOrders_shouldRetrieveAllResultsIfPaginationToResultNumberIsNull() {
         Pagination pagination = Pagination.builder().toResultNumber(null).build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(2, orders.size());
+    }
+
+    @Test
+    public void getOrders_shouldRetrieveResultsFromFromResultNumber() {
+        Pagination pagination = Pagination.builder().build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(2, orders.size());
+        DrugOrder drugOrder = new DrugOrder();
+        Encounter encounter = Context.getEncounterService().getEncounter(3);
+        drugOrder.setEncounter(encounter);
+        drugOrder.setPatient(Context.getPatientService().getPatient(7));
+        drugOrder.setCareSetting(Context.getOrderService().getCareSetting(1));
+        drugOrder.setOrderer(Context.getProviderService().getProvider(1));
+        drugOrder.setDateActivated(encounter.getEncounterDatetime());
+        drugOrder.setDrug(Context.getConceptService().getDrug(2));
+        drugOrder.setDosingType(SimpleDosingInstructions.class);
+        drugOrder.setDose(300.0);
+        drugOrder.setDoseUnits(Context.getConceptService().getConcept(50));
+        drugOrder.setQuantity(20.0);
+        drugOrder.setQuantityUnits(Context.getConceptService().getConcept(51));
+        drugOrder.setFrequency(Context.getOrderService().getOrderFrequency(3));
+        drugOrder.setRoute(Context.getConceptService().getConcept(22));
+        drugOrder.setNumRefills(10);
+        Context.getOrderService().saveOrder(drugOrder, null);
+
+        orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(3, orders.size());
+
+        pagination = Pagination.builder().fromResultNumber(2).toResultNumber(2).build();
+        orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(1, orders.size());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromResultNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getToResultNumber());
+        Assert.assertEquals(Integer.valueOf(3), pagination.getTotalResultNumber());
     }
 }

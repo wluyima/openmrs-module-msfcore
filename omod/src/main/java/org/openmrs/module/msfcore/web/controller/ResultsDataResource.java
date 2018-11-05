@@ -38,7 +38,7 @@ public class ResultsDataResource extends BaseDataResource {
             }
             String toResultNumber = context.getParameter("toResultNumber");
             if (StringUtils.isNotBlank(toResultNumber)) {
-                if(toResultNumber.equals("all")) {
+                if (toResultNumber.equals("all")) {
                     paginationBuilder.toResultNumber(null);
                 } else {
                     paginationBuilder.toResultNumber(Integer.valueOf(toResultNumber));

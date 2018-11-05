@@ -51,8 +51,8 @@ public class MSFCoreDao {
         List<Concept> answers = null;
         if (question != null && question.getDatatype().isCoded()) {
             answers = new ArrayList<Concept>();
-            for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class)
-                            .add(Restrictions.eq("concept", question)).list()) {
+            for (ConceptAnswer answer : (List<ConceptAnswer>) getSession().createCriteria(ConceptAnswer.class).add(
+                            Restrictions.eq("concept", question)).list()) {
                 answers.add(answer.getAnswerConcept());
             }
         }
@@ -61,13 +61,13 @@ public class MSFCoreDao {
 
     @SuppressWarnings("unchecked")
     public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
-        return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location))
-                        .add(Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
+        return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location)).add(
+                        Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
     }
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
-        int updated = getSession().createSQLQuery("update idgen_seq_id_gen set prefix = :val where id = :id")
-                        .setParameter("val", generator.getPrefix()).setParameter("id", generator.getId()).executeUpdate();
+        int updated = getSession().createSQLQuery("update idgen_seq_id_gen set prefix = :val where id = :id").setParameter("val",
+                        generator.getPrefix()).setParameter("id", generator.getId()).executeUpdate();
         if (updated != 1) {
             throw new APIException("Expected to update 1 row but updated " + updated + " rows instead!");
         }
@@ -75,14 +75,14 @@ public class MSFCoreDao {
 
     @SuppressWarnings("unchecked")
     public List<PersonAttribute> getPersonAttributeByTypeAndPerson(PersonAttributeType type, Person person) {
-        return getSession().createCriteria(PersonAttribute.class).add(Restrictions.eq("person", person))
-                        .add(Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
+        return getSession().createCriteria(PersonAttribute.class).add(Restrictions.eq("person", person)).add(
+                        Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
     }
 
     @SuppressWarnings("unchecked")
     public List<PatientIdentifier> getPatientIdentifierByTypeAndPatient(PatientIdentifierType type, Patient patient) {
-        return getSession().createCriteria(PatientIdentifier.class).add(Restrictions.eq("patient", patient))
-                        .add(Restrictions.eq("identifierType", type)).addOrder(desc("dateCreated")).list();
+        return getSession().createCriteria(PatientIdentifier.class).add(Restrictions.eq("patient", patient)).add(
+                        Restrictions.eq("identifierType", type)).addOrder(desc("dateCreated")).list();
     }
 
     @SuppressWarnings("unchecked")
@@ -101,7 +101,8 @@ public class MSFCoreDao {
         pagination.setTotalResultNumber((int) (long) (Long) crit.setProjection(Projections.rowCount()).uniqueResult());
         crit.setFirstResult(pagination.getFromResultNumber() - 1);
         if (pagination.getToResultNumber() != null) {
-            crit.setMaxResults(pagination.getToResultNumber());
+            int maxResults = pagination.getToResultNumber() - pagination.getFromResultNumber();
+            crit.setMaxResults(maxResults + 1);
         }
         crit.setProjection(null);
         crit.addOrder(desc("dateActivated"));

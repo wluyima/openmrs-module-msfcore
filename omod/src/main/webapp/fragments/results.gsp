@@ -15,7 +15,7 @@
 	<input type="button" class="pull-right" id="print-results" value="${ ui.message('msfcore.printResults')}"/>
 </div>
 <br />
-<div ng-app="resultsApp" ng-controller="ResultsController" ng-init="retrieveResults()">
+<div ng-app="resultsApp" ng-controller="ResultsController" ng-init="retrieveResults(true)">
 	<div class="right print-ignore">
 		<select ng-if="results.filters.length > 0" class="right">
 			<option>${ui.message("msfcore.filter")}</option>
@@ -58,9 +58,9 @@
 			<span>${ui.message('msfcore.entries')}</span>
 		</div>
 		<div class="right">
-			<span ng-repeat="page in pages" ng-class="{'page':page}" ng-click="paginate(page)">{{page.page}} </span>
-			<span ng-class="{'page':previousPage}" ng-click="paginate(previousPage)">${ui.message('general.next')}</span>
-			<span ng-class="{'page':nextPage}" ng-click="paginate(nextPage)">${ui.message('general.previous')}</span>
+			<span class='page' ng-repeat="page in pages" ng-class="{'current-page':page.page==currentPage}" ng-click="paginate(page)">{{page.page}} </span>
+			<span ng-class="{'page':nextPage, 'disabled': !nextPage}" ng-click="paginate(nextPage)">${ui.message('general.next')}</span>
+			<span ng-class="{'page':previousPage, 'disabled': !previousPage}" ng-click="paginate(previousPage)">${ui.message('general.previous')}</span>
 		</div>
 		<div class="center">
 			<span>
