@@ -3,22 +3,15 @@ package org.openmrs.module.msfcore.formaction;
 import java.util.Arrays;
 
 import org.openmrs.Visit;
-import org.openmrs.api.EncounterService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.formaction.handler.FormAction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LabOrderFormAction implements FormAction {
-
-    @Autowired
-    private EncounterService encounterService;
-
-    @Autowired
-    private MSFCoreService msfCoreService;
 
     /**
      * Generate test orders when request investication section of baseline form
@@ -35,9 +28,9 @@ public class LabOrderFormAction implements FormAction {
 		if (isRequestInvestigationForm) {
 
 			Visit visit = session.getEncounter().getVisit();
-			encounterService.getEncountersByVisit(visit, false).stream()
+			Context.getEncounterService().getEncountersByVisit(visit, false).stream()
 					.filter(e -> e.getForm().getUuid().equals(session.getForm().getUuid())).findFirst()
-					.ifPresent(e -> msfCoreService.saveTestOrders(e));
+                    .ifPresent(e -> Context.getService(MSFCoreService.class).saveTestOrders(e));
 		}
 	}
 }

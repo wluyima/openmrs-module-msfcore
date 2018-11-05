@@ -17,13 +17,11 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.util.DateUtils;
 import org.openmrs.module.msfcore.formaction.handler.FormAction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RequestApointmentFormAction implements FormAction {
 
-    @Autowired
     private AppointmentService appointmentService;
 
     @Override

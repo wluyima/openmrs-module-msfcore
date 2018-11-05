@@ -1,0 +1,27 @@
+[
+  {
+    "id": "msfcore.recenttestresults",
+    "instanceOf": "coreapps.template.dashboardWidget",
+    "description": "msfcore.recenttestresults.app.description",
+    "order": 10,
+    "config": {
+      "widget": "latestobsforconceptlist",
+      "icon": "icon-user-md",
+      "label": "RECENT TEST RESULTS SUMMARY",
+      "concepts": "00463596-0765-4d57-8433-463aeec1f441,b041a326-3e9a-4768-b601-6e9485d819de,000190b0-7cbd-400e-8441-b1751c43c29c,00463632-0765-4d57-8433-463aeec1f441,eb4af9c5-1398-4667-b905-a09d4a7cd8be,6eac5d6b-3856-4011-9b27-1a31783b8075,bc0f0544-98db-4e1e-b36c-e0094b9a265c,4b74a157-01eb-4211-abc4-bf6b54ec24b8",
+      "maxRecords": "5",
+      "maxAge": "8w"
+    },
+    "extensions": [
+      {
+        "id": "org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardSecondColumn",
+        "appId": "msfcore.recenttestresults",
+        "extensionPointId": "patientDashboard.secondColumnFragments",
+        "extensionParams": {
+          "provider": "coreapps",
+          "fragment": "dashboardwidgets/dashboardWidget"
+        }
+      }
+    ]
+  }
+]
