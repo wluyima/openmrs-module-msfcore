@@ -9,6 +9,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.api.ObsService;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest.AppointmentRequestStatus;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
@@ -36,10 +38,13 @@ import org.openmrs.test.BaseContextMockTest;
 public class RequestApointmentFormActionTest extends BaseContextMockTest {
 
     @InjectMocks
-    RequestApointmentFormAction requestAppointmentAction;
+    private RequestApointmentFormAction requestAppointmentAction;
 
     @Mock
-    AppointmentService appointmentService;
+    private AppointmentService appointmentService;
+
+    @Mock
+    private ObsService obsService;
 
     @Test
     public void requestAppointment_shouldSaveCorrectlyIfDateIsAfterNow() {
@@ -62,18 +67,20 @@ public class RequestApointmentFormActionTest extends BaseContextMockTest {
         Concept appointmentTypeConcept = new Concept();
         appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
         appointmentTypeObs.setConcept(appointmentTypeConcept);
-        appointmentTypeObs.setValueText(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID);
+        appointmentTypeObs.setValueText("Gynecology");
+        // MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID
 
         Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
 
-        AppointmentType generalMedicine = new AppointmentType();
+        AppointmentType generalMedicine = new AppointmentType("General Medicine", null, null);
+        AppointmentType gynecology = new AppointmentType("Gynecology", null, null);
 
-        when(appointmentService.getAppointmentTypeByUuid(MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID)).thenReturn(generalMedicine);
+        when(appointmentService.getAllAppointmentTypes(false)).thenReturn(Arrays.asList(generalMedicine, gynecology));
 
         AppointmentRequest actual = requestAppointmentAction.requestAppointment(patient, observations);
 
         AppointmentRequest expected = new AppointmentRequest();
-        expected.setAppointmentType(generalMedicine);
+        expected.setAppointmentType(gynecology);
         expected.setNotes(commentObs.getValueText());
         expected.setPatient(patient);
         expected.setMinTimeFrameUnits(TimeFrameUnits.DAYS);
@@ -87,9 +94,40 @@ public class RequestApointmentFormActionTest extends BaseContextMockTest {
         assertThat(actual.getPatient(), is(equalTo(expected.getPatient())));
         assertThat(actual.getMinTimeFrameUnits(), is(equalTo(expected.getMinTimeFrameUnits())));
         // TODO: Re do this assert, if fails randomly on slow servers
-        //assertThat(actual.getMinTimeFrameValue(), is(equalTo(expected.getMinTimeFrameValue() - 1)));
+        // assertThat(actual.getMinTimeFrameValue(),
+        // is(equalTo(expected.getMinTimeFrameValue() - 1)));
         assertThat(actual.getStatus(), is(equalTo(expected.getStatus())));
         assertThat(actual.getRequestedOn(), is(notNullValue()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void requestAppointment_shouldThrowExceptionWhenAppointmentTypeIsNotFound() {
+        Date now = new Date();
+        Date requestAppointmentDate = DateUtils.addDays(now, 30);
+
+        Patient patient = new Patient();
+        Obs dateObs = new Obs();
+        Concept dateConcept = new Concept();
+        dateConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_DATE_UUID);
+        dateObs.setConcept(dateConcept);
+        dateObs.setValueDate(requestAppointmentDate);
+
+        Obs commentObs = new Obs();
+        Concept commentConcept = new Concept();
+        commentConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID);
+        commentObs.setConcept(commentConcept);
+
+        Obs appointmentTypeObs = new Obs();
+        Concept appointmentTypeConcept = new Concept();
+        appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
+        appointmentTypeObs.setConcept(appointmentTypeConcept);
+        appointmentTypeObs.setValueText("Some Random Inexistent Type");
+
+        Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
+        AppointmentType generalMedicine = new AppointmentType("General Medicine", null, null);
+        AppointmentType gynecology = new AppointmentType("Gynecology", null, null);
+        when(appointmentService.getAllAppointmentTypes(false)).thenReturn(Arrays.asList(generalMedicine, gynecology));
+        requestAppointmentAction.requestAppointment(patient, observations);
     }
 
     @Test
