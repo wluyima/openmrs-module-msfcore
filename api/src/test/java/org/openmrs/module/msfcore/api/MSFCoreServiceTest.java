@@ -88,7 +88,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(6),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(0), pagination.getFromResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
         Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(0), pagination.getTotalResultNumber());
         Assert.assertEquals(0, orders.size());
@@ -99,7 +99,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(0), pagination.getFromResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
         Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
         Assert.assertEquals(2, orders.size());
@@ -110,16 +110,16 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Pagination pagination = Pagination.builder().toResultNumber(1).build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(0), pagination.getFromResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
         Assert.assertEquals(Integer.valueOf(1), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("111", orders.get(0).getOrderNumber());
 
-        pagination = Pagination.builder().fromResultNumber(1).toResultNumber(2).build();
+        pagination = Pagination.builder().fromResultNumber(2).toResultNumber(2).build();
         orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromResultNumber());
         Assert.assertEquals(Integer.valueOf(2), pagination.getToResultNumber());
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
         Assert.assertEquals(1, orders.size());
@@ -320,5 +320,13 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals("207d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
                         .getObservationsByPersonAndOrder(Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1))
                         .get(0).getUuid());
+    }
+    
+    @Test
+    public void getOrders_shouldRetrieveAllResultsIfPaginationToResultNumberIsNull() {
+        Pagination pagination = Pagination.builder().toResultNumber(null).build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(2, orders.size());
     }
 }

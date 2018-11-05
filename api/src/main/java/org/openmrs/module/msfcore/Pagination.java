@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Pagination {
     @Builder.Default
-    private Integer fromResultNumber = 0;
+    private Integer fromResultNumber = 1;
     @Builder.Default
     private Integer toResultNumber = 25;
     @Builder.Default

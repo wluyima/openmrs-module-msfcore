@@ -2,6 +2,7 @@ package org.openmrs.module.msfcore.web.controller;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.Pagination;
@@ -23,8 +24,7 @@ public class ResultsDataResource extends BaseDataResource {
     protected AlreadyPaged<ResultsData> doSearch(RequestContext context) throws ResponseException {
         Patient patient;
         try {
-            int id = Integer.valueOf(context.getParameter("patientId"));
-            patient = Context.getPatientService().getPatient(id);
+            patient = Context.getPatientService().getPatient(Integer.valueOf(context.getParameter("patientId")));
         } catch (NumberFormatException e) {
             patient = Context.getPatientService().getPatientByUuid(context.getParameter("patientId"));
         }
@@ -32,6 +32,18 @@ public class ResultsDataResource extends BaseDataResource {
         if (patient != null) {
             PaginationBuilder paginationBuilder = Pagination.builder();
             // TODO set paginationBuilder from body
+            String fromResultNumber = context.getParameter("fromResultNumber");
+            if (StringUtils.isNotBlank(fromResultNumber)) {
+                paginationBuilder.fromResultNumber(Integer.valueOf(fromResultNumber));
+            }
+            String toResultNumber = context.getParameter("toResultNumber");
+            if (StringUtils.isNotBlank(toResultNumber)) {
+                if(toResultNumber.equals("all")) {
+                    paginationBuilder.toResultNumber(null);
+                } else {
+                    paginationBuilder.toResultNumber(Integer.valueOf(toResultNumber));
+                }
+            }
             ResultsData resultsData = resultsDataBuilder.resultCategory(ResultsData.parseCategory(context.getParameter("category")))
                             .pagination(paginationBuilder.build()).build();
             resultsData.addRetrievedResults();

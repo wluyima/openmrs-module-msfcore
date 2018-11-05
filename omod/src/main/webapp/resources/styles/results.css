@@ -2,14 +2,18 @@
 	background-color: #acacac;
 }
 
-.icon-edit,.icon-trash {
+.icon-edit,.icon-trash,.page {
 	cursor:pointer;
 }
 
-#results-print-close-wrapper {
-    text-align: center;
+#results-header {
+	border-bottom: 1px solid #acacac;
 }
 
-#results-print-close {
-	display: inline-block;
+.wrap-center {
+	text-align:center;
+}
+
+.center {
+   	display:inline-block;
 }

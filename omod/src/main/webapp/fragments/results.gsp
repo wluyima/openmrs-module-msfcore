@@ -10,7 +10,11 @@
 	});
 </script>
 
-<h3>${pageLabel}</h3>
+<div id="results-header" class="print-ignore">
+	<h3 class="pull-left">${pageLabel}</h3>
+	<input type="button" class="pull-right" id="print-results" value="${ ui.message('msfcore.printResults')}"/>
+</div>
+<br />
 <div ng-app="resultsApp" ng-controller="ResultsController" ng-init="retrieveResults()">
 	<div class="right print-ignore">
 		<select ng-if="results.filters.length > 0" class="right">
@@ -39,10 +43,29 @@
 		    </tbody>
 		</table>
 	</div>
-	<div id="results-print-close-wrapper">
-		<div class="print-ignore">
-			<input type="button" id="print-results" value="${ ui.message('msfcore.print')}"/>
-			<input type="button" onclick="history.back();" value="${ ui.message('msfcore.close')}"/>
+	<div class="print-ignore wrap-center">
+		<div class="left">
+			<span><input type="button" onclick="history.back();" value="${ ui.message('general.back')}"/></span>
+			<span>${ui.message('msfcore.show')}</span>
+			<span>
+				<select ng-model="resultsPerPage" ng-change="pagination()">
+					<option value="25">25</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="all" ng-show="results.pagination.totalResultNumber > 100">${ui.message('msfcore.all')}</option>
+				</select>
+			</span>
+			<span>${ui.message('msfcore.entries')}</span>
+		</div>
+		<div class="right">
+			<span ng-repeat="page in pages" ng-class="{'page':page}" ng-click="paginate(page)">{{page.page}} </span>
+			<span ng-class="{'page':previousPage}" ng-click="paginate(previousPage)">${ui.message('general.next')}</span>
+			<span ng-class="{'page':nextPage}" ng-click="paginate(nextPage)">${ui.message('general.previous')}</span>
+		</div>
+		<div class="center">
+			<span>
+				${ui.message('msfcore.showing')} {{results.pagination.fromResultNumber}} ${ui.message('general.to')} {{results.pagination.toResultNumber}} ${ui.message('general.of')} {{results.pagination.totalResultNumber}}
+			</span>	
 		</div>
 	</div>
 </div>

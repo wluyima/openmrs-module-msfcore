@@ -115,8 +115,8 @@ public class ResultsData {
                             .build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))
                             .build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(
-                            Type.DATE).value(Context.getDateFormat().format(testOrder.getDateCreated())).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(Type.DATE).value(
+                            Context.getDateFormat().format(testOrder.getDateCreated())).build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.sampleDate"), ResultColumn.builder().editable(true).value(
                             "").build()); // TODO
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null
