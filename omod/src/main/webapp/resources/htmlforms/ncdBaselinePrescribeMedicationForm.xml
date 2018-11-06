@@ -61,13 +61,37 @@
                         jq('#' + i + '-toggleContainer').show();
                     }
                 }
+
+				beforeSubmit.push(function() {
+					var requiredMessage = '<lookup expression="fn.message('msfcore.required')"/>';
+					return validateRequiredFields(getRequiredFieldIds(), requiredMessage);
+				});
+
             });
-            
+
+			function getIndexFromId(id) {
+				return parseInt(id.split('-')[0]);
+			}
+
+			function getRequiredFieldIds() {
+				var requiredFieldIds = [];
+				getUsedContainers().forEach(function(container) {
+					var index = getIndexFromId(container.attr('id'));
+					requiredFieldIds.push(`name-${index}`);
+					requiredFieldIds.push(`dose${index}`);
+					requiredFieldIds.push(`doseUnit${index}`);
+					requiredFieldIds.push(`frequencyCoded${index}`);
+					requiredFieldIds.push(`duration${index}`);
+					requiredFieldIds.push(`durationUnit${index}`);
+				});
+				return requiredFieldIds;
+			}
+
             function getUsedContainers() {
                 var usedContainers = [];
                 for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
                     var containerId = `${i}-toggleContainer`;
-                    if (i == 1 || isPrescriptionFilled(i)) {
+                    if (i == 1 || isPrescriptionFilled(i) || jq(`#${i}-toggleContainer`).is(':visible')) {
                         usedContainers.push(jq(`#${i}-toggleContainer`));
                     }
                 }
