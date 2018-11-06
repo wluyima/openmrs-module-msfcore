@@ -657,9 +657,9 @@
   <concept concept_id="5000011" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 17:49:39" changed_by="1" date_changed="2017-12-14 20:16:13" uuid="5000011AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000012" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 17:49:40" changed_by="1" date_changed="2017-12-14 20:16:40" uuid="5000012AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000013" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 17:49:40" changed_by="1" date_changed="2017-12-14 20:17:45" uuid="5000013AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
-  <concept concept_id="5000014" retired="0" datatype_id="3" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:45" changed_by="1" date_changed="2017-12-16 23:33:14" uuid="5000014AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
-  <concept concept_id="5000015" retired="0" datatype_id="3" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:49" changed_by="1" date_changed="2017-12-16 23:34:35" uuid="5000015AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
-  <concept concept_id="5000016" retired="0" datatype_id="3" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:50" changed_by="1" date_changed="2017-12-16 23:31:15" uuid="5000016AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+  <concept concept_id="5000014" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:45" changed_by="1" date_changed="2017-12-16 23:33:14" uuid="5000014AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+  <concept concept_id="5000015" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:49" changed_by="1" date_changed="2017-12-16 23:34:35" uuid="5000015AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+  <concept concept_id="5000016" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:50" changed_by="1" date_changed="2017-12-16 23:31:15" uuid="5000016AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000017" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:50" changed_by="1" date_changed="2017-12-16 09:43:25" uuid="5000017AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000018" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 18:47:51" changed_by="1" date_changed="2017-12-16 23:37:37" uuid="5000018AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000020" retired="0" datatype_id="10" class_id="8" is_set="1" creator="1" date_created="2017-10-31 17:49:45" changed_by="1" date_changed="2017-11-20 07:17:22" uuid="5000020AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
@@ -704,9 +704,6 @@
   <concept_name concept_name_id="5000032" concept_id="5000032" voided="0" name="Urine analysis" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:45" concept_name_type="FULLY_SPECIFIED" uuid="5000032BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
   <concept_name concept_name_id="5000033" concept_id="5000033" voided="0" name="Urine microalbumin" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000033BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
  
-  <concept_numeric concept_id="5000014" units="" allow_decimal="true" />
-  <concept_numeric concept_id="5000015" units="" allow_decimal="true" />
-  <concept_numeric concept_id="5000016" units="" allow_decimal="true" />
   <concept_numeric concept_id="5000022" units="mg/dL" allow_decimal="true" low_absolute="0.5" hi_absolute="1.1" />
   <concept_numeric concept_id="5000023" units="%" allow_decimal="true" />
   <concept_numeric concept_id="5000027" units="mmol/L" allow_decimal="true" />
