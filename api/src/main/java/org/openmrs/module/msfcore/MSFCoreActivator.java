@@ -49,6 +49,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getService(DHISService.class).installDHIS2Metadata();
         Context.getService(MSFCoreService.class).overwriteSync2Configuration();
 
+        triggerMSFApps(true);
         installMSFMeta();
 
         // ensure 'Auto Close Visits Task' is started
@@ -59,21 +60,56 @@ public class MSFCoreActivator extends BaseModuleActivator {
         }
     }
 
+    private void triggerMSFApps(boolean on) {
+        if (on) {
+            log.info("Replacing default reference application registration app");
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+            log.info("Disabling default reports app");
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
+
+            // disable the default find patient app to provide one which allows
+            // searching for patients at the footer of the search for patients
+            // page
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
+
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.CONDITIONS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.RELATIONSHIP_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.LATEST_OBS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.DIAGNOSIS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MOST_RECENT_VITALS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.VISIT_BY_ENCOUNTER_TYPE_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.OBS_GRAPH_EXTENSION_ID);
+        } else {
+            log.info("Enabling default reference application apps");
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
+
+            // disable the MSF find patient app & enable the default core apps
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.CONDITIONS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.RELATIONSHIP_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.LATEST_OBS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.DIAGNOSIS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MOST_RECENT_VITALS_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.VISIT_BY_ENCOUNTER_TYPE_EXTENSION_ID);
+            Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.OBS_GRAPH_EXTENSION_ID);
+        }
+    }
+
     private void installMSFMeta() {
-        log.info("Replacing default reference application registration app");
-        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
-        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
-
-        log.info("Disabling default reports app");
-        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
-
-        // disable the default find patient app to provide one which allows
-        // searching for patients at the footer of the search for patients page
-        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
-        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
+        // install concepts
+        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+        log.info("Importing MSF CIEL Concepts");
+        dataImporter.importData("CIELConcepts.xml");
+        log.info("MSF CIEL Concepts imported");
+        log.info("Importing MSF Custom Concepts");
+        dataImporter.importData("MSFCustomConcepts.xml");
+        log.info("MSF Custom Concepts imported");
 
         log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
+
         log.info("Installing MSF Reports");
         for (BaseMSFReportManager msfReport : Context.getRegisteredComponents(BaseMSFReportManager.class)) {
             msfReport.setup();
@@ -112,32 +148,18 @@ public class MSFCoreActivator extends BaseModuleActivator {
         log.info("Installing MSF Forms");
         installMsfForms();
 
-        // create a map between visit types and encounter types to enable the autocreation of visits
-        // all encounters are mapped to the default Facility Visit Type - change this mapping to match encounter types to facility types
+        // create a map between visit types and encounter types to enable the
+        // autocreation of visits
+        // all encounters are mapped to the default Facility Visit Type - change
+        // this mapping to match encounter types to facility types
         // see https://issues.openmrs.org/browse/EA-116 for more information
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
                         "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
 
-        // install concepts
-
-        DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
-        log.info("Importing MSF CIEL Concepts");
-        dataImporter.importData("CIELConcepts.xml");
-        log.info("MSF CIEL Concepts imported");
-        log.info("Importing MSF Custom Concepts");
-        dataImporter.importData("MSFCustomConcepts.xml");
-        log.info("MSF Custom Concepts imported");
     }
 
     private void removeMSFMeta() {
-        log.info("Enabling default reference application registration app");
-        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_REGISTRATION_APP_EXTENSION_ID);
-        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REGISTRATION_APP_EXTENSION_ID);
-
-        log.info("Enabling default reports app");
-        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.REPORTS_APP_EXTENSION_ID);
-
         log.info("Requiring OpenMRS ID if not done");
         PatientIdentifierType openmrsIdType = Context.getPatientService().getPatientIdentifierTypeByName(
                         ReferenceMetadataConstants.OPENMRS_ID_NAME);
@@ -169,11 +191,8 @@ public class MSFCoreActivator extends BaseModuleActivator {
                             String.valueOf(sourceForPrimaryType.getId()));
         }
 
-        // disable the MSF find patient app and enable the default core apps one
-        Context.getService(AppFrameworkService.class).enableApp(MSFCoreConfig.SEARCH_APP_EXTENSION_ID);
-        Context.getService(AppFrameworkService.class).disableApp(MSFCoreConfig.MSF_SEARCH_APP_EXTENSION_ID);
-
-        // remove a map between visit types and encounter types to enable the autocreation of visits
+        // remove a map between visit types and encounter types to enable the
+        // autocreation of visits
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP, "");
     }
@@ -187,6 +206,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
 
     @Override
     public void willStop() {
+        triggerMSFApps(false);
         removeMSFMeta();
         Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_MANADATORY, "false");
         super.willStop();

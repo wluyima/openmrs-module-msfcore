@@ -21,11 +21,23 @@ public class MSFCoreConfig {
     public final static String MODULE_PRIVILEGE = "MSF Core Privilege";
 
     public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
+
     public final static String SEARCH_APP_EXTENSION_ID = "coreapps.findPatient";
     public final static String REPORTS_APP_EXTENSION_ID = "reportingui.reports";
 
-    public final static String MSF_REGISTRATION_APP_EXTENSION_ID = "msfcore.registrationapp";
-    public final static String MSF_SEARCH_APP_EXTENSION_ID = "msfcore.findPatient";
+    public final static String CONDITIONS_EXTENSION_ID = "coreapps.conditionlist";
+
+    public final static String RELATIONSHIP_EXTENSION_ID = "coreapps.relationships";
+
+    public final static String LATEST_OBS_EXTENSION_ID = "coreapps.latestObsForConceptList";
+
+    public final static String MOST_RECENT_VITALS_EXTENSION_ID = "coreapps.mostRecentVitals";
+
+    public final static String VISIT_BY_ENCOUNTER_TYPE_EXTENSION_ID = "coreapps.visitByEncounterType";
+
+    public final static String DIAGNOSIS_EXTENSION_ID = "coreapps.diagnoses";
+
+    public final static String OBS_GRAPH_EXTENSION_ID = "coreapps.obsGraph";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
     public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
@@ -251,9 +263,13 @@ public class MSFCoreConfig {
     public final static String TASK_AUTO_CLOSE_VISIT = "Auto Close Visits Task";
 
     // Encounter types
-    public static final String MSF_NCD_BASELINE_ENCOUNTER_TYPE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
-    public static final String MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
-    public static final String MSF_LAB_RESULTS_ENCOUNTER_TYPE_UUID = "5dd6553b-be5a-413a-93fc-23962bc594e8";
+    public static final String ENCOUNTER_TYPE_NCD_BASELINE_UUID = "fa6f3ff5-b784-43fb-ab35-a08ab7dbf074";
+
+    public static final String ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e8";
+
+    public static final String ENCOUNTER_TYPE_NCD_EXIT_UUID = "4aa6553b-be5a-413a-93fc-23962bc594e9";
+
+    public static final String ENCOUNTER_TYPE_LAB_RESULTS_UUID = "5dd6553b-be5a-413a-93fc-23962bc594e8";
 
     public final static String LOCATION_ATTR_TYPE_UID_UUID = "ccbed524-b6d4-11e8-96f8-529269fb0000";
 
@@ -378,6 +394,44 @@ public class MSFCoreConfig {
     public static final String CONCEPT_REQUEST_APPOINTMENT_DATE_UUID = "c72e7dce-e9eb-44e9-8114-94f9550ad5b0";
 
     public static final String CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID = "f3a76818-3ff4-4d94-9c51-be295cad43a1";
+
+    public static final String SERVICE_TYPE_GENERAL_MEDICINE_UUID = "7dd9ac8e-c436-11e4-a470-82b0ea87e2d8";
+
+    public static final String NCD_PROGRAM_UUID = "a24327d2-c601-11e8-a355-529269fb1400";
+
+    public static final String NCD_PROGRAM_CONCEPT_UUID = "a2432c28-c601-11e8-a355-529269fb1401";
+
+    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "6cfb6f44-7b27-4d16-8fd1-ea189a8171a4";
+
+    public static final String WORKFLOW_STATE_UUID_ENROLL = "a24327d2-c601-11e8-a355-529269fb1401";
+
+    public static final String CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_ENROLL = "a2432c28-c601-11e8-a355-529269fb1402";
+
+    public static final String WORKFLOW_STATE_UUID_BASELINE_CONSULTATION = "a24327d2-c601-11e8-a355-529269fb1402";
+
+    public static final String CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_BASELINE_CONSULTATION = "a2432c28-c601-11e8-a355-529269fb1403";
+
+    public static final String WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION = "a24327d2-c601-11e8-a355-529269fb1404";
+
+    public static final String CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_FOLLOWUP_CONSULTATION = "a2432c28-c601-11e8-a355-529269fb1405";
+
+    public static final String WORKFLOW_STATE_UUID_EXIT = "a24327d2-c601-11e8-a355-529269fb1405";
+
+    public static final String CONCEPT_UUID_PROGRAM_WORKFLOW_STATE_EXIT = "a2432c28-c601-11e8-a355-529269fb1406";
+
+    public static final String PRIVILEGE_ENROLL_IN_PROGRAM = "00fb0222-e351-4a30-86ec-79b56f4eb9aa";
+
+    public static final String HTML_FORM_UUID_BASELINE = "06807e2b-ce97-4d65-8796-e955fcbe057d";
+
+    public static final String HTML_FORM_UUID_FOLLOWUP = "8054636e-a5f5-4319-93a3-2843860a55f9";
+
+    public static final String HTML_FORM_UUID_EXIT = "5f0ebfc3-a520-4ff9-bb5d-807821dd6a8d";
+
+    public static final String CONCEPT_UUID_NONE = "09bd4cce-b1f6-4706-8958-b155a47ac203";
+
+    public static final String CONCEPT_UUID_PROGRAM_WORKFLOW_STAGE = "a2432c28-c601-11e8-a355-529269fb1408";
+
+    public static final String PROGRAM_WORKFLOW_UUID_STAGE = "a2432c28-c601-11e8-a355-529269fb1408";
 
     public static final String CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID = "d0475b32-6987-43b3-a618-b975f4967ba5";
 
