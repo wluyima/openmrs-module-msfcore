@@ -9,6 +9,6 @@
 <select name="appointment-type" id="appointment-type-list">
 	<option value=""></option>
     <% for (item in options) { %>
-        <option value="${item.value}">${item.label}</option>
+        <option value="${item.label}">${item.label}</option>
     <% } %>
 </select>
