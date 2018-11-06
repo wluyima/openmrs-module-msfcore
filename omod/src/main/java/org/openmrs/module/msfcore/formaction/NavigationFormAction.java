@@ -5,14 +5,18 @@ import java.util.Map;
 
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.NCDBaselineLinks;
+import org.openmrs.module.msfcore.NCDFollowUpLinks;
 import org.openmrs.module.msfcore.formaction.handler.FormAction;
-import org.openmrs.module.msfcore.fragment.controller.LeftMenuFragmentController;
+import org.openmrs.module.msfcore.fragment.controller.BaselineLeftMenuFragmentController;
+import org.openmrs.module.msfcore.fragment.controller.FollowupLeftMenuFragmentController;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NavigationFormAction implements FormAction {
 
-    private LeftMenuFragmentController controller = new LeftMenuFragmentController();
+    private BaselineLeftMenuFragmentController baselineMenuController = new BaselineLeftMenuFragmentController();
+
+    private FollowupLeftMenuFragmentController followupMenuController = new FollowupLeftMenuFragmentController();
 
     private static final String DASHBOARD_URL = "/coreapps/clinicianfacing/patient.page?patientId=%s&app=msfcore.app.clinicianDashboard";
 
@@ -20,8 +24,10 @@ public class NavigationFormAction implements FormAction {
 
     @Override
     public void apply(String operation, FormEntrySession session) {
-        final NCDBaselineLinks links = controller.getNCDBaselineLinks(session.getPatient().getUuid());
-        Map<String, String> operationToUrl = generateOperationToUrlMap(links);
+        final NCDBaselineLinks links = baselineMenuController.getNCDBaselineLinks(session.getPatient().getUuid());
+        NCDFollowUpLinks followUpLinks = followupMenuController.getNCDFollowUpLinks(session.getPatient().getUuid());
+
+        Map<String, String> operationToUrl = generateOperationToUrlMap(links, followUpLinks);
         if (operation != null) {
             String nextUrl = operationToUrl.get(operation);
             if (nextUrl != null) {
@@ -34,8 +40,10 @@ public class NavigationFormAction implements FormAction {
         }
     }
 
-    private Map<String, String> generateOperationToUrlMap(final NCDBaselineLinks links) {
+    private Map<String, String> generateOperationToUrlMap(final NCDBaselineLinks links, NCDFollowUpLinks followUpLinks) {
         Map<String, String> operationToUrl = new HashMap<String, String>();
+
+        // NCD BASELINE NAVIGATIONS
         operationToUrl.put("save.and.exit.action", DASHBOARD_URL);
         operationToUrl.put("complete.action", DASHBOARD_URL);
         operationToUrl.put("ncd.baseline.medicalhistory.next", String.format(BASE_FORM_URL_TEMPLATE, links.getLifestyleLink()));
@@ -67,7 +75,35 @@ public class NavigationFormAction implements FormAction {
         operationToUrl.put("ncd.baseline.requestappointment.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getClinicalNoteLink()));
         operationToUrl.put("ncd.baseline.requestappointment.next", String.format(BASE_FORM_URL_TEMPLATE, links.getReferPatientLink()));
         operationToUrl.put("ncd.baseline.referpatient.previous", String.format(BASE_FORM_URL_TEMPLATE, links.getRequestAppointmentLink()));
+
+        // NCD FOLLOWUP NAVIGATIONS
+        operationToUrl.put("ncd.followup.visitdetails.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks.getDiagnosisLink()));
+        operationToUrl.put("ncd.followup.diagnosis.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks.getVisitDetailsLink()));
+        operationToUrl.put("ncd.followup.diagnosis.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getComplicationsSinceLastVisitLink()));
+        operationToUrl.put("ncd.followup.complicationssincelastvisit.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getDiagnosisLink()));
+        operationToUrl.put("ncd.followup.complicationssincelastvisit.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getPrescribeMedicationLink()));
+        operationToUrl.put("ncd.followup.prescribemedication.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getComplicationsSinceLastVisitLink()));
+        operationToUrl.put("ncd.followup.prescribemedication.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getClinicalNoteLink()));
+        operationToUrl.put("ncd.followup.clinicalnote.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getPrescribeMedicationLink()));
+        operationToUrl.put("ncd.followup.clinicalnote.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks.getReferPatientLink()));
+        operationToUrl
+                        .put("ncd.followup.referpatient.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                                        .getClinicalNoteLink()));
+        operationToUrl.put("ncd.followup.referpatient.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getRequestInvestigationLink()));
+        operationToUrl.put("ncd.followup.requestinvestigation.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getReferPatientLink()));
+        operationToUrl.put("ncd.followup.requestinvestigation.next", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getRequestAppointmentLink()));
+        operationToUrl.put("ncd.followup.requestappointment.previous", String.format(BASE_FORM_URL_TEMPLATE, followUpLinks
+                        .getRequestInvestigationLink()));
+
         return operationToUrl;
     }
-
 }
