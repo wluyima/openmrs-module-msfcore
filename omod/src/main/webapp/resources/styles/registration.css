@@ -10,6 +10,12 @@ ul#formBreadcrumb li.doing > span#lifestyleInfo_label
     display:none;
 }
 
+div#content div#content #dataCanvas h2 {
+    background: none;
+    color: #424C55;
+    padding:0 0 24px 0;
+}
+
 #registration {
     display:flex;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
@@ -28,7 +34,7 @@ ul#formBreadcrumb li.doing > span#lifestyleInfo_label
     padding: 12px;
 }
 
-#patientIdentificationInfo p.left{ 
+#patientIdentificationInfo p.left{
     margin:1rem 0;
     float: none;
 }
@@ -70,6 +76,7 @@ div#content div#content h2 {
     border-radius: 8px 8px 0 0;
     margin-bottom: 0;
     font-family: 'OpenSansSemiBold';
+    line-height: 55px
 }
 
 section.focused h3 {
@@ -85,7 +92,7 @@ ul#formBreadcrumb li.doing {
     border-left: none;
 }
 
-ul#formBreadcrumb li.doing > span, 
+ul#formBreadcrumb li.doing > span,
 ul#formBreadcrumb li span#confirmation_label {
     padding-left:16px;
     font-size: 1.5rem;
@@ -94,8 +101,8 @@ ul#formBreadcrumb li span#confirmation_label {
     font-family: 'OpenSansSemiBold';
 }
 
-ul#formBreadcrumb li.doing #demographics_label, 
-ul#formBreadcrumb li.doing #contactInfo_label, 
+ul#formBreadcrumb li.doing #demographics_label,
+ul#formBreadcrumb li.doing #contactInfo_label,
 ul#formBreadcrumb li.doing #relationships-info_label, ul#formBreadcrumb li.doing #msfcore.registration.others_label,
 ul#formBreadcrumb li span#confirmation_label {
     padding-top:24px;
@@ -123,7 +130,7 @@ ul#formBreadcrumb li.doing .question-legend .icon-ok, ul#formBreadcrumb li.doing
 
 .simple-form-ui section fieldset select:focus, .simple-form-ui section fieldset input:focus, .simple-form-ui section #confirmationQuestion select:focus, .simple-form-ui section #confirmationQuestion input:focus, .simple-form-ui #confirmation fieldset select:focus, .simple-form-ui #confirmation fieldset input:focus, .simple-form-ui #confirmation #confirmationQuestion select:focus, .simple-form-ui #confirmation #confirmationQuestion input:focus, .simple-form-ui form section fieldset select:focus, .simple-form-ui form section fieldset input:focus, .simple-form-ui form section #confirmationQuestion select:focus, .simple-form-ui form section #confirmationQuestion input:focus, .simple-form-ui form #confirmation fieldset select:focus, .simple-form-ui form #confirmation fieldset input:focus, .simple-form-ui form #confirmation #confirmationQuestion select:focus, .simple-form-ui form #confirmation #confirmationQuestion input:focus {
     outline: none;
-    border-bottom:2px solid #55D6BE; 
+    border-bottom:2px solid #55D6BE;
 }
 
 .simple-form-ui section, .simple-form-ui #confirmation, .simple-form-ui form section, .simple-form-ui form #confirmation {

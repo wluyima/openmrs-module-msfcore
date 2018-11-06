@@ -206,3 +206,18 @@ i.icon-home.small:after {
 .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
     border-radius: 0;
 }
+
+/* Visit History > ACTIONS Button Dropdown */
+
+
+.dropdown:hover ul {
+    color:#373F46;
+    display: block;
+    box-shadow: rgba(0, 0, 0, .3) 0 4px 8px;
+    border-radius: 8px;
+}
+
+.dropdown ul,
+.dropdown:hover ul {
+    animation: fadein 0.25s ease-in;
+}

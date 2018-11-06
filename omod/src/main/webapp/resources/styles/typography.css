@@ -29,21 +29,9 @@ body {
   font-family: "OpenSansRegular", Arial, sans-serif;
 }
 
-h1,h2,h3,h4 {
+h1,h2,h3,h4,h5,h6 {
     color: #373F46;
     font-family: "OpenSansLight", Arial, sans-serif;
-}
-
-#htmlform h4,
-#htmlform h5,
-#htmlform h6 {
-    color: #538CAC;
-    margin-top: 32px;
-}
-
-h5,h6 {
-  color: #373F46;
-  font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
 
 h1 {
@@ -60,9 +48,36 @@ h3 {
 h4 {
     font-size: 1.5rem;
 }
-#htmlform h4 {
-    font-family: "OpenSansLight", Arial, sans-serif;
+
+h5,h6 {
+  font-family: "OpenSansSemiBold", Arial, sans-serif;
 }
+
+h5 {
+    font-size: 1.1rem;
+    margin:15px 0 5px;
+}
+
+h6 {
+    font-size: 0.9rem;
+}
+
+h6 i::before {
+    width:20px;
+}
+
+.left-navigation h3 {
+    margin-top:0;
+    color:#fff;
+}
+
+#htmlform h4,
+#htmlform h5,
+#htmlform h6 {
+    color: #538CAC;
+    margin-top: 32px;
+}
+
 #htmlform .section .section h4,
 #htmlform .section div[id*="-toggleContainer"] h4,
 .add-box#encounter-diagnoses-target h3 {
@@ -73,17 +88,6 @@ h4 {
 }
 .add-box#encounter-diagnoses-target h3 {
   margin-bottom: 15px;
-}
-h5 {
-    font-size: 1.1rem;
-    margin:15px 0 5px;
-}
-h6 {
-    font-size: 0.9rem;
-}
-
-h6 i::before {
-    width:20px;
 }
 
 .bold {font-weight: 700}
