@@ -184,6 +184,18 @@ ul#formBreadcrumb li span#confirmation_label,
     overflow: hidden;
 }
 
+.dashboard .info-body a {
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.dashboard .info-body a:hover {
+    border: 1px solid #55D6BE;
+    background:#D0FEF5;
+    text-decoration: none;
+}
+
 .dashboard .info-body .section{margin-bottom: 0}
 #content .dashboard .info-body #vitals h3 {font-size: 1em;}
 #content .dashboard .info-header h3 {

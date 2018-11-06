@@ -109,14 +109,14 @@ form ul.select:focus,
 
 /* Manage Appointments */
 
+.angular-datepicker button,
 daterangepicker button {
     box-shadow: none;
     border-radius: 0;
     margin: 2px;
     font-family: 'OpenSansRegular';
 }
-
-daterangepicker .angular-datepicker table td {
+.angular-datepicker table td {
     padding:2px;
 }
 
@@ -195,7 +195,9 @@ ul#formBreadcrumb li:last-child {
 }
 
 /* Icon Addon */
-.add-on {
+.add-on, 
+.selectedAppointmentTypesList,
+.selectedAppointmentTypesList > .add-on {
     background: #55D6BE;
     box-shadow: rgba(0,0,0,0.3) 0 1px 4px;
     border-radius: 0 4px 4px 0;
@@ -203,6 +205,16 @@ ul#formBreadcrumb li:last-child {
     cursor: pointer;
     display: inline-block;
     padding: 9px 8px;
+}
+
+.selectedAppointmentTypesList {
+    border:none;
+    border-radius: 4px 0 0 4px;
+    padding:0;
+}
+
+.selectedAppointmentTypesList span {
+    padding:4px;
 }
 
 #retrospective-visit-creation-dialog .add-on {

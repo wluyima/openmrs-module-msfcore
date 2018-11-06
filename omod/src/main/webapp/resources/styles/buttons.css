@@ -363,6 +363,8 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+a,
+a:hover,
 form input,
 form select,
 form textarea,
