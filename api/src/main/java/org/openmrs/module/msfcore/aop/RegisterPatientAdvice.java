@@ -24,7 +24,8 @@ public class RegisterPatientAdvice implements AfterReturningAdvice {
                             .patient(patient).build();
             Context.getService(AuditService.class).saveAuditLog(registerPatientLog);
             // TODO added this for MSF testing/demo, this should be removed when
-            // ncd program enrollment is handled and invoked there
+            // ncd program enrollment is handled and invoked there, it should be
+            // in its own task to only run on project
             if ("true".equals(Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_SYNC_WITH_DHIS2))) {
                 Context.getService(DHISService.class).postTrackerInstanceThroughOpenHimForAPatient(patient);
             }

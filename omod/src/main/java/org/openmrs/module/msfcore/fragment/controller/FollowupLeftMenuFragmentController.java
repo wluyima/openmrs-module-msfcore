@@ -44,7 +44,7 @@ public class FollowupLeftMenuFragmentController {
         Patient patient = baselineController.getPatient(patientId);
 
         List<Encounter> ncdEncounters = baselineController.getAllEncountersByPatientAndEncounterTypeUuid(patient,
-                        MSFCoreConfig.MSF_NCD_FOLLOWUP_ENCOUNTER_TYPE_UUID);
+                        MSFCoreConfig.ENCOUNTER_TYPE_NCD_FOLLOWUP_UUID);
 
         String visitDetailsEncounter = getEncounterUuidByFormUuid(patient, ncdEncounters,
                         MSFCoreConfig.FORM_NCD_FOLLOWUP_VISIT_DETAILS_UUID);

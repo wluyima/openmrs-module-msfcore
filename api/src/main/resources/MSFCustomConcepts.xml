@@ -120,7 +120,13 @@
   <concept concept_id="1000092" retired="0" datatype_id="4" class_id="3" is_set="0" creator="1" date_created="2018-10-04 12:41:54" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="42043823-e5eb-45cc-b3b9-af3c256c64bb" />
   <concept concept_id="1000093" retired="0" datatype_id="2" class_id="9" is_set="0" creator="1" date_created="2018-10-04 15:37:20" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="17110937-6cb2-42f9-b932-3f79e9506a1d" />
   <concept concept_id="1000094" retired="0" datatype_id="2" class_id="5" is_set="0" creator="1" date_created="2018-10-04 22:52:14" changed_by="1" date_changed="2018-10-04 22:52:14" uuid="d09764da-2bf1-4ab6-933f-07a50add8f33" />
-
+  <concept concept_id="1000095" retired="0" datatype_id="10" class_id="7" is_set="0" creator="1" date_created="2018-10-04 13:13:48" changed_by="1" date_changed="2018-10-04 21:37:30" uuid="ea5f66f0-c622-4db3-bf96-c031f95c5457" />
+  <concept concept_id="500001" retired="0" datatype_id="4" class_id="11" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1401" />
+  <concept concept_id="500002" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1402" />
+  <concept concept_id="500003" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1403" />
+  <concept concept_id="500005" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1405" />
+  <concept concept_id="500006" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1406" />
+  <concept concept_id="500008" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1408" />
   <concept_answer concept_answer_id="307100" concept_id="465115" answer_concept="162554" creator="1" date_created="2018-09-26 05:47:04" uuid="022ebc9a-1acb-41fb-b613-bc06801ae181" sort_weight="3" />
   <concept_answer concept_answer_id="307101" concept_id="465115" answer_concept="162553" creator="1" date_created="2018-09-26 05:47:04" uuid="b671ae94-edc3-4275-ab2e-a304347a3b85" sort_weight="2" />
   <concept_answer concept_answer_id="307102" concept_id="465115" answer_concept="162552" creator="1" date_created="2018-09-26 05:47:04" uuid="5fb58bee-04c1-4485-882a-8b86ebb9758b" sort_weight="1" />
@@ -320,6 +326,7 @@
   <concept_name concept_id="465112" name="Drug Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291602" voided="false" uuid="b8964561-5b54-43f0-9fc6-b5a8142216f3" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465113" name="Other Allergy List" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291603" voided="false" uuid="cac06f69-dd67-4d7d-84fc-01a36fce7eb8" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
   <concept_name concept_id="465114" name="Allergic Reactions" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="2291604" voided="false" uuid="c3c41ce1-7f18-4a58-b49b-9afac9215517" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
+  <concept_name concept_id="1000095" name="There has been change in the patient diagnosis" locale="en" creator="1" date_created="2018-09-26 05:47:04" concept_name_id="1000096" voided="false" uuid="b8976841-e40c-4272-ba19-63c0579d3630" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" />
 
 
   <concept_name concept_name_id="2291608" concept_id="1000001" name="FLUTICASONE 125µg/SALMETEROL 25µg /puff, aeroso" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 13:13:48" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a56a0c20-d70e-4f18-b3a6-23785d4d092c" />
@@ -416,6 +423,12 @@
   <concept_name concept_name_id="2291699" concept_id="1000092" name="BECLOMETASONE dipropionate, 0.05mg/puff, 200 puffs,aerosol" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 12:41:54" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="5fd6a90a-59b7-46ef-bfc8-a73f4cc04dd2" />
   <concept_name concept_name_id="2291700" concept_id="1000093" name="Prescribed medication" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 15:37:20" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="6155103c-23c9-422a-9c59-a3095d569750" />
   <concept_name concept_name_id="2291701" concept_id="1000094" name="Medication dosing units coded" locale="en" locale_preferred="1" creator="1" date_created="2018-10-04 15:37:20" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="54fffb61-358c-43b0-9dd9-b3986d6f4106" />
+  <concept_name concept_name_id="500001" concept_id="500001" name="NCD" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1431" />
+  <concept_name concept_name_id="500002" concept_id="500002" name="Enroll" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1432" />
+  <concept_name concept_name_id="500003" concept_id="500003" name="Baseline consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1433" />
+  <concept_name concept_name_id="500005" concept_id="500005" name="Follow up consultation" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1435" />
+  <concept_name concept_name_id="500006" concept_id="500006" name="Exit" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 09:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1436" />
+  <concept_name concept_name_id="500008" concept_id="500008" name="Stage" locale="en" locale_preferred="1" creator="1" date_created="2018-10-02 19:28:25" concept_name_type="FULLY_SPECIFIED" voided="0" uuid="a24332ea-c601-11e8-a355-529269fb1438" />
 
   <concept_numeric concept_id="465098" allow_decimal="false" />
   <concept_numeric concept_id="465099" allow_decimal="false" />
@@ -643,4 +656,17 @@
   <concept_numeric concept_id="463540" allow_decimal="false" />
   <concept_numeric concept_id="463539" low_absolute="0" allow_decimal="false" />
   <concept_numeric concept_id="463540" low_absolute="0" allow_decimal="false" />
+
+  <!-- Complications since last visit -->
+  <concept_numeric concept_id="463535" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463537" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463538" low_absolute="0" allow_decimal="false" />
+  <concept_numeric concept_id="463536" low_absolute="0" allow_decimal="false" />
+
+  <!-- Synthesis on patient's condition Answers -->
+  <concept_answer concept_answer_id="7000118" concept_id="463570" answer_concept="463521" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="1.0" uuid="3dcc91be-04b4-4225-a554-7cfcdf0d0db3"/>
+  <concept_answer concept_answer_id="7000119" concept_id="463570" answer_concept="463522" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="2.0" uuid="0ed11cc8-0f8b-4b0d-a8be-9b989c611af2"/>
+  <concept_answer concept_answer_id="7000120" concept_id="463570" answer_concept="463523" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="3.0" uuid="95d5509e-07d9-45c2-943d-53bbd1293c73"/>
+  <concept_answer concept_answer_id="7000121" concept_id="463570" answer_concept="463524" creator="1" date_created="2018-11-01 11:11:27.0" sort_weight="4.0" uuid="964f2cd3-14f1-43ab-81e7-ae01bfb97e1d"/>
+  
 </dataset>
