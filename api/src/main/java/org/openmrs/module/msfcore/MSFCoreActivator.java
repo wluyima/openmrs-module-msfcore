@@ -100,12 +100,18 @@ public class MSFCoreActivator extends BaseModuleActivator {
     private void installMSFMeta() {
         // install concepts
         DataImporter dataImporter = Context.getRegisteredComponent("dataImporter", DataImporter.class);
+
         log.info("Importing MSF CIEL Concepts");
         dataImporter.importData("CIELConcepts.xml");
         log.info("MSF CIEL Concepts imported");
+
         log.info("Importing MSF Custom Concepts");
         dataImporter.importData("MSFCustomConcepts.xml");
         log.info("MSF Custom Concepts imported");
+
+        log.info("Importing MSF Drugs");
+        dataImporter.importData("MSFDrugs.xml");
+        log.info("MSF Drugs imported");
 
         log.info("Installing MSF metadata bundle");
         Context.getService(MetadataDeployService.class).installBundle(Context.getRegisteredComponents(MSFMetadataBundle.class).get(0));
