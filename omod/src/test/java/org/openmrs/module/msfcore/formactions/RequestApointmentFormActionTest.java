@@ -68,7 +68,6 @@ public class RequestApointmentFormActionTest extends BaseContextMockTest {
         appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
         appointmentTypeObs.setConcept(appointmentTypeConcept);
         appointmentTypeObs.setValueText("Gynecology");
-        // MSFCoreConfig.SERVICE_TYPE_GENERAL_MEDICINE_UUID
 
         Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
 
@@ -94,8 +93,6 @@ public class RequestApointmentFormActionTest extends BaseContextMockTest {
         assertThat(actual.getPatient(), is(equalTo(expected.getPatient())));
         assertThat(actual.getMinTimeFrameUnits(), is(equalTo(expected.getMinTimeFrameUnits())));
         // TODO: Re do this assert, if fails randomly on slow servers
-        // assertThat(actual.getMinTimeFrameValue(),
-        // is(equalTo(expected.getMinTimeFrameValue() - 1)));
         assertThat(actual.getStatus(), is(equalTo(expected.getStatus())));
         assertThat(actual.getRequestedOn(), is(notNullValue()));
     }
