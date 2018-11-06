@@ -369,3 +369,7 @@ div#actions {
 #deceased-container + p {
     margin-top:16px;
 }
+
+#appointment-block-form table {
+    box-shadow: none;
+}

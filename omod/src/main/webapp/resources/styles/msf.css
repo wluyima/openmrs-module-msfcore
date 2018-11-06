@@ -85,6 +85,7 @@ header .logo {
 
 /* Containers for forms and page elements */
 
+#appointment-block-form,
 table#active-visits + input + input + div,
 .create-appointment-type,
 .scheduleAppointment,
@@ -101,6 +102,7 @@ table#active-visits + input + input + div,
 /* Standard Drop Shadow */
 /* Merge Visits */
 
+#appointment-block-form,
 table#active-visits + input + input + div,
 .dashboard, table,
 .scheduleAppointment,
@@ -111,6 +113,7 @@ table#active-visits + input + input + div,
 }
 
 /* All four rounded corners */
+#appointment-block-form,
 .create-appointment-type {
     border-radius: 8px;
 }
@@ -584,11 +587,10 @@ table td:last-child {
     color: #fff;
 }
 
-#appointmentscheduling-patientAppointmentRequests>div>h2 {
-    display: none;
-}
-
-#patient-search-form+#patient-search-results+div {
+#appointmentscheduling-patientAppointmentRequests>div>h2,
+#patient-search-form+#patient-search-results+div,
+#form-actions-container a i,
+#appointmentRequestsGridTable .delete-item:after {
     display: none;
 }
 
@@ -619,9 +621,7 @@ table td:last-child {
     text-decoration: none;
 }
 
-#appointmentRequestsGridTable .delete-item:after {
-    display: none;
-}
+
 
 #appointmentscheduling-patientAppointmentRequests table,
 #appointmentscheduling-manageAppointments .scheduleAppointment {
@@ -667,5 +667,3 @@ ul#formBreadcrumb li.doing > span, ul#formBreadcrumb li span#confirmation_label 
   padding-left: 0;
   margin-left: 0;
 }
-#form-actions-container a i {display: none}
-
