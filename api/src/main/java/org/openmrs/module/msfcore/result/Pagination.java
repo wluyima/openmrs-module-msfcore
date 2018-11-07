@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore;
+package org.openmrs.module.msfcore.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

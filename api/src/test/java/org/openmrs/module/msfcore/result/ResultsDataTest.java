@@ -2,18 +2,24 @@ package org.openmrs.module.msfcore.result;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.Pagination;
-import org.openmrs.module.msfcore.result.ResultColumn.Type;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
     @Test
-    public void addRetriedResults_shouldAddLabTestOrders() {
+    public void addRetriedResults_shouldAddLabTestOrders() throws ParseException {
         executeDataSet("ResultsData.xml");
 
         // should retrieve and add lab test orders with matching results
@@ -39,16 +45,18 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT)).build(), resultsData.getResults().get(0).get("actions"));
         assertEquals(ResultColumn.builder().value("Creatinine").build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.testName")));
+        assertEquals(ResultColumn.builder().value("500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(), resultsData.getResults().get(0).get(
+                        "concept"));
         assertEquals(ResultColumn.builder().value("0.97").editable(true).build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.result")));
         assertEquals(ResultColumn.builder().value("mg/dL").build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.uom")));
         assertEquals(ResultColumn.builder().value("0.5 - 1.1").build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.range")));
-        assertEquals(ResultColumn.builder().value("31/10/2018").type(Type.DATE).build(), resultsData.getResults().get(0).get(
-                        Context.getMessageSourceService().getMessage("msfcore.orderDate")));
-        assertEquals(ResultColumn.builder().value("01/11/2018").editable(true).type(Type.DATE).build(), resultsData.getResults().get(0)
-                        .get(Context.getMessageSourceService().getMessage("msfcore.resultDate")));
+        assertEquals("2018-10-31 02:14:38.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.orderDate")).getValue()));
+        assertEquals("2018-11-01 02:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.resultDate")).getValue()));
 
         // should retrieve a pending result
         assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf2").build(), resultsData.getResults().get(1).get(
@@ -71,6 +79,9 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         // should retrive default pagination with number of found results set
         assertEquals(Pagination.builder().totalResultNumber(3).build(), resultsData.getPagination());
+
+        // should retrieve right dateFormatPattern
+        assertEquals(Context.getDateFormat().toPattern(), resultsData.getDateFormatPattern());
     }
 
     @Test
@@ -82,5 +93,58 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
     @Test(expected = IllegalArgumentException.class)
     public void parseCategory_failWithNonMatchable() {
         ResultsData.parseCategory("anyThingElse");
+    }
+
+    @Test
+    public void updateResultRow_shouldUpdateExistingLabResult() {
+        executeDataSet("ResultsData.xml");
+
+        LinkedHashMap<String, Object> mapWithPayload = new LinkedHashMap<String, Object>();
+        mapWithPayload.put("category", "labResults");
+        List<LinkedHashMap<String, Object>> payload = new ArrayList<LinkedHashMap<String, Object>>();
+        LinkedHashMap<String, Object> payloadCreatinineResultDate = new LinkedHashMap<String, Object>();
+        payloadCreatinineResultDate.put("uuid_key_type_concept",
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf1_6_DATE_500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        payloadCreatinineResultDate.put("value", "02/11/2018");
+        LinkedHashMap<String, Object> payloadCreatinineResult = new LinkedHashMap<String, Object>();
+        payloadCreatinineResult.put("uuid_key_type_concept",
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf1_1_STRING_500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        payloadCreatinineResult.put("value", "0.98");
+
+        payload.add(payloadCreatinineResultDate);
+        payload.add(payloadCreatinineResult);
+        mapWithPayload.put("payload", payload);
+        List<Obs> updated = (List<Obs>) ResultsData.updateResultRow(mapWithPayload);
+        Assert.assertEquals(1, updated.size());
+        Assert.assertEquals("2018-11-02", new SimpleDateFormat("yyyy-MM-dd").format(updated.get(0).getObsDatetime()));
+        Assert.assertEquals(Double.valueOf("0.98"), updated.get(0).getValueNumeric());
+    }
+
+    @Test
+    public void updateResultRow_shouldCreateNewLabResultEntry() {
+        executeDataSet("ResultsData.xml");
+
+        LinkedHashMap<String, Object> mapWithPayload = new LinkedHashMap<String, Object>();
+        mapWithPayload.put("category", "labResults");
+        List<LinkedHashMap<String, Object>> payload = new ArrayList<LinkedHashMap<String, Object>>();
+        LinkedHashMap<String, Object> payloadCreatinineResultDate = new LinkedHashMap<String, Object>();
+        payloadCreatinineResultDate.put("uuid_key_type_concept",
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf3_6_DATE_500025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        payloadCreatinineResultDate.put("value", "03/11/2018");
+        LinkedHashMap<String, Object> payloadCreatinineResult = new LinkedHashMap<String, Object>();
+        payloadCreatinineResult.put("uuid_key_type_concept",
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf3_1_STRING_500025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        payloadCreatinineResult.put("value", "1.8");
+
+        payload.add(payloadCreatinineResultDate);
+        payload.add(payloadCreatinineResult);
+        mapWithPayload.put("payload", payload);
+        List<Obs> created = (List<Obs>) ResultsData.updateResultRow(mapWithPayload);
+        Assert.assertEquals(1, created.size());
+        Assert.assertEquals("2018-11-03", new SimpleDateFormat("yyyy-MM-dd").format(created.get(0).getObsDatetime()));
+        Assert.assertEquals(Integer.valueOf(500025), created.get(0).getConcept().getId());
+        Assert.assertEquals("00ddc453-fc20-4f1b-a351-7eff54b4daf3", created.get(0).getOrder().getUuid());
+        Assert.assertEquals(Double.valueOf("1.8"), created.get(0).getValueNumeric());
+        Assert.assertEquals(MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID, created.get(0).getEncounter().getEncounterType().getUuid());
     }
 }

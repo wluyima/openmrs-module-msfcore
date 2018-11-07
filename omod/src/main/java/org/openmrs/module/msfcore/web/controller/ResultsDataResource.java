@@ -4,9 +4,8 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.Pagination;
-import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
+import org.openmrs.module.msfcore.result.Pagination;
+import org.openmrs.module.msfcore.result.Pagination.PaginationBuilder;
 import org.openmrs.module.msfcore.result.ResultsData;
 import org.openmrs.module.msfcore.result.ResultsData.ResultsDataBuilder;
 import org.openmrs.module.webservices.rest.web.RequestContext;
@@ -22,12 +21,7 @@ public class ResultsDataResource extends BaseDataResource {
 
     @Override
     protected AlreadyPaged<ResultsData> doSearch(RequestContext context) throws ResponseException {
-        Patient patient;
-        try {
-            patient = Context.getPatientService().getPatient(Integer.valueOf(context.getParameter("patientId")));
-        } catch (NumberFormatException e) {
-            patient = Context.getPatientService().getPatientByUuid(context.getParameter("patientId"));
-        }
+        Patient patient = getPatientFromId(context.getParameter("patientId"));
         ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);
         if (patient != null) {
             PaginationBuilder paginationBuilder = Pagination.builder();
@@ -61,6 +55,7 @@ public class ResultsDataResource extends BaseDataResource {
         description.addProperty("resultCategory");
         description.addProperty("results");
         description.addProperty("filters");
+        description.addProperty("dateFormatPattern");
 
         return description;
     }

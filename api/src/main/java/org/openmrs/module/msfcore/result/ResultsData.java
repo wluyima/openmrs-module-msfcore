@@ -1,21 +1,24 @@
 package org.openmrs.module.msfcore.result;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.DrugOrder;
+import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.result.ResultColumn.Type;
 
@@ -39,20 +42,21 @@ public class ResultsData {
     @Builder.Default
     private Pagination pagination = Pagination.builder().build();
     private ResultCategory resultCategory;
-    // result row: key (localised message property), value
     @Builder.Default
-    private List<Map<String, ResultColumn>> results = new ArrayList<Map<String, ResultColumn>>();
+    private List<ResultRow> results = new ArrayList<ResultRow>();
     @Builder.Default
     private ResultFilters filters = ResultFilters.builder().build();
+    private String dateFormatPattern;
 
     public void addRetrievedResults() {
+        dateFormatPattern = Context.getDateFormat().toPattern();
         if (resultCategory.equals(ResultCategory.DRUG_LIST) || resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             addOrders();
         }
         // TODO from config, messageName:[conceptIDs] for obs listing
     }
 
-    private List<String> getLocalizedKeys(List<String> keys) {
+    private static List<String> getLocalizedKeys(List<String> keys) {
         List<String> localizedKeys = new ArrayList<String>();
         for (String key : keys) {
             localizedKeys.add(Context.getMessageSourceService().getMessage(key));
@@ -64,14 +68,12 @@ public class ResultsData {
         OrderType orderType = null;
         if (resultCategory.equals(ResultCategory.DRUG_LIST)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
-            keys.addAll(getLocalizedKeys(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
-                            "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus")));
+            keys.addAll(getDrugOrdersKeys());
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
             filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
-            keys.addAll(getLocalizedKeys(Arrays.asList("msfcore.testName", "msfcore.result", "msfcore.uom", "msfcore.range",
-                            "msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
+            keys.addAll(getLabResultKeys());
         }
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(patient, orderType, null, pagination);
         for (Order o : orders) {
@@ -84,13 +86,23 @@ public class ResultsData {
         }
     }
 
+    private List<String> getDrugOrdersKeys() {
+        return getLocalizedKeys(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
+                        "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus"));
+    }
+
+    private static List<String> getLabResultKeys() {
+        return getLocalizedKeys(Arrays.asList("msfcore.testName", "msfcore.result", "msfcore.uom", "msfcore.range", "msfcore.orderDate",
+                        "msfcore.sampleDate", "msfcore.resultDate"));
+    }
+
     private void addTestOrders(Order o) {
-        Map<String, ResultColumn> resultRow = new HashMap<String, ResultColumn>();
+        ResultRow resultRow = new ResultRow();
         TestOrder testOrder = (TestOrder) o;
         // order concept must be a labSet with expected result concepts members
         for (Concept concept : testOrder.getConcept().getSetMembers()) {
             // TODO fix for other investigation order
-            Obs resultObs = getLabTestResultObs(testOrder.getPatient(), testOrder);
+            Obs resultObs = getLabTestResultObs(testOrder.getPatient(), testOrder, concept);
             resultRow.put("uuid", ResultColumn.builder().value(testOrder.getUuid()).build());
             Object status = null;
             List<ResultAction> actions = new ArrayList<ResultAction>();
@@ -106,6 +118,7 @@ public class ResultsData {
             }
             resultRow.put("status", ResultColumn.builder().value(status).build());
             resultRow.put("actions", ResultColumn.builder().value(actions).build());
+            resultRow.put("concept", ResultColumn.builder().value(concept.getUuid()).build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"), ResultColumn.builder().value(
                             concept.getName().getName()).build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"), resultObs != null ? ResultColumn.builder()
@@ -116,13 +129,13 @@ public class ResultsData {
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))
                             .build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(Type.DATE).value(
-                            Context.getDateFormat().format(testOrder.getDateCreated())).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.sampleDate"), ResultColumn.builder().editable(true).value(
-                            "").build()); // TODO
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null
-                            ? ResultColumn.builder().editable(true).type(Type.DATE).value(
-                                            Context.getDateFormat().format(resultObs.getObsDatetime())).build()
-                            : ResultColumn.builder().editable(true).value("").build());
+                            testOrder.getDateActivated()).build());
+            // TODO support sampleDate
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.sampleDate"), ResultColumn.builder().type(Type.DATE)
+                            .editable(true).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null ? ResultColumn.builder()
+                            .editable(true).type(Type.DATE).value(resultObs.getObsDatetime()).build() : ResultColumn.builder().editable(
+                            true).type(Type.DATE).value("").build());
             addResultRow(resultRow);
         }
 
@@ -130,7 +143,7 @@ public class ResultsData {
 
     // TODO add unit test when working on drug order
     private void addDrugOrders(Order o) {
-        Map<String, ResultColumn> resultRow = new HashMap<String, ResultColumn>();
+        ResultRow resultRow = new ResultRow();
         DrugOrder drugOrder = (DrugOrder) o;
         resultRow.put("uuid", ResultColumn.builder().value(drugOrder.getUuid()).build());
         resultRow.put("status", ResultColumn.builder().build());
@@ -150,7 +163,7 @@ public class ResultsData {
         addResultRow(resultRow);
     }
 
-    private void addResultRow(Map<String, ResultColumn> resultRow) {
+    private void addResultRow(ResultRow resultRow) {
         if (!resultRow.isEmpty()) {
             results.add(resultRow);
         }
@@ -171,8 +184,8 @@ public class ResultsData {
         return range;
     }
 
-    private Obs getLabTestResultObs(Patient patient, Order order) {
-        List<Obs> obs = Context.getService(MSFCoreService.class).getObservationsByPersonAndOrder(patient, order);
+    private static Obs getLabTestResultObs(Patient patient, Order order, Concept concept) {
+        List<Obs> obs = Context.getService(MSFCoreService.class).getObservationsByPersonAndOrderAndConcept(patient, order, concept);
 
         // TODO one order is currently expected to contain one result
         return !obs.isEmpty() ? obs.get(0) : null;
@@ -180,5 +193,74 @@ public class ResultsData {
 
     public static ResultCategory parseCategory(String category) {
         return ResultCategory.valueOf(category.replaceAll("([^_A-Z])([A-Z])", "$1_$2").toUpperCase());
+    }
+
+    private static Obs createBasicObsWithOrder(Order order, ResultCategory category, Concept concept) {
+        Obs obs = new Obs();
+        obs.setConcept(concept);
+        obs.setPerson(order.getPatient());
+        obs.setEncounter(buildEncounter(category, order.getPatient()));
+        obs.setLocation(Context.getLocationService().getDefaultLocation());
+        obs.setOrder(order);
+        return obs;
+    }
+
+    private static Encounter buildEncounter(ResultCategory category, Patient patient) {
+        Encounter enc = new Encounter();
+        enc.setEncounterType(category.equals(ResultCategory.LAB_RESULTS) ? Context.getEncounterService().getEncounterTypeByUuid(
+                        MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID) : null);// suport other enounterTypes if needed
+        enc.setEncounterDatetime(new Date());
+        enc.setPatient(patient);
+        return enc;
+    }
+
+    public static List<Obs> updateResultRow(LinkedHashMap<String, Object> propertiesToCreate) {
+        try {
+            if (parseCategory((String) propertiesToCreate.get("category")).equals(ResultCategory.LAB_RESULTS)) {
+                return updateLabResultRow(propertiesToCreate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static List<Obs> updateLabResultRow(LinkedHashMap<String, Object> propertiesToCreate) throws ParseException {
+        Obs obs = null;
+        String changeReason = "Updating obs from results widget";
+        TestOrder testOrder = null;
+        Concept concept = null;
+        for (Map resultColumnEntry : (ArrayList<Map>) propertiesToCreate.get("payload")) {
+            String[] idContent = ((String) resultColumnEntry.get("uuid_key_type_concept")).split("_");
+            String value = (String) resultColumnEntry.get("value");
+            String key = getLabResultKeys().get(Integer.parseInt(idContent[1]));
+            if (testOrder == null) {
+                testOrder = (TestOrder) Context.getOrderService().getOrderByUuid(idContent[0]);
+            }
+            if (concept == null) {
+                concept = Context.getConceptService().getConceptByUuid(idContent[3]);
+            }
+            if (obs == null) {
+                obs = getLabTestResultObs(testOrder.getPatient(), testOrder, concept);
+            }
+            if (obs == null) {
+                obs = createBasicObsWithOrder(testOrder, ResultCategory.LAB_RESULTS, concept);
+            }
+            if (idContent[2].equals("DATE")) {
+                if (key.equals(Context.getMessageSourceService().getMessage("msfcore.resultDate"))) {
+                    obs.setObsDatetime(Context.getDateFormat().parse(value));
+                } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.sampleDate"))) {
+                    // TODO resolve after sampleDate is supported
+                }
+            } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.result"))) {
+                obs.setValueAsString(value);
+            }
+        }
+        if (obs.getEncounter().getId() == null) {// this is a new obs/result
+            obs.setEncounter(Context.getEncounterService().saveEncounter(obs.getEncounter()));
+        }
+        obs = Context.getObsService().saveObs(obs, changeReason);
+        return Arrays.asList(obs);
     }
 }

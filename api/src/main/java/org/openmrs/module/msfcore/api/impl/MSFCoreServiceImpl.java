@@ -42,11 +42,11 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.MSFCoreUtils;
-import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
+import org.openmrs.module.msfcore.result.Pagination;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -338,7 +338,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return dao.getOrders(patient, type, concepts, pagination);
     }
 
-    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order) {
-        return dao.getObservationsByPersonAndOrder(person, order);
+    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
+        return dao.getObservationsByPersonAndOrderAndConcept(person, order, concept);
     }
 }

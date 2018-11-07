@@ -38,7 +38,7 @@ import org.openmrs.SimpleDosingInstructions;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
-import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.result.Pagination;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -320,8 +320,9 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         executeDataSet("MSFCoreService.xml");
 
         Assert.assertEquals("207d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
-                        .getObservationsByPersonAndOrder(Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1))
-                        .get(0).getUuid());
+                        .getObservationsByPersonAndOrderAndConcept(Context.getPersonService().getPerson(7),
+                                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(463392)).get(0)
+                        .getUuid());
     }
 
     @Test

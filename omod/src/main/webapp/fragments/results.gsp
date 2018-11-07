@@ -32,11 +32,11 @@
 		    <tbody>
 		    	<tr ng-repeat="result in results.results" id="{{result.uuid.value}}">
 		    		<td ng-repeat="key in results.keys" ng-init="editableAndPending = resultPendingWhenEditable(result, key);">
-		    			<label ng-if="editableAndPending" ng-class="{'column-status':editableAndPending, 'editable':result[key].editable}" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}">{{result.status.value}}</label>
-		    			<label ng-if="!editableAndPending" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}"  ng-class="{'editable':result[key].editable}">{{result[key].value}}</label>
+		    			<label ng-if="editableAndPending" ng-class="{'column-status':editableAndPending, 'editable':result[key].editable}" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}_{{result[key].type}}_{{result.concept.value}}">{{renderResultValue(result, key, editableAndPending)}}</label>
+		    			<label ng-if="!editableAndPending" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}_{{result[key].type}}_{{result.concept.value}}"  ng-class="{'editable':result[key].editable}" time="{{result[key].type == 'DATE' ? result[key].value : ''}}">{{renderResultValue(result, key, editableAndPending)}}</label>
 		    		</td>
 			    	<td ng-if="result.actions.value.length > 0" class="print-ignore">
-			    		<span ng-if="result.actions.value.includes('EDIT') > 0"><i class="icon-edit" ng-click="edit(result);"></i></span>
+			    		<span ng-if="result.actions.value.includes('EDIT') > 0"><i class="icon-edit" ng-click="edit(\$event, result);"></i></span>
 			    		<span ng-if="result.actions.value.includes('DELETE') > 0"><i class="icon-trash" ng-click="purge(result);"></i></span>
 			    	</td>
 			    	<td ng-if="result.actions.value.length == 0" class="print-ignore"></td>
@@ -50,8 +50,8 @@
 			<span>
 				<select ng-model="resultsPerPage" ng-change="pagination()">
 					<option value="25">25</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
 					<option value="all" ng-show="results.pagination.totalResultNumber > 100">${ui.message('msfcore.all')}</option>
 				</select>
 			</span>

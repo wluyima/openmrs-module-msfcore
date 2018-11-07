@@ -36,7 +36,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
-import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.result.Pagination;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.MSFCoreDao")
@@ -111,7 +111,7 @@ public class MSFCoreDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order) {
+    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
         Criteria crit = getSession().createCriteria(Obs.class);
         if (person != null) {
             crit.add(Restrictions.eq("person", person));

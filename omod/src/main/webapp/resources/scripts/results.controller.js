@@ -1,5 +1,7 @@
 var app = angular.module("resultsApp", []);
 var url;
+var patientId;
+var category;
 
 app.controller("ResultsController", ResultsController);
 ResultsController.$inject = ['$scope'];
@@ -57,14 +59,40 @@ function ResultsController($scope) {
         $scope.retrieveResults(true);
     }
 
-    this.resultPendingWhenEditable = this.resultPendingWhenEditable ||
-        function(result, key) {
-            return result[key].editable &&
-                result.status.value != 'COMPLETED';
-        }
+    this.resultPendingWhenEditable = this.resultPendingWhenEditable || function(result, key) {
+        return result[key].editable && result.status.value != 'COMPLETED';
+    }
 
-    this.edit = this.edit || function(result) {
+    this.edit = this.edit || function($event, result) {
         // locate result and replace labels with text fields on editable columns
+        if (jQuery($event.currentTarget).hasClass("icon-edit")) {
+            triggerEditing($scope, jQuery("input.editable"), result, true);
+            triggerEditing($scope, jQuery("label.editable"), result);
+            toggleEditingIcon($event);
+        } else {
+            var payload = generateResultRowData($scope);
+            if (!isEmpty(payload)) {
+                var data = {
+                    "payload": payload,
+                    "category": category
+                };
+                jQuery.ajax({
+                    url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/resultRow",
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(obs) {
+                    	console.log("Updated/Added Result at Obs: " + obs.uuid);
+                    	$scope.retrieveResults();
+                        toggleEditingIcon($event);
+                    }
+                });
+            } else {
+                // TODO use ${ui.message('')}
+                alert("Enter details before saving!");
+            }
+        }
     }
 
     this.purge = this.purge || function(result) {
@@ -80,12 +108,25 @@ function ResultsController($scope) {
         }
     }
 
+    this.renderResultValue = this.renderResultValue || function(result, key, editableAndPending) {
+        if (editableAndPending) {
+            return result.status.value;
+        } else {
+            var value = result[key].value;
+            if (result[key].type == 'DATE' && !isEmpty(value)) {
+                value = convertToOpenMRSDateFormat($scope, new Date(value));
+            }
+            return value;
+        }
+    }
+
     $scope.retrieveResults = this.retrieveResults;
     $scope.resultPendingWhenEditable = this.resultPendingWhenEditable;
     $scope.edit = this.edit;
     $scope.purge = this.purge;
     $scope.paginate = this.paginate;
     $scope.pagination = this.pagination;
+    $scope.renderResultValue = this.renderResultValue;
 }
 
 /**
@@ -102,7 +143,7 @@ function replacePaginationInURL(urlString, from, to) {
  * Check if an object is not existing or empty/blank
  */
 function isEmpty(object) {
-    return !object || object == null || object == undefined;
+    return !object || object == null || object == undefined || object == "" || object.length == 0;
 }
 
 function parseInteger(string) {
@@ -140,7 +181,7 @@ function getPossiblePages(urlString, resultsPerPage, totalResultNumber) {
 }
 
 function getPageObject(page, pageUrl) {
-	//page is non 0 index whereas $scope.pages is
+    //page is non 0 index whereas $scope.pages is
     return {
         "page": page,
         "url": pageUrl
@@ -150,4 +191,77 @@ function getPageObject(page, pageUrl) {
 function setNextAndPreviousPages($scope, currentPage) {
     $scope.nextPage = $scope.pages[currentPage.page];
     $scope.previousPage = $scope.pages[currentPage.page - 2];
+}
+
+function replaceElementWithTextInput($scope, element) {
+    element.replaceWith(function() {
+        var id = jQuery(this).attr('id');
+        var time = jQuery(this).attr('time');
+        var type = id.split("_")[2];
+        var originalValue = jQuery(this).text();
+        var originalClass = jQuery(this).attr('class');
+        var value = originalValue.replace("PENDING", "").replace("CANCELLED", "");
+        if (type == "DATE" && !isEmpty(time)) {
+            value = convertToDatePickerDateFormat(new Date(parseInteger(time)));
+        }
+        return jQuery("<input class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' type='" + type + "' time='" + time + "' />");
+    });
+}
+
+function convertToOpenMRSDateFormat($scope, date) {
+    return jQuery.datepicker.formatDate($scope.results.dateFormatPattern.toLowerCase().replace("yyyy", "yy"), date);
+}
+
+function convertToDatePickerDateFormat(date) {
+    return jQuery.datepicker.formatDate("yy-mm-dd", date);
+}
+
+function replaceElementWithLabel(element) {
+    element.replaceWith(function() {
+        var id = jQuery(this).attr('id');
+        var time = jQuery(this).attr('time');
+        var value = jQuery(this).attr('original_value');
+        var claz = jQuery(this).attr('original_class');
+        return jQuery("<label class='" + claz + "' id='" + id + "' time='" + time + "'>" + value + "<label/>");
+    });
+}
+
+function triggerEditing($scope, element, result, edit) {
+    element.each(function(key, value) {
+        var elementId = value.getAttribute('id');
+        if (edit) {
+            // re-render all edits back to labels
+            replaceElementWithLabel(jQuery("#" + elementId));
+            jQuery(".icon-ok").addClass("icon-edit").removeClass("icon-ok");
+        } else {
+            if (elementId.startsWith(result.uuid.value)) {
+                replaceElementWithTextInput($scope, jQuery("#" + elementId));
+            }
+        }
+    });
+}
+
+function toggleEditingIcon($event) {
+    jQuery($event.currentTarget).toggleClass("icon-edit");
+    jQuery($event.currentTarget).toggleClass("icon-ok");
+}
+
+function generateResultRowData($scope) {
+    var data = [];
+    jQuery("input.editable").each(function(key, value) {
+        var id = value.getAttribute('id');
+        var value = jQuery("#" + id).val();
+        var type = id.split("_")[2];
+        if (type == "DATE" && !isEmpty(value)) {
+            value = convertToOpenMRSDateFormat($scope, new Date(value));
+        }
+        // TODO support validation and on fail return empty array
+        if (!isEmpty(value)) {
+            data.push({
+                "uuid_key_type_concept": id,
+                "value": value
+            });
+        }
+    });
+    return data;
 }

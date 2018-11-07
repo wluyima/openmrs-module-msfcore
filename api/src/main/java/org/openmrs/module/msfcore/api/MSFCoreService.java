@@ -26,7 +26,7 @@ import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
-import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.result.Pagination;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -84,5 +84,5 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
-    public List<Obs> getObservationsByPersonAndOrder(Person person, Order order);
+    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept);
 }
