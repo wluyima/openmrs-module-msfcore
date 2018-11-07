@@ -207,7 +207,7 @@
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
 	
-	<!-- AOP Support -->
+	<!-- AOP Support to log viewing a patient -->
 	<advice>
 		<point>org.openmrs.module.emrapi.event.ApplicationEventService</point>
 		<class>org.openmrs.module.msfcore.aop.ViewPatientAdvice</class>
@@ -217,9 +217,12 @@
 		<class>org.openmrs.module.msfcore.aop.RegisterPatientAdvice</class>
 	</advice>
 	<advice>
+		<point>org.openmrs.module.reporting.report.service.ReportService</point>
+		<class>org.openmrs.module.msfcore.aop.ReportAuditLogAdvice</class>
+	</advice>
+	<advice>
 		<point>org.openmrs.api.ProgramWorkflowService</point>
 		<class>org.openmrs.module.msfcore.aop.SavePatientProgramAdvice</class>
 	</advice>
-	
 </module>
 
