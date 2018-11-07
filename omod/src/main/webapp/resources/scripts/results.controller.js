@@ -31,9 +31,9 @@ function ResultsController($scope) {
                     $scope.pages[1] = getPageObject(1, url);
                 } else { // more than one pages
                     $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
-                    $scope.currentPage = 1;
                     setNextAndPreviousPages($scope, $scope.pages[0]);
                 }
+                $scope.currentPage = 1;
             }
             //initialise results list
             $scope.results = data.results[0];
@@ -83,8 +83,8 @@ function ResultsController($scope) {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(obs) {
-                    	console.log("Updated/Added Result at Obs: " + obs.uuid);
-                    	$scope.retrieveResults();
+                        console.log("Updated/Added Result at Obs: " + obs.uuid);
+                        $scope.retrieveResults();
                         toggleEditingIcon($event);
                     }
                 });

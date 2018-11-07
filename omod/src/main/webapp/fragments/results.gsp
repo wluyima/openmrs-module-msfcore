@@ -63,8 +63,8 @@
 			<span ng-class="{'page':previousPage, 'disabled': !previousPage}" ng-click="paginate(previousPage)">${ui.message('general.previous')}</span>
 		</div>
 		<div class="center">
-			<span>
-				${ui.message('msfcore.showing')} {{results.pagination.fromResultNumber}} ${ui.message('general.to')} {{results.pagination.toResultNumber}} ${ui.message('general.of')} {{results.pagination.totalResultNumber}}
+			<span class="disabled">
+				${ui.message('msfcore.showing')} {{results.pagination.fromResultNumber}} ${ui.message('general.to')} {{results.pagination.toResultNumber}} ${ui.message('general.of')} {{results.pagination.totalResultNumber}} ${ui.message('msfcore.entries')}
 			</span>	
 		</div>
 	</div>
