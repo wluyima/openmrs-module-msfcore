@@ -79,31 +79,8 @@
 						<h4><lookup expression="fn.message('msfcore.ncdbaseline.requestappointment.servicetype')" /></h4>
 						<!-- Concept id=6000009 name = Request Appointment Type -->
 						<span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5" /></span>
-						<select name="appointment-type" id="appointment-type-list">
-							<option value=""></option>
-							<option value="4da187c6-c436-11e4-a470-82b0ea87e2d8">Dermatology</option>
-							<option value="5ab6d8a8-c436-11e4-a470-82b0ea87e2d8">Dermatology (New Patient)</option>
-							<option value="7dd9ac8e-c436-11e4-a470-82b0ea87e2d8">General Medicine</option>
-							<option value="7e7d3e26-c436-11e4-a470-82b0ea87e2d8">General Medicine (New Patient)</option>
-							<option value="7efeaa60-c436-11e4-a470-82b0ea87e2d8">Gynecology</option>
-							<option value="95636ce6-c436-11e4-a470-82b0ea87e2d8">Gynecology (New Patient)</option>
-							<option value="9ebdc232-c436-11e4-a470-82b0ea87e2d8">Infectious Disease</option>
-							<option value="a62a40e0-c436-11e4-a470-82b0ea87e2d8">Infectious Disease (New Patient)</option>
-							<option value="ac71c996-c436-11e4-a470-82b0ea87e2d8">Mental Health</option>
-							<option value="b29be856-c436-11e4-a470-82b0ea87e2d8">Mental Health (New Patient)</option>
-							<option value="cba5a260-c436-11e4-a470-82b0ea87e2d8">Neurology</option>
-							<option value="d248c6c4-c436-11e4-a470-82b0ea87e2d8">Neurology (New Patient)</option>
-							<option value="0c617770-c437-11e4-a470-82b0ea87e2d8">Obstetrics</option>
-							<option value="136ed9a4-c437-11e4-a470-82b0ea87e2d8">Obstetrics (New Patient)</option>
-							<option value="1b2d98c4-c437-11e4-a470-82b0ea87e2d8">Oncology</option>
-							<option value="25873c9e-c437-11e4-a470-82b0ea87e2d8">Oncology (New Patient)</option>
-							<option value="2febe6a8-c437-11e4-a470-82b0ea87e2d8">Pediatrics</option>
-							<option value="38081afa-c437-11e4-a470-82b0ea87e2d8">Pediatrics (New Patient)</option>
-							<option value="3f5a8ca2-c437-11e4-a470-82b0ea87e2d8">Surgery</option>
-							<option value="452c596c-c437-11e4-a470-82b0ea87e2d8">Surgery (New Patient)</option>
-							<option value="4d3b6396-c437-11e4-a470-82b0ea87e2d8">Urology</option>
-							<option value="4d85dda4-c437-11e4-a470-82b0ea87e2d8e">Urology (New Patient)</option>
-						</select>
+						<uiInclude provider="msfcore" fragment="field/appointmentList"/>
+
 					</div>
 					<div>
 						<h4><lookup expression="fn.getConcept('f3a76818-3ff4-4d94-9c51-be295cad43a1').name" /></h4>

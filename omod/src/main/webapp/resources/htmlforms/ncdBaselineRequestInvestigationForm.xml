@@ -94,6 +94,10 @@
 							<td><obs conceptId="5000018AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" labelNameTag="default" id="test_required_inr" style="checkbox"/></td>
 						</tr>
 						<tr>
+                            <!-- Comment id=463398 name=LDL -->
+							<td><obs conceptId="MSF:BA91735A-BFE1-40E4-9090-D07F19889C87" labelNameTag="default" id="test_required_ldl" style="checkbox"/></td>
+						</tr>
+						<tr>
                             <!-- Comment id=463610 name=Other Investigation -->
 							<td><lookup expression="fn.getConcept('MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E').name"/></td>
 							<td colspan="2"><obs conceptId="MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E" id="test_required_other"/></td>

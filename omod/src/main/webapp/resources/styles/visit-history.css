@@ -6,6 +6,7 @@
 .status-container .icon-time.small,
 .status-container span.right, 
 .visit-actions.active-visit a i,
+.visit-actions.past-visit a i,
 #visits-list li span.menu-title {
     display:none;
 }
@@ -94,6 +95,15 @@ ul.left-menu li:hover:not(.selected),
     display:flex;
 }
 
+.visit-actions.past-visit {
+    text-align:center;
+}
+
+.visit-actions.past-visit a {
+    width: 220px;
+    float: left;
+}
+
 ul.encounter-list {
     box-shadow: rgba(0,0,0,0.2) 0 2px 2px;
     width: 98%;
@@ -113,6 +123,21 @@ ul.encounter-list {
     color: #55D6BE;
     cursor: pointer;
     font-size: 0.9em;
+}
+
+.main-content .visit-actions.past-visit {
+    color: #EF626C;
+    background: white;
+}
+
+.main-content .visit-actions .label {
+    text-align: center;
+    background: #FCE2E4;
+    border-radius: 8px;
+    box-shadow: #F6A9AE 0 1px 1px;
+    padding: 8px;
+    margin: -8px auto 24px auto;
+    width: 80%;
 }
 
 /* Encounters List */
@@ -256,4 +281,11 @@ li.encounter-summary p {
 
 /* VISIT NOTE Section */
 
-
+.form-is-container {
+    background:#fff;
+    padding:24px; 
+    border-radius: 0 0 8px 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
+    display:flex;
+    flex-direction: column;
+}
