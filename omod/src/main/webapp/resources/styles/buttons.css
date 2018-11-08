@@ -149,7 +149,6 @@ input[type="submit"].confirm:hover,
     text-decoration: none;
 }
 
-#patient-search-clear-button:hover,
 .icon-delete:hover,
 .icon-remove:hover,
 .button.cancel:hover,
@@ -162,6 +161,11 @@ a.button.cancel:hover,
     color: #ff4747;
     cursor: pointer;
 }
+
+#patient-search-clear-button:hover {
+    background: #ff4747;
+}
+
 
 .main-content .visit-actions a:hover,
 .main-content .spaced a:hover,
@@ -273,9 +277,14 @@ a.view-details {
 }
 
 #patient-search-clear-button {
-    color: #373F46;
-    margin-left: -36px;
-    right: 42px;
+    background: #55D6BE;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    height: 40px;
+    padding: 12px 14px;
+    top: 1px;
+    right: 7px;
 }
 
 /*

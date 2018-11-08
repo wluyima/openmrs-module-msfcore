@@ -130,14 +130,14 @@ daterangepicker button {
     margin-left: 0.25rem;
 }
 
-div#active-visits_filter.dataTables_filter,
-form#patient-search-form {
-    background: #55D6BE;
-    border-radius: 8px 8px 0 0;
+form#patient-search-form,
+div#active-visits_filter.dataTables_filter {
+    background: #424C55;
+    border-radius: 8px;
     box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
     box-sizing: border-box;
-    margin-bottom: 0;
-    padding: 16px;
+    margin-bottom: -8px;
+    padding: 16px 16px 24px 16px;
     width: 100%;
 }
 
@@ -151,7 +151,7 @@ form#patient-search-form {
 }
 
 form input#patient-search {
-    min-width: 56%;
+    min-width: 50%;
     box-sizing: border-box;
     margin-top:28px;
 }
