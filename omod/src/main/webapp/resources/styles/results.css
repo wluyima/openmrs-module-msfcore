@@ -1,3 +1,4 @@
+/* style CANCELLED & PENDING here */
 .column-status {
 	background-color: #acacac;
 }
@@ -10,6 +11,7 @@
 	color: #acacac;
 }
 
+/* style current page highlighting here */
 .current-page {
 	background-color: #acacac;
 }
@@ -24,4 +26,16 @@
 
 .center {
    	display:inline-block;
+}
+
+/* style editing fields here */
+input.editable {
+}
+
+td.no-wrap {
+	white-space: nowrap;
+}
+
+#filters-table {
+	border-collapse: unset;
 }

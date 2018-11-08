@@ -8,8 +8,9 @@ ResultsController.$inject = ['$scope'];
 
 function ResultsController($scope) {
     $scope.resultsPerPage = "25";
-    this.retrieveResults = this.retrieveResults || function(renderPagination) {
+    this.retrieveResults = this.retrieveResults || function(callback) {
         // TODO probably wrap in some loading...
+
         if (isEmpty(url)) {
             var urlParams = new URLSearchParams(window.location.search);
             patientId = urlParams.get('patientId');
@@ -19,13 +20,25 @@ function ResultsController($scope) {
                 "&category=" + category;
         }
         jQuery.get(url, function(data) {
+            //initialise results list
+            var results = data.results[0];
+            if (callback) {
+                if (callback.name.indexOf("filterBy") >= 0) {
+                    callback(results, $scope);
+                }
+            } else {
+                clearFilterFields($scope, results);
+            }
+
             // render pagination on first page load or resultsPerPage change
-            var pagination = data.results[0].pagination;
+            var pagination = results.pagination;
+            $scope.pages = [];
             if (isEmpty(pagination.toResultNumber) || pagination.totalResultNumber <= pagination.toResultNumber) {
                 pagination.toResultNumber = pagination.totalResultNumber;
             }
-            if (renderPagination) {
-                $scope.pages = [];
+            if (pagination.totalResultNumber == 0) {
+                pagination.fromResultNumber = 0;
+            } else {
                 // one page
                 if (pagination.toResultNumber == pagination.totalResultNumber) {
                     $scope.pages[1] = getPageObject(1, url);
@@ -35,8 +48,9 @@ function ResultsController($scope) {
                 }
                 $scope.currentPage = 1;
             }
-            //initialise results list
-            $scope.results = data.results[0];
+
+            //display results
+            $scope.results = results;
             $scope.$apply();
         });
     }
@@ -56,7 +70,7 @@ function ResultsController($scope) {
         //remove and re-add pagination to url
         url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
         //retrive new results by new url
-        $scope.retrieveResults(true);
+        $scope.retrieveResults();
     }
 
     this.resultPendingWhenEditable = this.resultPendingWhenEditable || function(result, key) {
@@ -84,13 +98,13 @@ function ResultsController($scope) {
                     dataType: "json",
                     success: function(obs) {
                         console.log("Updated/Added Result at Obs: " + obs.uuid);
+                        url = replacePaginationInURL(url, "1", "25");
                         $scope.retrieveResults();
-                        toggleEditingIcon($event);
                     }
                 });
             } else {
                 // TODO use ${ui.message('')}
-                alert("Enter details before saving!");
+                alert("Enter correct details before saving!");
             }
         }
     }
@@ -102,6 +116,7 @@ function ResultsController($scope) {
                 url: '/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/order/' + result.uuid.value + '?!purge',
                 type: 'DELETE',
                 success: function(result) {
+                    url = replacePaginationInURL(url, "1", "25");
                     $scope.retrieveResults();
                 }
             });
@@ -120,6 +135,25 @@ function ResultsController($scope) {
         }
     }
 
+    this.nameFilter = this.nameFilter || function() {
+        if (!isEmpty(jQuery("#filter-name").val())) {
+            replacePaginationInURLToRetrieveAll($scope);
+            $scope.retrieveResults(filterByName);
+        }
+    }
+
+    this.statusFilter = this.statusFilter || function() {
+        replacePaginationInURLToRetrieveAll($scope);
+        $scope.retrieveResults(filterByStatus);
+    }
+
+    this.datesFilter = this.datesFilter || function() {
+        if (isValidDate(jQuery("#filter-start-date").val()) && isValidDate(jQuery("#filter-end-date").val())) {
+            replacePaginationInURLToRetrieveAll($scope);
+            $scope.retrieveResults(filterByDates);
+        }
+    }
+
     $scope.retrieveResults = this.retrieveResults;
     $scope.resultPendingWhenEditable = this.resultPendingWhenEditable;
     $scope.edit = this.edit;
@@ -127,16 +161,29 @@ function ResultsController($scope) {
     $scope.paginate = this.paginate;
     $scope.pagination = this.pagination;
     $scope.renderResultValue = this.renderResultValue;
+    $scope.nameFilter = this.nameFilter;
+    $scope.statusFilter = this.statusFilter;
+    $scope.datesFilter = this.datesFilter;
+}
+
+function removePaginationFromURL(urlString) {
+    if (urlString.indexOf("&fromResultNumber=") > 0) {
+        urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
+    }
 }
 
 /**
  * Replace pagination params from in if they exist
  */
 function replacePaginationInURL(urlString, from, to) {
-    if (urlString.indexOf("&fromResultNumber=") > 0) {
-        urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
-    }
+    removePaginationFromURL(urlString);
     return urlString + "&fromResultNumber=" + from + "&toResultNumber=" + to;
+}
+
+function replacePaginationInURLToRetrieveAll($scope) {
+    //TODO searching is matching against all results
+    $scope.resultsPerPage = "all";
+    url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
 }
 
 /**
@@ -252,8 +299,12 @@ function generateResultRowData($scope) {
         var id = value.getAttribute('id');
         var value = jQuery("#" + id).val();
         var type = id.split("_")[2];
-        if (type == "DATE" && !isEmpty(value)) {
-            value = convertToOpenMRSDateFormat($scope, new Date(value));
+        if (type == "DATE") {
+            if (isValidDate(value)) {
+                value = convertToOpenMRSDateFormat($scope, new Date(value));
+            } else {
+                value = "";
+            }
         }
         // TODO support validation and on fail return empty array
         if (!isEmpty(value)) {
@@ -264,4 +315,81 @@ function generateResultRowData($scope) {
         }
     });
     return data;
+}
+
+function applyFilterChanges(results) {
+    //remove any pending empty results because of excluding some
+    results.results = results.results.filter(function() {
+        return true;
+    });
+    // update totalNumber of results
+    results.pagination.totalResultNumber = results.results.length;
+}
+
+function filterByName(results, $scope) {
+    const name = jQuery("#filter-name").val();
+    jQuery.each(results.results, function(i, resultRow) {
+        if (resultRow[results.filters.name].value.toLowerCase().indexOf(name.toLowerCase()) == -1) {
+            results.results = removeItemAtIndex(results.results, i);
+        }
+    });
+    applyFilterChanges(results);
+    clearFilterFields($scope, results);
+    jQuery("#filter-name").val(name);
+}
+
+function filterByStatus(results, $scope) {
+    const status = jQuery("#filter-status").val();
+    if (status != "all") {
+        jQuery.each(results.results, function(i, resultRow) {
+            if (resultRow.status.value != status) {
+                results.results = removeItemAtIndex(results.results, i);
+            }
+        });
+    }
+    applyFilterChanges(results);
+    clearFilterFields($scope, results);
+    jQuery("#filter-status").val(status);
+}
+
+function removeItemAtIndex(items, index) {
+    delete items[index];
+    return items;
+}
+
+function clearFilterFields($scope, results) {
+    jQuery("#filter-name").val("");
+    jQuery("#filter-status").val("all");
+    jQuery("#filter-dates").val(results.filters.dates[0]);
+    jQuery("#filter-start-date").val("");
+    jQuery("#filter-end-date").val("");
+    $scope.filterStartDate = "";
+    $scope.filterEndDate = "";
+    $scope.filterStatusValue = "all";
+    $scope.filterDateValue = results.filters.dates[0];
+}
+
+function filterByDates(results, $scope) {
+    const startDate = jQuery("#filter-start-date").val();
+    const endDate = jQuery("#filter-end-date").val();
+    const dateField = jQuery("#filter-dates").val();
+    jQuery.each(results.results, function(i, resultRow) {
+        //the conversion removes time
+    	var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
+        var date = new Date(dateString);
+        if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
+            results.results = removeItemAtIndex(results.results, i);
+        }
+    });
+    applyFilterChanges(results);
+    clearFilterFields($scope, results);
+    jQuery("#filter-dates").val(dateField);
+    jQuery("#filter-start-date").val(startDate)
+    jQuery("#filter-end-date").val(endDate)
+}
+
+function isValidDate(dateString) {
+    if (!isEmpty(dateString)) {
+        return !isNaN(new Date(dateString).getTime());
+    }
 }

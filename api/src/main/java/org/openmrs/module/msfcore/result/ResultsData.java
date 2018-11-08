@@ -73,6 +73,7 @@ public class ResultsData {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
             filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
+            filters.setName(Context.getMessageSourceService().getMessage("msfcore.testName"));
             keys.addAll(getLabResultKeys());
         }
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(patient, orderType, null, pagination);
@@ -186,8 +187,7 @@ public class ResultsData {
 
     private static Obs getLabTestResultObs(Patient patient, Order order, Concept concept) {
         List<Obs> obs = Context.getService(MSFCoreService.class).getObservationsByPersonAndOrderAndConcept(patient, order, concept);
-
-        // TODO one order is currently expected to contain one result
+        // the latest result obs
         return !obs.isEmpty() ? obs.get(0) : null;
     }
 

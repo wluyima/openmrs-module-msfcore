@@ -72,7 +72,8 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(2).get("actions"));
 
         // should retreive filters
-        assertEquals(ResultFilters.builder().statuses(Arrays.asList(ResultStatus.values())).dates(
+        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.testName")).statuses(
+                        Arrays.asList(ResultStatus.values())).dates(
                         Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.orderDate"), Context.getMessageSourceService()
                                         .getMessage("msfcore.sampleDate"), Context.getMessageSourceService().getMessage(
                                         "msfcore.resultDate"))).build(), resultsData.getFilters());

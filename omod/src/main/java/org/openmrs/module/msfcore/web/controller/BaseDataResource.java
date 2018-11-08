@@ -43,16 +43,6 @@ public class BaseDataResource extends DataDelegatingCrudResource implements Retr
         return null;
     }
 
-    String getRequestBody(RequestContext context) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        BufferedReader reader = context.getRequest().getReader();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line);
-        }
-        return buffer.toString();
-    }
-
     Patient getPatientFromId(String patientId) {
         Patient patient;
         try {
