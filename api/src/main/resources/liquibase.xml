@@ -106,4 +106,13 @@
 		<comment>Inserting data for report Patients Scheduled for Appointments</comment>
 		<sqlFile path="report_patient_scheduled_for_appointment_54.sql"/>
 	</changeSet>
+	<changeSet id="20181108-1533" author="maimoonak">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT COUNT(*) FROM reporting_report_design WHERE uuid = '618a3b96-4879-4234-8967-5dac6b2b3e83'
+			</sqlCheck>
+		</preConditions>
+		<comment>Inserting data for report Patients Defaulted</comment>
+		<sqlFile path="report_patient_defaulted_56.sql"/>
+	</changeSet>
 </databaseChangeLog>
