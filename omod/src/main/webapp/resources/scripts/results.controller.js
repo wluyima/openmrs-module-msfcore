@@ -8,7 +8,7 @@ ResultsController.$inject = ['$scope'];
 
 function ResultsController($scope) {
     $scope.resultsPerPage = "25";
-    this.retrieveResults = this.retrieveResults || function(callback) {
+    this.retrieveResults = this.retrieveResults || function(initialisePages, callback) {
         // TODO probably wrap in some loading...
 
         if (isEmpty(url)) {
@@ -30,25 +30,26 @@ function ResultsController($scope) {
                 clearFilterFields($scope, results);
             }
 
-            // render pagination on first page load or resultsPerPage change
-            var pagination = results.pagination;
-            $scope.pages = [];
-            if (isEmpty(pagination.toResultNumber) || pagination.totalResultNumber <= pagination.toResultNumber) {
-                pagination.toResultNumber = pagination.totalResultNumber;
+            if(initialisePages) {
+	            // render pagination on first page load or resultsPerPage change
+	            var pagination = results.pagination;
+	            $scope.pages = [];
+	            if (isEmpty(pagination.toResultNumber) || pagination.totalResultNumber <= pagination.toResultNumber) {
+	                pagination.toResultNumber = pagination.totalResultNumber;
+	            }
+	            if (pagination.totalResultNumber == 0) {
+	                pagination.fromResultNumber = 0;
+	            } else {
+	                // one page
+	                if (pagination.toResultNumber == pagination.totalResultNumber) {
+	                    $scope.pages[1] = getPageObject(1, url);
+	                } else { // more than one pages
+	                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
+	                    setNextAndPreviousPages($scope, $scope.pages[0]);
+	                }
+	                $scope.currentPage = 1;
+	            }
             }
-            if (pagination.totalResultNumber == 0) {
-                pagination.fromResultNumber = 0;
-            } else {
-                // one page
-                if (pagination.toResultNumber == pagination.totalResultNumber) {
-                    $scope.pages[1] = getPageObject(1, url);
-                } else { // more than one pages
-                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
-                    setNextAndPreviousPages($scope, $scope.pages[0]);
-                }
-                $scope.currentPage = 1;
-            }
-
             //display results
             $scope.results = results;
             $scope.$apply();
@@ -60,7 +61,7 @@ function ResultsController($scope) {
         if (page) {
             url = page.url;
             $scope.currentPage = page.page;
-            $scope.retrieveResults();
+            $scope.retrieveResults(false);
             setNextAndPreviousPages($scope, page);
         }
     }
@@ -70,7 +71,7 @@ function ResultsController($scope) {
         //remove and re-add pagination to url
         url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
         //retrive new results by new url
-        $scope.retrieveResults();
+        $scope.retrieveResults(true);
     }
 
     this.resultPendingWhenEditable = this.resultPendingWhenEditable || function(result, key) {
@@ -98,8 +99,7 @@ function ResultsController($scope) {
                     dataType: "json",
                     success: function(obs) {
                         console.log("Updated/Added Result at Obs: " + obs.uuid);
-                        url = replacePaginationInURL(url, "1", "25");
-                        $scope.retrieveResults();
+                        $scope.retrieveResults(false);
                     }
                 });
             } else {
@@ -116,8 +116,7 @@ function ResultsController($scope) {
                 url: '/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/order/' + result.uuid.value + '?!purge',
                 type: 'DELETE',
                 success: function(result) {
-                    url = replacePaginationInURL(url, "1", "25");
-                    $scope.retrieveResults();
+                    $scope.retrieveResults(false);
                 }
             });
         }
@@ -138,19 +137,19 @@ function ResultsController($scope) {
     this.nameFilter = this.nameFilter || function() {
         if (!isEmpty(jQuery("#filter-name").val())) {
             replacePaginationInURLToRetrieveAll($scope);
-            $scope.retrieveResults(filterByName);
+            $scope.retrieveResults(true, filterByName);
         }
     }
 
     this.statusFilter = this.statusFilter || function() {
         replacePaginationInURLToRetrieveAll($scope);
-        $scope.retrieveResults(filterByStatus);
+        $scope.retrieveResults(true, filterByStatus);
     }
 
     this.datesFilter = this.datesFilter || function() {
         if (isValidDate(jQuery("#filter-start-date").val()) && isValidDate(jQuery("#filter-end-date").val())) {
             replacePaginationInURLToRetrieveAll($scope);
-            $scope.retrieveResults(filterByDates);
+            $scope.retrieveResults(true, filterByDates);
         }
     }
 
@@ -170,13 +169,14 @@ function removePaginationFromURL(urlString) {
     if (urlString.indexOf("&fromResultNumber=") > 0) {
         urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
     }
+    return urlString;
 }
 
 /**
  * Replace pagination params from in if they exist
  */
 function replacePaginationInURL(urlString, from, to) {
-    removePaginationFromURL(urlString);
+	urlString = removePaginationFromURL(urlString);
     return urlString + "&fromResultNumber=" + from + "&toResultNumber=" + to;
 }
 

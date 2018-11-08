@@ -15,7 +15,7 @@
 	<input type="button" class="pull-right" id="print-results" value="${ui.message('msfcore.printResults')}"/>
 </div>
 <br />
-<div ng-app="resultsApp" ng-controller="ResultsController" ng-init="retrieveResults()">
+<div ng-app="resultsApp" ng-controller="ResultsController" ng-init="retrieveResults(true)">
 	<div class="print-ignore" ng-if="results.filters">
 		<table id="filters-table">
 			<tbody>
@@ -78,7 +78,7 @@
 				<select ng-model="resultsPerPage" ng-change="pagination()">
 					<option value="25">25</option>
 					<option value="50">50</option>
-					<option value="100">100</option>
+					<option value="1">100</option>
 					<option value="all" ng-show="results.pagination.totalResultNumber > 100">${ui.message('msfcore.all')}</option>
 				</select>
 			</span>
