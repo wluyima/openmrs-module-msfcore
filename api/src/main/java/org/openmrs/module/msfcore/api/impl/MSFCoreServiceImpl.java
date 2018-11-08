@@ -42,11 +42,11 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.MSFCoreUtils;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
-import org.openmrs.module.msfcore.result.Pagination;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 

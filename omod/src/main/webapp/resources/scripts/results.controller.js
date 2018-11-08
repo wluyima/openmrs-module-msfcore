@@ -34,17 +34,17 @@ function ResultsController($scope) {
 	            // render pagination on first page load or resultsPerPage change
 	            var pagination = results.pagination;
 	            $scope.pages = [];
-	            if (isEmpty(pagination.toResultNumber) || pagination.totalResultNumber <= pagination.toResultNumber) {
-	                pagination.toResultNumber = pagination.totalResultNumber;
+	            if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
+	                pagination.toItemNumber = pagination.totalItemsNumber;
 	            }
-	            if (pagination.totalResultNumber == 0) {
-	                pagination.fromResultNumber = 0;
+	            if (pagination.totalItemsNumber == 0) {
+	                pagination.fromItemNumber = 0;
 	            } else {
 	                // one page
-	                if (pagination.toResultNumber == pagination.totalResultNumber) {
+	                if (pagination.toItemNumber == pagination.totalItemsNumber) {
 	                    $scope.pages[1] = getPageObject(1, url);
 	                } else { // more than one pages
-	                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalResultNumber);
+	                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
 	                    setNextAndPreviousPages($scope, $scope.pages[0]);
 	                }
 	                $scope.currentPage = 1;
@@ -166,8 +166,8 @@ function ResultsController($scope) {
 }
 
 function removePaginationFromURL(urlString) {
-    if (urlString.indexOf("&fromResultNumber=") > 0) {
-        urlString = urlString.substring(0, urlString.indexOf("&fromResultNumber="));
+    if (urlString.indexOf("&fromItemNumber=") > 0) {
+        urlString = urlString.substring(0, urlString.indexOf("&fromItemNumber="));
     }
     return urlString;
 }
@@ -177,7 +177,7 @@ function removePaginationFromURL(urlString) {
  */
 function replacePaginationInURL(urlString, from, to) {
 	urlString = removePaginationFromURL(urlString);
-    return urlString + "&fromResultNumber=" + from + "&toResultNumber=" + to;
+    return urlString + "&fromItemNumber=" + from + "&toItemNumber=" + to;
 }
 
 function replacePaginationInURLToRetrieveAll($scope) {
@@ -201,9 +201,9 @@ function parseInteger(string) {
     }
 }
 
-function getPossiblePages(urlString, resultsPerPage, totalResultNumber) {
+function getPossiblePages(urlString, resultsPerPage, totalItemsNumber) {
     var pages = [];
-    var paginationAttempts = Math.ceil(totalResultNumber / resultsPerPage);
+    var paginationAttempts = Math.ceil(totalItemsNumber / resultsPerPage);
     // i is the pagecount to display
     var from = 1;
     for (i = 1; i <= paginationAttempts; i++) {
@@ -211,8 +211,8 @@ function getPossiblePages(urlString, resultsPerPage, totalResultNumber) {
         if (i == 1) {
             to = resultsPerPage;
         } else {
-            if (from >= totalResultNumber) {
-                to = totalResultNumber;
+            if (from >= totalItemsNumber) {
+                to = totalItemsNumber;
             } else {
                 to = (from - 1) + resultsPerPage;
             }
@@ -323,7 +323,7 @@ function applyFilterChanges(results) {
         return true;
     });
     // update totalNumber of results
-    results.pagination.totalResultNumber = results.results.length;
+    results.pagination.totalItemsNumber = results.results.length;
 }
 
 function filterByName(results, $scope) {

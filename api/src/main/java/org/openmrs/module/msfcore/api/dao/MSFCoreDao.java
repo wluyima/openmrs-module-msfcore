@@ -36,7 +36,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
-import org.openmrs.module.msfcore.result.Pagination;
+import org.openmrs.module.msfcore.Pagination;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.MSFCoreDao")
@@ -98,10 +98,10 @@ public class MSFCoreDao {
             crit.add(Restrictions.in("concept", concepts));
         }
 
-        pagination.setTotalResultNumber((int) (long) (Long) crit.setProjection(Projections.rowCount()).uniqueResult());
-        crit.setFirstResult(pagination.getFromResultNumber() - 1);
-        if (pagination.getToResultNumber() != null) {
-            int maxResults = pagination.getToResultNumber() - pagination.getFromResultNumber();
+        pagination.setTotalItemsNumber((int) (long) (Long) crit.setProjection(Projections.rowCount()).uniqueResult());
+        crit.setFirstResult(pagination.getFromItemNumber() - 1);
+        if (pagination.getToItemNumber() != null) {
+            int maxResults = pagination.getToItemNumber() - pagination.getFromItemNumber();
             crit.setMaxResults(maxResults + 1);
         }
         crit.setProjection(null);

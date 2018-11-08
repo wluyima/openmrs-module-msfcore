@@ -26,7 +26,7 @@ import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
-import org.openmrs.module.msfcore.result.Pagination;
+import org.openmrs.module.msfcore.Pagination;
 
 /**
  * The main service of this module, which is exposed for other modules. See

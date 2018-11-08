@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
-import org.openmrs.module.msfcore.result.Pagination;
-import org.openmrs.module.msfcore.result.Pagination.PaginationBuilder;
+import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
 import org.openmrs.module.msfcore.result.ResultsData;
 import org.openmrs.module.msfcore.result.ResultsData.ResultsDataBuilder;
 import org.openmrs.module.webservices.rest.web.RequestContext;
@@ -25,17 +25,16 @@ public class ResultsDataResource extends BaseDataResource {
         ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);
         if (patient != null) {
             PaginationBuilder paginationBuilder = Pagination.builder();
-            // TODO set paginationBuilder from body
-            String fromResultNumber = context.getParameter("fromResultNumber");
-            if (StringUtils.isNotBlank(fromResultNumber)) {
-                paginationBuilder.fromResultNumber(Integer.valueOf(fromResultNumber));
+            String fromItemNumber = context.getParameter("fromItemNumber");
+            if (StringUtils.isNotBlank(fromItemNumber)) {
+                paginationBuilder.fromItemNumber(Integer.valueOf(fromItemNumber));
             }
-            String toResultNumber = context.getParameter("toResultNumber");
-            if (StringUtils.isNotBlank(toResultNumber)) {
-                if (toResultNumber.equals("all")) {
-                    paginationBuilder.toResultNumber(null);
+            String toItemNumber = context.getParameter("toItemNumber");
+            if (StringUtils.isNotBlank(toItemNumber)) {
+                if (toItemNumber.equals("all")) {
+                    paginationBuilder.toItemNumber(null);
                 } else {
-                    paginationBuilder.toResultNumber(Integer.valueOf(toResultNumber));
+                    paginationBuilder.toItemNumber(Integer.valueOf(toItemNumber));
                 }
             }
             ResultsData resultsData = resultsDataBuilder.resultCategory(ResultsData.parseCategory(context.getParameter("category")))

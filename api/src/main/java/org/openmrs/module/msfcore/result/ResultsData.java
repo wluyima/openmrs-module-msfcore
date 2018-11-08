@@ -19,6 +19,7 @@ import org.openmrs.Patient;
 import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.result.ResultColumn.Type;
 

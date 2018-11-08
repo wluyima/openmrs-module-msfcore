@@ -78,8 +78,8 @@
 				<select ng-model="resultsPerPage" ng-change="pagination()">
 					<option value="25">25</option>
 					<option value="50">50</option>
-					<option value="1">100</option>
-					<option value="all" ng-show="results.pagination.totalResultNumber > 100">${ui.message('msfcore.all')}</option>
+					<option value="100">100</option>
+					<option value="all" ng-show="results.pagination.totalItemsNumber > 100">${ui.message('msfcore.all')}</option>
 				</select>
 			</span>
 			<span>${ui.message('msfcore.entries')}</span>
@@ -91,7 +91,7 @@
 		</div>
 		<div class="center">
 			<span class="disabled">
-				${ui.message('msfcore.showing')} {{results.pagination.fromResultNumber}} ${ui.message('general.to')} {{results.pagination.toResultNumber}} ${ui.message('general.of')} {{results.pagination.totalResultNumber}} ${ui.message('msfcore.entries').toLowerCase()}
+				${ui.message('msfcore.showing')} {{results.pagination.fromItemNumber}} ${ui.message('general.to')} {{results.pagination.toItemNumber}} ${ui.message('general.of')} {{results.pagination.totalItemsNumber}} ${ui.message('msfcore.entries').toLowerCase()}
 			</span>	
 		</div>
 	</div>

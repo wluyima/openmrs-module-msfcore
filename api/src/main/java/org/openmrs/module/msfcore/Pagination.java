@@ -1,4 +1,4 @@
-package org.openmrs.module.msfcore.result;
+package org.openmrs.module.msfcore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Pagination {
     @Builder.Default
-    private Integer fromResultNumber = 1;
+    private Integer fromItemNumber = 1;
     @Builder.Default
-    private Integer toResultNumber = 25;
+    private Integer toItemNumber = 25;
     @Builder.Default
-    private Integer totalResultNumber = 0;
+    private Integer totalItemsNumber = 0;
 }

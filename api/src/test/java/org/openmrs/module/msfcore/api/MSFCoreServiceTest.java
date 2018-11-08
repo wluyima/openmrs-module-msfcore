@@ -38,7 +38,7 @@ import org.openmrs.SimpleDosingInstructions;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
-import org.openmrs.module.msfcore.result.Pagination;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -90,9 +90,9 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(6),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
-        Assert.assertEquals(Integer.valueOf(0), pagination.getTotalResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(0), pagination.getTotalItemsNumber());
         Assert.assertEquals(0, orders.size());
     }
 
@@ -101,29 +101,29 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(25), pagination.getToResultNumber());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
         Assert.assertEquals(2, orders.size());
     }
 
     @Test
     public void getOrders_shouldUseFromAndToAppropriatelyOrderingByCreationDateDescAndSetPaginationWell() {
-        Pagination pagination = Pagination.builder().toResultNumber(1).build();
+        Pagination pagination = Pagination.builder().toItemNumber(1).build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(1), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(1), pagination.getToResultNumber());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("111", orders.get(0).getOrderNumber());
 
-        pagination = Pagination.builder().fromResultNumber(2).toResultNumber(2).build();
+        pagination = Pagination.builder().fromItemNumber(2).toItemNumber(2).build();
         orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
-        Assert.assertEquals(Integer.valueOf(2), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getToResultNumber());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalResultNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("1", orders.get(0).getOrderNumber());
     }
@@ -326,15 +326,15 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void getOrders_shouldRetrieveAllResultsIfPaginationToResultNumberIsNull() {
-        Pagination pagination = Pagination.builder().toResultNumber(null).build();
+    public void getOrders_shouldRetrieveAllResultsIfPaginationToItemNumberIsNull() {
+        Pagination pagination = Pagination.builder().toItemNumber(null).build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(2, orders.size());
     }
 
     @Test
-    public void getOrders_shouldRetrieveResultsFromFromResultNumber() {
+    public void getOrders_shouldRetrieveResultsFromFromItemNumber() {
         Pagination pagination = Pagination.builder().build();
         List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
@@ -361,12 +361,12 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(3, orders.size());
 
-        pagination = Pagination.builder().fromResultNumber(2).toResultNumber(2).build();
+        pagination = Pagination.builder().fromItemNumber(2).toItemNumber(2).build();
         orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
                         Context.getOrderService().getOrderType(1), null, pagination);
         Assert.assertEquals(1, orders.size());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getFromResultNumber());
-        Assert.assertEquals(Integer.valueOf(2), pagination.getToResultNumber());
-        Assert.assertEquals(Integer.valueOf(3), pagination.getTotalResultNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(3), pagination.getTotalItemsNumber());
     }
 }

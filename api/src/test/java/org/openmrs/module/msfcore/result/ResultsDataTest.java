@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class ResultsDataTest extends BaseModuleContextSensitiveTest {
@@ -79,7 +80,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                                         "msfcore.resultDate"))).build(), resultsData.getFilters());
 
         // should retrive default pagination with number of found results set
-        assertEquals(Pagination.builder().totalResultNumber(3).build(), resultsData.getPagination());
+        assertEquals(Pagination.builder().totalItemsNumber(3).build(), resultsData.getPagination());
 
         // should retrieve right dateFormatPattern
         assertEquals(Context.getDateFormat().toPattern(), resultsData.getDateFormatPattern());
