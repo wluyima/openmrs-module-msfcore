@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 public class LabOrderFormAction implements FormAction {
 
     /**
-     * Generate test orders when request investication section of baseline form
-     * is submited
+     * Generate test orders when request investigation section of baseline form
+     * is submitted
      */
     @Override
 	public void apply(String operation, FormEntrySession session) {

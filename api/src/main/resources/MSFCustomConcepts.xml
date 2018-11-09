@@ -119,7 +119,7 @@
   <concept concept_id="1000091" retired="0" datatype_id="4" class_id="3" is_set="0" creator="1" date_created="2018-10-04 12:35:49" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="5691bb74-b788-49d1-9219-a883065b73ae" />
   <concept concept_id="1000092" retired="0" datatype_id="4" class_id="3" is_set="0" creator="1" date_created="2018-10-04 12:41:54" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="42043823-e5eb-45cc-b3b9-af3c256c64bb" />
   <concept concept_id="1000093" retired="0" datatype_id="2" class_id="9" is_set="0" creator="1" date_created="2018-10-04 15:37:20" changed_by="1" date_changed="2018-10-04 21:37:40" uuid="17110937-6cb2-42f9-b932-3f79e9506a1d" />
-  <concept concept_id="1000094" retired="0" datatype_id="2" class_id="5" is_set="0" creator="1" date_created="2018-10-04 22:52:14" changed_by="1" date_changed="2018-10-04 22:52:14" uuid="d09764da-2bf1-4ab6-933f-07a50add8f33" />
+  <concept concept_id="1000094" retired="0" datatype_id="2" class_id="5" is_set="1" creator="1" date_created="2018-10-04 22:52:14" changed_by="1" date_changed="2018-10-04 22:52:14" uuid="d09764da-2bf1-4ab6-933f-07a50add8f33" />
   <concept concept_id="500001" retired="0" datatype_id="4" class_id="11" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1401" />
   <concept concept_id="500002" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1402" />
   <concept concept_id="500003" retired="0" datatype_id="4" class_id="5" is_set="0" creator="1" date_created="2018-02-02 09:16:00" uuid="a2432c28-c601-11e8-a355-529269fb1403" />
@@ -196,15 +196,6 @@
   <concept_answer concept_answer_id="307159" concept_id="463547" answer_concept="463430" creator="1" date_created="2018-09-28 17:14:16" sort_weight="1" uuid="44a62e12-8768-477e-9516-cd814eb2e46b" />
   <concept_answer concept_answer_id="307160" concept_id="463547" answer_concept="463432" creator="1" date_created="2018-09-28 17:14:16" sort_weight="2" uuid="6c70bd44-7423-4af4-ab8e-60b510751249" />
   <concept_answer concept_answer_id="307161" concept_id="463547" answer_concept="463431" creator="1" date_created="2018-09-28 17:14:16" sort_weight="3" uuid="65d84495-5100-44e4-a37e-d02ca34ceb36" />
-
-  <concept_answer concept_answer_id="4001686" concept_id="162397" answer_concept="1000094" sort_weight="2" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad9" />
-  <concept_answer concept_answer_id="4001687" concept_id="162395" answer_concept="1000094" sort_weight="0" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad1" />
-  <concept_answer concept_answer_id="4001688" concept_id="162398" answer_concept="1000094" sort_weight="3" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad2" />
-  <concept_answer concept_answer_id="4001689" concept_id="162396" answer_concept="1000094" sort_weight="1" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad3" />
-  <concept_answer concept_answer_id="4001690" concept_id="1514" answer_concept="1000094" sort_weight="7" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad4" />
-  <concept_answer concept_answer_id="4001691" concept_id="162399" answer_concept="1000094" sort_weight="4" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad5" />
-  <concept_answer concept_answer_id="4001692" concept_id="162401" answer_concept="1000094" sort_weight="6" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad6" />
-  <concept_answer concept_answer_id="4001693" concept_id="162400" answer_concept="1000094" sort_weight="5" creator="1" date_created="2014-05-15 21:03:43" uuid="7eaef8fb-6621-4e55-8114-068b941d6ad7" />
 
   <concept_answer  concept_answer_id="7000002"  concept_id="1000093"  answer_concept="1000001"  creator="1"  date_created="2018-10-04 15:37:20"  sort_weight="38"  uuid="2efaf348-d60d-421b-aff4-f5e5d35854eb"/>
   <concept_answer  concept_answer_id="7000003"  concept_id="1000093"  answer_concept="1000002"  creator="1"  date_created="2018-10-04 15:37:20"  sort_weight="92"  uuid="464f5ca9-781a-4b34-9512-53601e081d3e"/>
@@ -432,6 +423,8 @@
   <concept_numeric concept_id="465098" allow_decimal="false" />
   <concept_numeric concept_id="465099" allow_decimal="false" />
   <concept_numeric concept_id="465100" allow_decimal="false" />
+  <concept_numeric concept_id="160856" low_absolute="1" allow_decimal="false" />
+  <concept_numeric concept_id="159368" low_absolute="1" allow_decimal="false" />
 
   <concept_set concept_set_id="302043" concept_id="465102" concept_set="465100" sort_weight="0.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="73ca98c0-336f-47ec-b218-5d155b755e09" />
   <concept_set concept_set_id="302044" concept_id="465101" concept_set="465100" sort_weight="1.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="74d81d49-6039-47b9-91a6-a371474e9414" />
@@ -650,5 +643,20 @@
   <concept_set concept_set_id="3000045" concept_id="465114" concept_set="7000007" sort_weight="4.0" creator="1" date_created="2018-10-30 12:44:44.0" uuid="7e5c7d0c-787a-4a05-924c-66f9893bca39" />
   <concept_set concept_set_id="3000046" concept_id="161011" concept_set="7000007" sort_weight="5.0" creator="1" date_created="2018-10-30 12:46:34.0" uuid="38393973-1a61-4b91-b4e2-23a7dab003b9" />
   <concept_set concept_set_id="3000047" concept_id="162820" concept_set="7000007" sort_weight="6.0" creator="1" date_created="2018-10-30 12:48:11.0" uuid="405a2ccf-a5e6-4458-83f1-31c48656fb71" />
-  
+
+  <!-- Drug order related sets -->  
+  <concept_set concept_set_id="3000058" concept_id="1072" concept_set="161244" sort_weight="0.0" creator="1" date_created="2018-11-08 09:15:12.0" uuid="69cf4a52-414b-4245-9c09-38ff6bb453c3"/>
+  <concept_set concept_set_id="3000059" concept_id="1073" concept_set="161244" sort_weight="1.0" creator="1" date_created="2018-11-08 09:15:12.0" uuid="0915a8e8-d4ac-45fc-b88b-932448c8361e"/>
+  <concept_set concept_set_id="3000060" concept_id="1074" concept_set="161244" sort_weight="2.0" creator="1" date_created="2018-11-08 09:15:12.0" uuid="66c28522-c3f7-4070-9bb9-61b12c6b2e51"/>
+  <concept_set concept_set_id="3000048" concept_id="161553" concept_set="1000094" sort_weight="0.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="4ff7a5b3-0936-40f9-a5f4-a2eb26e9e9d8"/>
+  <concept_set concept_set_id="3000049" concept_id="161554" concept_set="1000094" sort_weight="1.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="c8a9f66a-c7bb-49fe-a362-c0366d8e602f"/>
+  <concept_set concept_set_id="3000050" concept_id="162263" concept_set="1000094" sort_weight="2.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="fd6d791b-7da0-4af8-9a03-a5e97110a002"/>
+  <concept_set concept_set_id="3000051" concept_id="162376" concept_set="1000094" sort_weight="3.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="da6b2c17-5b07-440b-ab9a-dbb35bd7a0ba"/>
+  <concept_set concept_set_id="3000052" concept_id="1608" concept_set="1000094" sort_weight="4.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="135cf039-fdf5-40e1-a7ef-ee3fa1965ffd"/>
+  <concept_set concept_set_id="3000053" concept_id="1513" concept_set="1000094" sort_weight="5.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="24e47321-014e-46a0-ba87-1ad2b3833b46"/>
+  <concept_set concept_set_id="3000054" concept_id="162356" concept_set="1000094" sort_weight="6.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="d54cb3ef-d59a-40ff-be42-89e775adadb4"/>
+  <concept_set concept_set_id="3000055" concept_id="162366" concept_set="1000094" sort_weight="7.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="34118fcf-3384-49ed-8a42-24d6018cb92e"/>
+  <concept_set concept_set_id="3000056" concept_id="162370" concept_set="1000094" sort_weight="8.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="0aab9135-62c4-4b29-9e3b-d29843357ee0"/>
+  <concept_set concept_set_id="3000057" concept_id="162264" concept_set="1000094" sort_weight="9.0" creator="1" date_created="2018-11-08 09:07:37.0" uuid="39da2129-1c22-40d1-b3c8-ee9e19a63cd0"/>
+
 </dataset>

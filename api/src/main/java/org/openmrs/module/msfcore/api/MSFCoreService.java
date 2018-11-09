@@ -75,4 +75,6 @@ public interface MSFCoreService extends OpenmrsService {
     public void manageNCDProgram(Encounter encounter);
 
     public void saveTestOrders(Encounter encounter);
+
+    public void saveDrugOrders(Encounter encounter);
 }

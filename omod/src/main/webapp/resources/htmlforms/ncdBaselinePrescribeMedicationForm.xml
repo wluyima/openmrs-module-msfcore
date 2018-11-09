@@ -152,8 +152,8 @@
 									<div class="input-group">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
 										<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
-										<obs id="doseUnit{prescription}" class="doseInput select-arrow" conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33"
-												answerConceptIds="161553,161554,162263,162376,1608,1513,162356,162366,162370,162264" />
+										<obs id="doseUnit{prescription}" answerConceptSetIds="d09764da-2bf1-4ab6-933f-07a50add8f33" 
+											conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33" class="doseInput select-arrow"  />
 									</div>
 									<div class="input-group">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
@@ -165,7 +165,8 @@
 									</div>
 									<div class="input-group">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
-										<obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
+										<obs id="durationUnit{prescription}" answerConceptSetIds="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" 
+											conceptId="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" class="duration-unit select-arrow" />
 									</div>
 									<div class="input-group">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
