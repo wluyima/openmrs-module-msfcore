@@ -99,10 +99,15 @@ function enableFn(group){
 
 function validateRequiredFields(requiredFieldIds, requiredMessage) {
     var allValid = true;
+    var allRequiredFieldsAreMissing = true;
     requiredFieldIds.forEach(function(id) {
-        allValid = allValid && validateRequiredField(id, requiredMessage);
+        var valid = validateRequiredField(id, requiredMessage);
+        if (valid) {
+            allRequiredFieldsAreMissing = false;
+        }
+        allValid = allValid && valid;
     });
-    return allValid;
+    return allValid || allRequiredFieldsAreMissing;
 }
 
 function validateRequiredField(id, requiredMessage) {
