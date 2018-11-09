@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<td ng-if="results.filters.name" class="no-wrap">
-						{{results.filters.name}} <input id="filter-name"/><input type="button" ng-click="nameFilter()" value="${ui.message('general.search')}"/>
+						<input id="filter-name"/><input type="button" ng-click="nameFilter()" value="${ui.message('general.search')}"/>
 					</td>
 					<td ng-if="results.filters.statuses" class="no-wrap">
 						<select ng-model="filterStatusValue" id="filter-status" ng-change="statusFilter()">

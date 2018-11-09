@@ -18,6 +18,7 @@ function ResultsController($scope) {
             url = '/' + OPENMRS_CONTEXT_PATH +
                 '/ws/rest/v1/msfcore/resultData?patientId=' + patientId +
                 "&category=" + category;
+            //TODO log view event
         }
         jQuery.get(url, function(data) {
             //initialise results list

@@ -20,7 +20,11 @@ import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.AuditLogBuilder;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.module.msfcore.result.ResultColumn.Type;
 
 import lombok.AllArgsConstructor;
@@ -258,10 +262,25 @@ public class ResultsData {
                 obs.setValueAsString(value);
             }
         }
+        Patient patient = Context.getPatientService().getPatient(obs.getPerson().getPersonId());
+        AuditLogBuilder labResultEventBuilder = AuditLog.builder().event(Event.EDIT_LAB_RESULT).user(Context.getAuthenticatedUser())
+                        .patient(patient).detail(
+                                        Context.getMessageSourceService().getMessage(
+                                                        "msfcore.labResultEvent",
+                                                        new Object[]{"Edited", obs.getConcept().getName().getName(),
+                                                                        obs.getPerson().getPersonName().getFullName(),
+                                                                        patient.getPatientIdentifier().getIdentifier()}, null));
         if (obs.getEncounter().getId() == null) {// this is a new obs/result
             obs.setEncounter(Context.getEncounterService().saveEncounter(obs.getEncounter()));
+            labResultEventBuilder.event(Event.ADD_LAB_RESULT).detail(
+                            Context.getMessageSourceService().getMessage(
+                                            "msfcore.labResultEvent",
+                                            new Object[]{"Added", obs.getConcept().getName().getName(),
+                                                            obs.getPerson().getPersonName().getFullName(),
+                                                            patient.getPatientIdentifier().getIdentifier()}, null));
         }
         obs = Context.getObsService().saveObs(obs, changeReason);
+        Context.getService(AuditService.class).saveAuditLog(labResultEventBuilder.build());
         return Arrays.asList(obs);
     }
 }

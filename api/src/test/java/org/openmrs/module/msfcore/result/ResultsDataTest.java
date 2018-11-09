@@ -15,6 +15,9 @@ import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.api.AuditService;
+import org.openmrs.module.msfcore.audit.AuditLog;
+import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class ResultsDataTest extends BaseModuleContextSensitiveTest {
@@ -120,6 +123,12 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(1, updated.size());
         Assert.assertEquals("2018-11-02", new SimpleDateFormat("yyyy-MM-dd").format(updated.get(0).getObsDatetime()));
         Assert.assertEquals(Double.valueOf("0.98"), updated.get(0).getValueNumeric());
+
+        // should add a respective auditLog
+        AuditLog audit = Context.getService(AuditService.class).getAuditLogs(null, null, Arrays.asList(Event.EDIT_LAB_RESULT),
+                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null).get(0);
+        Assert.assertEquals(Event.EDIT_LAB_RESULT, audit.getEvent());
+        Assert.assertEquals("Edited: Creatinine Lab result for Patient: Collet Test Chebaskwony - 6TS-4", audit.getDetail());
     }
 
     @Test
@@ -148,5 +157,11 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals("00ddc453-fc20-4f1b-a351-7eff54b4daf3", created.get(0).getOrder().getUuid());
         Assert.assertEquals(Double.valueOf("1.8"), created.get(0).getValueNumeric());
         Assert.assertEquals(MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID, created.get(0).getEncounter().getEncounterType().getUuid());
+
+        // should add a respective auditLog
+        AuditLog audit = Context.getService(AuditService.class).getAuditLogs(null, null, Arrays.asList(Event.ADD_LAB_RESULT),
+                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null).get(0);
+        Assert.assertEquals(Event.ADD_LAB_RESULT, audit.getEvent());
+        Assert.assertEquals("Added: ECG Lab result for Patient: Collet Test Chebaskwony - 6TS-4", audit.getDetail());
     }
 }
