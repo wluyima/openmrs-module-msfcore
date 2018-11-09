@@ -449,6 +449,8 @@ public class MSFCoreConfig {
 
     public static final String CONCEPT_PRESCRIBED_MEDICATION_UUID = "17110937-6cb2-42f9-b932-3f79e9506a1d";
 
+    public static final String CONCEPT_ADMINISTRATION_INSTRUCTIONS_UUID = "163106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
     // Form UUIDS
     public static final String FORM_NCD_BASELINE_MEDICAL_HISTORY_UUID = "06807e2b-ce97-4d65-8796-e955fcbe057d";
 
