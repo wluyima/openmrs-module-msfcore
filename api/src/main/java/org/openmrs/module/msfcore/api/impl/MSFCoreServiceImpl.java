@@ -16,14 +16,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.CareSetting;
 import org.openmrs.Concept;
+import org.openmrs.Drug;
+import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
+import org.openmrs.OrderFrequency;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
@@ -294,21 +299,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 Concept concept = obs.getConcept();
                 TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, concept);
                 orderService.saveOrder(order, null);
-
-                /*
-                 * So, now we are supposed to link the test order with the obs
-                 * by setting obs.setOrder() but that will not work because
-                 * OpenMRS is not allowing to set Orders to existing Obs. The
-                 * method Obs.newInstance() that is called behind the scenes
-                 * when you update an Obs, does not copy over the Order. So what
-                 * we do next is manually copying the existing Obs and set the
-                 * order on that copy that is not yet persisted. Then we manualy
-                 * void the current Obs and create the copy. I did try to change
-                 * openmrs-core code to make Obs.newInstance() copy the Order
-                 * but that broke the test
-                 * transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient
-                 * so I will just leave it alone.
-                 */
                 Obs newObs = Obs.newInstance(obs);
                 newObs.setOrder(order);
                 obs.setVoided(true);
@@ -329,5 +319,79 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         order.setOrderer(provider);
         order.setCareSetting(careSetting);
         return order;
+    }
+
+    @Override
+    public void saveDrugOrders(Encounter encounter) {
+        OrderService orderService = Context.getOrderService();
+        EncounterService encounterService = Context.getEncounterService();
+        OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+        Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+        CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
+        Set<Obs> groups = encounter.getObsAtTopLevel(true);
+        for (Obs group : groups) {
+            if (!group.getVoided()) {
+                Set<Obs> observations = group.getGroupMembers();
+                Concept medication = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
+                Drug drug = dao.getDrugByConcept(medication);
+                DrugOrder order = createDrugOrder(encounter, orderType, provider, careSetting, medication, observations);
+                order.setDrug(drug);
+                encounter.addOrder(order);
+                Obs newGroup = Obs.newInstance(group);
+                newGroup.setOrder(order);
+                group.setVoided(true);
+                observations.forEach(o -> o.setVoided(true));
+                encounter.addObs(newGroup);
+                if (group.getOrder() != null) {
+                    group.getOrder().setVoided(true);
+                }
+            }
+        }
+        encounterService.saveEncounter(encounter);
+    }
+    private DrugOrder createDrugOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
+                    Concept concept, Set<Obs> observations) {
+        DrugOrder order = new DrugOrder();
+        order.setOrderType(orderType);
+        order.setConcept(concept);
+        order.setPatient(encounter.getPatient());
+        order.setEncounter(encounter);
+        order.setOrderer(provider);
+        order.setCareSetting(careSetting);
+        setOrderFields(observations, order);
+        return order;
+    }
+
+    private void setOrderFields(Set<Obs> observations, DrugOrder order) {
+        Double dose = getObsNumericValueByConceptUuid(MSFCoreConfig.CONCEPT_DOSE_UUID, observations);
+        Double duration = getObsNumericValueByConceptUuid(MSFCoreConfig.CONCEPT_DURATION_UUID, observations);
+        Concept frequencyConcept = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_FREQUENCY_UUID, observations);
+        Concept durationUnit = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DURATION_UNIT_UUID, observations);
+        Concept doseUnit = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DOSE_UNIT_UUID, observations);
+        OrderFrequency orderFrequency = Context.getOrderService().getOrderFrequencyByConcept(frequencyConcept);
+        Concept route = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_ROUTE_ORAL_UUID);
+        order.setDose(dose);
+        order.setDoseUnits(doseUnit);
+        order.setDuration(duration.intValue());
+        order.setDurationUnits(durationUnit);
+        order.setFrequency(orderFrequency);
+        order.setNumRefills(0);
+        order.setQuantity(1d);
+        order.setQuantityUnits(doseUnit);
+        order.setRoute(route);
+    }
+
+    private Concept getConceptValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
+        Optional<Obs> obs = getObservationByConceptUuid(conceptUuid, observations);
+        return obs.isPresent() ? obs.get().getValueCoded() : null;
+    }
+
+    private Double getObsNumericValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
+        Optional<Obs> obs = getObservationByConceptUuid(conceptUuid, observations);
+        return obs.isPresent() ? obs.get().getValueNumeric() : null;
+    }
+
+    private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
+        return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
     }
 }

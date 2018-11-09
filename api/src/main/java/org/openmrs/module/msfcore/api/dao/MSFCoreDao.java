@@ -16,6 +16,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Drug;
+import org.openmrs.DrugOrder;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
@@ -76,5 +78,13 @@ public class MSFCoreDao {
     public List<PatientIdentifier> getPatientIdentifierByTypeAndPatient(PatientIdentifierType type, Patient patient) {
         return getSession().createCriteria(PatientIdentifier.class).add(Restrictions.eq("patient", patient)).add(
                         Restrictions.eq("identifierType", type)).addOrder(Order.desc("dateCreated")).list();
+    }
+
+    public DrugOrder getDrugOrder(Integer id) {
+        return (DrugOrder) getSession().get(DrugOrder.class, id);
+    }
+
+    public Drug getDrugByConcept(Concept medication) {
+        return (Drug) getSession().createCriteria(Drug.class).add(Restrictions.eq("concept", medication)).uniqueResult();
     }
 }

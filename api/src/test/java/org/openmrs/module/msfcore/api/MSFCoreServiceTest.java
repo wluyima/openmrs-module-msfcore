@@ -249,24 +249,30 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     public void saveTestOrders_shouldCreateTestOrders() throws Exception {
-		executeDataSet("MSFCoreService.xml");
-		
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
-		MSFCoreService service = Context.getService(MSFCoreService.class);
-				
-		//Order 1 is linked to a voided obs so it should be voided
-		Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
-		service.saveTestOrders(encounter);
-		Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
-		
-		Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
-		List<Obs> obs = new ArrayList<>(loadedEncounter.getObs());
-		Assert.assertEquals(3, obs.size());
-		Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
-		Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
-		Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
-		Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
-		Assert.assertEquals(CareSettingType.OUTPATIENT.name(),
-		    obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
-	}
+        executeDataSet("MSFCoreService.xml");
+
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
+        MSFCoreService service = Context.getService(MSFCoreService.class);
+
+        // Order 1 is linked to a voided obs so it should be voided
+        Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
+        service.saveTestOrders(encounter);
+        Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
+
+        Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
+        List<Obs> obs = new ArrayList<>(loadedEncounter.getObs());
+        Assert.assertEquals(3, obs.size());
+        Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
+        Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
+        Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
+        Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
+        Assert.assertEquals(CareSettingType.OUTPATIENT.name(), obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
+    }
+    @Test
+    public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
+        executeDataSet("MSFCoreService.xml");
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        MSFCoreService service = Context.getService(MSFCoreService.class);
+        service.saveDrugOrders(encounter);
+    }
 }
