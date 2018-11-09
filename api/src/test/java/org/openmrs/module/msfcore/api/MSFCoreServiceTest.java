@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
+import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Form;
@@ -248,6 +249,7 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
     }
 
+    @Test
     public void saveTestOrders_shouldCreateTestOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");
 
@@ -274,5 +276,10 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
         MSFCoreService service = Context.getService(MSFCoreService.class);
         service.saveDrugOrders(encounter);
+        Assert.assertEquals(1, encounter.getOrders().size());
+        DrugOrder drugOrder = (DrugOrder) encounter.getOrders().iterator().next();
+        Assert.assertNotNull(drugOrder.getId());
+        Assert.assertEquals(drugOrder.getDrug().getId().intValue(), 36);
+        Assert.assertEquals(drugOrder.getQuantity().doubleValue(), 14D, 0);
     }
 }
