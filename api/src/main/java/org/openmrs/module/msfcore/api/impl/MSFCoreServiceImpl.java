@@ -11,6 +11,7 @@ package org.openmrs.module.msfcore.api.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,6 +58,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 
     private static final String ORDER_VOID_REASON = "Obs was voided";
+
+    private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
+        {
+            put("1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 1);
+            put("1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 7);
+            put("1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 30);
+        }
+    };
 
     MSFCoreDao dao;
 
@@ -334,7 +343,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 Set<Obs> observations = group.getGroupMembers();
                 Concept medication = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
                 Drug drug = dao.getDrugByConcept(medication);
-                DrugOrder order = createDrugOrder(encounter, orderType, provider, careSetting, medication, observations);
+                DrugOrder order = createDrugOrder(encounter, orderType, provider, careSetting, observations);
                 order.setDrug(drug);
                 encounter.addOrder(order);
                 Obs newGroup = Obs.newInstance(group);
@@ -350,10 +359,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         encounterService.saveEncounter(encounter);
     }
     private DrugOrder createDrugOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
-                    Concept concept, Set<Obs> observations) {
+                    Set<Obs> observations) {
         DrugOrder order = new DrugOrder();
         order.setOrderType(orderType);
-        order.setConcept(concept);
         order.setPatient(encounter.getPatient());
         order.setEncounter(encounter);
         order.setOrderer(provider);
@@ -376,9 +384,17 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         order.setDurationUnits(durationUnit);
         order.setFrequency(orderFrequency);
         order.setNumRefills(0);
-        order.setQuantity(1d);
+        order.setQuantity(calculateQuantity(dose, duration, durationUnit, orderFrequency));
         order.setQuantityUnits(doseUnit);
         order.setRoute(route);
+    }
+
+    private Double calculateQuantity(Double dose, Double duration, Concept durationUnit, OrderFrequency orderFrequency) {
+        BigDecimal durationUnitDays = BigDecimal.valueOf(DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS.get(durationUnit.getUuid()));
+        BigDecimal timesPerDay = BigDecimal.valueOf(orderFrequency.getFrequencyPerDay());
+        BigDecimal doseBigDecimal = BigDecimal.valueOf(dose);
+        BigDecimal durationBigDecimal = BigDecimal.valueOf(duration);
+        return doseBigDecimal.multiply(timesPerDay).multiply(durationBigDecimal).multiply(durationUnitDays).doubleValue();
     }
 
     private Concept getConceptValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
