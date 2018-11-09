@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,7 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Form;
 import org.openmrs.Obs;
+import org.openmrs.Order;
 import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.ProgramWorkflow;
@@ -274,12 +276,33 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");
         Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-        MSFCoreService service = Context.getService(MSFCoreService.class);
-        service.saveDrugOrders(encounter);
+        Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
         Assert.assertEquals(1, encounter.getOrders().size());
         DrugOrder drugOrder = (DrugOrder) encounter.getOrders().iterator().next();
         Assert.assertNotNull(drugOrder.getId());
-        Assert.assertEquals(drugOrder.getDrug().getId().intValue(), 36);
-        Assert.assertEquals(drugOrder.getQuantity().doubleValue(), 14D, 0);
+        Assert.assertEquals(36, drugOrder.getDrug().getId().intValue());
+        Assert.assertEquals(14D, drugOrder.getQuantity().doubleValue(), 0);
+        Assert.assertEquals("Take after meals", drugOrder.getDosingInstructions());
+        Assert.assertEquals("Take after meals", drugOrder.getInstructions());
+    }
+
+    @Test
+    public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
+        executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+
+        // initially we should have 2 non voided orders for both concepts
+        List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(2, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
+
+        Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
+
+        // then just one active order for concept 1000021
+        encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(1, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
     }
 }

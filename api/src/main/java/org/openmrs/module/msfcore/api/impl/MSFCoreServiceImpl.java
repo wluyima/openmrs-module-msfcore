@@ -341,7 +341,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         for (Obs group : groups) {
             if (!group.getVoided()) {
                 Set<Obs> observations = group.getGroupMembers();
-                Concept medication = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
+                Concept medication = getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
                 Drug drug = dao.getDrugByConcept(medication);
                 DrugOrder order = createDrugOrder(encounter, orderType, provider, careSetting, observations);
                 order.setDrug(drug);
@@ -351,9 +351,9 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
                 group.setVoided(true);
                 observations.forEach(o -> o.setVoided(true));
                 encounter.addObs(newGroup);
-                if (group.getOrder() != null) {
-                    group.getOrder().setVoided(true);
-                }
+            }
+            if (group.getOrder() != null) {
+                group.getOrder().setVoided(true);
             }
         }
         encounterService.saveEncounter(encounter);
@@ -373,11 +373,13 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     private void setOrderFields(Set<Obs> observations, DrugOrder order) {
         Double dose = getObsNumericValueByConceptUuid(MSFCoreConfig.CONCEPT_DOSE_UUID, observations);
         Double duration = getObsNumericValueByConceptUuid(MSFCoreConfig.CONCEPT_DURATION_UUID, observations);
-        Concept frequencyConcept = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_FREQUENCY_UUID, observations);
-        Concept durationUnit = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DURATION_UNIT_UUID, observations);
-        Concept doseUnit = getConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DOSE_UNIT_UUID, observations);
+        Concept frequencyConcept = getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_FREQUENCY_UUID, observations);
+        Concept durationUnit = getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DURATION_UNIT_UUID, observations);
+        Concept doseUnit = getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_DOSE_UNIT_UUID, observations);
         OrderFrequency orderFrequency = Context.getOrderService().getOrderFrequencyByConcept(frequencyConcept);
         Concept route = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_ROUTE_ORAL_UUID);
+        String administrationInstructions = getObsValueTextByConceptUuid(MSFCoreConfig.CONCEPT_ADMINISTRATION_INSTRUCTIONS_UUID,
+                        observations);
         order.setDose(dose);
         order.setDoseUnits(doseUnit);
         order.setDuration(duration.intValue());
@@ -387,6 +389,8 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         order.setQuantity(calculateQuantity(dose, duration, durationUnit, orderFrequency));
         order.setQuantityUnits(doseUnit);
         order.setRoute(route);
+        order.setDosingInstructions(administrationInstructions);
+        order.setInstructions(administrationInstructions);
     }
 
     private Double calculateQuantity(Double dose, Double duration, Concept durationUnit, OrderFrequency orderFrequency) {
@@ -397,7 +401,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return doseBigDecimal.multiply(timesPerDay).multiply(durationBigDecimal).multiply(durationUnitDays).doubleValue();
     }
 
-    private Concept getConceptValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
+    private Concept getObsConceptValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
         Optional<Obs> obs = getObservationByConceptUuid(conceptUuid, observations);
         return obs.isPresent() ? obs.get().getValueCoded() : null;
     }
@@ -405,6 +409,11 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     private Double getObsNumericValueByConceptUuid(String conceptUuid, Set<Obs> observations) {
         Optional<Obs> obs = getObservationByConceptUuid(conceptUuid, observations);
         return obs.isPresent() ? obs.get().getValueNumeric() : null;
+    }
+
+    private String getObsValueTextByConceptUuid(String conceptUuid, Set<Obs> observations) {
+        Optional<Obs> obs = getObservationByConceptUuid(conceptUuid, observations);
+        return obs.isPresent() ? obs.get().getValueText() : null;
     }
 
     private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
