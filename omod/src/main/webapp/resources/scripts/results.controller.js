@@ -26,7 +26,7 @@ function ResultsController($scope) {
             //initialise results list
             var results = data.results[0];
             if (initialPageLoad) {
-                logViewLabResultsEvent(results);
+                logViewResultsEvent(results);
             }
             if (callback) {
                 if (callback.name.indexOf("filterBy") >= 0) {
@@ -400,9 +400,13 @@ function isValidDate(dateString) {
     }
 }
 
-function logViewLabResultsEvent(results) {
+function logViewResultsEvent(results) {
+	var event;
+	if(results.resultCategory == "LAB_RESULTS") {
+		event = "VIEW_LAB_RESULTS";
+	}
     var data = {
-        "event": "VIEW_LAB_RESULTS",
+        "event": event,
         "patient": results.patient
     };
     jQuery.ajax({
