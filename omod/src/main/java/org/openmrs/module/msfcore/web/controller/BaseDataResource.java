@@ -1,10 +1,10 @@
 package org.openmrs.module.msfcore.web.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.Retrievable;
@@ -51,5 +51,22 @@ public class BaseDataResource extends DataDelegatingCrudResource implements Retr
             patient = Context.getPatientService().getPatientByUuid(patientId);
         }
         return patient;
+    }
+
+    PaginationBuilder buildPaginationFromContext(RequestContext context) {
+        PaginationBuilder paginationBuilder = Pagination.builder();
+        String fromItemNumber = context.getParameter("fromItemNumber");
+        if (StringUtils.isNotBlank(fromItemNumber)) {
+            paginationBuilder.fromItemNumber(Integer.valueOf(fromItemNumber));
+        }
+        String toItemNumber = context.getParameter("toItemNumber");
+        if (StringUtils.isNotBlank(toItemNumber)) {
+            if (toItemNumber.equals("all")) {
+                paginationBuilder.toItemNumber(null);
+            } else {
+                paginationBuilder.toItemNumber(Integer.valueOf(toItemNumber));
+            }
+        }
+        return paginationBuilder;
     }
 }

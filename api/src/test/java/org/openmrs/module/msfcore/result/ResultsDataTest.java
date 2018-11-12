@@ -126,7 +126,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         // should add a respective auditLog
         AuditLog audit = Context.getService(AuditService.class).getAuditLogs(null, null, Arrays.asList(Event.EDIT_LAB_RESULT),
-                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null).get(0);
+                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null, null).get(0);
         Assert.assertEquals(Event.EDIT_LAB_RESULT, audit.getEvent());
         Assert.assertEquals("Edited: Creatinine Lab result for Patient: Collet Test Chebaskwony - 6TS-4", audit.getDetail());
     }
@@ -160,7 +160,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         // should add a respective auditLog
         AuditLog audit = Context.getService(AuditService.class).getAuditLogs(null, null, Arrays.asList(Event.ADD_LAB_RESULT),
-                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null).get(0);
+                        Arrays.asList(Context.getPatientService().getPatient(7)), null, null, null, null).get(0);
         Assert.assertEquals(Event.ADD_LAB_RESULT, audit.getEvent());
         Assert.assertEquals("Added: ECG Lab result for Patient: Collet Test Chebaskwony - 6TS-4", audit.getDetail());
     }

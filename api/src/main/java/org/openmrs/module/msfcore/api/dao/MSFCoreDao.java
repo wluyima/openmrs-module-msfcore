@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
@@ -40,7 +39,7 @@ import org.openmrs.module.msfcore.Pagination;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.MSFCoreDao")
-public class MSFCoreDao {
+public class MSFCoreDao extends MSFCoreBaseDao {
 
     private DbSession getSession() {
         return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
@@ -98,13 +97,7 @@ public class MSFCoreDao {
             crit.add(Restrictions.in("concept", concepts));
         }
 
-        pagination.setTotalItemsNumber((int) (long) (Long) crit.setProjection(Projections.rowCount()).uniqueResult());
-        crit.setFirstResult(pagination.getFromItemNumber() - 1);
-        if (pagination.getToItemNumber() != null) {
-            int maxResults = pagination.getToItemNumber() - pagination.getFromItemNumber();
-            crit.setMaxResults(maxResults + 1);
-        }
-        crit.setProjection(null);
+        addPaginationToCriteria(pagination, crit);
         crit.addOrder(desc("dateActivated"));
 
         return crit.list();

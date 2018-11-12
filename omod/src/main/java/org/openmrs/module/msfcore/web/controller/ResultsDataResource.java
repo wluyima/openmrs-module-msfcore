@@ -2,9 +2,7 @@ package org.openmrs.module.msfcore.web.controller;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
-import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
 import org.openmrs.module.msfcore.result.ResultsData;
 import org.openmrs.module.msfcore.result.ResultsData.ResultsDataBuilder;
@@ -24,19 +22,7 @@ public class ResultsDataResource extends BaseDataResource {
         Patient patient = getPatientFromId(context.getParameter("patientId"));
         ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);
         if (patient != null) {
-            PaginationBuilder paginationBuilder = Pagination.builder();
-            String fromItemNumber = context.getParameter("fromItemNumber");
-            if (StringUtils.isNotBlank(fromItemNumber)) {
-                paginationBuilder.fromItemNumber(Integer.valueOf(fromItemNumber));
-            }
-            String toItemNumber = context.getParameter("toItemNumber");
-            if (StringUtils.isNotBlank(toItemNumber)) {
-                if (toItemNumber.equals("all")) {
-                    paginationBuilder.toItemNumber(null);
-                } else {
-                    paginationBuilder.toItemNumber(Integer.valueOf(toItemNumber));
-                }
-            }
+            PaginationBuilder paginationBuilder = buildPaginationFromContext(context);
             ResultsData resultsData = resultsDataBuilder.resultCategory(ResultsData.parseCategory(context.getParameter("category")))
                             .pagination(paginationBuilder.build()).build();
             resultsData.addRetrievedResults();

@@ -10,8 +10,8 @@ import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.ui.framework.page.PageModel;
 
 public class AppointmentListFragmentController {
-	
-	public void controller(PageModel model) {
+
+    public void controller(PageModel model) {
 		List<AppointmentType> appointments = Context.getService(AppointmentService.class).getAllAppointmentTypes(false);
 		List<DropDownFieldOption> options = new ArrayList<>();
 		for (AppointmentType appointment : appointments) {
