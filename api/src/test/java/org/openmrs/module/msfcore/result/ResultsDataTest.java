@@ -18,6 +18,7 @@ import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
+import org.openmrs.module.msfcore.result.ResultColumn.Type;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class ResultsDataTest extends BaseModuleContextSensitiveTest {
@@ -51,7 +52,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.testName")));
         assertEquals(ResultColumn.builder().value("500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(), resultsData.getResults().get(0).get(
                         "concept"));
-        assertEquals(ResultColumn.builder().value("0.97").editable(true).build(), resultsData.getResults().get(0).get(
+        assertEquals(ResultColumn.builder().value("0.97").editable(true).type(Type.NUMBER).build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.result")));
         assertEquals(ResultColumn.builder().value("mg/dL").build(), resultsData.getResults().get(0).get(
                         Context.getMessageSourceService().getMessage("msfcore.uom")));
