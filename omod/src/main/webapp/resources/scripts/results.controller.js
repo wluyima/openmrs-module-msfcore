@@ -2,6 +2,7 @@ var app = angular.module("resultsApp", []);
 var url;
 var patientId;
 var category;
+var initialPageLoad = false;
 
 app.controller("ResultsController", ResultsController);
 ResultsController.$inject = ['$scope'];
@@ -10,7 +11,6 @@ function ResultsController($scope) {
     $scope.resultsPerPage = "25";
     this.retrieveResults = this.retrieveResults || function(initialisePages, callback) {
         // TODO probably wrap in some loading...
-
         if (isEmpty(url)) {
             var urlParams = new URLSearchParams(window.location.search);
             patientId = urlParams.get('patientId');
@@ -18,11 +18,16 @@ function ResultsController($scope) {
             url = '/' + OPENMRS_CONTEXT_PATH +
                 '/ws/rest/v1/msfcore/resultData?patientId=' + patientId +
                 "&category=" + category;
-            //TODO log view event
+            initialPageLoad = true;
+        } else {
+            initialPageLoad = false;
         }
         jQuery.get(url, function(data) {
             //initialise results list
             var results = data.results[0];
+            if (initialPageLoad) {
+                logViewLabResultsEvent(results);
+            }
             if (callback) {
                 if (callback.name.indexOf("filterBy") >= 0) {
                     callback(results, $scope);
@@ -31,25 +36,25 @@ function ResultsController($scope) {
                 clearFilterFields($scope, results);
             }
 
-            if(initialisePages) {
-	            // render pagination on first page load or resultsPerPage change
-	            var pagination = results.pagination;
-	            $scope.pages = [];
-	            if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
-	                pagination.toItemNumber = pagination.totalItemsNumber;
-	            }
-	            if (pagination.totalItemsNumber == 0) {
-	                pagination.fromItemNumber = 0;
-	            } else {
-	                // one page
-	                if (pagination.toItemNumber == pagination.totalItemsNumber) {
-	                    $scope.pages[1] = getPageObject(1, url);
-	                } else { // more than one pages
-	                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
-	                    setNextAndPreviousPages($scope, $scope.pages[0]);
-	                }
-	                $scope.currentPage = 1;
-	            }
+            if (initialisePages) {
+                // render pagination on first page load or resultsPerPage change
+                var pagination = results.pagination;
+                $scope.pages = [];
+                if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
+                    pagination.toItemNumber = pagination.totalItemsNumber;
+                }
+                if (pagination.totalItemsNumber == 0) {
+                    pagination.fromItemNumber = 0;
+                } else {
+                    // one page
+                    if (pagination.toItemNumber == pagination.totalItemsNumber) {
+                        $scope.pages[1] = getPageObject(1, url);
+                    } else { // more than one pages
+                        $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
+                        setNextAndPreviousPages($scope, $scope.pages[0]);
+                    }
+                    $scope.currentPage = 1;
+                }
             }
             //display results
             $scope.results = results;
@@ -177,7 +182,7 @@ function removePaginationFromURL(urlString) {
  * Replace pagination params from in if they exist
  */
 function replacePaginationInURL(urlString, from, to) {
-	urlString = removePaginationFromURL(urlString);
+    urlString = removePaginationFromURL(urlString);
     return urlString + "&fromItemNumber=" + from + "&toItemNumber=" + to;
 }
 
@@ -376,7 +381,7 @@ function filterByDates(results, $scope) {
     const dateField = jQuery("#filter-dates").val();
     jQuery.each(results.results, function(i, resultRow) {
         //the conversion removes time
-    	var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
+        var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
         var date = new Date(dateString);
         if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
             results.results = removeItemAtIndex(results.results, i);
@@ -393,4 +398,19 @@ function isValidDate(dateString) {
     if (!isEmpty(dateString)) {
         return !isNaN(new Date(dateString).getTime());
     }
+}
+
+function logViewLabResultsEvent(results) {
+    var data = {
+        "event": "VIEW_LAB_RESULTS",
+        "patient": results.patient
+    };
+    jQuery.ajax({
+        url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(event) {}
+    });
 }

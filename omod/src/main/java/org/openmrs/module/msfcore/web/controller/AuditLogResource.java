@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.AuditService;
@@ -50,7 +51,16 @@ public class AuditLogResource extends BaseDataResource {
 
     @Override
     public Object create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
+        String patientId = null;
+        if (propertiesToCreate.containsKey("patientId")) {
+            patientId = propertiesToCreate.get("patientId");
+            propertiesToCreate.remove("patientId");
+        }
         AuditLog delegate = (AuditLog) convert(propertiesToCreate);
+        if (StringUtils.isNotBlank(patientId)) {
+            delegate.setPatient(getPatientFromId(patientId));
+        }
+        setEventDetails(delegate);
         if (delegate.getUser() == null && !delegate.getEvent().equals(Event.LOGIN)) {
             delegate.setUser(Context.getAuthenticatedUser());
         }
@@ -77,12 +87,21 @@ public class AuditLogResource extends BaseDataResource {
     public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
         DelegatingResourceDescription description = new DelegatingResourceDescription();
         description.addRequiredProperty("event");
-        description.addRequiredProperty("detail");
         description.addProperty("patient");
         description.addProperty("user");
         description.addProperty("provider");
         description.addProperty("location");
         return description;
+    }
+
+    private void setEventDetails(AuditLog auditLog) {
+        if (auditLog.getEvent().equals(Event.VIEW_LAB_RESULTS)) {
+            auditLog.setDetail(Context.getMessageSourceService().getMessage(
+                            "msfcore.viewLabResultsEvent",
+                            new Object[]{auditLog.getPatient().getPerson().getPersonName().getFullName(),
+                                            auditLog.getPatient().getPatientIdentifier().getIdentifier()}, null));
+        }
+        // TODO support others as u need in future
     }
 
 }
