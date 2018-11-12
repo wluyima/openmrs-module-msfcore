@@ -54,7 +54,6 @@ import org.openmrs.module.msfcore.api.util.AllergenUtils;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -72,9 +71,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
 
     MSFCoreDao dao;
 
-    @Autowired
-    private AllergenUtils allergenUtils;
-
     /**
      * Injected in moduleApplicationContext.xml
      */
@@ -88,13 +84,13 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     @Override
-	public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
-		final List<DropDownFieldOption> answerNames = new ArrayList<>();
-		for (final Concept answer : this.getAllConceptAnswers(Context.getConceptService().getConceptByUuid(uuid))) {
-			answerNames.add(new DropDownFieldOption(String.valueOf(answer.getId()), answer.getName().getName()));
-		}
-		return answerNames;
-	}
+    public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
+        final List<DropDownFieldOption> answerNames = new ArrayList<>();
+        for (final Concept answer : this.getAllConceptAnswers(Context.getConceptService().getConceptByUuid(uuid))) {
+            answerNames.add(new DropDownFieldOption(String.valueOf(answer.getId()), answer.getName().getName()));
+        }
+        return answerNames;
+    }
     @Override
     public boolean isConfigured() {
         boolean configured = false;
@@ -122,20 +118,20 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     @Override
-	public List<Location> getMSFLocations() {
-		final List<Location> locations = new ArrayList<>();
-		locations.addAll(Context.getLocationService().getLocationsByTag(
-				Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
-		locations.addAll(Context.getLocationService().getLocationsByTag(
-				Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
-		locations.addAll(Context.getLocationService().getLocationsByTag(
-				Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
-		final Location defaultLocation = Context.getLocationService().getDefaultLocation();
-		if (!locations.contains(defaultLocation)) {
-			locations.add(defaultLocation);
-		}
-		return locations;
-	}
+    public List<Location> getMSFLocations() {
+        final List<Location> locations = new ArrayList<>();
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_MISSION)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_PROJECT)));
+        locations.addAll(Context.getLocationService()
+                        .getLocationsByTag(Context.getLocationService().getLocationTagByUuid(MSFCoreConfig.LOCATION_TAG_UUID_CLINIC)));
+        final Location defaultLocation = Context.getLocationService().getDefaultLocation();
+        if (!locations.contains(defaultLocation)) {
+            locations.add(defaultLocation);
+        }
+        return locations;
+    }
     @Override
     public String getLocationCode(Location location) {
         if (location == null) {
@@ -278,18 +274,18 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     @Override
-	public Map<String, ProgramWorkflowState> getMsfStages() {
-		final Map<String, ProgramWorkflowState> stages = new HashMap<>();
-		stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL,
-				Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL));
-		stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, Context.getProgramWorkflowService()
-				.getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION));
-		stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, Context.getProgramWorkflowService()
-				.getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION));
-		stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT,
-				Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT));
-		return stages;
-	}
+    public Map<String, ProgramWorkflowState> getMsfStages() {
+        final Map<String, ProgramWorkflowState> stages = new HashMap<>();
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL,
+                        Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION,
+                        Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION,
+                        Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION));
+        stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT,
+                        Context.getProgramWorkflowService().getStateByUuid(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT));
+        return stages;
+    }
     @Override
     public void manageNCDProgram(Encounter encounter) {
         final Patient patient = encounter.getPatient();
@@ -316,29 +312,28 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     @Override
-	public void saveTestOrders(Encounter encounter) {
-		final OrderService orderService = Context.getOrderService();
-		final EncounterService encounterService = Context.getEncounterService();
-		final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
-		final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
-		final CareSetting careSetting = orderService
-				.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-		final List<Obs> allObs = new ArrayList<>(encounter.getAllObs(true));
-		for (final Obs obs : allObs) {
-			if (!obs.getVoided() && (obs.getOrder() == null)) {
-				final Concept concept = obs.getConcept();
-				final TestOrder order = this.createTestOrder(encounter, orderType, provider, careSetting, concept);
-				orderService.saveOrder(order, null);
-				final Obs newObs = Obs.newInstance(obs);
-				newObs.setOrder(order);
-				obs.setVoided(true);
-				encounter.addObs(newObs);
-			} else if (obs.getVoided() && (obs.getOrder() != null) && !obs.getOrder().getVoided()) {
-				orderService.voidOrder(obs.getOrder(), ORDER_VOID_REASON);
-			}
-		}
-		encounterService.saveEncounter(encounter);
-	}
+    public void saveTestOrders(Encounter encounter) {
+        final OrderService orderService = Context.getOrderService();
+        final EncounterService encounterService = Context.getEncounterService();
+        final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
+        final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+        final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
+        final List<Obs> allObs = new ArrayList<>(encounter.getAllObs(true));
+        for (final Obs obs : allObs) {
+            if (!obs.getVoided() && (obs.getOrder() == null)) {
+                final Concept concept = obs.getConcept();
+                final TestOrder order = this.createTestOrder(encounter, orderType, provider, careSetting, concept);
+                orderService.saveOrder(order, null);
+                final Obs newObs = Obs.newInstance(obs);
+                newObs.setOrder(order);
+                obs.setVoided(true);
+                encounter.addObs(newObs);
+            } else if (obs.getVoided() && (obs.getOrder() != null) && !obs.getOrder().getVoided()) {
+                orderService.voidOrder(obs.getOrder(), ORDER_VOID_REASON);
+            }
+        }
+        encounterService.saveEncounter(encounter);
+    }
     private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
         final TestOrder order = new TestOrder();
         order.setOrderType(orderType);
@@ -351,38 +346,37 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     @Override
-	public void saveDrugOrders(Encounter encounter) {
-		final OrderService orderService = Context.getOrderService();
-		final EncounterService encounterService = Context.getEncounterService();
-		final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
-		final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
-		final CareSetting careSetting = orderService
-				.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-		final Set<Obs> groups = encounter.getObsAtTopLevel(true);
-		for (final Obs group : groups) {
-			if (!group.getVoided()) {
-				final Set<Obs> observations = group.getGroupMembers();
-				final Concept medication = this.getObsConceptValueByConceptUuid(
-						MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
-				final Drug drug = this.dao.getDrugByConcept(medication);
-				final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations);
-				order.setDrug(drug);
-				encounter.addOrder(order);
-				final Obs newGroup = Obs.newInstance(group);
-				newGroup.setOrder(order);
-				group.setVoided(true);
-				observations.forEach(o -> o.setVoided(true));
-				encounter.addObs(newGroup);
-			}
-			if (group.getOrder() != null) {
-				group.getOrder().setVoided(true);
-			}
-		}
-		encounterService.saveEncounter(encounter);
-	}
+    public void saveDrugOrders(Encounter encounter) {
+        final OrderService orderService = Context.getOrderService();
+        final EncounterService encounterService = Context.getEncounterService();
+        final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+        final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+        final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
+        final Set<Obs> groups = encounter.getObsAtTopLevel(true);
+        for (final Obs group : groups) {
+            if (!group.getVoided()) {
+                final Set<Obs> observations = group.getGroupMembers();
+                final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
+                                observations);
+                final Drug drug = this.dao.getDrugByConcept(medication);
+                final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations);
+                order.setDrug(drug);
+                encounter.addOrder(order);
+                final Obs newGroup = Obs.newInstance(group);
+                newGroup.setOrder(order);
+                group.setVoided(true);
+                observations.forEach(o -> o.setVoided(true));
+                encounter.addObs(newGroup);
+            }
+            if (group.getOrder() != null) {
+                group.getOrder().setVoided(true);
+            }
+        }
+        encounterService.saveEncounter(encounter);
+    }
     @Override
     public Allergies saveAllergies(Encounter encounter) {
-        return this.allergenUtils.createAllergies(encounter);
+        return Context.getRegisteredComponents(AllergenUtils.class).get(0).createAllergies(encounter);
     }
 
     private DrugOrder createDrugOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
@@ -444,6 +438,6 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
-		return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
-	}
+        return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
+    }
 }
