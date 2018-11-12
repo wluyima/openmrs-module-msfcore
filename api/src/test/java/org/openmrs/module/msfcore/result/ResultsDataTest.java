@@ -35,8 +35,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.testName"), Context.getMessageSourceService()
                         .getMessage("msfcore.result"), Context.getMessageSourceService().getMessage("msfcore.uom"), Context
                         .getMessageSourceService().getMessage("msfcore.range"), Context.getMessageSourceService().getMessage(
-                        "msfcore.orderDate"), Context.getMessageSourceService().getMessage("msfcore.sampleDate"), Context
-                        .getMessageSourceService().getMessage("msfcore.resultDate")), resultsData.getKeys());
+                        "msfcore.orderDate"), Context.getMessageSourceService().getMessage("msfcore.resultDate")), resultsData.getKeys());
 
         // should only test orders and match their respective results
         // obs 51 for concept#500029 should have been left out since it has no
@@ -80,8 +79,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.testName")).statuses(
                         Arrays.asList(ResultStatus.values())).dates(
                         Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.orderDate"), Context.getMessageSourceService()
-                                        .getMessage("msfcore.sampleDate"), Context.getMessageSourceService().getMessage(
-                                        "msfcore.resultDate"))).build(), resultsData.getFilters());
+                                        .getMessage("msfcore.resultDate"))).build(), resultsData.getFilters());
 
         // should retrive default pagination with number of found results set
         assertEquals(Pagination.builder().totalItemsNumber(3).build(), resultsData.getPagination());
@@ -110,7 +108,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         List<LinkedHashMap<String, Object>> payload = new ArrayList<LinkedHashMap<String, Object>>();
         LinkedHashMap<String, Object> payloadCreatinineResultDate = new LinkedHashMap<String, Object>();
         payloadCreatinineResultDate.put("uuid_key_type_concept",
-                        "00ddc453-fc20-4f1b-a351-7eff54b4daf1_6_DATE_500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf1_5_DATE_500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         payloadCreatinineResultDate.put("value", "02/11/2018");
         LinkedHashMap<String, Object> payloadCreatinineResult = new LinkedHashMap<String, Object>();
         payloadCreatinineResult.put("uuid_key_type_concept",
@@ -141,7 +139,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         List<LinkedHashMap<String, Object>> payload = new ArrayList<LinkedHashMap<String, Object>>();
         LinkedHashMap<String, Object> payloadCreatinineResultDate = new LinkedHashMap<String, Object>();
         payloadCreatinineResultDate.put("uuid_key_type_concept",
-                        "00ddc453-fc20-4f1b-a351-7eff54b4daf3_6_DATE_500025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        "00ddc453-fc20-4f1b-a351-7eff54b4daf3_5_DATE_500025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         payloadCreatinineResultDate.put("value", "03/11/2018");
         LinkedHashMap<String, Object> payloadCreatinineResult = new LinkedHashMap<String, Object>();
         payloadCreatinineResult.put("uuid_key_type_concept",

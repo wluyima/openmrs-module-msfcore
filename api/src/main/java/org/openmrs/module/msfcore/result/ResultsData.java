@@ -78,7 +78,7 @@ public class ResultsData {
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
-            filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.orderDate", "msfcore.sampleDate", "msfcore.resultDate")));
+            filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.orderDate", "msfcore.resultDate")));
             filters.setName(Context.getMessageSourceService().getMessage("msfcore.testName"));
             keys.addAll(getLabResultKeys());
         }
@@ -100,7 +100,7 @@ public class ResultsData {
 
     private static List<String> getLabResultKeys() {
         return getLocalizedKeys(Arrays.asList("msfcore.testName", "msfcore.result", "msfcore.uom", "msfcore.range", "msfcore.orderDate",
-                        "msfcore.sampleDate", "msfcore.resultDate"));
+                        "msfcore.resultDate"));
     }
 
     private void addTestOrders(Order o) {
@@ -143,9 +143,6 @@ public class ResultsData {
                             .build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(Type.DATE).value(
                             testOrder.getDateActivated()).build());
-            // TODO support sampleDate
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.sampleDate"), ResultColumn.builder().type(Type.DATE)
-                            .editable(true).value("").build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null ? ResultColumn.builder()
                             .editable(true).type(Type.DATE).value(resultObs.getObsDatetime()).build() : ResultColumn.builder().editable(
                             true).type(Type.DATE).value("").build());
@@ -262,8 +259,6 @@ public class ResultsData {
             if (idContent[2].equals("DATE")) {
                 if (key.equals(Context.getMessageSourceService().getMessage("msfcore.resultDate"))) {
                     obs.setObsDatetime(Context.getDateFormat().parse(value));
-                } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.sampleDate"))) {
-                    // TODO resolve after sampleDate is supported
                 }
             } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.result"))) {
                 obs.setValueAsString(value);
