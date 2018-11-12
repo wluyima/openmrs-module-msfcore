@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
@@ -122,14 +123,20 @@ public class ResultsData {
                 status = ResultStatus.COMPLETED;
                 actions.add(ResultAction.EDIT);
             }
+            Type resultType = Type.STRING;
+            if (concept.isNumeric()) {
+                resultType = Type.NUMBER;
+            } else if (concept.getDatatype().getUuid().equals(ConceptDatatype.BOOLEAN_UUID)) {
+                resultType = Type.BOOLEAN;
+            }
             resultRow.put("status", ResultColumn.builder().value(status).build());
             resultRow.put("actions", ResultColumn.builder().value(actions).build());
             resultRow.put("concept", ResultColumn.builder().value(concept.getUuid()).build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"), ResultColumn.builder().value(
                             concept.getName().getName()).build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"), resultObs != null ? ResultColumn.builder()
-                            .editable(true).value(resultObs.getValueAsString(Context.getLocale())).build() : ResultColumn.builder()
-                            .editable(true).value("").build());
+                            .editable(true).type(resultType).value(resultObs.getValueAsString(Context.getLocale())).build() : ResultColumn
+                            .builder().editable(true).type(resultType).value("").build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"), ResultColumn.builder().value(getUnit(concept))
                             .build());
             resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))

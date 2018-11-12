@@ -257,7 +257,13 @@ function replaceElementWithTextInput($scope, element) {
         if (type == "DATE" && !isEmpty(time)) {
             value = convertToDatePickerDateFormat(new Date(parseInteger(time)));
         }
-        return jQuery("<input class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' type='" + type + "' time='" + time + "' />");
+        var inputElement = "<input class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' type='" + type + "' time='" + time + "' />";
+        if (type == "BOOLEAN") {
+        	inputElement = "<select class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' time='" + time + "'>" +
+            	"<option value='true'>True</option><option value='false'>False</option>" +
+            "</select>";
+        }
+        return jQuery(inputElement);
     });
 }
 
@@ -301,7 +307,7 @@ function toggleEditingIcon($event) {
 
 function generateResultRowData($scope) {
     var data = [];
-    jQuery("input.editable").each(function(key, value) {
+    jQuery("input.editable,select.editable").each(function(key, value) {
         var id = value.getAttribute('id');
         var value = jQuery("#" + id).val();
         var type = id.split("_")[2];
@@ -401,10 +407,10 @@ function isValidDate(dateString) {
 }
 
 function logViewResultsEvent(results) {
-	var event;
-	if(results.resultCategory == "LAB_RESULTS") {
-		event = "VIEW_LAB_RESULTS";
-	}
+    var event;
+    if (results.resultCategory == "LAB_RESULTS") {
+        event = "VIEW_LAB_RESULTS";
+    }
     var data = {
         "event": event,
         "patient": results.patient

@@ -16,6 +16,6 @@ public class ResultColumn {
     private Type type = Type.STRING;
 
     public enum Type {
-        STRING, DATE
+        STRING, DATE, NUMBER, BOOLEAN
     }
 }

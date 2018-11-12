@@ -112,6 +112,9 @@ public class MSFCoreDao extends MSFCoreBaseDao {
         if (order != null) {
             crit.add(Restrictions.eq("order", order));
         }
+        if (concept != null) {
+            crit.add(Restrictions.eq("concept", concept));
+        }
         return crit.list();
     }
 }
