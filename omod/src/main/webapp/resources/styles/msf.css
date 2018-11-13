@@ -610,6 +610,41 @@ table td:last-child {
     width: 200px;
 }
 
+/* Pagination */
+
+.ngFooterPanel {
+    color:#fff;
+    background: #373F46;
+    font-size: 0.9em;
+    padding:1rem 0;
+}
+
+.ngRowCountPicker,
+.ngPagerControl {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ngPagerControl {
+    width: 18rem;
+}
+
+.ngRowCountPicker {
+    width:11rem;
+    padding-top: 6px;
+}
+
+.ngRowCountPicker span {
+    margin-right: 8px;
+}
+
+button.ngPagerButton {
+    padding: 8px 16px;
+    box-sizing: border-box;
+    height: 32px;
+}
+
 #appointmentRequestsGridTable .delete-item {
     height: 18px;
     margin: 6px 1px 0 1px;
@@ -663,4 +698,10 @@ h2.scheduleAppointmentTitle {
 ul#formBreadcrumb li.doing > span, ul#formBreadcrumb li span#confirmation_label {
   padding-left: 0;
   margin-left: 0;
+}
+
+#confirm-cancel-appointment-request {
+    position: absolute;
+    left: 40vw;
+    top: 30vh;
 }

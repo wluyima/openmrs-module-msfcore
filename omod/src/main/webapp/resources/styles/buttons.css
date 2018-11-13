@@ -45,6 +45,7 @@ input[type="button"],
 input[type="submit"].confirm,
 input[type="button"].confirm,
 a.button.cancel .button.cancel,
+button.button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
@@ -204,6 +205,8 @@ input[type="submit"]:disabled:hover {
 }
 
 /* BUTTONS > Pagination */
+
+.ngPagerButton,
 .ui-state-default.ui-button {
     color: #373F46;
     padding: 8px;
