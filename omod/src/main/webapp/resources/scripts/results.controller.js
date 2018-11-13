@@ -35,26 +35,24 @@ function ResultsController($scope) {
             } else {
                 clearFilterFields($scope, results);
             }
-
+            var pagination = results.pagination;
+            if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
+                pagination.toItemNumber = pagination.totalItemsNumber;
+            }
+            if (pagination.totalItemsNumber == 0) {
+                pagination.fromItemNumber = 0;
+            }
             if (initialisePages) {
                 // render pagination on first page load or resultsPerPage change
-                var pagination = results.pagination;
                 $scope.pages = [];
-                if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
-                    pagination.toItemNumber = pagination.totalItemsNumber;
+                // one page
+                if (pagination.toItemNumber == pagination.totalItemsNumber) {
+                    $scope.pages[1] = getPageObject(1, url);
+                } else { // more than one pages
+                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
+                    setNextAndPreviousPages($scope, $scope.pages[0]);
                 }
-                if (pagination.totalItemsNumber == 0) {
-                    pagination.fromItemNumber = 0;
-                } else {
-                    // one page
-                    if (pagination.toItemNumber == pagination.totalItemsNumber) {
-                        $scope.pages[1] = getPageObject(1, url);
-                    } else { // more than one pages
-                        $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
-                        setNextAndPreviousPages($scope, $scope.pages[0]);
-                    }
-                    $scope.currentPage = 1;
-                }
+                $scope.currentPage = 1;
             }
             //display results
             $scope.results = results;
