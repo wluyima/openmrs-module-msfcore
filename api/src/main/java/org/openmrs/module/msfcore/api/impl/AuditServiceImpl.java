@@ -19,6 +19,7 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.api.dao.AuditDao;
 import org.openmrs.module.msfcore.audit.AuditLog;
@@ -36,8 +37,8 @@ public class AuditServiceImpl extends BaseOpenmrsService implements AuditService
     }
 
     public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients, List<User> users,
-                    List<Provider> providers, List<Location> locations) {
-        return dao.getAuditLogs(startDate, endDate, events, patients, users, providers, locations);
+                    List<Provider> providers, List<Location> locations, Pagination pagination) {
+        return dao.getAuditLogs(startDate, endDate, events, patients, users, providers, locations, pagination);
     }
 
     public AuditLog getAuditLogByUuid(String uuid) {
