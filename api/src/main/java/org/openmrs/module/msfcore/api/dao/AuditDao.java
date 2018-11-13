@@ -60,7 +60,7 @@ public class AuditDao extends MSFCoreBaseDao {
         if (locations != null) {
             criteria.add(Restrictions.in("location", locations));
         }
-        addPaginationToCriteria(pagination, criteria);
+        applyPaginationToCriteria(pagination, criteria);
 
         criteria.addOrder(Order.desc("id"));
         return criteria.list();

@@ -6,7 +6,7 @@ import org.openmrs.module.msfcore.Pagination;
 
 public class MSFCoreBaseDao {
 
-    public void addPaginationToCriteria(Pagination pagination, Criteria criteria) {
+    public void applyPaginationToCriteria(Pagination pagination, Criteria criteria) {
         if (pagination != null) {
             pagination.setTotalItemsNumber((int) (long) (Long) criteria.setProjection(Projections.rowCount()).uniqueResult());
             criteria.setFirstResult(pagination.getFromItemNumber() - 1);

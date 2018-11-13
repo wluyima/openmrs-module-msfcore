@@ -97,7 +97,7 @@ public class MSFCoreDao extends MSFCoreBaseDao {
             crit.add(Restrictions.in("concept", concepts));
         }
 
-        addPaginationToCriteria(pagination, crit);
+        applyPaginationToCriteria(pagination, crit);
         crit.addOrder(desc("dateActivated"));
 
         return crit.list();
