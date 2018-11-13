@@ -385,8 +385,13 @@ function clearFilterFields($scope, results) {
     jQuery("#filter-start-date").val("");
     jQuery("#filter-end-date").val("");
     if(results.filters.dates && results.filters.dates.length > 0) {
-    	jQuery("#filter-dates").val(results.filters.dates[0]);
-        $scope.filterDateValue = results.filters.dates[0];
+    	if(results.resultCategory == "DRUG_LIST") {
+    		jQuery("#filter-dates").val("all");
+    		$scope.filterDateValue = "all";
+    	} else {
+    		jQuery("#filter-dates").val(results.filters.dates[0]);
+    		$scope.filterDateValue = results.filters.dates[0];
+    	}
     }
     $scope.filterStartDate = "";
     $scope.filterEndDate = "";
@@ -397,13 +402,15 @@ function filterByDates(results, $scope) {
     const startDate = jQuery("#filter-start-date").val();
     const endDate = jQuery("#filter-end-date").val();
     const dateField = jQuery("#filter-dates").val();
-    //TODO support matching against all options
     jQuery.each(results.results, function(i, resultRow) {
-        //the conversion removes time
-        var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
-        var date = new Date(dateString);
-        if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
-            results.results = removeItemAtIndex(results.results, i);
+    	//TODO support matching against all options
+        if(dateField.toLowerCase() == "all") {
+        	for(d in results.filters.dates) {
+        		removeNonMatchedDate(results.filters.dates[d], i, resultRow, results, startDate, endDate);
+        	}
+        } else {
+	        //the conversion removes time
+        	removeNonMatchedDate(dateField, i, resultRow, results, startDate, endDate);
         }
     });
     applyFilterChanges(results);
@@ -411,6 +418,14 @@ function filterByDates(results, $scope) {
     jQuery("#filter-dates").val(dateField);
     jQuery("#filter-start-date").val(startDate)
     jQuery("#filter-end-date").val(endDate)
+}
+
+function removeNonMatchedDate(dateField, i, resultRow, results, startDate, endDate) {
+	var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
+    var date = new Date(dateString);
+    if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
+        results.results = removeItemAtIndex(results.results, i);
+    }
 }
 
 function isValidDate(dateString) {
