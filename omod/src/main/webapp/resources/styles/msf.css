@@ -616,7 +616,12 @@ table td:last-child {
     color:#fff;
     background: #373F46;
     font-size: 0.9em;
-    padding:1rem 0;
+    padding: 0.5rem 0;
+}
+
+.ngFooterTotalItems {
+    padding: 8px;
+    font-size: 1.2rem;
 }
 
 .ngRowCountPicker,
@@ -660,7 +665,7 @@ button.ngPagerButton {
     box-shadow: none;
 }
 #appointmentscheduling-scheduleAppointment {
-    padding: 24px 0;
+    padding: 24px 16px;
 }
 
 h2.scheduleAppointmentTitle {
