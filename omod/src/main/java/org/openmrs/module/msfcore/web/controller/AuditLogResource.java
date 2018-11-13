@@ -104,6 +104,11 @@ public class AuditLogResource extends BaseDataResource {
                             "msfcore.viewLabResultsEvent",
                             new Object[]{auditLog.getPatient().getPerson().getPersonName().getFullName(),
                                             auditLog.getPatient().getPatientIdentifier().getIdentifier()}, null));
+        } else if (auditLog.getEvent().equals(Event.VIEW_DRUG_DISPENSING)) {
+            auditLog.setDetail(Context.getMessageSourceService().getMessage(
+                            "msfcore.viewDrugDispensingEvent",
+                            new Object[]{auditLog.getPatient().getPerson().getPersonName().getFullName(),
+                                            auditLog.getPatient().getPatientIdentifier().getIdentifier()}, null));
         }
         // TODO support others as u need in future
     }
