@@ -163,4 +163,55 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(Event.ADD_LAB_RESULT, audit.getEvent());
         Assert.assertEquals("Added: ECG Lab result for Patient: Collet Test Chebaskwony - 6TS-4", audit.getDetail());
     }
+
+    @Test
+    public void addRetriedResults_shouldAddDrugOrders() throws ParseException {
+
+        // should retrieve and add lab test orders with matching results
+        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.DRUG_LIST).patient(
+                        Context.getPatientService().getPatient(7)).build();
+        resultsData.addRetrievedResults();
+
+        assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.drugName"), Context.getMessageSourceService()
+                        .getMessage("msfcore.dose"), Context.getMessageSourceService().getMessage("msfcore.frequency"), Context
+                        .getMessageSourceService().getMessage("msfcore.duration"), Context.getMessageSourceService().getMessage(
+                        "msfcore.instructions"), Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), Context
+                        .getMessageSourceService().getMessage("msfcore.stop"), Context.getMessageSourceService().getMessage(
+                        "msfcore.dispensed"), Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), Context
+                        .getMessageSourceService().getMessage("msfcore.details")), resultsData.getKeys());
+
+        assertEquals(2, resultsData.getResults().size());
+
+        assertEquals(ResultColumn.builder().value("ASPIRIN").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.drugName")));
+        assertEquals(ResultColumn.builder().value("325.0 mg").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dose")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.frequency")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.duration")));
+        assertEquals(ResultColumn.builder().value("2x daily").build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.instructions")));
+        assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dispensed")));
+        assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate")).getValue()));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.details")));
+
+        // should retreive filters
+        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.drugName")).dates(
+                        Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), Context
+                                        .getMessageSourceService().getMessage("msfcore.dispenseDate"))).build(), resultsData.getFilters());
+
+        // should retrive default pagination with number of found results set
+        assertEquals(Pagination.builder().totalItemsNumber(2).build(), resultsData.getPagination());
+
+        // should retrieve right dateFormatPattern
+        assertEquals(Context.getDateFormat().toPattern(), resultsData.getDateFormatPattern());
+    }
 }

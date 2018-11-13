@@ -22,7 +22,7 @@
 				<tr>
 					<td ng-if="results.filters.name">{{results.filters.name}} ${ui.message('general.search')}</td>
 					<td ng-if="results.filters.statuses">${ui.message('msfcore.filter')}</td>
-					<td>${ui.message('msfcore.dateFilter')}</td>
+					<td ng-if="results.filters.dates">${ui.message('msfcore.dateFilter')}</td>
 				</tr>
 				<tr>
 					<td ng-if="results.filters.name" class="no-wrap">
@@ -30,7 +30,8 @@
 					</td>
 					<td ng-if="results.filters.statuses" class="no-wrap">
 						<select ng-model="filterStatusValue" id="filter-status" ng-change="statusFilter()">
-							<option value="all">${ui.message('msfcore.statusAll')}</option>
+							<option value="all" ng-if="results.resultCategory == 'LAB_RESULTS'">${ui.message('msfcore.statusAll')}</option>
+							<option value="all" ng-if="results.resultCategory == 'DRUG_LIST'">${ui.message('msfcore.stopAll')}</option>
 							<option ng-repeat="status in results.filters.statuses" value="{{status}}">{{status.charAt(0).toUpperCase() + status.substr(1).toLowerCase();}}</option>
 						</select>
 					</td>
@@ -39,6 +40,7 @@
 							<input onfocus="this.type='date'" id="filter-start-date" placeholder="${ui.message('msfcore.startDate')}" ng-model="filterStartDate" ng-change="datesFilter()" />
 							<input onfocus="this.type='date'" id="filter-end-date" placeholder="${ui.message('msfcore.endDate')}" ng-model="filterEndDate" ng-change="datesFilter()" />
 							<select id="filter-dates" ng-model="filterDateValue" ng-change="datesFilter()"">
+								<option ng-if="results.resultCategory == 'DRUG_LIST'" value="all">${ui.message('msfcore.all')}</option>
 								<option ng-repeat="date in results.filters.dates" value="{{date}}">{{date}}</option>
 							</select>
 						</div>
@@ -58,15 +60,14 @@
 		    </thead>
 		    <tbody>
 		    	<tr ng-repeat="result in results.results" id="{{result.uuid.value}}">
-		    		<td ng-repeat="key in results.keys" ng-init="editableAndPending = resultPendingWhenEditable(result, key);">
-		    			<label ng-if="editableAndPending" ng-class="{'column-status':editableAndPending, 'editable':result[key].editable}" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}_{{result[key].type}}_{{result.concept.value}}">{{renderResultValue(result, key, editableAndPending)}}</label>
-		    			<label ng-if="!editableAndPending" id="{{result.uuid.value}}_{{results.keys.indexOf(key)}}_{{result[key].type}}_{{result.concept.value}}"  ng-class="{'editable':result[key].editable}" time="{{result[key].type == 'DATE' ? result[key].value : ''}}">{{renderResultValue(result, key, editableAndPending)}}</label>
+		    		<td ng-repeat="key in results.keys">
+		    			<ng-bind-html ng-bind-html="renderResultValue(result, key)"></ng-bind-html>
 		    		</td>
 			    	<td ng-if="result.actions.value.length > 0" class="print-ignore">
 			    		<span ng-if="result.actions.value.includes('EDIT') > 0"><i class="icon-edit" ng-click="edit(\$event, result);"></i></span>
 			    		<span ng-if="result.actions.value.includes('DELETE') > 0"><i class="icon-trash" ng-click="purge(result);"></i></span>
 			    	</td>
-			    	<td ng-if="result.actions.value.length == 0" class="print-ignore"></td>
+			    	<td ng-if="!result.actions.value || result.actions.value.length == 0" class="print-ignore"></td>
 		    </tbody>
 		</table>
 	</div>

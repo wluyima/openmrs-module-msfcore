@@ -75,6 +75,8 @@ public class ResultsData {
         if (resultCategory.equals(ResultCategory.DRUG_LIST)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
             keys.addAll(getDrugOrdersKeys());
+            filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.datePrescribed", "msfcore.dispenseDate")));
+            filters.setName(Context.getMessageSourceService().getMessage("msfcore.drugName"));
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.values()));
@@ -94,8 +96,9 @@ public class ResultsData {
     }
 
     private List<String> getDrugOrdersKeys() {
-        return getLocalizedKeys(Arrays.asList("msfcore.drugName", "msfcore.frequency", "msfcore.duration", "msfcore.notes",
-                        "msfcore.datePrescribed", "msfcore.prescriptionStatus", "msfcore.dispenseStatus"));
+        return getLocalizedKeys(Arrays.asList("msfcore.drugName", "msfcore.dose", "msfcore.frequency", "msfcore.duration",
+                        "msfcore.instructions", "msfcore.datePrescribed", "msfcore.stop", "msfcore.dispensed", "msfcore.dispenseDate",
+                        "msfcore.details"));
     }
 
     private static List<String> getLabResultKeys() {
@@ -132,20 +135,24 @@ public class ResultsData {
             resultRow.put("status", ResultColumn.builder().value(status).build());
             resultRow.put("actions", ResultColumn.builder().value(actions).build());
             resultRow.put("concept", ResultColumn.builder().value(concept.getUuid()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"), ResultColumn.builder().value(
-                            concept.getName().getName()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"), resultObs != null ? ResultColumn.builder()
-                            .editable(true).type(resultType).value(resultObs.getValueAsString(Context.getLocale())).build() : ResultColumn
-                            .builder().editable(true).type(resultType).value("").build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"), ResultColumn.builder().value(getUnit(concept))
-                            .build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))
-                            .build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(Type.DATE).value(
-                            testOrder.getDateActivated()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null ? ResultColumn.builder()
-                            .editable(true).type(Type.DATE).value(resultObs.getObsDatetime()).build() : ResultColumn.builder().editable(
-                            true).type(Type.DATE).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"),
+                            ResultColumn.builder().value(concept.getName().getName()).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"),
+                            resultObs != null
+                                            ? ResultColumn.builder().editable(true).type(resultType)
+                                                            .value(resultObs.getValueAsString(Context.getLocale())).build()
+                                            : ResultColumn.builder().editable(true).type(resultType).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"),
+                            ResultColumn.builder().value(getUnit(concept)).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"),
+                            ResultColumn.builder().value(getRange(concept)).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"),
+                            ResultColumn.builder().type(Type.DATE).value(testOrder.getDateActivated()).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"),
+                            resultObs != null
+                                            ? ResultColumn.builder().editable(true).type(Type.DATE).value(resultObs.getObsDatetime())
+                                                            .build()
+                                            : ResultColumn.builder().editable(true).type(Type.DATE).value("").build());
             addResultRow(resultRow);
         }
 
@@ -157,20 +164,53 @@ public class ResultsData {
         DrugOrder drugOrder = (DrugOrder) o;
         resultRow.put("uuid", ResultColumn.builder().value(drugOrder.getUuid()).build());
         resultRow.put("status", ResultColumn.builder().build());
-        resultRow.put("actions", ResultColumn.builder().build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.drugName"), ResultColumn.builder().value(
-                        drugOrder.getDrug().getName()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.frequency"), ResultColumn.builder().value(
-                        drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null ? drugOrder
-                                        .getFrequency().getFrequencyPerDay() : "").build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.duration"), ResultColumn.builder().value(
-                        drugOrder.getDuration()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.notes"), ResultColumn.builder().value("").build());// TODO
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().value(
-                        drugOrder.getEffectiveStartDate()).build());// TODO
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.prescriptionStatus"), ResultColumn.builder().value("").build());// TODO
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseStatus"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put("actions", ResultColumn.builder().value(Arrays.asList()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.drugName"),
+                        ResultColumn.builder().value(drugOrder.getDrug().getName()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dose"),
+                        ResultColumn.builder().value(getDrugOrderDose(drugOrder)).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.frequency"), ResultColumn.builder()
+                        .value(drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null
+                                        ? drugOrder.getFrequency().getFrequencyPerDay()
+                                                        + Context.getMessageSourceService().getMessage("msfcore.perDayShort")
+                                        : "")
+                        .build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.duration"),
+                        ResultColumn.builder().value(getDrugOrderDuration(drugOrder)).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.instructions"),
+                        ResultColumn.builder().value(drugOrder.getInstructions()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"),
+                        ResultColumn.builder().type(Type.DATE).value(drugOrder.getDateCreated()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"),
+                        ResultColumn.builder().type(Type.DATE).value(drugOrder.getDateActivated()).build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.details"), ResultColumn.builder().value("").build());// TODO
+
         addResultRow(resultRow);
+    }
+
+    private Object getDrugOrderDuration(DrugOrder drugOrder) {
+        // TODO Auto-generated method stub
+        String duration = "";
+        if (drugOrder.getDuration() != null) {
+            duration += drugOrder.getDuration();
+        }
+        if (drugOrder.getDurationUnits() != null) {
+            duration += " " + drugOrder.getDurationUnits().getName().getName();
+        }
+        return duration;
+    }
+
+    private String getDrugOrderDose(DrugOrder drugOrder) {
+        String dose = "";
+        if (drugOrder.getDose() != null) {
+            dose += drugOrder.getDose();
+        }
+        if (drugOrder.getDoseUnits() != null) {
+            dose += " " + drugOrder.getDoseUnits().getName().getName();
+        }
+        return dose;
     }
 
     private void addResultRow(ResultRow resultRow) {
@@ -216,8 +256,9 @@ public class ResultsData {
 
     private static Encounter buildEncounter(ResultCategory category, Patient patient) {
         Encounter enc = new Encounter();
-        enc.setEncounterType(category.equals(ResultCategory.LAB_RESULTS) ? Context.getEncounterService().getEncounterTypeByUuid(
-                        MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID) : null);// suport other enounterTypes if needed
+        enc.setEncounterType(category.equals(ResultCategory.LAB_RESULTS)
+                        ? Context.getEncounterService().getEncounterTypeByUuid(MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID)
+                        : null);// suport other enounterTypes if needed
         enc.setEncounterDatetime(new Date());
         enc.setPatient(patient);
         return enc;
@@ -266,20 +307,18 @@ public class ResultsData {
         }
         Patient patient = Context.getPatientService().getPatient(obs.getPerson().getPersonId());
         AuditLogBuilder labResultEventBuilder = AuditLog.builder().event(Event.EDIT_LAB_RESULT).user(Context.getAuthenticatedUser())
-                        .patient(patient).detail(
-                                        Context.getMessageSourceService().getMessage(
-                                                        "msfcore.labResultEvent",
-                                                        new Object[]{"Edited", obs.getConcept().getName().getName(),
-                                                                        obs.getPerson().getPersonName().getFullName(),
-                                                                        patient.getPatientIdentifier().getIdentifier()}, null));
+                        .patient(patient)
+                        .detail(Context.getMessageSourceService().getMessage("msfcore.labResultEvent",
+                                        new Object[]{"Edited", obs.getConcept().getName().getName(),
+                                                        obs.getPerson().getPersonName().getFullName(),
+                                                        patient.getPatientIdentifier().getIdentifier()},
+                                        null));
         if (obs.getEncounter().getId() == null) {// this is a new obs/result
             obs.setEncounter(Context.getEncounterService().saveEncounter(obs.getEncounter()));
-            labResultEventBuilder.event(Event.ADD_LAB_RESULT).detail(
-                            Context.getMessageSourceService().getMessage(
-                                            "msfcore.labResultEvent",
-                                            new Object[]{"Added", obs.getConcept().getName().getName(),
-                                                            obs.getPerson().getPersonName().getFullName(),
-                                                            patient.getPatientIdentifier().getIdentifier()}, null));
+            labResultEventBuilder.event(Event.ADD_LAB_RESULT).detail(Context.getMessageSourceService().getMessage(
+                            "msfcore.labResultEvent", new Object[]{"Added", obs.getConcept().getName().getName(),
+                                            obs.getPerson().getPersonName().getFullName(), patient.getPatientIdentifier().getIdentifier()},
+                            null));
         }
         obs = Context.getObsService().saveObs(obs, changeReason);
         Context.getService(AuditService.class).saveAuditLog(labResultEventBuilder.build());

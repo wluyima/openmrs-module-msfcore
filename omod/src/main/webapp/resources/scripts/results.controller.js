@@ -5,9 +5,9 @@ var category;
 var initialPageLoad = false;
 
 app.controller("ResultsController", ResultsController);
-ResultsController.$inject = ['$scope'];
+ResultsController.$inject = ['$scope', '$sce'];
 
-function ResultsController($scope) {
+function ResultsController($scope, $sce) {
     $scope.resultsPerPage = "25";
     this.retrieveResults = this.retrieveResults || function(initialisePages, callback) {
         // TODO probably wrap in some loading...
@@ -47,7 +47,9 @@ function ResultsController($scope) {
                 $scope.pages = [];
                 // one page
                 if (pagination.toItemNumber == pagination.totalItemsNumber) {
-                    $scope.pages[1] = getPageObject(1, url);
+                	if(pagination.totalItemsNumber > 0) {
+                		$scope.pages[1] = getPageObject(1, url);
+                	}
                 } else { // more than one pages
                     $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
                     setNextAndPreviousPages($scope, $scope.pages[0]);
@@ -76,10 +78,6 @@ function ResultsController($scope) {
         url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
         //retrive new results by new url
         $scope.retrieveResults(true);
-    }
-
-    this.resultPendingWhenEditable = this.resultPendingWhenEditable || function(result, key) {
-        return result[key].editable && result.status.value != 'COMPLETED';
     }
 
     this.edit = this.edit || function($event, result) {
@@ -126,16 +124,31 @@ function ResultsController($scope) {
         }
     }
 
-    this.renderResultValue = this.renderResultValue || function(result, key, editableAndPending) {
-        if (editableAndPending) {
-            return result.status.value;
+    this.renderResultValue = this.renderResultValue || function(result, key) {
+        var value;
+        var claz = result[key].editable ? "editable" : "";
+        var time = "";
+    	if (resultPendingWhenEditable(result, key)) {
+            value = result.status.value;
+            claz += " column-status";
         } else {
-            var value = result[key].value;
-            if (result[key].type == 'DATE' && !isEmpty(value)) {
+            value = result[key].value;
+            if (result[key].type == 'DATE') {
+            	time = value;
                 value = convertToOpenMRSDateFormat($scope, new Date(value));
             }
-            return value;
         }
+    	if(isEmpty(value)) {
+    		value = "";
+    	}
+    	var concept = result.concept ? result.concept.value : "";
+    	var valueProperties = "id='" + result.uuid.value + "_" + $scope.results.keys.indexOf(key) + "_" + result[key].type + "_" 
+    		+ concept + "' class='" + claz + "' time='" + time + "'";
+    	if(result.resultCategory == "DRUG_LIST" && key == "Stop") {
+            //
+    	} else {
+    		return $sce.trustAsHtml("<label " + valueProperties + ">" + value + "</label>");
+    	}
     }
 
     this.nameFilter = this.nameFilter || function() {
@@ -158,7 +171,6 @@ function ResultsController($scope) {
     }
 
     $scope.retrieveResults = this.retrieveResults;
-    $scope.resultPendingWhenEditable = this.resultPendingWhenEditable;
     $scope.edit = this.edit;
     $scope.purge = this.purge;
     $scope.paginate = this.paginate;
@@ -370,19 +382,22 @@ function removeItemAtIndex(items, index) {
 function clearFilterFields($scope, results) {
     jQuery("#filter-name").val("");
     jQuery("#filter-status").val("all");
-    jQuery("#filter-dates").val(results.filters.dates[0]);
     jQuery("#filter-start-date").val("");
     jQuery("#filter-end-date").val("");
+    if(results.filters.dates && results.filters.dates.length > 0) {
+    	jQuery("#filter-dates").val(results.filters.dates[0]);
+        $scope.filterDateValue = results.filters.dates[0];
+    }
     $scope.filterStartDate = "";
     $scope.filterEndDate = "";
     $scope.filterStatusValue = "all";
-    $scope.filterDateValue = results.filters.dates[0];
 }
 
 function filterByDates(results, $scope) {
     const startDate = jQuery("#filter-start-date").val();
     const endDate = jQuery("#filter-end-date").val();
     const dateField = jQuery("#filter-dates").val();
+    //TODO support matching against all options
     jQuery.each(results.results, function(i, resultRow) {
         //the conversion removes time
         var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
@@ -408,17 +423,25 @@ function logViewResultsEvent(results) {
     var event;
     if (results.resultCategory == "LAB_RESULTS") {
         event = "VIEW_LAB_RESULTS";
+    } else if(results.resultCategory == "DRUG_LIST") {
+    	event = "VIEW_DRUG_DISPENSING_LIST";
     }
-    var data = {
-        "event": event,
-        "patient": results.patient
-    };
-    jQuery.ajax({
-        url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
-        type: "POST",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(event) {}
-    });
+    if(event) {
+	    var data = {
+	        "event": event,
+	        "patient": results.patient
+	    };
+	    jQuery.ajax({
+	        url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
+	        type: "POST",
+	        data: JSON.stringify(data),
+	        contentType: "application/json; charset=utf-8",
+	        dataType: "json",
+	        success: function(event) {}
+	    });
+    }
+}
+
+function resultPendingWhenEditable(result, key) {
+    return result[key].editable && result.status.value != 'COMPLETED';
 }
