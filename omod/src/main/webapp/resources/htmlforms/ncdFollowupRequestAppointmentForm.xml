@@ -79,31 +79,8 @@
 						<h4><lookup expression="fn.message('msfcore.ncdbaseline.requestappointment.servicetype')" /></h4>
 						<!-- Concept id=6000009 name = Request Appointment Type -->
 						<span style="display:none;"><obs id="appointment-type" conceptId="d0475b32-6987-43b3-a618-b975f4967ba5" /></span>
-						<select name="appointment-type" id="appointment-type-list">
-							<option value=""></option>
-							<option value="Dermatology">Dermatology</option>
-							<option value="Dermatology (New Patient)">Dermatology (New Patient)</option>
-							<option value="General Medicine">General Medicine</option>
-							<option value="General Medicine (New Patient)">General Medicine (New Patient)</option>
-							<option value="Gynecology">Gynecology</option>
-							<option value="Gynecology (New Patient)">Gynecology (New Patient)</option>
-							<option value="Infectious Disease">Infectious Disease</option>
-							<option value="Infectious Disease (New Patient)">Infectious Disease (New Patient)</option>
-							<option value="Mental Health">Mental Health</option>
-							<option value="Mental Health (New Patient)">Mental Health (New Patient)</option>
-							<option value="Neurology">Neurology</option>
-							<option value="Neurology (New Patient)">Neurology (New Patient)</option>
-							<option value="Obstetrics">Obstetrics</option>
-							<option value="Obstetrics (New Patient)">Obstetrics (New Patient)</option>
-							<option value="Oncology">Oncology</option>
-							<option value="Oncology (New Patient)">Oncology (New Patient)</option>
-							<option value="Pediatrics">Pediatrics</option>
-							<option value="Pediatrics (New Patient)">Pediatrics (New Patient)</option>
-							<option value="Surgery">Surgery</option>
-							<option value="Surgery (New Patient)">Surgery (New Patient)</option>
-							<option value="Urology">Urology</option>
-							<option value="Urology (New Patient)">Urology (New Patient)</option>
-						</select>
+						<uiInclude provider="msfcore" fragment="field/appointmentList"/>
+
 					</div>
 					<div>
 						<h4><lookup expression="fn.getConcept('f3a76818-3ff4-4d94-9c51-be295cad43a1').name" /></h4>

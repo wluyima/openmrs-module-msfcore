@@ -54,7 +54,8 @@ button.task:visited,
 input[type="submit"].task:visited,
 input[type="button"].task:visited,
 input[type="submit"].task:visited,
-a.button.task:visited {
+a.button.task:visited,
+#viewAllAppointmentTypes a {
     background: #fff;
     background-color: #fff;
     border: none;
@@ -115,14 +116,14 @@ a.button.task:visited {
     cursor: pointer;
 }
 
-
+/* This causes issues with buttons breaking out of the modals.
 input[type=button] [value=value],
 a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel {
     float:left;
-}
+}*/
 
 .button:hover,
 a.button:hover
@@ -257,6 +258,12 @@ a.view-details {
     text-decoration: none;
 }
 
+#viewAllAppointmentTypes a,
+.date-range-picker-clear-link {
+    cursor: pointer;
+}
+
+
 .edit-info {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
@@ -340,6 +347,15 @@ button.confirm.big i.icon-arrow-right {float: right;}
     margin-top:2rem;
 }
 
+.patient-header+#edit-patient-identifier-dialog+.actions.dropdown {
+    background: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin: -18px 0 0 1024px;
+    width: 10rem;
+}
+
 /* Attachments */
 
 .att_upload-container button.confirm, button#allergyui-addNewAllergy {
@@ -347,6 +363,8 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+a,
+a:hover,
 form input,
 form select,
 form textarea,
@@ -402,7 +420,9 @@ button.primary:hover {background: #55D6BE}
 button.right {float: right}
 
 button.addEntry::before {
-  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f055";
   margin-right: 5px;
 }
 button.removeEntry {
@@ -419,3 +439,7 @@ button.removeEntry:hover {
   color: #FF0000;
 }
 button {outline: none}
+
+.button.confirm.active, button.confirm.active, input[type="submit"].confirm.active, input[type="button"].confirm.active, input[type="submit"].confirm.active, a.button.confirm.active {
+  background: #D0FEF5;
+}

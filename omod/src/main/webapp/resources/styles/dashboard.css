@@ -31,7 +31,7 @@
     color:#fff;
     font-family: "OpenSansSemiBold", Arial Bold, Arial, Helvetica, sans-serif;
     font-size:2rem;
-    margin-left: 24px;
+    margin-left: 8px;
     height:3rem;
 }
 
@@ -75,7 +75,6 @@
 
 .dashboard {
     border-radius: 8px;
-    box-shadow:rgba(0,0,0,0.1) 0 4px 8px;
     display:flex;
     flex-direction: row-reverse;
     padding:16px 16px 16px 0;
@@ -100,23 +99,25 @@
     margin-top:0;
 }
 
-.dashboard .action-section h3,
 .dashboard .action-section a:not(.button),
 .dashboard .action-section ul li a {
     color:#fff;
-    font-family: 'OpenSansSemiBold', Arial, sans-serif;
-    font-size:1.1em;
+    font-size:1.1rem;
     padding: 4px;
 }
 
+ul#formBreadcrumb li.doing > span, 
+ul#formBreadcrumb li span#confirmation_label,
 .dashboard .action-section h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    border-bottom: 1px solid white;
     margin-top:0px;
+    margin-bottom: 8px;
 }
 
 .dashboard .action-section ul {
     background: none ;
-    padding: 16px 32px;
+    padding: 16px 24px;
 }
 
 .dashboard .action-section li a i {
@@ -175,18 +176,143 @@
 .dashboard .info-body {
     color:#373F46;
     border-radius: 0 0 8px 8px;
-    min-height: 32px;
+    min-height: 23px;
     padding: 16px;
+    text-align: center;
+    color:#BABDC1;
+    font-size:1.1em;
+    overflow: hidden;
 }
 
-#content .dashboard .info-body h3 {
-    font-size: 0.9em;
+.dashboard .info-body a {
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.dashboard .info-body a:hover {
+    border: 1px solid #55D6BE;
+    background:#D0FEF5;
+    text-decoration: none;
+}
+
+.dashboard .info-body .section{margin-bottom: 0}
+#content .dashboard .info-body #vitals h3 {font-size: 1em;}
+#content .dashboard .info-header h3 {
+  line-height: 25px;
+}
+#content .dashboard .info-body #vitals h3, .dashboard .info-body li span {
+  font-size: 1.1rem;
+  display: block;
+  width: auto;
+  text-align: left;
+  float: left;
+  color: #373F46;
+  line-height: 45px;
+  font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
+}
+.dashboard .info-body ul#miniPatientAppointmentRequests li{
+  font-size: 1.1rem !important;
+  line-height: 1.3rem;
+  padding: 20px 0;
+}
+.dashboard .info-body ul#miniPatientAppointmentRequests li:first-child{
+  padding-top:0;
+}
+.dashboard .info-body ul#miniPatientAppointmentRequests li:last-child{
+  padding-bottom:0;
+}
+
+.dashboard .info-body li{
+  line-height: 45px;
+  margin-bottom: 0 !important;
+  color: #373F46;
+  text-align: left;
+}
+.dashboard .info-body #vitals fieldset {
+  border-bottom: 1px solid #eeeeee;
+}
+.dashboard .info-body #vitals fieldset:last-child {
+  border:0;
+}
+.dashboard .info-body #vitals p,
+.dashboard .info-body #vitals #calculated-bmi-wrapper {
+  display: block;
+  float: right;
+  background: #eee;
+  color: #373F46;
+  padding: 6px 0;
+  border-radius: 3px;
+  margin-top: 7px;
+  font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
+}
+.dashboard .info-body li span {
+  width: 270px
+}
+.dashboard .info-body li span:nth-child(2) {width: auto;}
+
+.dashboard .info-body li span strong.ng-binding {
+  background: #eee;
+  color: #373F46;
+  padding: 0 10px;
+  border-radius: 3px;
+  float: right;
+  line-height: 30px;
+  margin-top:8px;
+}
+.dashboard .info-body #vitals p .obs-field{
+  margin-top: 0;
+  padding: 0 12px;
+}
+.dashboard .info-body #vitals p .obs-field span.value {
+  color: #373F46;
 }
 
 section#vitals .title {
     text-align: center;
     padding: 8px;
-    background: #eee;
+    background: rgba(176,202,217, 0.4);
+    color: #538CAC;
     display: block;
-    margin: -6px -4px 16px -4px;
+    /*margin: -6px -4px 16px -4px;*/
+    font-family: "OpenSansRegular", Arial, Helvetica, sans-serif;
+}
+.dashboard .info-body table.ng-scope {
+  box-shadow: 0 0 0 !important;
+}
+.dashboard .info-body table.ng-scope tr{
+  border:none;
+}
+.dashboard .info-body table thead th{
+  background: transparent;
+}
+.dashboard .info-body .att_thumbnail-caption-section p.ng-binding{
+  color: #373F46 !important;
+  font-size: 0.9rem !important;
+  line-height: 1rem !important;
+  font-weight: normal !important;
+}
+.att_thumbnail-container {
+  width: 159px !important;
+  min-height: 50px;
+  height: auto;
+}
+
+.att_header {
+  background: #B0CAD9;
+  position: unset !important;
+  height: auto !important;
+}
+.att_header .att_date-time{color:#fff;}
+.att_thumbnail-frame,.att_thumbnail-image-section {height: 80px !important;}
+.att_thumbnail-frame {border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;}
+.att_thumbnail-container img {max-height: 80px !important;}
+.dashboard .info-body .tag {
+  background: #eee;
+  line-height: 1.2em;
+  font-size: 0.8rem;
+  text-align: left;
+  border-radius: 3px;
+  color: #373F46;
+  padding: 5px 8px;
 }

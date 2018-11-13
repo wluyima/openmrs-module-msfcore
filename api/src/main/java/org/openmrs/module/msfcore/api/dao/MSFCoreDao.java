@@ -9,10 +9,12 @@
  */
 package org.openmrs.module.msfcore.api.dao;
 
+import static org.hibernate.criterion.Order.desc;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.criterion.Order;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
@@ -21,6 +23,9 @@ import org.openmrs.DrugOrder;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.Obs;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
@@ -32,10 +37,11 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
+import org.openmrs.module.msfcore.Pagination;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.MSFCoreDao")
-public class MSFCoreDao {
+public class MSFCoreDao extends MSFCoreBaseDao {
 
     private DbSession getSession() {
         return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
@@ -57,7 +63,7 @@ public class MSFCoreDao {
     @SuppressWarnings("unchecked")
     public List<LocationAttribute> getLocationAttributeByTypeAndLocation(LocationAttributeType type, Location location) {
         return getSession().createCriteria(LocationAttribute.class).add(Restrictions.eq("location", location)).add(
-                        Restrictions.eq("attributeType", type)).addOrder(Order.desc("dateCreated")).list();
+                        Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
     }
 
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
@@ -71,13 +77,47 @@ public class MSFCoreDao {
     @SuppressWarnings("unchecked")
     public List<PersonAttribute> getPersonAttributeByTypeAndPerson(PersonAttributeType type, Person person) {
         return getSession().createCriteria(PersonAttribute.class).add(Restrictions.eq("person", person)).add(
-                        Restrictions.eq("attributeType", type)).addOrder(Order.desc("dateCreated")).list();
+                        Restrictions.eq("attributeType", type)).addOrder(desc("dateCreated")).list();
     }
 
     @SuppressWarnings("unchecked")
     public List<PatientIdentifier> getPatientIdentifierByTypeAndPatient(PatientIdentifierType type, Patient patient) {
         return getSession().createCriteria(PatientIdentifier.class).add(Restrictions.eq("patient", patient)).add(
-                        Restrictions.eq("identifierType", type)).addOrder(Order.desc("dateCreated")).list();
+                        Restrictions.eq("identifierType", type)).addOrder(desc("dateCreated")).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination) {
+        Criteria crit = getSession().createCriteria(Order.class);
+        if (type != null) {
+            crit.add(Restrictions.eq("orderType", type));
+        }
+        if (patient != null) {
+            crit.add(Restrictions.eq("patient", patient));
+        }
+        if (concepts != null && !concepts.isEmpty()) {
+            crit.add(Restrictions.in("concept", concepts));
+        }
+
+        applyPaginationToCriteria(pagination, crit);
+        crit.addOrder(desc("dateActivated"));
+
+        return crit.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
+        Criteria crit = getSession().createCriteria(Obs.class);
+        if (person != null) {
+            crit.add(Restrictions.eq("person", person));
+        }
+        if (order != null) {
+            crit.add(Restrictions.eq("order", order));
+        }
+        if (concept != null) {
+            crit.add(Restrictions.eq("concept", concept));
+        }
+        return crit.list();
     }
 
     public DrugOrder getDrugOrder(Integer id) {

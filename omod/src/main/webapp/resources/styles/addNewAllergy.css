@@ -1,0 +1,29 @@
+div#allergy div#allergens ul {
+  border: 2px solid #55D6BE;
+  padding: 20px;
+  background: #D0FEF5;
+}
+div#allergy div#allergens ul li{
+  line-height: 25px
+}
+div#allergy div#allergens ul li input, div#allergy div#allergens ul li label{
+  float: unset !important;
+}
+div#allergy div#allergens ul li input {
+  margin: 0!important;
+}
+div#allergy div#allergens #types.button-group > .button {
+  margin: 0;
+  padding: 10px 30px;
+}
+div#allergy #severities label.heading {
+  margin: 0 0 10px;
+  padding: 0;
+
+}
+div#allergy #severities p {
+  margin:0;
+  display: flex;
+  line-height: 25px
+}
+div#allergy #severities i {margin-top: 10px}

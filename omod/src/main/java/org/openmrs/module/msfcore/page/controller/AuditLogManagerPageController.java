@@ -64,7 +64,7 @@ public class AuditLogManagerPageController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, patients, users, null, null);
+        List<AuditLog> auditLogs = auditService.getAuditLogs(startDate, endDate, logEvents, patients, users, null, null, null);
         model.addAttribute("auditLogs", auditLogs);
         model.addAttribute("startTime", startTime.replaceAll(",", ""));
         model.addAttribute("endTime", endTime.replaceAll(",", ""));

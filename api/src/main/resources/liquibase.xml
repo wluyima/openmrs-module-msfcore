@@ -134,5 +134,12 @@
 		</update>
 		<comment>Set correct values for drug order related GP</comment>
 	</changeSet>
+	
+	<changeSet author="k-joseph" id="20181031-0506">
+		<update tableName="global_property">
+			<column name="property_value" value="5000022,5000023,5000024,5000025,5000026,5000027,5000028,5000029,5000030,5000031,5000032,5000033,5000035"/>
+			<where>property='concept.labResults'</where>
+		</update>
+	</changeSet>
 
 </databaseChangeLog>
