@@ -375,6 +375,8 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+*,
+*:hover,
 a,
 a:hover,
 form input,

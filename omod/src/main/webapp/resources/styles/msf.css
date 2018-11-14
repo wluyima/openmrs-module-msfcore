@@ -483,7 +483,7 @@ div#appointmentscheduling-manageAppointments>div {
 
 /* APPOINTMENT SCHEDULING */
 
-.appointment-filter,
+.appointment-filter, 
 #filter-parameters {
     color: #fff;
     padding: 24px;
@@ -492,6 +492,7 @@ div#appointmentscheduling-manageAppointments>div {
     box-shadow: rgba(0, 0, 0, 0.1) 0 -2px 8px;
     box-sizing: border-box;
     margin-bottom: 0;
+    display: flex;
 }
 
 .appointment-filter {
@@ -525,14 +526,14 @@ div#appointmentscheduling-manageAppointments>div {
     border-radius: 4px;
     border: 1px solid #ccc;
 }
-
+/*
 .appointment-filter input,
 .appointment-filter select {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #4EC3AD;
     box-shadow: inset rgba(0, 0, 0, 0.2) 0 1px 2px;
-}
+}*/
 
 #filter-parameters .viewAllAppointmentTypes a,
 .appointment-filter .viewAllAppointmentTypes a {
@@ -545,19 +546,27 @@ div#appointmentscheduling-manageAppointments>div {
     cursor: pointer;
 }
 
+selectmultipleappointmenttypes {
+    width: 60%;
+}
+
 #filter-parameters .viewAllAppointmentTypes a:hover,
 .appointment-filter .viewAllAppointmentTypes a:hover {
     text-decoration: none;
     color: #4EC3AD;
 }
 
-.viewAllAppointmentTypes {
-    margin-left: -56px;
+selectmultipleappointmenttypes.inline-box {
+    display: inline-flex;
 }
 
 .selectmultipleBox {
-    font-size: 1rem;
     border: none;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+    width: 800px;
 }
 
 .fc-header tr td,
@@ -673,7 +682,8 @@ h2.scheduleAppointmentTitle {
 }
 
 #allAppointmentTypesModal {
-    top: 112px;
+    top: 10rem;
+    left: 38rem;
     z-index: 20001;
     position: fixed;
 }
@@ -681,8 +691,8 @@ h2.scheduleAppointmentTitle {
 #appointment-request-notes {
     overflow: hidden;
     position: absolute;
-    top: 404px;
-    right: 10vw;
+    top: 16rem;
+    left: 38vw;
     z-index: 999;
 }
 
