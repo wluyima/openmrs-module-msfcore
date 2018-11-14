@@ -30,8 +30,8 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
-import org.openmrs.OrderFrequency;
 import org.openmrs.Order;
+import org.openmrs.OrderFrequency;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
@@ -53,7 +53,7 @@ import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.SimpleJSON;
 import org.openmrs.module.msfcore.api.MSFCoreService;
 import org.openmrs.module.msfcore.api.dao.MSFCoreDao;
-import org.openmrs.module.msfcore.api.util.AllergenUtils;
+import org.openmrs.module.msfcore.api.util.AllergyUtils;
 import org.openmrs.module.msfcore.id.MSFIdentifierGenerator;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
@@ -395,7 +395,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
     @Override
     public Allergies saveAllergies(Encounter encounter) {
-        return Context.getRegisteredComponents(AllergenUtils.class).get(0).createAllergies(encounter);
+        return Context.getRegisteredComponents(AllergyUtils.class).get(0).saveAllergies(encounter);
     }
 
     private DrugOrder createDrugOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,

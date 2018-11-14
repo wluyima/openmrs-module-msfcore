@@ -295,30 +295,29 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         return false;
     }
 
-    private PatientProgram generatePatientProgram(boolean enrollment, PatientProgram patientProgram,
-			Encounter encounter, ProgramWorkflowState... states) {
-		final Map<String, ProgramWorkflowState> stages = new HashMap<>();
+    private PatientProgram generatePatientProgram(boolean enrollment, PatientProgram patientProgram, Encounter encounter,
+                    ProgramWorkflowState... states) {
+        final Map<String, ProgramWorkflowState> stages = new HashMap<>();
 
-		// hack to avoid invalid property setting issues
-		if (states.length > 0) {
-			for (final ProgramWorkflowState stage : states) {
-				stage.setConcept(Context.getConceptService().getConcept(22));
-				stage.setProgramWorkflow(new ProgramWorkflow());
-				if (stage.getInitial() == null) {
-					stage.setInitial(false);
-				}
-				if (stage.getTerminal() == null) {
-					stage.setTerminal(false);
-				}
-			}
-			stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, states[0]);
-			stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, states[1]);
-			stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, states[2]);
-			stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, states[3]);
-		}
-		return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram,
-				encounter);
-	}
+        // hack to avoid invalid property setting issues
+        if (states.length > 0) {
+            for (final ProgramWorkflowState stage : states) {
+                stage.setConcept(Context.getConceptService().getConcept(22));
+                stage.setProgramWorkflow(new ProgramWorkflow());
+                if (stage.getInitial() == null) {
+                    stage.setInitial(false);
+                }
+                if (stage.getTerminal() == null) {
+                    stage.setTerminal(false);
+                }
+            }
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, states[0]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_BASELINE_CONSULTATION, states[1]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_FOLLOWUP_CONSULTATION, states[2]);
+            stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_EXIT, states[3]);
+        }
+        return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
+    }
     @Test
     public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
         this.executeDataSet("MSFCoreService.xml");
@@ -334,45 +333,42 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-	public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
-		this.executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+    public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
+        this.executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
 
-		// initially we should have 2 non voided orders for both concepts
-		List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided())
-				.collect(Collectors.toList());
-		Assert.assertEquals(2, activeOrders.size());
-		Assert.assertTrue(
-				activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
+        // initially we should have 2 non voided orders for both concepts
+        List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(2, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
 
-		Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
+        Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
 
-		// then just one active order for concept 1000021
-		encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-		activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
-		Assert.assertEquals(1, activeOrders.size());
-		Assert.assertTrue(
-				activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-	}
+        // then just one active order for concept 1000021
+        encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(1, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
+    }
     @Test
-	public void saveAllergies_shouldCreateAllergies() throws Exception {
-		this.executeDataSet("MSFCoreService.xml");
+    public void saveAllergies_shouldCreateAllergies() throws Exception {
+        this.executeDataSet("MSFCoreService.xml");
 
-		final Encounter encounter = Context.getEncounterService()
-				.getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
-		final MSFCoreService service = Context.getService(MSFCoreService.class);
+        final Encounter encounter = Context.getEncounterService().getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
+        final MSFCoreService service = Context.getService(MSFCoreService.class);
 
-		final Allergies allergies = service.saveAllergies(encounter);
-		Assert.assertNotNull(allergies);
-		Assert.assertEquals(3, allergies.size());
-		allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
-		allergies.forEach(a -> Assert.assertTrue(Arrays
-				.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
-		allergies.forEach(a -> a.getReactions().forEach(r -> Assert.assertTrue(
-				Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
-
-	}
+        final Allergies allergies = service.saveAllergies(encounter);
+        Assert.assertNotNull(allergies);
+        Assert.assertEquals(3, allergies.size());
+        allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
+        allergies.forEach(a -> Assert.assertTrue(
+                        Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
+        allergies.forEach(a -> a.getReactions().forEach(r -> Assert
+                        .assertTrue(Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
+        allergies.forEach(
+                        a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617).contains(a.getAllergen().getCodedAllergen().getId())));
+    }
     @Test(expected = IllegalArgumentException.class)
     public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
         this.executeDataSet("MSFCoreService.xml");
