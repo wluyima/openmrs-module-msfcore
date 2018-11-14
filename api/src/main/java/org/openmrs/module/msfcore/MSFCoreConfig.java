@@ -100,9 +100,14 @@ public class MSFCoreConfig {
 
     public final static String PERSON_ATTRIBUTE_OTHER_ID_NAME_UUID = "63a75b39-de46-4c53-b7c3-53e07fa3ec9e";
 
+    // Date and time formats
+    public final static String GP_OPENMRS_IDENTIFIER_SOURCE_ID = "registrationcore.identifierSourceId";
+
     // TODO use
     // org.openmrs.module.registrationcore.RegistrationCoreConstants#GP_OPENMRS_IDENTIFIER_SOURCE_ID
-    public final static String GP_OPENMRS_IDENTIFIER_SOURCE_ID = "registrationcore.identifierSourceId";
+    public final static String GP_UIFRAMEWORK_FORMATTER_DATEFORMAT = "uiframework.formatter.dateFormat";
+    public final static String GP_UIFRAMEWORK_FORMATTER_DATEANDTIMEFORMAT = "uiframework.formatter.dateAndTimeFormat";
+    public final static String GP_REPORTING_DEFAULTDATEFORMAT = "reporting.defaultDateFormat";
 
     public final static String LOCATION_TAG_UUID_MISSION = "76433e9a-8b93-11e8-9eb6-529269fb1459";
 

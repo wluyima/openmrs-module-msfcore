@@ -156,6 +156,11 @@ public class MSFCoreActivator extends BaseModuleActivator {
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP,
                         "default:7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+        // change the date and time formats
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_UIFRAMEWORK_FORMATTER_DATEFORMAT, "dd/MM/yyyy");
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_UIFRAMEWORK_FORMATTER_DATEANDTIMEFORMAT,
+                        "dd/MM/yyyy, HH:mm:ss");
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_REPORTING_DEFAULTDATEFORMAT, "dd/MM/yyyy");
 
     }
 
@@ -195,6 +200,12 @@ public class MSFCoreActivator extends BaseModuleActivator {
         // autocreation of visits
         Context.getAdministrationService().setGlobalProperty(
                         MSFCoreConfig.GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP, "");
+
+        // change the date and time formats
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_UIFRAMEWORK_FORMATTER_DATEFORMAT, "dd.MMM.yyyy");
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_UIFRAMEWORK_FORMATTER_DATEANDTIMEFORMAT,
+                        "dd.MMM.yyyy, HH:mm:ss");
+        Context.getAdministrationService().setGlobalProperty(MSFCoreConfig.GP_REPORTING_DEFAULTDATEFORMAT, "dd/MMM/yyyy");
     }
 
     /**
