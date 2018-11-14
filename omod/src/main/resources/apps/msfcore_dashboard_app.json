@@ -119,7 +119,7 @@
 			"widget": "programs",
 			"icon": "icon-stethoscope",
 			"label": "msfcore.programs",
-			"dateFormat": "dd MMM yyyy",
+			"dateFormat": "dd/MM/yyyy",
 			"supportedPrograms": "a24327d2-c601-11e8-a355-529269fb1400",
 			"enableProgramDashboards": true
 		},
@@ -145,7 +145,7 @@
 			"widget": "programstatus",
 			"icon": "icon-stethoscope",
 			"label": "msfcore.programsstatus",
-			"dateFormat": "dd MMM yyyy",
+			"dateFormat": "dd/MM/yyyy",
 			"program": "a24327d2-c601-11e8-a355-529269fb1400",
 			"locationTag": ""
 		},
