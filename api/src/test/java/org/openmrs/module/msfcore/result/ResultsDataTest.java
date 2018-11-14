@@ -28,16 +28,14 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         executeDataSet("ResultsData.xml");
 
         // should retrieve and add lab test orders with matching results
-        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.LAB_RESULTS)
-                        .patient(Context.getPatientService().getPatient(7)).build();
+        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.LAB_RESULTS).patient(
+                        Context.getPatientService().getPatient(7)).build();
         resultsData.addRetrievedResults();
 
-        assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.testName"),
-                        Context.getMessageSourceService().getMessage("msfcore.result"),
-                        Context.getMessageSourceService().getMessage("msfcore.uom"),
-                        Context.getMessageSourceService().getMessage("msfcore.range"),
-                        Context.getMessageSourceService().getMessage("msfcore.orderDate"),
-                        Context.getMessageSourceService().getMessage("msfcore.resultDate")), resultsData.getKeys());
+        assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.testName"), Context.getMessageSourceService()
+                        .getMessage("msfcore.result"), Context.getMessageSourceService().getMessage("msfcore.uom"), Context
+                        .getMessageSourceService().getMessage("msfcore.range"), Context.getMessageSourceService().getMessage(
+                        "msfcore.orderDate"), Context.getMessageSourceService().getMessage("msfcore.resultDate")), resultsData.getKeys());
 
         // should only test orders and match their respective results
         // obs 51 for concept#500029 should have been left out since it has no
@@ -45,45 +43,43 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(3, resultsData.getResults().size());
 
         // should retrieve with a completed result
-        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf1").build(),
-                        resultsData.getResults().get(0).get("uuid"));
+        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf1").build(), resultsData.getResults().get(0).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.COMPLETED).build(), resultsData.getResults().get(0).get("status"));
-        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT)).build(),
-                        resultsData.getResults().get(0).get("actions"));
-        assertEquals(ResultColumn.builder().value("Creatinine").build(),
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.testName")));
-        assertEquals(ResultColumn.builder().value("500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
-                        resultsData.getResults().get(0).get("concept"));
-        assertEquals(ResultColumn.builder().value("0.97").editable(true).type(Type.NUMBER).build(),
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.result")));
-        assertEquals(ResultColumn.builder().value("mg/dL").build(),
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.uom")));
-        assertEquals(ResultColumn.builder().value("0.5 - 1.1").build(),
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.range")));
-        assertEquals("2018-10-31 02:14:38.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.orderDate")).getValue()));
-        assertEquals("2018-11-01 02:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(0)
-                        .get(Context.getMessageSourceService().getMessage("msfcore.resultDate")).getValue()));
+        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT)).build(), resultsData.getResults().get(0).get("actions"));
+        assertEquals(ResultColumn.builder().value("Creatinine").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.testName")));
+        assertEquals(ResultColumn.builder().value("500022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(), resultsData.getResults().get(0).get(
+                        "concept"));
+        assertEquals(ResultColumn.builder().value("0.97").editable(true).type(Type.NUMBER).build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.result")));
+        assertEquals(ResultColumn.builder().value("mg/dL").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.uom")));
+        assertEquals(ResultColumn.builder().value("0.5 - 1.1").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.range")));
+        assertEquals("2018-10-31 02:14:38.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.orderDate")).getValue()));
+        assertEquals("2018-11-01 02:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.resultDate")).getValue()));
 
         // should retrieve a pending result
-        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf2").build(),
-                        resultsData.getResults().get(1).get("uuid"));
+        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf2").build(), resultsData.getResults().get(1).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.PENDING).build(), resultsData.getResults().get(1).get("status"));
-        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT, ResultAction.DELETE)).build(),
-                        resultsData.getResults().get(1).get("actions"));
+        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT, ResultAction.DELETE)).build(), resultsData.getResults()
+                        .get(1).get("actions"));
 
         // should retrieve a cancelled result
-        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf3").build(),
-                        resultsData.getResults().get(2).get("uuid"));
+        assertEquals(ResultColumn.builder().value("00ddc453-fc20-4f1b-a351-7eff54b4daf3").build(), resultsData.getResults().get(2).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.CANCELLED).build(), resultsData.getResults().get(2).get("status"));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(2).get("actions"));
 
         // should retreive filters
-        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.testName"))
-                        .statuses(Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.COMPLETED))
-                        .dates(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.orderDate"),
-                                        Context.getMessageSourceService().getMessage("msfcore.resultDate")))
-                        .build(), resultsData.getFilters());
+        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.testName")).statuses(
+                        Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.COMPLETED)).dates(
+                        Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.orderDate"), Context.getMessageSourceService()
+                                        .getMessage("msfcore.resultDate"))).build(), resultsData.getFilters());
 
         // should retrive default pagination with number of found results set
         assertEquals(Pagination.builder().totalItemsNumber(3).build(), resultsData.getPagination());
@@ -173,135 +169,122 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         executeDataSet("ResultsData.xml");
 
         // should retrieve and add lab test orders with matching results
-        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.DRUG_LIST)
-                        .patient(Context.getPatientService().getPatient(7)).build();
+        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.DRUG_LIST).patient(
+                        Context.getPatientService().getPatient(7)).build();
         resultsData.addRetrievedResults();
 
-        assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.drugName"),
-                        Context.getMessageSourceService().getMessage("msfcore.dose"),
-                        Context.getMessageSourceService().getMessage("msfcore.frequency"),
-                        Context.getMessageSourceService().getMessage("msfcore.duration"),
-                        Context.getMessageSourceService().getMessage("msfcore.instructions"),
-                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed"),
-                        Context.getMessageSourceService().getMessage("msfcore.stop"),
-                        Context.getMessageSourceService().getMessage("msfcore.dispensed"),
-                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate"),
-                        Context.getMessageSourceService().getMessage("msfcore.details")), resultsData.getKeys());
+        assertEquals(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.drugName"), Context.getMessageSourceService()
+                        .getMessage("msfcore.dose"), Context.getMessageSourceService().getMessage("msfcore.frequency"), Context
+                        .getMessageSourceService().getMessage("msfcore.duration"), Context.getMessageSourceService().getMessage(
+                        "msfcore.instructions"), Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), Context
+                        .getMessageSourceService().getMessage("msfcore.stop"), Context.getMessageSourceService().getMessage(
+                        "msfcore.dispensed"), Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), Context
+                        .getMessageSourceService().getMessage("msfcore.details")), resultsData.getKeys());
 
         assertEquals(6, resultsData.getResults().size());
 
-        assertEquals(ResultColumn.builder().value("ASPIRIN").build(),
-                        resultsData.getResults().get(3).get(Context.getMessageSourceService().getMessage("msfcore.drugName")));
-        assertEquals(ResultColumn.builder().value("325.0 mg").build(),
-                        resultsData.getResults().get(3).get(Context.getMessageSourceService().getMessage("msfcore.dose")));
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(3).get(Context.getMessageSourceService().getMessage("msfcore.frequency")));
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(3).get(Context.getMessageSourceService().getMessage("msfcore.duration")));
+        assertEquals(ResultColumn.builder().value("ASPIRIN").build(), resultsData.getResults().get(3).get(
+                        Context.getMessageSourceService().getMessage("msfcore.drugName")));
+        assertEquals(ResultColumn.builder().value("325.0 mg").build(), resultsData.getResults().get(3).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dose")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(3).get(
+                        Context.getMessageSourceService().getMessage("msfcore.frequency")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(3).get(
+                        Context.getMessageSourceService().getMessage("msfcore.duration")));
 
-        assertEquals(ResultColumn.builder().value("2x daily").build(),
-                        resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.instructions")));
-        assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(4)
-                        .get(Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("").type(Type.CODED)
-                        .codedOptions(Arrays
-                                        .asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
-                                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                                                                        .build()))
-                        .build(), resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
+        assertEquals(ResultColumn.builder().value("2x daily").build(), resultsData.getResults().get(4).get(
+                        Context.getMessageSourceService().getMessage("msfcore.instructions")));
+        assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(4).get(
+                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(4).get(
+                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
+                        Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
+                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
+                        resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
         assertEquals("", resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"))
                         .getValue());
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.details")));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(4).get(
+                        Context.getMessageSourceService().getMessage("msfcore.details")));
 
-        assertEquals(ResultColumn.builder().value("921de0a3-05c4-444a-be03-e01b4c4b9142").build(),
-                        resultsData.getResults().get(4).get("uuid"));
+        assertEquals(ResultColumn.builder().value("921de0a3-05c4-444a-be03-e01b4c4b9142").build(), resultsData.getResults().get(4).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(4).get("status"));
 
         assertEquals(ResultColumn.builder().value(ResultStatus.PENDING).build(), resultsData.getResults().get(3).get("status"));
-        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT, ResultAction.DELETE)).build(),
-                        resultsData.getResults().get(3).get("actions"));
+        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT, ResultAction.DELETE)).build(), resultsData.getResults()
+                        .get(3).get("actions"));
 
-        assertEquals(ResultColumn.builder().value("3x monthly").build(),
-                        resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.instructions")));
-        assertEquals("2006-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(5)
-                        .get(Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("").type(Type.CODED)
-                        .codedOptions(Arrays
-                                        .asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
-                                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                                                                        .build()))
-                        .build(), resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
+        assertEquals(ResultColumn.builder().value("3x monthly").build(), resultsData.getResults().get(5).get(
+                        Context.getMessageSourceService().getMessage("msfcore.instructions")));
+        assertEquals("2006-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(5).get(
+                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(5).get(
+                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
+                        Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
+                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
+                        resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
         assertEquals("", resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"))
                         .getValue());
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.details")));
-        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf7").build(),
-                        resultsData.getResults().get(5).get("uuid"));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(5).get(
+                        Context.getMessageSourceService().getMessage("msfcore.details")));
+        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf7").build(), resultsData.getResults().get(5).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.PENDING).build(), resultsData.getResults().get(5).get("status"));
 
-        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf6").build(),
-                        resultsData.getResults().get(0).get("uuid"));
+        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf6").build(), resultsData.getResults().get(0).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.CANCELLED).build(), resultsData.getResults().get(0).get("status"));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(0).get("actions"));
-        assertEquals(ResultColumn.builder().value("ASPIRIN").build(),
-                        resultsData.getResults().get(0).get(Context.getMessageSourceService().getMessage("msfcore.drugName")));
+        assertEquals(ResultColumn.builder().value("ASPIRIN").build(), resultsData.getResults().get(0).get(
+                        Context.getMessageSourceService().getMessage("msfcore.drugName")));
 
-        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(),
-                        resultsData.getResults().get(1).get("uuid"));
+        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(), resultsData.getResults().get(1).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(1).get("status"));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(1).get("actions"));
-        assertEquals(ResultColumn.builder().value("Triomune-30").build(),
-                        resultsData.getResults().get(1).get(Context.getMessageSourceService().getMessage("msfcore.drugName")));
-        assertEquals(ResultColumn.builder().value("Partial").type(Type.CODED)
-                        .codedOptions(Arrays
-                                        .asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
-                                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                                                                        .build()))
-                        .build(), resultsData.getResults().get(1).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
+        assertEquals(ResultColumn.builder().value("Triomune-30").build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.drugName")));
+        assertEquals(ResultColumn.builder().value("Partial").type(Type.CODED).codedOptions(
+                        Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
+                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
+                        resultsData.getResults().get(1).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
 
-        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf4").build(),
-                        resultsData.getResults().get(2).get("uuid"));
+        assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf4").build(), resultsData.getResults().get(2).get(
+                        "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.ACTIVE).build(), resultsData.getResults().get(2).get("status"));
-        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT)).build(),
-                        resultsData.getResults().get(2).get("actions"));
-        assertEquals(ResultColumn.builder().value("Triomune-30").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.drugName")));
-        assertEquals(ResultColumn.builder().value("325.0 mg").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.dose")));
-        assertEquals(ResultColumn.builder().value("4.0 p/d").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.frequency")));
-        assertEquals(ResultColumn.builder().value("3 days").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.duration")));
-        assertEquals(ResultColumn.builder().value("3x daily").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.instructions")));
+        assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT)).build(), resultsData.getResults().get(2).get("actions"));
+        assertEquals(ResultColumn.builder().value("Triomune-30").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.drugName")));
+        assertEquals(ResultColumn.builder().value("325.0 mg").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dose")));
+        assertEquals(ResultColumn.builder().value("4.0 p/d").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.frequency")));
+        assertEquals(ResultColumn.builder().value("3 days").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.duration")));
+        assertEquals(ResultColumn.builder().value("3x daily").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals(ResultColumn.builder().value("2018-11-14 02:12:38.0").build().getValue(),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2)
-                                        .get(Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("Full").type(Type.CODED)
-                        .codedOptions(Arrays
-                                        .asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
-                                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                                                                        .build()))
-                        .build(), resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
+                                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
+        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value("Full").type(Type.CODED).codedOptions(
+                        Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
+                                        CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
+                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
         assertEquals(ResultColumn.builder().value("2018-11-14 02:30:22.0").build().getValue(),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2)
-                                        .get(Context.getMessageSourceService().getMessage("msfcore.dispenseDate")).getValue()));
-        assertEquals(ResultColumn.builder().value("taken together, on a dose fully").build(),
-                        resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.details")));
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
+                                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate")).getValue()));
+        assertEquals(ResultColumn.builder().value("taken together, on a dose fully").build(), resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.details")));
 
         // should retreive filters
-        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.drugName"))
-                        .statuses(Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.INACTIVE))
-                        .dates(Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"),
-                                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate")))
-                        .build(), resultsData.getFilters());
+        assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.drugName")).statuses(
+                        Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.INACTIVE)).dates(
+                        Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), Context
+                                        .getMessageSourceService().getMessage("msfcore.dispenseDate"))).build(), resultsData.getFilters());
 
         // should retrive default pagination with number of found results set
         assertEquals(Pagination.builder().totalItemsNumber(6).build(), resultsData.getPagination());

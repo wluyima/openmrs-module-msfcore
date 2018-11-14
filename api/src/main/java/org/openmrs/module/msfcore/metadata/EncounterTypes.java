@@ -67,7 +67,7 @@ public class EncounterTypes {
             return MSFCoreConfig.ENCOUNTER_TYPE_LAB_RESULTS_UUID;
         }
     };
-    
+
     public static EncounterTypeDescriptor MSF_DISPENSE_DRUG_ENCOUNTER_TYPE = new EncounterTypeDescriptor() {
         @Override
         public String name() {

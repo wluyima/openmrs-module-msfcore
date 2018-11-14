@@ -136,24 +136,20 @@ public class ResultsData {
             resultRow.put("status", ResultColumn.builder().value(status).build());
             resultRow.put("actions", ResultColumn.builder().value(actions).build());
             resultRow.put("concept", ResultColumn.builder().value(concept.getUuid()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"),
-                            ResultColumn.builder().value(concept.getName().getName()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"),
-                            resultObs != null
-                                            ? ResultColumn.builder().editable(true).type(resultType)
-                                                            .value(resultObs.getValueAsString(Context.getLocale())).build()
-                                            : ResultColumn.builder().editable(true).type(resultType).value("").build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"),
-                            ResultColumn.builder().value(getUnit(concept)).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"),
-                            ResultColumn.builder().value(getRange(concept)).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"),
-                            ResultColumn.builder().type(Type.DATE).value(testOrder.getDateActivated()).build());
-            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"),
-                            resultObs != null
-                                            ? ResultColumn.builder().editable(true).type(Type.DATE).value(resultObs.getObsDatetime())
-                                                            .build()
-                                            : ResultColumn.builder().editable(true).type(Type.DATE).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.testName"), ResultColumn.builder().value(
+                            concept.getName().getName()).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.result"), resultObs != null ? ResultColumn.builder()
+                            .editable(true).type(resultType).value(resultObs.getValueAsString(Context.getLocale())).build() : ResultColumn
+                            .builder().editable(true).type(resultType).value("").build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.uom"), ResultColumn.builder().value(getUnit(concept))
+                            .build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.range"), ResultColumn.builder().value(getRange(concept))
+                            .build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.orderDate"), ResultColumn.builder().type(Type.DATE).value(
+                            testOrder.getDateActivated()).build());
+            resultRow.put(Context.getMessageSourceService().getMessage("msfcore.resultDate"), resultObs != null ? ResultColumn.builder()
+                            .editable(true).type(Type.DATE).value(resultObs.getObsDatetime()).build() : ResultColumn.builder().editable(
+                            true).type(Type.DATE).value("").build());
             addResultRow(resultRow);
         }
 
@@ -165,10 +161,10 @@ public class ResultsData {
         DrugOrder drugOrder = (DrugOrder) o;
         Concept dispensedConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED);
         Obs dispensedObs = getResultObs(drugOrder, dispensedConcept);
-        Obs dispensedDateObs = getResultObs(drugOrder,
-                        Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED_DATE));
-        Obs dispensedDetailsObs = getResultObs(drugOrder,
-                        Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED_DETAILS));
+        Obs dispensedDateObs = getResultObs(drugOrder, Context.getConceptService().getConceptByUuid(
+                        MSFCoreConfig.CONCEPT_UUID_DESPENSED_DATE));
+        Obs dispensedDetailsObs = getResultObs(drugOrder, Context.getConceptService().getConceptByUuid(
+                        MSFCoreConfig.CONCEPT_UUID_DESPENSED_DETAILS));
         Object status = null;
         List<ResultAction> actions = new ArrayList<ResultAction>();
         if (drugOrder.getVoided()) {
@@ -186,31 +182,28 @@ public class ResultsData {
         resultRow.put("uuid", ResultColumn.builder().value(drugOrder.getUuid()).build());
         resultRow.put("status", ResultColumn.builder().value(status).build());
         resultRow.put("actions", ResultColumn.builder().value(actions).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.drugName"),
-                        ResultColumn.builder().value(drugOrder.getDrug().getName()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dose"),
-                        ResultColumn.builder().value(getDrugOrderDose(drugOrder)).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.frequency"), ResultColumn.builder()
-                        .value(drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null
-                                        ? drugOrder.getFrequency().getFrequencyPerDay() + " "
-                                                        + Context.getMessageSourceService().getMessage("msfcore.perDayShort")
-                                        : "")
-                        .build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.duration"),
-                        ResultColumn.builder().value(getDrugOrderDuration(drugOrder)).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.instructions"),
-                        ResultColumn.builder().value(drugOrder.getInstructions()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"),
-                        ResultColumn.builder().type(Type.DATE).value(drugOrder.getDateActivated()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.drugName"), ResultColumn.builder().value(
+                        drugOrder.getDrug().getName()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dose"), ResultColumn.builder().value(
+                        getDrugOrderDose(drugOrder)).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.frequency"), ResultColumn.builder().value(
+                        drugOrder.getFrequency() != null && drugOrder.getFrequency().getFrequencyPerDay() != null ? drugOrder
+                                        .getFrequency().getFrequencyPerDay()
+                                        + " " + Context.getMessageSourceService().getMessage("msfcore.perDayShort") : "").build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.duration"), ResultColumn.builder().value(
+                        getDrugOrderDuration(drugOrder)).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.instructions"), ResultColumn.builder().value(
+                        drugOrder.getInstructions()).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().type(Type.DATE).value(
+                        drugOrder.getDateActivated()).build());
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().value("").build());// TODO
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"),
-                        ResultColumn.builder().type(Type.CODED)
-                                        .value(dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "")
-                                        .codedOptions(getCodedOptionsFromConceptSet(dispensedConcept)).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), ResultColumn.builder().type(Type.DATE)
-                        .value(dispensedDateObs != null ? dispensedDateObs.getValueDate() : "").build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.details"),
-                        ResultColumn.builder().value(dispensedDetailsObs != null ? dispensedDetailsObs.getValueText() : "").build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().type(Type.CODED).value(
+                        dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "").codedOptions(
+                        getCodedOptionsFromConceptSet(dispensedConcept)).build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), ResultColumn.builder().type(Type.DATE).value(
+                        dispensedDateObs != null ? dispensedDateObs.getValueDate() : "").build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.details"), ResultColumn.builder().value(
+                        dispensedDetailsObs != null ? dispensedDetailsObs.getValueText() : "").build());
 
         addResultRow(resultRow);
     }
@@ -349,17 +342,20 @@ public class ResultsData {
     private static AuditLogBuilder buildAuditLog(Obs obs, Event addEvent, Event editEvent) {
         Patient patient = Context.getPatientService().getPatient(obs.getPerson().getPersonId());
         AuditLogBuilder resultEventBuilder = AuditLog.builder().event(editEvent).user(Context.getAuthenticatedUser()).patient(patient)
-                        .detail(Context.getMessageSourceService().getMessage("msfcore.resultEvent",
-                                        new Object[]{"Edited", obs.getConcept().getName().getName(),
-                                                        obs.getPerson().getPersonName().getFullName(),
-                                                        patient.getPatientIdentifier().getIdentifier()},
-                                        null));
+                        .detail(
+                                        Context.getMessageSourceService().getMessage(
+                                                        "msfcore.resultEvent",
+                                                        new Object[]{"Edited", obs.getConcept().getName().getName(),
+                                                                        obs.getPerson().getPersonName().getFullName(),
+                                                                        patient.getPatientIdentifier().getIdentifier()}, null));
         if (obs.getEncounter().getId() == null) {// this is a new obs/result
             obs.setEncounter(Context.getEncounterService().saveEncounter(obs.getEncounter()));
-            resultEventBuilder.event(addEvent).detail(Context.getMessageSourceService().getMessage(
-                            "msfcore.resultEvent", new Object[]{"Added", obs.getConcept().getName().getName(),
-                                            obs.getPerson().getPersonName().getFullName(), patient.getPatientIdentifier().getIdentifier()},
-                            null));
+            resultEventBuilder.event(addEvent).detail(
+                            Context.getMessageSourceService().getMessage(
+                                            "msfcore.resultEvent",
+                                            new Object[]{"Added", obs.getConcept().getName().getName(),
+                                                            obs.getPerson().getPersonName().getFullName(),
+                                                            patient.getPatientIdentifier().getIdentifier()}, null));
         }
         return resultEventBuilder;
     }
@@ -385,19 +381,16 @@ public class ResultsData {
             Obs obs = null;
             DrugOrder drugOrder = (DrugOrder) Context.getOrderService().getOrderByUuid(idContent[0]);
             if (key.equals(Context.getMessageSourceService().getMessage("msfcore.dispensed"))) {
-                obs = retrieveOrCreateObs(obs, drugOrder,
-                                Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED),
-                                ResultCategory.DRUG_LIST);
+                obs = retrieveOrCreateObs(obs, drugOrder, Context.getConceptService()
+                                .getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED), ResultCategory.DRUG_LIST);
                 obs.setValueCoded(Context.getConceptService().getConceptByUuid(value));
             } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"))) {
-                obs = retrieveOrCreateObs(obs, drugOrder,
-                                Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED_DATE),
-                                ResultCategory.DRUG_LIST);
+                obs = retrieveOrCreateObs(obs, drugOrder, Context.getConceptService().getConceptByUuid(
+                                MSFCoreConfig.CONCEPT_UUID_DESPENSED_DATE), ResultCategory.DRUG_LIST);
                 obs.setValueDate(Context.getDateFormat().parse(value));
             } else if (key.equals(Context.getMessageSourceService().getMessage("msfcore.details"))) {
-                obs = retrieveOrCreateObs(obs, drugOrder,
-                                Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED_DETAILS),
-                                ResultCategory.DRUG_LIST);
+                obs = retrieveOrCreateObs(obs, drugOrder, Context.getConceptService().getConceptByUuid(
+                                MSFCoreConfig.CONCEPT_UUID_DESPENSED_DETAILS), ResultCategory.DRUG_LIST);
                 obs.setValueText(value);
             }
             obs.setObsDatetime(new Date());

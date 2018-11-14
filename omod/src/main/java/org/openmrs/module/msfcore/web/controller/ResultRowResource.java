@@ -11,8 +11,7 @@ import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name = RestConstants.VERSION_1 + MSFCoreRestController.NAMESPACE
-                + "/resultRow", supportedClass = ResultRow.class, supportedOpenmrsVersions = {"2.2.*"})
+@Resource(name = RestConstants.VERSION_1 + MSFCoreRestController.NAMESPACE + "/resultRow", supportedClass = ResultRow.class, supportedOpenmrsVersions = {"2.2.*"})
 public class ResultRowResource extends BaseDataResource {
 
     /**
