@@ -43,6 +43,7 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
 
     @SuppressWarnings("serial")
     private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
+
         {
             this.put("1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 1);
             this.put("1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 7);
@@ -121,14 +122,8 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
                 final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
                                 observations);
                 final Drug drug = this.dao.getDrugByConcept(medication);
-                final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations);
-                order.setDrug(drug);
-                encounter.addOrder(order);
-                final Obs newGroup = Obs.newInstance(group);
-                newGroup.setOrder(order);
-                group.setVoided(true);
-                observations.forEach(o -> o.setVoided(true));
-                encounter.addObs(newGroup);
+                final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations, drug);
+                updateEncounter(encounter, group, observations, order);
             }
             if (group.getOrder() != null) {
                 group.getOrder().setVoided(true);
@@ -136,20 +131,30 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         }
         encounterService.saveEncounter(encounter);
     }
+
+    private void updateEncounter(Encounter encounter, final Obs group, final Set<Obs> observations, final DrugOrder order) {
+		encounter.addOrder(order);
+		final Obs newGroup = Obs.newInstance(group);
+		newGroup.setOrder(order);
+		group.setVoided(true);
+		observations.forEach(o -> o.setVoided(true));
+		encounter.addObs(newGroup);
+	}
     @Override
     public Allergies saveAllergies(Encounter encounter) {
         return Context.getRegisteredComponents(AllergyUtils.class).get(0).saveAllergies(encounter);
     }
 
     private DrugOrder createDrugOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting,
-                    Set<Obs> observations) {
+                    Set<Obs> observations, Drug drug) {
         final DrugOrder order = new DrugOrder();
         order.setOrderType(orderType);
         order.setPatient(encounter.getPatient());
         order.setEncounter(encounter);
         order.setOrderer(provider);
         order.setCareSetting(careSetting);
-        this.setOrderFields(observations, order);
+        order.setDrug(drug);
+        setOrderFields(observations, order);
         return order;
     }
 
@@ -200,7 +205,6 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     }
 
     private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
-        return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid))
-                .findAny();
-    }
+		return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
+	}
 }
