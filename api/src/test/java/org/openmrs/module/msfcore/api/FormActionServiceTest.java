@@ -50,7 +50,6 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 		Assert.assertEquals(CareSettingType.OUTPATIENT.name(),
 				obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
 	}
-
     @Test
     public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");
@@ -91,7 +90,6 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021))
                 .findAny().isPresent());
     }
-
     @Test
     public void saveAllergies_shouldCreateAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");
@@ -113,7 +111,6 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
         allergies.forEach(a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617)
                 .contains(a.getAllergen().getCodedAllergen().getId())));
     }
-
     @Test(expected = IllegalArgumentException.class)
     public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");
