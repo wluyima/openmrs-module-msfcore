@@ -104,11 +104,8 @@ public class MSFCoreDao extends MSFCoreBaseDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept) {
         Criteria crit = getSession().createCriteria(Obs.class);
-        if (person != null) {
-            crit.add(Restrictions.eq("person", person));
-        }
         if (order != null) {
             crit.add(Restrictions.eq("order", order));
         }

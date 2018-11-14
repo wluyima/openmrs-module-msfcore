@@ -84,5 +84,5 @@ public interface MSFCoreService extends OpenmrsService {
 
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept);
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept);
 }

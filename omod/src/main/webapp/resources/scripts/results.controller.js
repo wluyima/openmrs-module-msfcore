@@ -47,9 +47,9 @@ function ResultsController($scope, $sce) {
                 $scope.pages = [];
                 // one page
                 if (pagination.toItemNumber == pagination.totalItemsNumber) {
-                	if(pagination.totalItemsNumber > 0) {
-                		$scope.pages[1] = getPageObject(1, url);
-                	}
+                    if (pagination.totalItemsNumber > 0) {
+                        $scope.pages[1] = getPageObject(1, url);
+                    }
                 } else { // more than one pages
                     $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
                     setNextAndPreviousPages($scope, $scope.pages[0]);
@@ -99,8 +99,8 @@ function ResultsController($scope, $sce) {
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function(obs) {
-                        console.log("Updated/Added Result at Obs: " + obs.uuid);
+                    success: function(response) {
+                        console.log("Updated/Added Result at Obs: " + response);
                         $scope.retrieveResults(false);
                     }
                 });
@@ -128,27 +128,27 @@ function ResultsController($scope, $sce) {
         var value;
         var claz = result[key].editable ? "editable" : "";
         var time = "";
-    	if (resultPendingWhenEditable(result, key)) {
+        if (resultPendingWhenEditable(result, key)) {
             value = result.status.value;
             claz += " column-status";
         } else {
             value = result[key].value;
             if (result[key].type == 'DATE') {
-            	time = value;
+                time = value;
                 value = convertToOpenMRSDateFormat($scope, new Date(value));
             }
         }
-    	if(isEmpty(value)) {
-    		value = "";
-    	}
-    	var concept = result.concept ? result.concept.value : "";
-    	var valueProperties = "id='" + result.uuid.value + "_" + $scope.results.keys.indexOf(key) + "_" + result[key].type + "_" 
-    		+ concept + "' class='" + claz + "' time='" + time + "'";
-    	if(result.resultCategory == "DRUG_LIST" && key == "Stop") {
+        if (isEmpty(value)) {
+            value = "";
+        }
+        var concept = result.concept ? result.concept.value : "";
+        var valueProperties = "id='" + result.uuid.value + "_" + $scope.results.keys.indexOf(key) + "_" + result[key].type + "_" +
+            concept + "' class='" + claz + "' time='" + time + "'";
+        if (result.resultCategory == "DRUG_LIST" && key == "Stop") {
             //
-    	} else {
-    		return $sce.trustAsHtml("<label " + valueProperties + ">" + value + "</label>");
-    	}
+        } else {
+            return $sce.trustAsHtml("<label " + valueProperties + ">" + value + "</label>");
+        }
     }
 
     this.nameFilter = this.nameFilter || function() {
@@ -269,9 +269,9 @@ function replaceElementWithTextInput($scope, element) {
         }
         var inputElement = "<input class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' type='" + type + "' time='" + time + "' />";
         if (type == "BOOLEAN") {
-        	inputElement = "<select class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' time='" + time + "'>" +
-            	"<option value='true'>True</option><option value='false'>False</option>" +
-            "</select>";
+            inputElement = "<select class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' time='" + time + "'>" +
+                "<option value='true'>True</option><option value='false'>False</option>" +
+                "</select>";
         }
         return jQuery(inputElement);
     });
@@ -384,14 +384,14 @@ function clearFilterFields($scope, results) {
     jQuery("#filter-status").val("all");
     jQuery("#filter-start-date").val("");
     jQuery("#filter-end-date").val("");
-    if(results.filters.dates && results.filters.dates.length > 0) {
-    	if(results.resultCategory == "DRUG_LIST") {
-    		jQuery("#filter-dates").val("all");
-    		$scope.filterDateValue = "all";
-    	} else {
-    		jQuery("#filter-dates").val(results.filters.dates[0]);
-    		$scope.filterDateValue = results.filters.dates[0];
-    	}
+    if (results.filters.dates && results.filters.dates.length > 0) {
+        if (results.resultCategory == "DRUG_LIST") {
+            jQuery("#filter-dates").val("all");
+            $scope.filterDateValue = "all";
+        } else {
+            jQuery("#filter-dates").val(results.filters.dates[0]);
+            $scope.filterDateValue = results.filters.dates[0];
+        }
     }
     $scope.filterStartDate = "";
     $scope.filterEndDate = "";
@@ -403,14 +403,14 @@ function filterByDates(results, $scope) {
     const endDate = jQuery("#filter-end-date").val();
     const dateField = jQuery("#filter-dates").val();
     jQuery.each(results.results, function(i, resultRow) {
-    	//TODO support matching against all options
-        if(dateField.toLowerCase() == "all") {
-        	for(d in results.filters.dates) {
-        		removeNonMatchedDate(results.filters.dates[d], i, resultRow, results, startDate, endDate);
-        	}
+        //TODO support matching against all options
+        if (dateField.toLowerCase() == "all") {
+            for (d in results.filters.dates) {
+                removeResultsNonMatchedByDates(results.filters.dates[d], i, resultRow, results, startDate, endDate);
+            }
         } else {
-	        //the conversion removes time
-        	removeNonMatchedDate(dateField, i, resultRow, results, startDate, endDate);
+            //the conversion removes time
+            removeResultsNonMatchedByDates(dateField, i, resultRow, results, startDate, endDate);
         }
     });
     applyFilterChanges(results);
@@ -420,8 +420,8 @@ function filterByDates(results, $scope) {
     jQuery("#filter-end-date").val(endDate)
 }
 
-function removeNonMatchedDate(dateField, i, resultRow, results, startDate, endDate) {
-	var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
+function removeResultsNonMatchedByDates(dateField, i, resultRow, results, startDate, endDate) {
+    var dateString = convertToDatePickerDateFormat(new Date(parseInteger(resultRow[dateField].value)));
     var date = new Date(dateString);
     if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
         results.results = removeItemAtIndex(results.results, i);
@@ -438,22 +438,22 @@ function logViewResultsEvent(results) {
     var event;
     if (results.resultCategory == "LAB_RESULTS") {
         event = "VIEW_LAB_RESULTS";
-    } else if(results.resultCategory == "DRUG_LIST") {
-    	event = "VIEW_DRUG_DISPENSING_LIST";
+    } else if (results.resultCategory == "DRUG_LIST") {
+        event = "VIEW_DRUG_DISPENSING_LIST";
     }
-    if(event) {
-	    var data = {
-	        "event": event,
-	        "patient": results.patient
-	    };
-	    jQuery.ajax({
-	        url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
-	        type: "POST",
-	        data: JSON.stringify(data),
-	        contentType: "application/json; charset=utf-8",
-	        dataType: "json",
-	        success: function(event) {}
-	    });
+    if (event) {
+        var data = {
+            "event": event,
+            "patient": results.patient
+        };
+        jQuery.ajax({
+            url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(event) {}
+        });
     }
 }
 

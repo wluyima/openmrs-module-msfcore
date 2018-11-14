@@ -338,7 +338,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return dao.getOrders(patient, type, concepts, pagination);
     }
 
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
-        return dao.getObservationsByPersonAndOrderAndConcept(person, order, concept);
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept) {
+        return dao.getObservationsByOrderAndConcept(order, concept);
     }
 }
