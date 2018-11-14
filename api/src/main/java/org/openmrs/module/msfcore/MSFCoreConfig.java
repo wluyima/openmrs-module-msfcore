@@ -507,4 +507,10 @@ public class MSFCoreConfig {
     public static final String REFERENCE_APPLICATION_COMMON_ENVIROMENTAL_ALLERGENS_UUID = "162554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     public static final String ALLERGY_UUID = "73c9a85e-7de9-4b35-97ec-03d693f56fab";
+
+    public static final String FOOD_ALLERGY_LIST_UUID = "1325f5d0-bbb8-402a-a6dc-21d7c6f82330";
+
+    public static final String DRUG_ALLERGY_LIST_UUID = "1141bd11-1f91-4af7-a8d7-a26394140e08";
+
+    public static final String OTHER_ALLERGY_LIST_UUID = "a0740eb7-92cd-4f79-a9b2-08e0f363532e";
 }
