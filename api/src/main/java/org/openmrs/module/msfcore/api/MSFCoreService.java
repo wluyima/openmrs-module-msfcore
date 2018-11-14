@@ -12,7 +12,6 @@ package org.openmrs.module.msfcore.api;
 import java.util.List;
 import java.util.Map;
 
-import org.openmrs.Allergies;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
@@ -80,12 +79,6 @@ public interface MSFCoreService extends OpenmrsService {
     Map<String, ProgramWorkflowState> getMsfStages();
 
     void manageNCDProgram(Encounter encounter);
-
-    void saveTestOrders(Encounter encounter);
-
-    void saveDrugOrders(Encounter encounter);
-
-    Allergies saveAllergies(Encounter encounter);
 
     List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 

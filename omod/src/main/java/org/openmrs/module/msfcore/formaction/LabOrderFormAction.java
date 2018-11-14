@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.msfcore.MSFCoreConfig;
-import org.openmrs.module.msfcore.api.MSFCoreService;
+import org.openmrs.module.msfcore.api.FormActionService;
 import org.openmrs.module.msfcore.formaction.handler.FormAction;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class LabOrderFormAction implements FormAction {
                         MSFCoreConfig.FORM_NCD_FOLLOWUP_REQUEST_INVESTIGATION_UUID).contains(session.getForm().getUuid());
 
         if (isRequestInvestigationForm) {
-            Context.getService(MSFCoreService.class).saveTestOrders(session.getEncounter());
+            Context.getService(FormActionService.class).saveTestOrders(session.getEncounter());
         }
     }
 }

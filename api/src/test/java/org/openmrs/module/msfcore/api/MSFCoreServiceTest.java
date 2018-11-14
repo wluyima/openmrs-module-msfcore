@@ -12,21 +12,15 @@ package org.openmrs.module.msfcore.api;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmrs.AllergenType;
-import org.openmrs.Allergies;
-import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
@@ -130,27 +124,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("1", orders.get(0).getOrderNumber());
-    }
-
-    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
-        executeDataSet("MSFCoreService.xml");
-
-        Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
-        MSFCoreService service = Context.getService(MSFCoreService.class);
-
-        // Order 1 is linked to a voided obs so it should be voided
-        Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
-        service.saveTestOrders(encounter);
-        Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
-
-        Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
-        List<Obs> obs = new ArrayList<Obs>(loadedEncounter.getObs());
-        Assert.assertEquals(3, obs.size());
-        Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
-        Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
-        Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
-        Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
-        Assert.assertEquals(CareSettingType.OUTPATIENT.name(), obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
     }
 
     public void generatePatientProgram_returnNullIfPatientProgramIsNull() {
@@ -318,66 +291,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         }
         return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
     }
-    @Test
-    public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
-        this.executeDataSet("MSFCoreService.xml");
-        final Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-        Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
-        Assert.assertEquals(1, encounter.getOrders().size());
-        final DrugOrder drugOrder = (DrugOrder) encounter.getOrders().iterator().next();
-        Assert.assertNotNull(drugOrder.getId());
-        Assert.assertEquals(36, drugOrder.getDrug().getId().intValue());
-        Assert.assertEquals(14D, drugOrder.getQuantity().doubleValue(), 0);
-        Assert.assertEquals("Take after meals", drugOrder.getDosingInstructions());
-        Assert.assertEquals("Take after meals", drugOrder.getInstructions());
-    }
-
-    @Test
-    public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
-        this.executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
-        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-
-        // initially we should have 2 non voided orders for both concepts
-        List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
-        Assert.assertEquals(2, activeOrders.size());
-        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
-
-        Context.getService(MSFCoreService.class).saveDrugOrders(encounter);
-
-        // then just one active order for concept 1000021
-        encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-        activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
-        Assert.assertEquals(1, activeOrders.size());
-        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-    }
-    @Test
-    public void saveAllergies_shouldCreateAllergies() throws Exception {
-        this.executeDataSet("MSFCoreService.xml");
-
-        final Encounter encounter = Context.getEncounterService().getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
-        final MSFCoreService service = Context.getService(MSFCoreService.class);
-
-        final Allergies allergies = service.saveAllergies(encounter);
-        Assert.assertNotNull(allergies);
-        Assert.assertEquals(3, allergies.size());
-        allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
-        allergies.forEach(a -> Assert.assertTrue(
-                        Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
-        allergies.forEach(a -> a.getReactions().forEach(r -> Assert
-                        .assertTrue(Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
-        allergies.forEach(
-                        a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617).contains(a.getAllergen().getCodedAllergen().getId())));
-    }
-    @Test(expected = IllegalArgumentException.class)
-    public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
-        this.executeDataSet("MSFCoreService.xml");
-
-        final Encounter encounter = Context.getEncounterService().getEncounterByUuid("84fcb082-e670-11e8-8661-0b65d193bf03");
-        final MSFCoreService service = Context.getService(MSFCoreService.class);
-        service.saveAllergies(encounter);
-    }
-
     @Test
     public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveCorrectObs() {
         executeDataSet("MSFCoreService.xml");
