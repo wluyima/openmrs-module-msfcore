@@ -21,7 +21,6 @@ import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
-import org.openmrs.Person;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -82,6 +81,13 @@ public interface MSFCoreService extends OpenmrsService {
 
     public void saveTestOrders(Encounter encounter);
 
+    /**
+     * @param patient
+     * @param type
+     * @param concepts
+     * @param pagination
+     * @return matching orders excluding orders that discontinued others
+     */
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
     public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept);

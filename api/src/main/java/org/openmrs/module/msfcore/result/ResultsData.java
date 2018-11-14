@@ -3,6 +3,7 @@ package org.openmrs.module.msfcore.result;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
@@ -167,15 +169,16 @@ public class ResultsData {
                         MSFCoreConfig.CONCEPT_UUID_DESPENSED_DETAILS));
         Object status = null;
         List<ResultAction> actions = new ArrayList<ResultAction>();
+        boolean isDiscontinued = drugOrder.isDiscontinuedRightNow();
         if (drugOrder.getVoided()) {
             status = ResultStatus.CANCELLED;
-        } else if (drugOrder.isDiscontinuedRightNow()) {// discontinued
+        } else if (isDiscontinued) {
             status = ResultStatus.INACTIVE;
         } else if (dispensedObs == null || dispensedDateObs == null) {
             status = ResultStatus.PENDING;
             actions.add(ResultAction.EDIT);
             actions.add(ResultAction.DELETE);
-        } else {
+        } else {// only make active discontinuable at client side
             status = ResultStatus.ACTIVE;
             actions.add(ResultAction.EDIT);
         }
@@ -196,7 +199,7 @@ public class ResultsData {
                         drugOrder.getInstructions()).build());
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().type(Type.DATE).value(
                         drugOrder.getDateActivated()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().value("").build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().value(isDiscontinued).build());// TODO
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().type(Type.CODED).value(
                         dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "").codedOptions(
                         getCodedOptionsFromConceptSet(dispensedConcept)).build());
@@ -400,5 +403,19 @@ public class ResultsData {
             obsList.add(obs);
         }
         return obsList;
+    }
+
+    /**
+     * @param order
+     * @param category
+     * @return the order that has discontinued received order
+     */
+    public static Order discontinueOrder(Order order, ResultCategory category) {
+        String discontinueReasonNonCoded = "Discontinuing order from results widget";
+        Collection<Provider> loggedInProviders = Context.getProviderService().getProvidersByPerson(
+                        Context.getAuthenticatedUser().getPerson());
+        Encounter encounter = Context.getEncounterService().saveEncounter(buildEncounter(category, order.getPatient()));
+        return Context.getOrderService().discontinueOrder(order, discontinueReasonNonCoded, new Date(),
+                        !loggedInProviders.isEmpty() ? loggedInProviders.iterator().next() : order.getOrderer(), encounter);
     }
 }

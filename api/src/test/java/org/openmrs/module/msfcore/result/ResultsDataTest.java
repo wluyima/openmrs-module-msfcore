@@ -6,12 +6,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.Obs;
+import org.openmrs.Order;
+import org.openmrs.Order.Action;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.MSFCoreConfig;
 import org.openmrs.module.msfcore.Pagination;
@@ -196,7 +200,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(4).get(
+        assertEquals(ResultColumn.builder().value(true).build(), resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
@@ -219,7 +223,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals("2006-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(5).get(
                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(5).get(
+        assertEquals(ResultColumn.builder().value(false).build(), resultsData.getResults().get(5).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
@@ -243,6 +247,8 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(), resultsData.getResults().get(1).get(
                         "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(1).get("status"));
+        assertEquals(ResultColumn.builder().value(true).build(), resultsData.getResults().get(1).get(
+                        Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(1).get("actions"));
         assertEquals(ResultColumn.builder().value("Triomune-30").build(), resultsData.getResults().get(1).get(
                         Context.getMessageSourceService().getMessage("msfcore.drugName")));
@@ -268,7 +274,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value("2018-11-14 02:12:38.0").build().getValue(),
                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
                                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(2).get(
+        assertEquals(ResultColumn.builder().value(false).build(), resultsData.getResults().get(2).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value("Full").type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
@@ -347,5 +353,31 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals("Partial", updated.get(0).getValueCoded().getName().getName());
         Assert.assertEquals("03/11/2018", new SimpleDateFormat("dd/MM/yyyy").format(updated.get(1).getValueDate()));
         Assert.assertEquals("dispensing details", updated.get(2).getValueText());
+    }
+
+    @Test
+    public void discontinueOrder_shouldJustDiscontinueTheSameOrder() {
+        executeDataSet("ResultsData.xml");
+
+        // should retrieve and add lab test orders with matching results
+        Patient patient = Context.getPatientService().getPatient(7);
+        ResultsData resultsData = ResultsData.builder().resultCategory(ResultCategory.DRUG_LIST).patient(patient).build();
+        resultsData.addRetrievedResults();
+        assertEquals(6, resultsData.getResults().size());
+
+        // discontinue
+        Order order = Context.getOrderService().getOrder(57);
+        Assert.assertNull(order.getDateStopped());
+        // discontinedOrders will never be retrieved by MSFCoreService#getOrders
+        Order discontinedOrder = ResultsData.discontinueOrder(order, ResultCategory.DRUG_LIST);
+        Assert.assertEquals(Action.DISCONTINUE, discontinedOrder.getAction());
+        Assert.assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(new Date()), new SimpleDateFormat("dd/MM/yyyy").format(Context
+                        .getOrderService().getOrder(57).getDateStopped()));
+        Assert.assertEquals("Discontinuing order from results widget", discontinedOrder.getOrderReasonNonCoded());
+
+        resultsData = ResultsData.builder().resultCategory(ResultCategory.DRUG_LIST).patient(Context.getPatientService().getPatient(7))
+                        .build();
+        resultsData.addRetrievedResults();
+        assertEquals(6, resultsData.getResults().size());
     }
 }
