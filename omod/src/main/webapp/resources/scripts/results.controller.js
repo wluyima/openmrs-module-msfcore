@@ -24,7 +24,7 @@ function ResultsController($scope, $sce) {
             initialPageLoad = false;
         }
         jQuery.get(url, function(data) {
-            //initialise results list
+            // initialise results list
             var results = data.results[0];
             if (initialPageLoad) {
                 logViewResultsEvent(results);
@@ -57,7 +57,7 @@ function ResultsController($scope, $sce) {
                 }
                 $scope.currentPage = 1;
             }
-            //display results
+            // display results
             $scope.results = results;
             $scope.$apply();
         });
@@ -75,11 +75,11 @@ function ResultsController($scope, $sce) {
         }
     }
 
-    //change results per page
+    // change results per page
     this.pagination = this.pagination || function() {
-        //remove and re-add pagination to url
+        // remove and re-add pagination to url
         url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
-        //retrive new results by new url
+        // retrive new results by new url
         retrieveResults(true);
     }
 
@@ -145,7 +145,7 @@ function ResultsController($scope, $sce) {
         var valueHtml;
         if ($scope.results.resultCategory == "DRUG_LIST" && result[key].type == "STOP") {
             var discontinueable = false;
-            if (!value && result.status.value == "ACTIVE") { //confirm it's discontinueable
+            if (!value && result.status.value == "ACTIVE") { // confirm it's discontinueable
                 discontinueable = true;
             }
             var disabled = !discontinueable ? "disabled" : "";
@@ -210,7 +210,6 @@ function replacePaginationInURL(urlString, from, to) {
 }
 
 function replacePaginationInURLToRetrieveAll($scope) {
-    //TODO searching is matching against all results
     $scope.resultsPerPage = "all";
     url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
 }
@@ -253,14 +252,14 @@ function getPossiblePages(urlString, resultsPerPage, totalItemsNumber) {
         pages[i] = getPageObject(i, urlString);
         from = to + 1;
     }
-    //return compact pages
+    // return compact pages
     return pages.filter(function() {
         return true;
     });
 }
 
 function getPageObject(page, pageUrl) {
-    //page is non 0 index whereas $scope.pages is
+    // page is non 0 index whereas $scope.pages is
     return {
         "page": page,
         "url": pageUrl
@@ -369,7 +368,7 @@ function generateResultRowData($scope) {
 }
 
 function applyFilterChanges(results) {
-    //remove any pending empty results because of excluding some
+    // remove any pending empty results because of excluding some
     results.results = results.results.filter(function() {
         return true;
     });
@@ -432,13 +431,13 @@ function filterByDates(results, $scope) {
     const endDate = jQuery("#filter-end-date").val();
     const dateField = jQuery("#filter-dates").val();
     jQuery.each(results.results, function(i, resultRow) {
-        //TODO support matching against all options
+        // matching against all dates options
         if (dateField.toLowerCase() == "all") {
             for (d in results.filters.dates) {
                 removeResultsNonMatchedByDates(results.filters.dates[d], i, resultRow, results, startDate, endDate);
             }
         } else {
-            //the conversion removes time
+            // the conversion removes time
             removeResultsNonMatchedByDates(dateField, i, resultRow, results, startDate, endDate);
         }
     });
@@ -495,7 +494,7 @@ function resultPendingWhenEditable(result, key, category) {
 }
 
 function discontinue(resultUuid) {
-    if (!isEmpty(resultUuid)) { //discontinuable
+    if (!isEmpty(resultUuid)) {
         jQuery.get("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/discontinueorder?category=" + category + "&uuid=" + resultUuid, function(data) {
             if (data) {
                 console.log(resultUuid + " order has been discontinued by: " + data.results[0].uuid);

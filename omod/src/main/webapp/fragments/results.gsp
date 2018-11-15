@@ -85,12 +85,12 @@
 			</span>
 			<span>${ui.message('msfcore.entries')}</span>
 		</div>
-		<div class="right">
+		<div class="right showing-pages">
 			<span class='page' ng-repeat="page in pages" ng-class="{'current-page':page.page==currentPage}" ng-click="paginate(page)"> {{page.page}} </span>
 			<span ng-class="{'page':nextPage, 'disabled': !nextPage}" ng-click="paginate(nextPage)">${ui.message('general.next')}</span>
 			<span ng-class="{'page':previousPage, 'disabled': !previousPage}" ng-click="paginate(previousPage)">${ui.message('general.previous')}</span>
 		</div>
-		<div class="center">
+		<div class="center pages">
 			<span class="disabled">
 				${ui.message('msfcore.showing')} {{results.pagination.fromItemNumber}} ${ui.message('general.to')} {{results.pagination.toItemNumber}} ${ui.message('general.of')} {{results.pagination.totalItemsNumber}} ${ui.message('msfcore.entries').toLowerCase()}
 			</span>	
