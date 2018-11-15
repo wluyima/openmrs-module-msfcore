@@ -19,7 +19,7 @@
                 <ifMode mode="VIEW">
                         jq('button.no-print').hide();
                 </ifMode>
-
+				 	
 				<!-- handle operation buttons -->
 				jq(".msf-operation-button").on("click", function() {
 					jq("#msf-operation").attr("value", this.value);
@@ -60,6 +60,11 @@
                         //jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
                     }
+                }
+                
+                if(hasDuplicatedPrescribedMedications()){
+                	jq(window).scrollTop($(this).offset().top);
+                	jq(this).('.field-error').first().html("<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>").show();
                 }
 
 				beforeSubmit.push(function() {
@@ -107,6 +112,24 @@
                 }
                 return filled;
             }
+            
+            function hasDuplicatedPrescribedMedications(){
+            	let  prescribedMedications = getPrescribedMedicationIds();
+            	let  uniquePrescribedMedications = removeDuplicateUsingSet(prescribedMedications);
+            	
+            	return prescribedMedications.toString() !== uniquePrescribedMedications.toString();
+            }
+            
+            function getPrescribedMedicationIds(){
+           		return getUsedContainers()
+           			    .map((container) => getValue(`name-${getIndexFromId(container.attr('id'))}.value`))
+           			    .filter((r) => r !== "");
+            }
+            
+            function removeDuplicateUsingSet(arr){
+			    let unique_array = Array.from(new Set(arr));
+			    return unique_array;
+			}
         }
 	</script>
 
@@ -141,6 +164,7 @@
 			<div class="sections-container">
 				<section id="drug-orders">
                     <h3>7. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
+					 <p class="field-error" style="display:none"></p>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
