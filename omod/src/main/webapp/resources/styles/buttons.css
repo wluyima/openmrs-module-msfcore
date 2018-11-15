@@ -353,7 +353,9 @@ button.confirm.big i.icon-arrow-right {float: right;}
 input.submitButton.confirm.right {
     align-self: flex-end;
 }
-htmlform[formname="Discharge (Simple)"] button.cancel {
+
+htmlform[formname="Discharge (Simple)"] button.cancel,
+htmlform[formname="Admission (Simple)"] button.cancel {
     align-self: flex-start;
     margin-top: -48px;
 }

@@ -78,6 +78,7 @@ header .logo {
 /* Containers for forms and page elements */
 
 htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
 #appointment-block-form,
 table#active-visits + input + input + div,
 .create-appointment-type,
@@ -96,6 +97,7 @@ table#active-visits + input + input + div,
 /* Merge Visits */
 
 htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
 #appointment-block-form,
 table#active-visits + input + input + div,
 .dashboard, table,
@@ -114,6 +116,7 @@ table#active-visits + input + input + div,
 
 /* Bottom Rounded Corners for these boxes */
 htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
 table#active-visits + input + input + div,
 .scheduleAppointment,
 .patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
