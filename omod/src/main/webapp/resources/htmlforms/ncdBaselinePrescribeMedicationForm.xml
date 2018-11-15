@@ -63,8 +63,8 @@
                 }
                 
                 if(hasDuplicatedPrescribedMedications()){
-                	jq('.field-error').first().html('<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>').show();
-                	return false;
+                	var requiredMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>';
+                	return validateRequiredField('field-error', requiredMessage);
                 }
 
 				beforeSubmit.push(function() {
@@ -164,7 +164,7 @@
 			<div class="sections-container">
 				<section id="drug-orders">
                     <h3>7. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
-					 <p class="field-error" style="display:none"></p>
+					 <p id="field-error" style="display:none"></p>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
