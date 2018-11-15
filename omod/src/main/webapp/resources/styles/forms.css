@@ -255,6 +255,12 @@ a.date-range-picker-clear-link.add-on:hover {
     left:-6px !important;
 }
 
+span[id*="startDate"] span.add-on, 
+span[id*="stopDate"] span.add-on {
+    left: 0px !important;
+    top: 1px;
+}
+
 a.date-range-picker-clear-link.add-on {
     margin-left: -6px;
     padding: 9px 8px;
