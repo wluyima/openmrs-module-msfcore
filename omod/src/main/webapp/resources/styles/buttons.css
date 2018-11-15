@@ -349,6 +349,15 @@ button.confirm.big i.icon-arrow-right {
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
 
+/* Exit from Inpatient Care */
+input.submitButton.confirm.right {
+    align-self: flex-end;
+}
+htmlform[formname="Discharge (Simple)"] button.cancel {
+    align-self: flex-start;
+    margin-top: -48px;
+}
+
 /* Visit Note */
 
 #display-encounter-diagnoses-container li i {
