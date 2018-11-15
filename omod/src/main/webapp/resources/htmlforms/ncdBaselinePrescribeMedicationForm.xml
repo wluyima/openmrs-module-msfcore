@@ -63,8 +63,8 @@
                 }
                 
                 if(hasDuplicatedPrescribedMedications()){
-                	jq(window).scrollTop($(this).offset().top);
-                	jq(this).('.field-error').first().html("<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>").show();
+                	jq('.field-error').first().html('<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>').show();
+                	return false;
                 }
 
 				beforeSubmit.push(function() {
