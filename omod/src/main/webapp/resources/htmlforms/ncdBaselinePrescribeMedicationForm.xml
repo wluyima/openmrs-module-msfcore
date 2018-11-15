@@ -62,10 +62,26 @@
                     }
                 }
                 
-                if(hasDuplicatedPrescribedMedications()){
-                	var requiredMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>';
-                	return validateRequiredField('field-error', requiredMessage);
-                }
+                beforeSubmit.push(function() {
+					var divError = jq('#duplication-prescription-error');
+					
+					divError.find('span').remove();
+					divError.hide();
+					
+					var duplicated = getDulpicatedMedicationIds();
+					if(duplicated.length > 0){
+						
+						var requiredMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>';
+                		divError.append("<span>"+requiredMessage+"</span>");
+						
+						duplicated.forEach(function(medicationId){
+							appendToDivError(divError, medicationId);
+						});
+                		divError.show();
+                		return false;
+                	}
+                	return true;
+				});
 
 				beforeSubmit.push(function() {
 					var requiredMessage = '<lookup expression="fn.message('msfcore.required')"/>';
@@ -113,23 +129,35 @@
                 return filled;
             }
             
-            function hasDuplicatedPrescribedMedications(){
-            	let  prescribedMedications = getPrescribedMedicationIds();
-            	let  uniquePrescribedMedications = removeDuplicateUsingSet(prescribedMedications);
-            	
-            	return prescribedMedications.toString() !== uniquePrescribedMedications.toString();
+            function appendToDivError(divError, medicationId){
+            	console.log("entrou....");
+	        	var requiredMessage = '<lookup expression="fn.getConcept(\'+${medicationId}+\').name"/>';
+	        	console.log(requiredMessage);	
+	   			divError.append("<span>"+requiredMessage+"</span>");
             }
-            
+                       
             function getPrescribedMedicationIds(){
            		return getUsedContainers()
            			    .map((container) => getValue(`name-${getIndexFromId(container.attr('id'))}.value`))
            			    .filter((r) => r !== "");
             }
-            
-            function removeDuplicateUsingSet(arr){
-			    let unique_array = Array.from(new Set(arr));
-			    return unique_array;
-			}
+           
+            function getDulpicatedMedicationIds() {
+		    	var object = {};
+		        var result = [];
+		
+		        getPrescribedMedicationIds().forEach(function (item) {
+		          if(!object[item])
+		              object[item] = 0;
+		            object[item] += 1;
+		        })
+		        for (var prop in object) {
+		           if(object[prop] >= 2) {
+		               result.push(prop);
+		           }
+		        }
+		        return result;
+		    }
         }
 	</script>
 
@@ -164,7 +192,9 @@
 			<div class="sections-container">
 				<section id="drug-orders">
                     <h3>7. <lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.title')"/></h3>
-					 <p id="field-error" style="display:none"></p>
+					<div class="note-container">
+						<div id="duplication-prescription-error" class="note error" style="display: none;"></div>
+					</div>
 					<repeat>
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
