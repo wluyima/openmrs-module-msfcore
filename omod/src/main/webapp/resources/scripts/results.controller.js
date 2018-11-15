@@ -150,7 +150,7 @@ function ResultsController($scope, $sce) {
             }
             var disabled = !discontinueable ? "disabled" : "";
             var checked = value ? "checked" : "";
-            var discontinueableHtml = discontinueable ? "onchange=\"discontinue('" + result.uuid.value + "')\"" : "";
+            var discontinueableHtml = discontinueable ? "onchange=\"discontinue(this,'" + result.uuid.value + "')\"" : "";
             valueHtml = "<input type='checkbox' " + checked + " " + disabled + " " + discontinueableHtml + " />"
         } else {
             if (isEmpty(value)) {
@@ -493,13 +493,18 @@ function resultPendingWhenEditable(result, key, category) {
     return pendingWhenEditable;
 }
 
-function discontinue(resultUuid) {
+function discontinue(element, resultUuid) {
     if (!isEmpty(resultUuid)) {
-        jQuery.get("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/discontinueorder?category=" + category + "&uuid=" + resultUuid, function(data) {
-            if (data) {
-                console.log(resultUuid + " order has been discontinued by: " + data.results[0].uuid);
-                retrieveResults(false);
-            }
-        });
+        // TODO use ${ui.message('msfcore.resultList.discontinueOrder')}
+        if (confirm("Are you sure you want to discontinue this medication?")) {
+            jQuery.get("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/discontinueorder?category=" + category + "&uuid=" + resultUuid, function(data) {
+                if (data) {
+                    console.log(resultUuid + " order has been discontinued by: " + data.results[0].uuid);
+                    retrieveResults(false);
+                }
+            });
+        } else {
+            jQuery(element).prop("checked", !jQuery(element).prop("checked"));
+        }
     }
 }
