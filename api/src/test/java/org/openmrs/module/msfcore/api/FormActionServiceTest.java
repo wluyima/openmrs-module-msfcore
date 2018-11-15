@@ -9,7 +9,9 @@
  */
 package org.openmrs.module.msfcore.api;
 
-import java.util.ArrayList;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,37 +20,117 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.AllergenType;
 import org.openmrs.Allergies;
-import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
+import org.openmrs.api.ObsService;
+import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 
-    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
-		executeDataSet("MSFCoreService.xml");
-		
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
-		FormActionService service = Context.getService(FormActionService.class);
-		
-		// Order 1 is linked to a voided obs so it should be voided
-		Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
-		service.saveTestOrders(encounter);
-		Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
-		
-		Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
-		List<Obs> obs = new ArrayList<>(loadedEncounter.getObs());
-		Assert.assertEquals(3, obs.size());
-		Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
-		Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
-		Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
-		Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
-		Assert.assertEquals(CareSettingType.OUTPATIENT.name(),
-		    obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
-	}
+    @Autowired
+    FormActionService formActionService;
+
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    ObsService obsService;
+
+    @Test
+    public void saveTestOrders_shouldCreateTestOrdersForNewObservationOrders() {
+        executeDataSet("MSFCoreService.xml");
+        Encounter encounter = Context.getEncounterService().getEncounter(29);
+
+        List<Order> existingOrders = encounter.getOrdersWithoutOrderGroups();
+        assertThat(existingOrders.size(), is(1));
+        assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000010));
+
+        // execute test
+        formActionService.saveTestOrders(encounter);
+
+        List<Order> updatedOrders = encounter.getOrdersWithoutOrderGroups();
+
+        assertThat(updatedOrders.size(), is(2));
+        assertThat(updatedOrders.get(0).getConcept().getId(), is(5000010));
+        assertThat(updatedOrders.get(1).getConcept().getId(), is(5000011));
+    }
+
+    @Test
+    public void saveTestOrders_shouldNotSaveOrderIfConceptIsNotLabSetMember() {
+        executeDataSet("MSFCoreService.xml");
+        Encounter encounter = Context.getEncounterService().getEncounter(29);
+
+        List<Order> existingOrders = encounter.getOrdersWithoutOrderGroups();
+        assertThat(existingOrders.size(), is(1));
+        assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000010));
+
+        // update obs concept to be not lab set member
+        Obs notLabSetMemberObs = obsService.getObs(2);
+        notLabSetMemberObs.setConcept(Context.getConceptService().getConcept(1065));
+        obsService.saveObs(notLabSetMemberObs, "update concept");
+
+        // execute test
+        formActionService.saveTestOrders(encounter);
+
+        List<Order> updatedOrders = encounter.getOrdersWithoutOrderGroups();
+
+        assertThat(updatedOrders.size(), is(1));
+        assertThat(updatedOrders.get(0).getConcept().getId(), is(5000010));
+    }
+
+    @Test
+    public void saveTestOrders_shouldVoidOrderIfObsIsVoided() throws Exception {
+        executeDataSet("MSFCoreService.xml");
+        Encounter encounterService = Context.getEncounterService().getEncounter(30);
+
+        List<Order> existingOrders = encounterService.getOrdersWithoutOrderGroups();
+        assertThat(existingOrders.size(), is(1));
+        assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000012));
+        assertThat(existingOrders.get(0).getVoided(), is(false));
+
+        // void observation
+        Obs resultObs = obsService.getObs(4);
+        resultObs.setVoided(true);
+
+        // execute test
+        formActionService.saveTestOrders(encounterService);
+
+        List<Order> updatedOrders = encounterService.getOrdersWithoutOrderGroups();
+
+        assertThat(updatedOrders.size(), is(1));
+        assertThat(updatedOrders.get(0).getConcept().getId(), is(5000012));
+        assertThat(updatedOrders.get(0).getVoided(), is(true));
+    }
+
+    @Test
+    public void saveTestOrders_shouldNotVoidOrderIfOrderIsFulfilled() {
+        executeDataSet("MSFCoreService.xml");
+        Encounter encounterService = Context.getEncounterService().getEncounter(30);
+
+        List<Order> existingOrders = encounterService.getOrdersWithoutOrderGroups();
+        assertThat(existingOrders.size(), is(1));
+        assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000012));
+        assertThat(existingOrders.get(0).getVoided(), is(false));
+
+        // fulfill this order
+        Obs resultObs = obsService.getObs(4);
+        resultObs.setOrder(existingOrders.get(0));
+
+        // execute test
+        formActionService.saveTestOrders(encounterService);
+
+        List<Order> updatedOrders = encounterService.getOrdersWithoutOrderGroups();
+
+        assertThat(updatedOrders.size(), is(1));
+        assertThat(updatedOrders.get(0).getConcept().getId(), is(5000012));
+        assertThat(updatedOrders.get(0).getVoided(), is(false));
+    }
+
     @Test
     public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");

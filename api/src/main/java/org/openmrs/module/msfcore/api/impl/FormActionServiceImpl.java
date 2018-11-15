@@ -24,8 +24,10 @@ import org.openmrs.Drug;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.Order;
 import org.openmrs.OrderFrequency;
 import org.openmrs.OrderType;
+import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
@@ -40,6 +42,7 @@ import org.openmrs.module.msfcore.api.util.AllergyUtils;
 public class FormActionServiceImpl extends BaseOpenmrsService implements FormActionService {
 
     private static final String ORDER_VOID_REASON = "Obs was voided";
+    private static final String LAB_ORDER_SET_UUID = "23281464-74d8-47d9-9a39-7a1f1d7caa49";
 
     @SuppressWarnings("serial")
     private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
@@ -68,33 +71,49 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
         CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
         List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
-        for (Obs obs : allObs) {
-            if (obs.getOrder() == null) {
-                Concept concept = obs.getConcept();
-                TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, concept);
-                orderService.saveOrder(order, null);
 
-                /*
-                 * So, now we are supposed to link the test order with the obs by setting
-                 * obs.setOrder() but that will not work because OpenMRS is not allowing to set
-                 * Orders to existing Obs. The method Obs.newInstance() that is called behind the
-                 * scenes when you update an Obs, does not copy over the Order. So what we do next
-                 * is manually copying the existing Obs and set the order on that copy that is not
-                 * yet persisted. Then we manualy void the current Obs and create the copy. I did
-                 * try to change openmrs-core code to make Obs.newInstance() copy the Order but that
-                 * broke the test
-                 * transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient
-                 * so I will just leave it alone.
-                 */
-                Obs newObs = Obs.newInstance(obs);
-                newObs.setOrder(order);
-                obs.setVoided(true);
-                encounter.addObs(newObs);
-            } else if (obs.getVoided() && obs.getOrder() != null && !obs.getOrder().getVoided()) {
-                orderService.voidOrder(obs.getOrder(), ORDER_VOID_REASON);
+        List<Order> orders = encounter.getOrdersWithoutOrderGroups();
+        Concept labOrdersSetConcept = Context.getConceptService().getConceptByUuid(LAB_ORDER_SET_UUID);
+
+        for (Obs obs : allObs) {
+
+            // check for test order observations only (exludes results)
+            if (!labOrdersSetConcept.getSetMembers().contains(obs.getConcept())) {
+                break;
+            }
+
+            boolean isOrderFound = false;
+            for (Order order : orders) {
+
+                // look for existing order for that obs
+                if (obs.getConcept().equals(order.getConcept())) {
+                    isOrderFound = true;
+
+                    // ignore fulfilled orders
+                    if (isOrderFulfilled(encounter.getPatient(), order)) {
+                        break;
+                    }
+
+                    // void order if obs is voided
+                    if (obs.getVoided().equals(true)) {
+                        orderService.voidOrder(order, ORDER_VOID_REASON);
+                        break;
+                    }
+                }
+            }
+
+            // if not orders were found, create an order for this obs
+            if (!isOrderFound && obs.getVoided().equals(false)) {
+                TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, obs.getConcept());
+                orderService.saveOrder(order, null);
             }
         }
+
         encounterService.saveEncounter(encounter);
+    }
+
+    private boolean isOrderFulfilled(Patient patient, Order order) {
+        return dao.getObservationsByPersonAndOrderAndConcept(patient, order, null).size() > 0;
     }
 
     private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
@@ -105,6 +124,7 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         order.setEncounter(encounter);
         order.setOrderer(provider);
         order.setCareSetting(careSetting);
+        encounter.addOrder(order);
         return order;
     }
 
