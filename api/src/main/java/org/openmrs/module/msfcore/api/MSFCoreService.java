@@ -16,11 +16,17 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.Obs;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
+import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
+import org.openmrs.Person;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.msfcore.DropDownFieldOption;
+import org.openmrs.module.msfcore.Pagination;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -75,4 +81,8 @@ public interface MSFCoreService extends OpenmrsService {
     public void manageNCDProgram(Encounter encounter);
 
     public void saveTestOrders(Encounter encounter);
+
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
+
+    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept);
 }

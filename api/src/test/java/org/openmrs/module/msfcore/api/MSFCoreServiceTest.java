@@ -24,17 +24,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
+import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Form;
 import org.openmrs.Obs;
+import org.openmrs.Order;
 import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.ProgramWorkflow;
 import org.openmrs.ProgramWorkflowState;
+import org.openmrs.SimpleDosingInstructions;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.DropDownFieldOption;
 import org.openmrs.module.msfcore.MSFCoreConfig;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -82,6 +86,69 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
+    public void getOrders_shouldDefaultPaginationToFirst25ResultsWithNoResults() {
+        Pagination pagination = Pagination.builder().build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(6),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(0), pagination.getTotalItemsNumber());
+        Assert.assertEquals(0, orders.size());
+    }
+
+    @Test
+    public void getOrders_shouldDefaultPaginationToFirst25Results() {
+        Pagination pagination = Pagination.builder().build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(25), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
+        Assert.assertEquals(2, orders.size());
+    }
+
+    @Test
+    public void getOrders_shouldUseFromAndToAppropriatelyOrderingByCreationDateDescAndSetPaginationWell() {
+        Pagination pagination = Pagination.builder().toItemNumber(1).build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(Integer.valueOf(1), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(1), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
+        Assert.assertEquals(1, orders.size());
+        Assert.assertEquals("111", orders.get(0).getOrderNumber());
+
+        pagination = Pagination.builder().fromItemNumber(2).toItemNumber(2).build();
+        orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
+        Assert.assertEquals(1, orders.size());
+        Assert.assertEquals("1", orders.get(0).getOrderNumber());
+    }
+
+    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
+        executeDataSet("MSFCoreService.xml");
+
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
+        MSFCoreService service = Context.getService(MSFCoreService.class);
+
+        // Order 1 is linked to a voided obs so it should be voided
+        Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
+        service.saveTestOrders(encounter);
+        Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
+
+        Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
+        List<Obs> obs = new ArrayList<Obs>(loadedEncounter.getObs());
+        Assert.assertEquals(3, obs.size());
+        Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
+        Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
+        Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
+        Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
+        Assert.assertEquals(CareSettingType.OUTPATIENT.name(), obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
+    }
+
     public void generatePatientProgram_returnNullIfPatientProgramIsNull() {
         Assert.assertNull(generatePatientProgram(true, null, null));
         Assert.assertNull(generatePatientProgram(false, null, null));
@@ -248,25 +315,67 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
     }
 
-    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
-		executeDataSet("MSFCoreService.xml");
-		
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
-		MSFCoreService service = Context.getService(MSFCoreService.class);
-				
-		//Order 1 is linked to a voided obs so it should be voided
-		Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
-		service.saveTestOrders(encounter);
-		Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
-		
-		Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
-		List<Obs> obs = new ArrayList<>(loadedEncounter.getObs());
-		Assert.assertEquals(3, obs.size());
-		Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
-		Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
-		Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
-		Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
-		Assert.assertEquals(CareSettingType.OUTPATIENT.name(),
-		    obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
-	}
+    @Test
+    public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveCorrectObs() {
+        executeDataSet("MSFCoreService.xml");
+
+        Assert.assertEquals("207d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
+                        .getObservationsByPersonAndOrderAndConcept(Context.getPersonService().getPerson(7),
+                                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(463392)).get(0)
+                        .getUuid());
+    }
+
+    @Test
+    public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveNoObsIfConceptDoesntMatch() {
+        executeDataSet("MSFCoreService.xml");
+
+        Assert.assertEquals(0, Context.getService(MSFCoreService.class).getObservationsByPersonAndOrderAndConcept(
+                        Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1),
+                        Context.getConceptService().getConcept(463389)).size());
+    }
+
+    @Test
+    public void getOrders_shouldRetrieveAllResultsIfPaginationToItemNumberIsNull() {
+        Pagination pagination = Pagination.builder().toItemNumber(null).build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(2, orders.size());
+    }
+
+    @Test
+    public void getOrders_shouldRetrieveResultsFromFromItemNumber() {
+        Pagination pagination = Pagination.builder().build();
+        List<Order> orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(2, orders.size());
+        DrugOrder drugOrder = new DrugOrder();
+        Encounter encounter = Context.getEncounterService().getEncounter(3);
+        drugOrder.setEncounter(encounter);
+        drugOrder.setPatient(Context.getPatientService().getPatient(7));
+        drugOrder.setCareSetting(Context.getOrderService().getCareSetting(1));
+        drugOrder.setOrderer(Context.getProviderService().getProvider(1));
+        drugOrder.setDateActivated(encounter.getEncounterDatetime());
+        drugOrder.setDrug(Context.getConceptService().getDrug(2));
+        drugOrder.setDosingType(SimpleDosingInstructions.class);
+        drugOrder.setDose(300.0);
+        drugOrder.setDoseUnits(Context.getConceptService().getConcept(50));
+        drugOrder.setQuantity(20.0);
+        drugOrder.setQuantityUnits(Context.getConceptService().getConcept(51));
+        drugOrder.setFrequency(Context.getOrderService().getOrderFrequency(3));
+        drugOrder.setRoute(Context.getConceptService().getConcept(22));
+        drugOrder.setNumRefills(10);
+        Context.getOrderService().saveOrder(drugOrder, null);
+
+        orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(3, orders.size());
+
+        pagination = Pagination.builder().fromItemNumber(2).toItemNumber(2).build();
+        orders = Context.getService(MSFCoreService.class).getOrders(Context.getPatientService().getPatient(7),
+                        Context.getOrderService().getOrderType(1), null, pagination);
+        Assert.assertEquals(1, orders.size());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getFromItemNumber());
+        Assert.assertEquals(Integer.valueOf(2), pagination.getToItemNumber());
+        Assert.assertEquals(Integer.valueOf(3), pagination.getTotalItemsNumber());
+    }
 }

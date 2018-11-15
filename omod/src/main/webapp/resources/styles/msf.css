@@ -13,31 +13,23 @@ In production a single concatonated and minified file should be used instead. @I
 @import url('addNewAllergy.css');
 
 /* COLORS
-
 This can be converted to custom propterties / variables at a later stage. A build process may be needed to ensure compatibility with all browsers.
-
 INTERACTION:
 Medium Turquoise: 55D6BE
     Link text: 4EC3AD
 Aero Blue: D0FEF5
-
 INFORMATION:
 Info blue: 538CAC
     lightest: B0CAD9
-
 BRANDING:
-
 MSF Red: FF0000
-
 Dark grey: 424C55
     Darker: 373F46 (Body Text)
     Lighter: 646C73
     lightest: 757C83
     Disabled: BABDC1
-
 White: FFFFFF
     Darker:
-
 */
 
 /* STRUCTURE */
