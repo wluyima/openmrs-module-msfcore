@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptDatatype;
+import org.openmrs.ConceptName;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
@@ -239,7 +240,8 @@ public class ResultsData {
             dose += drugOrder.getDose();
         }
         if (drugOrder.getDoseUnits() != null) {
-            dose += " " + drugOrder.getDoseUnits().getName().getName();
+            ConceptName doseUnitName = drugOrder.getDoseUnits().getShortNameInLocale(Context.getLocale());
+            dose += " " + (doseUnitName != null ? doseUnitName.getName() : drugOrder.getDoseUnits().getName().getName());
         }
         return dose;
     }
