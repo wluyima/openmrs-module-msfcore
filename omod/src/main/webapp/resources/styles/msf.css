@@ -182,13 +182,11 @@ a.visited {
     display: flex;
     flex-direction: column;
     /*padding:3rem 0 6rem 0;*/
-}
-
-#content.container {
     margin: 3rem 0 6rem 0;
     border-radius: 8px;
     /*background: #fff;
     box-shadow: rgba(0,0,0,0.1) 0 4px 8px;*/
+    position: relative;
 }
 
 /* UTILITY CLASSES */
@@ -475,7 +473,7 @@ div#appointmentscheduling-manageAppointments>div {
 
 /* APPOINTMENT SCHEDULING */
 
-.appointment-filter,
+.appointment-filter, 
 #filter-parameters {
     color: #fff;
     padding: 24px;
@@ -484,6 +482,7 @@ div#appointmentscheduling-manageAppointments>div {
     box-shadow: rgba(0, 0, 0, 0.1) 0 -2px 8px;
     box-sizing: border-box;
     margin-bottom: 0;
+    display: flex;
 }
 
 .appointment-filter {
@@ -517,14 +516,14 @@ div#appointmentscheduling-manageAppointments>div {
     border-radius: 4px;
     border: 1px solid #ccc;
 }
-
+/*
 .appointment-filter input,
 .appointment-filter select {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #4EC3AD;
     box-shadow: inset rgba(0, 0, 0, 0.2) 0 1px 2px;
-}
+}*/
 
 #filter-parameters .viewAllAppointmentTypes a,
 .appointment-filter .viewAllAppointmentTypes a {
@@ -537,19 +536,27 @@ div#appointmentscheduling-manageAppointments>div {
     cursor: pointer;
 }
 
+selectmultipleappointmenttypes {
+    width: 60%;
+}
+
 #filter-parameters .viewAllAppointmentTypes a:hover,
 .appointment-filter .viewAllAppointmentTypes a:hover {
     text-decoration: none;
     color: #4EC3AD;
 }
 
-.viewAllAppointmentTypes {
-    margin-left: -56px;
+selectmultipleappointmenttypes.inline-box {
+    display: inline-flex;
 }
 
 .selectmultipleBox {
-    font-size: 1rem;
     border: none;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+    width: 800px;
 }
 
 .fc-header tr td,
@@ -602,6 +609,46 @@ table td:last-child {
     width: 200px;
 }
 
+/* Pagination */
+
+.ngFooterPanel {
+    color:#fff;
+    background: #373F46;
+    font-size: 0.9em;
+    padding: 0.5rem 0;
+}
+
+.ngFooterTotalItems {
+    padding: 8px;
+    font-size: 1.2rem;
+}
+
+.ngRowCountPicker,
+.ngPagerControl {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ngPagerControl {
+    width: 18rem;
+}
+
+.ngRowCountPicker {
+    width:11rem;
+    padding-top: 6px;
+}
+
+.ngRowCountPicker span {
+    margin-right: 8px;
+}
+
+button.ngPagerButton {
+    padding: 8px 16px;
+    box-sizing: border-box;
+    height: 32px;
+}
+
 #appointmentRequestsGridTable .delete-item {
     height: 18px;
     margin: 6px 1px 0 1px;
@@ -617,7 +664,7 @@ table td:last-child {
     box-shadow: none;
 }
 #appointmentscheduling-scheduleAppointment {
-    padding: 24px 0;
+    padding: 24px 16px;
 }
 
 h2.scheduleAppointmentTitle {
@@ -625,7 +672,8 @@ h2.scheduleAppointmentTitle {
 }
 
 #allAppointmentTypesModal {
-    top: 112px;
+    top: 10rem;
+    left: 38rem;
     z-index: 20001;
     position: fixed;
 }
@@ -633,8 +681,8 @@ h2.scheduleAppointmentTitle {
 #appointment-request-notes {
     overflow: hidden;
     position: absolute;
-    top: 404px;
-    right: 10vw;
+    top: 16rem;
+    left: 38vw;
     z-index: 999;
 }
 
@@ -656,3 +704,11 @@ ul#formBreadcrumb li.doing > span, ul#formBreadcrumb li span#confirmation_label 
   padding-left: 0;
   margin-left: 0;
 }
+
+#confirm-cancel-appointment-request {
+    position: absolute;
+    left: 40vw;
+    top: 30vh;
+}
+
+#form-actions-container a i {display: none}
