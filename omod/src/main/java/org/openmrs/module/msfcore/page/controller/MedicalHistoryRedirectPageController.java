@@ -19,6 +19,6 @@ public class MedicalHistoryRedirectPageController {
 
         BaselineLeftMenuFragmentController controller = new BaselineLeftMenuFragmentController();
         NCDBaselineLinks links = controller.getNCDBaselineLinks(patientId);
-        response.sendRedirect("/openmrs/htmlformentryui/htmlform/" + links.getMedicalHistoryLink());
+        response.sendRedirect("../htmlformentryui/htmlform/" + links.getMedicalHistoryLink());
     }
 }

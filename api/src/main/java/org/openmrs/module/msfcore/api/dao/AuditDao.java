@@ -22,12 +22,13 @@ import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.springframework.stereotype.Repository;
 
 @Repository("msfcore.AuditDao")
-public class AuditDao {
+public class AuditDao extends MSFCoreBaseDao {
 
     private DbSession getSession() {
         return Context.getRegisteredComponents(DbSessionFactory.class).get(0).getCurrentSession();
@@ -35,7 +36,7 @@ public class AuditDao {
 
     @SuppressWarnings("unchecked")
     public List<AuditLog> getAuditLogs(Date startDate, Date endDate, List<Event> events, List<Patient> patients, List<User> users,
-                    List<Provider> providers, List<Location> locations) {
+                    List<Provider> providers, List<Location> locations, Pagination pagination) {
         Criteria criteria = getSession().createCriteria(AuditLog.class);
 
         if (startDate != null) {
@@ -59,6 +60,7 @@ public class AuditDao {
         if (locations != null) {
             criteria.add(Restrictions.in("location", locations));
         }
+        applyPaginationToCriteria(pagination, criteria);
 
         criteria.addOrder(Order.desc("id"));
         return criteria.list();
