@@ -199,13 +199,14 @@ public class ResultsData {
                         drugOrder.getInstructions()).build());
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().type(Type.DATE).value(
                         drugOrder.getDateActivated()).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().value(isDiscontinued).build());// TODO
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().type(Type.CODED).value(
-                        dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "").codedOptions(
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().type(Type.STOP).value(
+                        isDiscontinued).build());// TODO
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().editable(true).type(
+                        Type.CODED).value(dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "").codedOptions(
                         getCodedOptionsFromConceptSet(dispensedConcept)).build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), ResultColumn.builder().type(Type.DATE).value(
-                        dispensedDateObs != null ? dispensedDateObs.getValueDate() : "").build());
-        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.details"), ResultColumn.builder().value(
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"), ResultColumn.builder().editable(true).type(
+                        Type.DATE).value(dispensedDateObs != null ? dispensedDateObs.getValueDate() : "").build());
+        resultRow.put(Context.getMessageSourceService().getMessage("msfcore.details"), ResultColumn.builder().editable(true).value(
                         dispensedDetailsObs != null ? dispensedDetailsObs.getValueText() : "").build());
 
         addResultRow(resultRow);
@@ -253,6 +254,8 @@ public class ResultsData {
         return concept.isNumeric() ? Context.getConceptService().getConceptNumeric(concept.getConceptId()).getUnits() : "";
     }
 
+    // TODO use normal ranges, add another key for absoluteRange to use for
+    // validation
     private String getRange(Concept concept) {
         String range = "";
         if (concept.isNumeric()) {

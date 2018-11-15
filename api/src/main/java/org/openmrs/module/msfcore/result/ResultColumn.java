@@ -19,7 +19,7 @@ public class ResultColumn {
     private List<CodedOption> codedOptions;
 
     public enum Type {
-        STRING, DATE, NUMBER, BOOLEAN, CODED
+        STRING, DATE, NUMBER, BOOLEAN, CODED, STOP
     }
 
 }

@@ -98,7 +98,6 @@ function ResultsController($scope, $sce) {
                     type: "POST",
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
                     success: function(response) {
                         console.log("Updated/Added Result at Obs: " + response);
                         $scope.retrieveResults(false);
@@ -133,22 +132,33 @@ function ResultsController($scope, $sce) {
             claz += " column-status";
         } else {
             value = result[key].value;
-            if (result[key].type == 'DATE') {
-                time = value;
-                value = convertToOpenMRSDateFormat($scope, new Date(value));
+            if (result[key].type == "DATE") {
+            	if(!isEmpty(value)) {
+	                time = value;
+	                value = convertToOpenMRSDateFormat($scope, new Date(value));
+            	}
             }
         }
-        if (isEmpty(value)) {
-            value = "";
-        }
-        var concept = result.concept ? result.concept.value : "";
-        var valueProperties = "id='" + result.uuid.value + "_" + $scope.results.keys.indexOf(key) + "_" + result[key].type + "_" +
-            concept + "' class='" + claz + "' time='" + time + "'";
-        if (result.resultCategory == "DRUG_LIST" && key == "Stop") {
-            //
+        var valueHtml;
+        if ($scope.results.resultCategory == "DRUG_LIST" && result[key].type == "STOP") {
+        	var discontinueable = false;
+        	if(!value && result.status == "ACTIVE") {//confirm it's discontinueable
+        		discontinueable = true;
+        	}
+        	var disabled = !discontinueable ? "disabled" : "";
+        	var checked = value ? "checked" : "";
+        	var discontinueableHtml = discontinueable ? "onchange=\"discontinue('" + result.uuid.value + "')\"" : "";
+        	valueHtml = "<input type='checkbox' " + checked + " " + disabled + " " + discontinueableHtml + " />"
         } else {
-            return $sce.trustAsHtml("<label " + valueProperties + ">" + value + "</label>");
+            if (isEmpty(value)) {
+                value = "";
+            }
+            var concept = result.concept ? result.concept.value : "";
+            var valueProperties = "id='" + result.uuid.value + "_" + $scope.results.keys.indexOf(key) + "_" + result[key].type + "_" +
+                concept + "' class='" + claz + "' time='" + time + "'";
+            valueHtml = "<label " + valueProperties + ">" + value + "</label>";
         }
+        return $sce.trustAsHtml(valueHtml);
     }
 
     this.nameFilter = this.nameFilter || function() {
@@ -169,7 +179,7 @@ function ResultsController($scope, $sce) {
             $scope.retrieveResults(true, filterByDates);
         }
     }
-
+    
     $scope.retrieveResults = this.retrieveResults;
     $scope.edit = this.edit;
     $scope.purge = this.purge;
@@ -206,6 +216,9 @@ function replacePaginationInURLToRetrieveAll($scope) {
  * Check if an object is not existing or empty/blank
  */
 function isEmpty(object) {
+	if(typeof object == "boolean") {
+		return false;
+	}
     return !object || object == null || object == undefined || object == "" || object.length == 0;
 }
 
@@ -256,22 +269,31 @@ function setNextAndPreviousPages($scope, currentPage) {
     $scope.previousPage = $scope.pages[currentPage.page - 2];
 }
 
-function replaceElementWithTextInput($scope, element) {
+function replaceElementWithTextInput($scope, result, element) {
     element.replaceWith(function() {
         var id = jQuery(this).attr('id');
         var time = jQuery(this).attr('time');
         var type = id.split("_")[2];
+        var key = $scope.results.keys[id.split("_")[1]];
         var originalValue = jQuery(this).text();
         var originalClass = jQuery(this).attr('class');
         var value = originalValue.replace("PENDING", "").replace("CANCELLED", "");
         if (type == "DATE" && !isEmpty(time)) {
             value = convertToDatePickerDateFormat(new Date(parseInteger(time)));
         }
-        var inputElement = "<input class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' type='" + type + "' time='" + time + "' />";
+        var sharedAttributes =  "class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' time='" + time + "'";
+        var inputElement = "<input " + sharedAttributes + " type='" + type + "' />";
         if (type == "BOOLEAN") {
-            inputElement = "<select class='editable' original_class='" + originalClass + "' original_value='" + originalValue + "' id='" + id + "' value='" + value + "' time='" + time + "'>" +
+            inputElement = "<select " + sharedAttributes + ">" +
                 "<option value='true'>True</option><option value='false'>False</option>" +
                 "</select>";
+        } else if(type == "CODED") {
+        	inputElement = "<select " + sharedAttributes + ">";
+        	var codedOptions = result[key].codedOptions;
+        	for(i in codedOptions) {
+        		inputElement += "<option value='" + codedOptions[i].uuid + "'>" + codedOptions[i].name + "</option>";
+        	}
+        	inputElement += "</select>";
         }
         return jQuery(inputElement);
     });
@@ -304,7 +326,7 @@ function triggerEditing($scope, element, result, edit) {
             jQuery(".icon-ok").addClass("icon-edit").removeClass("icon-ok");
         } else {
             if (elementId.startsWith(result.uuid.value)) {
-                replaceElementWithTextInput($scope, jQuery("#" + elementId));
+                replaceElementWithTextInput($scope, result, jQuery("#" + elementId));
             }
         }
     });
@@ -439,7 +461,7 @@ function logViewResultsEvent(results) {
     if (results.resultCategory == "LAB_RESULTS") {
         event = "VIEW_LAB_RESULTS";
     } else if (results.resultCategory == "DRUG_LIST") {
-        event = "VIEW_DRUG_DISPENSING_LIST";
+        event = "VIEW_DRUG_DISPENSING";
     }
     if (event) {
         var data = {
@@ -450,13 +472,21 @@ function logViewResultsEvent(results) {
             url: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/auditlog",
             type: "POST",
             data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(event) {}
+            contentType: "application/json; charset=utf-8"
         });
     }
 }
 
 function resultPendingWhenEditable(result, key) {
     return result[key].editable && result.status.value != 'COMPLETED';
+}
+
+function discontinue(resultUuid) {
+	if(!isEmpty(resultUuid)) {//discontinuable
+		jQuery.get("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/msfcore/discontinueorder?uuid" + resultUuid, function(data) {
+			if(data) {
+				console.log(resultUuid + " order has been discontinued by: " + data[0].uuid);
+			}
+		});
+	}
 }

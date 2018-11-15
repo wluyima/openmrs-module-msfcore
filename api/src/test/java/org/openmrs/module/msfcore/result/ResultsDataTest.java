@@ -200,15 +200,15 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value(true).build(), resultsData.getResults().get(4).get(
+        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).build(), resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
+        assertEquals(ResultColumn.builder().value("").editable(true).type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
                                         CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
                         resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
         assertEquals("", resultsData.getResults().get(4).get(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"))
                         .getValue());
-        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(4).get(
+        assertEquals(ResultColumn.builder().editable(true).value("").build(), resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.details")));
 
         assertEquals(ResultColumn.builder().value("921de0a3-05c4-444a-be03-e01b4c4b9142").build(), resultsData.getResults().get(4).get(
@@ -223,15 +223,15 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals("2006-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(5).get(
                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value(false).build(), resultsData.getResults().get(5).get(
+        assertEquals(ResultColumn.builder().value(false).type(Type.STOP).build(), resultsData.getResults().get(5).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("").type(Type.CODED).codedOptions(
+        assertEquals(ResultColumn.builder().value("").editable(true).type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
                                         CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
                         resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
         assertEquals("", resultsData.getResults().get(5).get(Context.getMessageSourceService().getMessage("msfcore.dispenseDate"))
                         .getValue());
-        assertEquals(ResultColumn.builder().value("").build(), resultsData.getResults().get(5).get(
+        assertEquals(ResultColumn.builder().editable(true).value("").build(), resultsData.getResults().get(5).get(
                         Context.getMessageSourceService().getMessage("msfcore.details")));
         assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf7").build(), resultsData.getResults().get(5).get(
                         "uuid"));
@@ -247,12 +247,12 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(), resultsData.getResults().get(1).get(
                         "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(1).get("status"));
-        assertEquals(ResultColumn.builder().value(true).build(), resultsData.getResults().get(1).get(
+        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).build(), resultsData.getResults().get(1).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(1).get("actions"));
         assertEquals(ResultColumn.builder().value("Triomune-30").build(), resultsData.getResults().get(1).get(
                         Context.getMessageSourceService().getMessage("msfcore.drugName")));
-        assertEquals(ResultColumn.builder().value("Partial").type(Type.CODED).codedOptions(
+        assertEquals(ResultColumn.builder().value("Partial").editable(true).type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
                                         CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
                         resultsData.getResults().get(1).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
@@ -271,20 +271,20 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.duration")));
         assertEquals(ResultColumn.builder().value("3x daily").build(), resultsData.getResults().get(2).get(
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
-        assertEquals(ResultColumn.builder().value("2018-11-14 02:12:38.0").build().getValue(),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
-                                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value(false).build(), resultsData.getResults().get(2).get(
+        assertEquals(ResultColumn.builder().editable(true).value("2018-11-14 02:12:38.0").build().getValue(), new SimpleDateFormat(
+                        "yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
+        assertEquals(ResultColumn.builder().value(false).type(Type.STOP).build(), resultsData.getResults().get(2).get(
                         Context.getMessageSourceService().getMessage("msfcore.stop")));
-        assertEquals(ResultColumn.builder().value("Full").type(Type.CODED).codedOptions(
+        assertEquals(ResultColumn.builder().value("Full").editable(true).type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
                                         CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
                         resultsData.getResults().get(2).get(Context.getMessageSourceService().getMessage("msfcore.dispensed")));
-        assertEquals(ResultColumn.builder().value("2018-11-14 02:30:22.0").build().getValue(),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
-                                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate")).getValue()));
-        assertEquals(ResultColumn.builder().value("taken together, on a dose fully").build(), resultsData.getResults().get(2).get(
-                        Context.getMessageSourceService().getMessage("msfcore.details")));
+        assertEquals(ResultColumn.builder().editable(true).value("2018-11-14 02:30:22.0").build().getValue(), new SimpleDateFormat(
+                        "yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(2).get(
+                        Context.getMessageSourceService().getMessage("msfcore.dispenseDate")).getValue()));
+        assertEquals(ResultColumn.builder().editable(true).value("taken together, on a dose fully").build(), resultsData.getResults()
+                        .get(2).get(Context.getMessageSourceService().getMessage("msfcore.details")));
 
         // should retreive filters
         assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.drugName")).statuses(

@@ -78,8 +78,8 @@
 			<span>
 				<select ng-model="resultsPerPage" ng-change="pagination()">
 					<option value="25">25</option>
-					<option value="50">50</option>
-					<option value="100">100</option>
+					<option value="50" ng-show="results.pagination.totalItemsNumber > 25">50</option>
+					<option value="100" ng-show="results.pagination.totalItemsNumber > 50">100</option>
 					<option value="all" ng-show="results.pagination.totalItemsNumber > 100">${ui.message('msfcore.all')}</option>
 				</select>
 			</span>
