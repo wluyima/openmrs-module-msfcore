@@ -112,10 +112,12 @@
   <obs obs_id="1" person_id="7" concept_id="5000010" encounter_id="29" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_coded="1" creator="1" date_created="2018-10-18 11:13:04.0" voided="false" uuid="a1095967-cc88-4ec5-a50f-714c56678a00" status="FINAL"/>
   <obs obs_id="2" person_id="7" concept_id="5000011" encounter_id="29" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_coded="1" creator="1" date_created="2018-10-18 11:13:04.0" voided="false" uuid="cdc5a556-ac94-46a5-8ab5-5fe1571693df" status="FINAL"/>
   <obs obs_id="3" person_id="7" concept_id="5000012" encounter_id="30" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_coded="1" creator="1" date_created="2018-10-18 11:18:08.0" voided="true" uuid="0175048e-c0a5-4d70-b1bc-39a577765638" status="FINAL"/>
-
-  <!-- Test result observations -->
-  <obs obs_id="4" person_id="7" concept_id="5000023" encounter_id="29" order_id="1" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_numeric="0.8" creator="1" date_created="2018-10-18 11:21:02.0" voided="false" uuid="203d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0" status="FINAL"/>
+  <obs obs_id="4" person_id="7" concept_id="5000012" encounter_id="31" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_coded="1" creator="1" date_created="2018-10-18 11:18:08.0" voided="true" uuid="77126dd0-04a4-4f3b-91ae-66c4907f6e5f" status="FINAL"/>
   
+  <!-- Test result observations -->
+  <obs obs_id="5" person_id="7" concept_id="5000023" encounter_id="29" order_id="1" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_numeric="0.8" creator="1" date_created="2018-10-18 11:21:02.0" voided="false" uuid="203d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0" status="FINAL"/>
+  <obs obs_id="6" person_id="7" concept_id="5000024" encounter_id="31" order_id="3" obs_datetime="2018-10-18 00:00:00.0" location_id="6" value_coded="1" creator="1" date_created="2018-10-18 11:21:02.0" voided="false" uuid="a9896e48-392e-4ff0-b2cb-7a6aa5430654" status="FINAL"/>
+    
   <obs obs_id="287" person_id="7" concept_id="7000008" encounter_id="32" obs_datetime="2018-11-09 07:17:44.0" location_id="6" creator="1" date_created="2018-11-09 07:18:15.0" voided="false" uuid="6fd0d1c9-948b-4de6-b2e3-396fd1696d1f" status="FINAL"/>
   <obs obs_id="288" person_id="7" concept_id="159368" encounter_id="32" obs_datetime="2018-11-09 07:17:44.0" location_id="6" obs_group_id="287" value_numeric="1.0" creator="1" date_created="2018-11-09 07:18:15.0" voided="false" uuid="cb369934-d09e-4d8d-be6e-57c71b157820" status="FINAL"/>
   <obs obs_id="289" person_id="7" concept_id="160856" encounter_id="32" obs_datetime="2018-11-09 07:17:44.0" location_id="6" obs_group_id="287" value_numeric="1.0" creator="1" date_created="2018-11-09 07:18:15.0" voided="false" uuid="ea4273da-0322-4e42-8150-db90a3c9cfbb" status="FINAL"/>
@@ -145,6 +147,8 @@
   <test_order order_id="1"/>
   <orders order_id="2" order_type_id="3" concept_id="5000012" orderer="1" encounter_id="30" date_activated="2018-10-19 09:22:38.0" creator="1" date_created="2018-10-19 09:22:38.0" voided="false" patient_id="7" care_setting="1"/>
   <test_order order_id="2"/>
+  <orders order_id="3" order_type_id="3" concept_id="5000012" orderer="1" encounter_id="31" date_activated="2018-10-19 09:22:38.0" creator="1" date_created="2018-10-19 09:22:38.0" voided="false" patient_id="7" care_setting="1"/>
+  <test_order order_id="3"/>
   
   <order_frequency order_frequency_id="11" concept_id="160858" frequency_per_day="2.0" creator="1" date_created="2018-11-09 07:16:51.0" retired="false" uuid="160858OFAAAAAAAAAAAAAAA"/>
 

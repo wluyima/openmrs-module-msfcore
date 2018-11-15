@@ -72,8 +72,7 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
 
         List<Order> orders = encounter.getOrdersWithoutOrderGroups();
-        Concept labOrdersSetConcept = Context.getConceptService()
-                .getConceptByUuid(MSFCoreConfig.CONCEPT_SET_LAB_ORDERS_UUID);
+        Concept labOrdersSetConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_SET_LAB_ORDERS_UUID);
 
         for (Obs obs : allObs) {
 

@@ -93,10 +93,6 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
         assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000012));
         assertThat(existingOrders.get(0).getVoided(), is(false));
 
-        // void observation
-        Obs resultObs = obsService.getObs(4);
-        resultObs.setVoided(true);
-
         // execute test
         formActionService.saveTestOrders(encounterService);
 
@@ -110,16 +106,12 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
     @Test
     public void saveTestOrders_shouldNotVoidOrderIfOrderIsFulfilled() {
         executeDataSet("MSFCoreService.xml");
-        Encounter encounterService = Context.getEncounterService().getEncounter(30);
+        Encounter encounterService = Context.getEncounterService().getEncounter(31);
 
         List<Order> existingOrders = encounterService.getOrdersWithoutOrderGroups();
         assertThat(existingOrders.size(), is(1));
         assertThat(existingOrders.iterator().next().getConcept().getId(), is(5000012));
         assertThat(existingOrders.get(0).getVoided(), is(false));
-
-        // fulfill this order
-        Obs resultObs = obsService.getObs(4);
-        resultObs.setOrder(existingOrders.get(0));
 
         // execute test
         formActionService.saveTestOrders(encounterService);
@@ -135,7 +127,7 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
     public void saveDrugOrders_shouldCreateDrugOrders() throws Exception {
         executeDataSet("MSFCoreService.xml");
         Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-        Context.getService(FormActionService.class).saveDrugOrders(encounter);
+        formActionService.saveDrugOrders(encounter);
         Assert.assertEquals(1, encounter.getOrders().size());
         DrugOrder drugOrder = (DrugOrder) encounter.getOrders().iterator().next();
         Assert.assertNotNull(drugOrder.getId());
@@ -167,7 +159,7 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
 		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
 		
-		Context.getService(FormActionService.class).saveDrugOrders(encounter);
+        formActionService.saveDrugOrders(encounter);
 		
 		// then just one active order for concept 1000021
 		encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
@@ -175,16 +167,14 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 		Assert.assertEquals(1, activeOrders.size());
 		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
     }
-
     @Test
     public void saveAllergies_shouldCreateAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");
 
         Encounter encounter = Context.getEncounterService()
                 .getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
-        FormActionService service = Context.getService(FormActionService.class);
 
-        Allergies allergies = service.saveAllergies(encounter);
+        Allergies allergies = formActionService.saveAllergies(encounter);
         Assert.assertNotNull(allergies);
         Assert.assertEquals(3, allergies.size());
         allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
@@ -197,15 +187,11 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
         allergies.forEach(a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617)
                 .contains(a.getAllergen().getCodedAllergen().getId())));
     }
-
     @Test(expected = IllegalArgumentException.class)
     public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");
-
-        Encounter encounter = Context.getEncounterService()
-                .getEncounterByUuid("84fcb082-e670-11e8-8661-0b65d193bf03");
-        FormActionService service = Context.getService(FormActionService.class);
-        service.saveAllergies(encounter);
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("84fcb082-e670-11e8-8661-0b65d193bf03");
+        formActionService.saveAllergies(encounter);
     }
 
 }
