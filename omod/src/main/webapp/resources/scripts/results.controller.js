@@ -151,7 +151,7 @@ function ResultsController($scope, $sce) {
             var disabled = !discontinueable ? "disabled" : "";
             var checked = value ? "checked" : "";
             var discontinueableHtml = discontinueable ? "onchange=\"discontinue(this,'" + result.uuid.value + "')\"" : "";
-            valueHtml = "<input type='checkbox' " + checked + " " + disabled + " " + discontinueableHtml + " />"
+            valueHtml = "<input type='checkbox' class='actionable' " + checked + " " + disabled + " " + discontinueableHtml + " />"
         } else {
             if (isEmpty(value)) {
                 value = "";
