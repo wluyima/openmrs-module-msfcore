@@ -42,7 +42,6 @@ import org.openmrs.module.msfcore.api.util.AllergyUtils;
 public class FormActionServiceImpl extends BaseOpenmrsService implements FormActionService {
 
     private static final String ORDER_VOID_REASON = "Obs was voided";
-    private static final String LAB_ORDER_SET_UUID = "23281464-74d8-47d9-9a39-7a1f1d7caa49";
 
     @SuppressWarnings("serial")
     private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
@@ -73,7 +72,8 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
 
         List<Order> orders = encounter.getOrdersWithoutOrderGroups();
-        Concept labOrdersSetConcept = Context.getConceptService().getConceptByUuid(LAB_ORDER_SET_UUID);
+        Concept labOrdersSetConcept = Context.getConceptService()
+                .getConceptByUuid(MSFCoreConfig.CONCEPT_SET_LAB_ORDERS_UUID);
 
         for (Obs obs : allObs) {
 

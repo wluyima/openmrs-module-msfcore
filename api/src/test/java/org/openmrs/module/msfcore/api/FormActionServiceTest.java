@@ -174,30 +174,36 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 		activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
 		Assert.assertEquals(1, activeOrders.size());
 		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-	}
+    }
+
     @Test
-	public void saveAllergies_shouldCreateAllergies() throws Exception {
-		executeDataSet("MSFCoreService.xml");
-		
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
-		FormActionService service = Context.getService(FormActionService.class);
-		
-		Allergies allergies = service.saveAllergies(encounter);
-		Assert.assertNotNull(allergies);
-		Assert.assertEquals(3, allergies.size());
-		allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
-		allergies.forEach(a -> Assert.assertTrue(
-		    Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
-		allergies.forEach(a -> a.getReactions().forEach(r -> Assert.assertTrue(
-		    Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
-		allergies.forEach(a -> Assert
-		        .assertTrue(Arrays.asList(162543, 162538, 71617).contains(a.getAllergen().getCodedAllergen().getId())));
-	}
+    public void saveAllergies_shouldCreateAllergies() throws Exception {
+        executeDataSet("MSFCoreService.xml");
+
+        Encounter encounter = Context.getEncounterService()
+                .getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
+        FormActionService service = Context.getService(FormActionService.class);
+
+        Allergies allergies = service.saveAllergies(encounter);
+        Assert.assertNotNull(allergies);
+        Assert.assertEquals(3, allergies.size());
+        allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
+        allergies.forEach(a -> Assert.assertTrue(
+                Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT)
+                        .contains(a.getAllergenType())));
+        allergies.forEach(a -> a.getReactions().forEach(
+                r -> Assert.assertTrue(Arrays.asList(120148, 143264, 139581, 121629, 121677)
+                        .contains(r.getReaction().getConceptId()))));
+        allergies.forEach(a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617)
+                .contains(a.getAllergen().getCodedAllergen().getId())));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");
 
-        Encounter encounter = Context.getEncounterService().getEncounterByUuid("84fcb082-e670-11e8-8661-0b65d193bf03");
+        Encounter encounter = Context.getEncounterService()
+                .getEncounterByUuid("84fcb082-e670-11e8-8661-0b65d193bf03");
         FormActionService service = Context.getService(FormActionService.class);
         service.saveAllergies(encounter);
     }

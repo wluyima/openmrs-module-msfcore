@@ -513,4 +513,6 @@ public class MSFCoreConfig {
     public static final String DRUG_ALLERGY_LIST_UUID = "1141bd11-1f91-4af7-a8d7-a26394140e08";
 
     public static final String OTHER_ALLERGY_LIST_UUID = "a0740eb7-92cd-4f79-a9b2-08e0f363532e";
+    
+    public static final String CONCEPT_SET_LAB_ORDERS_UUID = "23281464-74d8-47d9-9a39-7a1f1d7caa49";
 }
