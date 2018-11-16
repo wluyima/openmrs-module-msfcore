@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.openmrs.Allergies;
 import org.openmrs.CareSetting;
 import org.openmrs.Concept;
@@ -115,6 +116,18 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         return dao.getObservationsByPersonAndOrderAndConcept(patient, order, null).size() > 0;
     }
 
+    private boolean isDrugOrderDispensed(Order order) {
+        if (order != null) {
+            Concept dispensedConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED);
+            if (dispensedConcept != null) {
+                return dao.getObservationsByPersonAndOrderAndConcept(order.getPatient(), order, dispensedConcept).size() > 0;
+            } else {
+                throw new IllegalArgumentException(String.format("Concept with UUID %s not found", MSFCoreConfig.CONCEPT_UUID_DESPENSED));
+            }
+        }
+        return false;
+    }
+
     private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
         TestOrder order = new TestOrder();
         order.setOrderType(orderType);
@@ -136,19 +149,42 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
         final Set<Obs> groups = encounter.getObsAtTopLevel(true);
         for (final Obs group : groups) {
-            if (!group.getVoided()) {
-                final Set<Obs> observations = group.getGroupMembers();
-                final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
-                                observations);
-                final Drug drug = this.dao.getDrugByConcept(medication);
-                final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations, drug);
-                updateEncounter(encounter, group, observations, order);
-            }
-            if (group.getOrder() != null) {
-                group.getOrder().setVoided(true);
+            Order currentOrder = group.getOrder();
+            if (!isDrugOrderDispensed(currentOrder)) {
+                if (!group.getVoided()) {
+                    final Set<Obs> observations = group.getGroupMembers();
+                    final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
+                                    observations);
+                    final Drug drug = this.dao.getDrugByConcept(medication);
+                    final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations, drug);
+                    if (isOrderModified(order, currentOrder)) {
+                        voidOrder(currentOrder);
+                        updateEncounter(encounter, group, observations, order);
+                    }
+                } else {
+                    voidOrder(currentOrder);
+                }
             }
         }
         encounterService.saveEncounter(encounter);
+    }
+
+    private void voidOrder(Order order) {
+        if (order != null) {
+            order.setVoided(true);
+        }
+    }
+
+    private boolean isOrderModified(DrugOrder order, Order currentOrder) {
+        if (currentOrder != null) {
+            DrugOrder other = dao.getDrugOrder(currentOrder.getId());
+            boolean equals = new EqualsBuilder().append(order.getDrug().getId(), other.getDrug().getId()).append(order.getDose(),
+                            other.getDose()).append(order.getDoseUnits().getId(), other.getDoseUnits().getId()).append(
+                            order.getFrequency().getId(), other.getFrequency().getId()).append(order.getDuration(), other.getDuration())
+                            .append(order.getDurationUnits().getId(), other.getDurationUnits().getId()).isEquals();
+            return !equals;
+        }
+        return true;
     }
 
     private void updateEncounter(Encounter encounter, final Obs group, final Set<Obs> observations, final DrugOrder order) {
