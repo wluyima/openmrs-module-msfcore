@@ -37,7 +37,7 @@ function ResultsController($scope, $sce) {
                 clearFilterFields($scope, results);
             }
             renderPagination($scope, results.pagination, initialisePages);
-            
+
             // display results
             $scope.results = results;
             $scope.$apply();
@@ -47,7 +47,7 @@ function ResultsController($scope, $sce) {
     retrieveResults = this.retrieveResults;
 
     this.retrieveResultsInitialisePages = this.retrieveResultsInitialisePages || function() {
-    	retrieveResults(true);
+        retrieveResults(true);
     }
 
     this.edit = this.edit || function($event, result) {
@@ -117,8 +117,9 @@ function ResultsController($scope, $sce) {
             }
             var disabled = !discontinueable ? "disabled" : "";
             var checked = value ? "checked" : "";
+            var title = value ? ("title='" + convertToDateFormat($scope.results.dateFormatPattern, new Date(result[key].stopDate)) + "'") : "";
             var discontinueableHtml = discontinueable ? "onchange=\"discontinue(this,'" + result.uuid.value + "')\"" : "";
-            valueHtml = "<input type='checkbox' class='actionable' " + checked + " " + disabled + " " + discontinueableHtml + " />"
+            valueHtml = "<input type='checkbox' class='actionable' " + checked + " " + disabled + " " + discontinueableHtml + " " + title + "/>"
         } else {
             if (isEmpty(value)) {
                 value = "";

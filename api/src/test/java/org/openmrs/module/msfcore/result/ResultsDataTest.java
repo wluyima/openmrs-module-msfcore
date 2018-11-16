@@ -200,8 +200,9 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
                         Context.getMessageSourceService().getMessage("msfcore.instructions")));
         assertEquals("2008-08-08 00:00:00.0", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(resultsData.getResults().get(4).get(
                         Context.getMessageSourceService().getMessage("msfcore.datePrescribed")).getValue()));
-        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).build(), resultsData.getResults().get(4).get(
-                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).stopDate(
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse("2008-08-15 00:00:00.0")).build(), resultsData.getResults()
+                        .get(4).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value("").editable(true).type(Type.CODED).codedOptions(
                         Arrays.asList(CodedOption.builder().name("Partial").uuid("5000037AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build(),
                                         CodedOption.builder().name("Full").uuid("5000038AAAAAAAAAAAAAAAAAAAAAAAAAAAAA").build())).build(),
@@ -247,8 +248,9 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
         assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(), resultsData.getResults().get(1).get(
                         "uuid"));
         assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(1).get("status"));
-        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).build(), resultsData.getResults().get(1).get(
-                        Context.getMessageSourceService().getMessage("msfcore.stop")));
+        assertEquals(ResultColumn.builder().value(true).type(Type.STOP).stopDate(
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse("2018-11-14 03:21:00.0")).build(), resultsData.getResults()
+                        .get(1).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
         assertEquals(ResultColumn.builder().value(Arrays.asList()).build(), resultsData.getResults().get(1).get("actions"));
         assertEquals(ResultColumn.builder().value("Triomune-30").build(), resultsData.getResults().get(1).get(
                         Context.getMessageSourceService().getMessage("msfcore.drugName")));

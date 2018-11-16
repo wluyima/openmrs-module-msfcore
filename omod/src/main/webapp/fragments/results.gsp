@@ -78,7 +78,6 @@
 			<span>${ui.message('msfcore.show')}</span>
 			<span>
 				<select ng-model="resultsPerPage" ng-change="pagination(this, retrieveResultsInitialisePages)">
-					<option value="5">5</option>
 					<option value="25">25</option>
 					<option value="50" ng-show="results.pagination.totalItemsNumber > 25">50</option>
 					<option value="100" ng-show="results.pagination.totalItemsNumber > 50">100</option>

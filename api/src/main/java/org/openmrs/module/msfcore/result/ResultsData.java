@@ -201,7 +201,7 @@ public class ResultsData {
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), ResultColumn.builder().type(Type.DATE).value(
                         drugOrder.getDateActivated()).build());
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.stop"), ResultColumn.builder().type(Type.STOP).value(
-                        isDiscontinued).build());// TODO
+                        isDiscontinued).stopDate(isDiscontinued ? drugOrder.getDateStopped() : null).build());
         resultRow.put(Context.getMessageSourceService().getMessage("msfcore.dispensed"), ResultColumn.builder().editable(true).type(
                         Type.CODED).value(dispensedObs != null ? dispensedObs.getValueCoded().getName().getName() : "").codedOptions(
                         getCodedOptionsFromConceptSet(dispensedConcept)).build());

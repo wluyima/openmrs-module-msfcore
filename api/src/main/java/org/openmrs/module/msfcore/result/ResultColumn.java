@@ -1,5 +1,6 @@
 package org.openmrs.module.msfcore.result;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class ResultColumn {
     @Builder.Default
     private Type type = Type.STRING;
     private List<CodedOption> codedOptions;
+    private Date stopDate;
 
     public enum Type {
         STRING, DATE, NUMBER, BOOLEAN, CODED, STOP
