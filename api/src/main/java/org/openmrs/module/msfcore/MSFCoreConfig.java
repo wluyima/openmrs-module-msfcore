@@ -23,6 +23,7 @@ public class MSFCoreConfig {
     public final static String REGISTRATION_APP_EXTENSION_ID = "referenceapplication.registrationapp.registerPatient";
 
     public final static String SEARCH_APP_EXTENSION_ID = "coreapps.findPatient";
+
     public final static String REPORTS_APP_EXTENSION_ID = "reportingui.reports";
 
     public final static String CONDITIONS_EXTENSION_ID = "coreapps.conditionlist";
@@ -40,6 +41,7 @@ public class MSFCoreConfig {
     public final static String OBS_GRAPH_EXTENSION_ID = "coreapps.obsGraph";
 
     public final static String GP_INSTANCE_ID = "msfcore.instanceId";
+
     public final static String GP_EMRAPI_EMRAPIVISITSASSIGNMENTHANDLER_ENCOUNTERTYPETONEWVISITTYPEMAP = "emrapi.EmrApiVisitAssignmentHandler.encounterTypeToNewVisitTypeMap";
 
     public final static String LOCATION_ATTR_TYPE_CODE_UUID = "5a504478-1701-49da-9d8b-3e1d12ab6c5a";
@@ -515,4 +517,6 @@ public class MSFCoreConfig {
     public static final String OTHER_ALLERGY_LIST_UUID = "a0740eb7-92cd-4f79-a9b2-08e0f363532e";
 
     public static final String CONCEPT_SET_LAB_ORDERS_UUID = "23281464-74d8-47d9-9a39-7a1f1d7caa49";
+
+    public static final String CONCEPT_UUID_DESPENSED = "5000036AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 }
