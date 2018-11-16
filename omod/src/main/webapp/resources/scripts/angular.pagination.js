@@ -73,6 +73,8 @@ function renderPagination($scope, pagination, initialisePages) {
         if (pagination.toItemNumber == pagination.totalItemsNumber) {
             if (pagination.totalItemsNumber > 0) {
                 $scope.pages[1] = getPageObject(1, url);
+                $scope.nextPage = undefined;
+                $scope.previousPage = undefined;
             }
         } else { // more than one pages
             $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
@@ -102,7 +104,7 @@ function replacePaginationInURLToRetrieveAll($scope) {
  * Navigates to a given page selected or next/previous
  */
 function paginate($scope, page, callback) {
-    if (page) {
+    if (page && $scope.currentPage != page.page) {
         url = page.url;
         $scope.currentPage = page.page;
         callback();
