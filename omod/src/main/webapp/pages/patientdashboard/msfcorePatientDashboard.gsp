@@ -92,14 +92,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient, a
 <script type="text/javascript">
     var getOrderIndex = function(sectionName) {
         if (sectionName.includes('Followup')) { // follow up sections
-            if (sectionName.includes('Diagnosis')) return 1;
-            if (sectionName.includes('Complications Since Last Visit')) return 2;
-            if (sectionName.includes('Request Investigation')) return 3;
-            if (sectionName.includes('Prescribe Medication')) return 4;
-            if (sectionName.includes('Visit Details')) return 5;
-            if (sectionName.includes('Clinical note')) return 6;
-            if (sectionName.includes('Request Appointment')) return 7;
-            if (sectionName.includes('Refer Patient')) return 8;
+            if (sectionName.includes('Visit Details')) return 100;
+            if (sectionName.includes('Diagnosis')) return 200;
+            if (sectionName.includes('Complications Since Last Visit')) return 300;
+            if (sectionName.includes('Prescribe Medication')) return 400;
+            if (sectionName.includes('Clinical note')) return 500;
+            if (sectionName.includes('Refer Patient')) return 600;
+            if (sectionName.includes('Request Investigation')) return 700;
+            if (sectionName.includes('Request Appointment')) return 800;
         } else { // baseline sections
             if (sectionName.includes('Medical History')) return 1;
             if (sectionName.includes('Lifestyle')) return 2;
