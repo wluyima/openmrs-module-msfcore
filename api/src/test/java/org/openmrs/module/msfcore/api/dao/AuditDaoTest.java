@@ -29,6 +29,7 @@ import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ContextAuthenticationException;
+import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -67,7 +68,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void getAuditLogs_shouldRetrieveAllLogsOrderByIdDescWhenNoFiltersAreSet() {
-        List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null);
+        List<AuditLog> logs = auditDao.getAuditLogs(null, null, null, null, null, null, null, null);
         assertThat(logs.size(), CoreMatchers.is(8));
         assertThat(logs.get(0).getEvent(), CoreMatchers.is(Event.LOGIN));
         assertThat(logs.get(0).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
@@ -85,7 +86,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     @Test
     public void getAuditLogs_shouldRetrieveLogsOrderByIdInDateRangeWhenStartAndEndDateIsSet() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-04-20", "yyyy-MM-dd"), parse("2018-05-25", "yyyy-MM-dd"), null, null, null,
-                        null, null);
+                        null, null, null);
 
         assertThat(logs.size(), is(4));
         assertThat(logs.get(0).getId(), is(6));
@@ -97,7 +98,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     @Test
     public void getAuditLogs_shouldRetrieveLogsMatchingEventsWhenEventsAreSet() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-05-25", "yyyy-MM-dd"), Arrays.asList(
-                        Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null);
+                        Event.LOGIN, Event.VIEW_PATIENT), null, null, null, null, null);
 
         assertThat(logs.size(), is(2));
         assertThat(logs.get(0).getId(), is(2));
@@ -107,7 +108,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     @Test
     public void getAuditLogs_shouldRetrieveLogsMatchingPatientsWhenPatientsAreSet() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"), Arrays
-                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), null, null, null);
+                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), null, null, null, null);
 
         assertThat(logs.size(), is(1));
         assertThat(logs.get(0).getId(), is(5));
@@ -116,7 +117,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     @Test
     public void getAuditLogs_shouldRetrieveLogsMatchingUsersWhenUsersAreSet() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"), Arrays
-                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), Arrays.asList(anotherUser), null, null);
+                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), Arrays.asList(anotherUser), null, null, null);
 
         assertThat(logs.size(), is(1));
         assertThat(logs.get(0).getId(), is(5));
@@ -125,7 +126,8 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     @Test
     public void getAuditLogs_shouldRetrieveLogsMatchingProvidersWhenProvidersAreSet() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"), Arrays
-                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), Arrays.asList(anotherUser), Arrays.asList(provider), null);
+                        .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), Arrays.asList(anotherUser), Arrays.asList(provider), null,
+                        null);
 
         assertThat(logs.size(), is(1));
         assertThat(logs.get(0).getId(), is(5));
@@ -135,7 +137,7 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
     public void getAuditLogs_shouldRetrieveLogsMatchingLocation() {
         List<AuditLog> logs = auditDao.getAuditLogs(parse("2018-02-20", "yyyy-MM-dd"), parse("2018-08-25", "yyyy-MM-dd"), Arrays
                         .asList(Event.REGISTER_PATIENT), Arrays.asList(patient), Arrays.asList(anotherUser), Arrays.asList(provider),
-                        Arrays.asList(location));
+                        Arrays.asList(location), null);
 
         assertThat(logs.size(), is(1));
         assertThat(logs.get(0).getId(), is(5));
@@ -213,9 +215,9 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
             Context.authenticate("wrongUser", "test");
         } catch (ContextAuthenticationException e) {
         }
-        Context.authenticate("admin", "test");//success
+        Context.authenticate("admin", "test");// success
         List<AuditLog> logs = auditDao.getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null,
-                        null);
+                        null, null);
 
         assertThat(logs.size(), CoreMatchers.is(5));
         assertThat(logs.get(0).getEvent(), CoreMatchers.is(Event.LOGIN));
@@ -233,6 +235,60 @@ public class AuditDaoTest extends BaseModuleContextSensitiveTest {
         assertThat(logs.get(4).getEvent(), CoreMatchers.is(Event.LOGIN));
         assertThat(logs.get(4).getUser(), CoreMatchers.is(Context.getAuthenticatedUser()));
         assertThat(logs.get(4).getDetail(), CoreMatchers.is("User: admin: SUCCESS"));
+    }
 
+    @Test
+    public void getAuditLogs_shouldRetrieveAllLoginAndLogoutLogsWithPagination() throws ParseException, InterruptedException {
+        Context.logout();
+        try {
+            Context.authenticate("admin", "wrongPass");
+        } catch (ContextAuthenticationException e) {
+        }
+        try {
+            Context.authenticate("wrongUser", "test");
+        } catch (ContextAuthenticationException e) {
+        }
+        Context.authenticate("admin", "test");// success
+        Pagination pagination = Pagination.builder().build();
+        // pagination defauls
+        assertThat(0, CoreMatchers.is(pagination.getTotalItemsNumber()));
+        assertThat(1, CoreMatchers.is(pagination.getFromItemNumber()));
+        assertThat(25, CoreMatchers.is(pagination.getToItemNumber()));
+        List<AuditLog> logs = auditDao.getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null,
+                        null, pagination);
+        // by default pulls 25 items sets pagination rightly
+        assertThat(logs.size(), CoreMatchers.is(5));
+        assertThat(5, CoreMatchers.is(pagination.getTotalItemsNumber()));
+        assertThat(1, CoreMatchers.is(pagination.getFromItemNumber()));
+        assertThat(25, CoreMatchers.is(pagination.getToItemNumber()));
+
+        pagination.setToItemNumber(2);
+        logs = auditDao
+                        .getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null, null,
+                                        pagination);
+        assertThat(logs.size(), CoreMatchers.is(2));
+        assertThat(5, CoreMatchers.is(pagination.getTotalItemsNumber()));
+        assertThat(1, CoreMatchers.is(pagination.getFromItemNumber()));
+        assertThat(2, CoreMatchers.is(pagination.getToItemNumber()));
+
+        pagination.setFromItemNumber(3);
+        pagination.setToItemNumber(25);
+        logs = auditDao
+                        .getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null, null,
+                                        pagination);
+        assertThat(logs.size(), CoreMatchers.is(3));
+        assertThat(5, CoreMatchers.is(pagination.getTotalItemsNumber()));
+        assertThat(3, CoreMatchers.is(pagination.getFromItemNumber()));
+        assertThat(25, CoreMatchers.is(pagination.getToItemNumber()));
+
+        pagination.setFromItemNumber(3);
+        pagination.setToItemNumber(4);
+        logs = auditDao
+                        .getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-24"), null, null, null, null, null, null,
+                                        pagination);
+        assertThat(logs.size(), CoreMatchers.is(2));
+        assertThat(5, CoreMatchers.is(pagination.getTotalItemsNumber()));
+        assertThat(3, CoreMatchers.is(pagination.getFromItemNumber()));
+        assertThat(4, CoreMatchers.is(pagination.getToItemNumber()));
     }
 }

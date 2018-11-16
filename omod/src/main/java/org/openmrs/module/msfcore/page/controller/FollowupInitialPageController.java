@@ -19,6 +19,6 @@ public class FollowupInitialPageController {
 
         FollowupLeftMenuFragmentController controller = new FollowupLeftMenuFragmentController();
         NCDFollowUpLinks links = controller.getNCDFollowUpLinks(patientId);
-        response.sendRedirect("/openmrs/htmlformentryui/htmlform/" + links.getVisitDetailsLink());
+        response.sendRedirect("../htmlformentryui/htmlform/" + links.getVisitDetailsLink());
     }
 }

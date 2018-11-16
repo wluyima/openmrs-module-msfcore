@@ -120,7 +120,7 @@ public class AuditLogManagerPageControllerTest {
     @SuppressWarnings("unchecked")
     @Test
     public void get_defaultWithLogs() {
-        Mockito.when(auditService.getAuditLogs(null, null, null, null, null, null, null)).thenReturn(
+        Mockito.when(auditService.getAuditLogs(null, null, null, null, null, null, null, null)).thenReturn(
                         Arrays.asList(viewPatient, registerPatient, login));
         controller.controller(model, auditService, "", "", request, null, "");
         List<AuditLog> logs = (List<AuditLog>) model.getAttribute("auditLogs");
@@ -142,8 +142,8 @@ public class AuditLogManagerPageControllerTest {
     public void post_filter_inRangeWithLogs() throws ParseException {
         Mockito.when(
                         auditService.getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-22"),
-                                        new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-29"), null, null, null, null, null)).thenReturn(
-                        Arrays.asList(registerPatient));
+                                        new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-29"), null, null, null, null, null, null))
+                        .thenReturn(Arrays.asList(registerPatient));
         controller.controller(model, auditService, "2018-07-22 00:00:00", "2018-07-29 00:00:00", request, null, "");
         List<AuditLog> logs = (List<AuditLog>) model.getAttribute("auditLogs");
         Assert.assertThat(logs.size(), CoreMatchers.is(1));
@@ -162,7 +162,7 @@ public class AuditLogManagerPageControllerTest {
     public void post_filter_withSelectedEvents() throws ParseException {
         Mockito.when(
                         auditService.getAuditLogs(null, null, Arrays.asList(Event.VIEW_PATIENT, Event.REGISTER_PATIENT), null, null, null,
-                                        null)).thenReturn(Arrays.asList(viewPatient, registerPatient));
+                                        null, null)).thenReturn(Arrays.asList(viewPatient, registerPatient));
         Mockito.when(request.getParameterValues("events")).thenReturn(
                         new String[]{Event.VIEW_PATIENT.name(), Event.REGISTER_PATIENT.name()});
         controller.controller(model, auditService, "", "", request, null, "");
@@ -188,7 +188,7 @@ public class AuditLogManagerPageControllerTest {
         Mockito.when(
                         auditService.getAuditLogs(new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-22"),
                                         new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-29"), Arrays.asList(Event.REGISTER_PATIENT),
-                                        null, null, null, null)).thenReturn(Arrays.asList(registerPatient));
+                                        null, null, null, null, null)).thenReturn(Arrays.asList(registerPatient));
         Mockito.when(request.getParameterValues("events")).thenReturn(new String[]{Event.REGISTER_PATIENT.name()});
         controller.controller(model, auditService, "2018-07-22 00:00:00", "2018-07-29 00:00:00", request, null, "");
         List<AuditLog> logs = (List<AuditLog>) model.getAttribute("auditLogs");

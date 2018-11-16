@@ -18,15 +18,6 @@
     "order":23
   },
   {
-    "id":"mshforms.labResultsForm",
-    "extensionPointId":"patientDashboard.overallActions",
-    "type":"link",
-    "label":"Lab Results Form",
-    "url":"htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.patientId}}&visitId={{patient.activeVisitId}}&formUuid=db5f9aea-fb3f-4f55-82c8-04f489ae8304",
-    "icon":"icon-medkit",
-    "order":24
-  },
-  {
     "id":"mshforms.exitFromNCDForm",
     "extensionPointId":"patientDashboard.overallActions",
     "type":"link",

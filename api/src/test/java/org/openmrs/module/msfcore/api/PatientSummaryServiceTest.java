@@ -243,7 +243,7 @@ public class PatientSummaryServiceTest extends BaseModuleContextSensitiveTest {
         PatientSummary patientSummary = patientSummaryService.requestPatientSummary(patient);
         assertNotNull(patientSummary);
         List<AuditLog> summaryAudits = Context.getService(AuditService.class).getAuditLogs(null, null,
-                        Arrays.asList(Event.REQUEST_PATIENT_SUMMARY), Arrays.asList(patient), null, null, null);
+                        Arrays.asList(Event.REQUEST_PATIENT_SUMMARY), Arrays.asList(patient), null, null, null, null);
         assertEquals(1, summaryAudits.size());
         assertEquals(summaryAudits.get(0).getDetail(), "Patient Summary Request: Collet Test Chebaskwony - 6TS-4");
     }

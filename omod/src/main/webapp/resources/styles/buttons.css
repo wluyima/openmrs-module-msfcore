@@ -45,6 +45,7 @@ input[type="button"],
 input[type="submit"].confirm,
 input[type="button"].confirm,
 a.button.cancel .button.cancel,
+button.button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
@@ -54,7 +55,8 @@ button.task:visited,
 input[type="submit"].task:visited,
 input[type="button"].task:visited,
 input[type="submit"].task:visited,
-a.button.task:visited {
+a.button.task:visited,
+#viewAllAppointmentTypes a {
     background: #fff;
     background-color: #fff;
     border: none;
@@ -115,14 +117,14 @@ a.button.task:visited {
     cursor: pointer;
 }
 
-
+/* This causes issues with buttons breaking out of the modals.
 input[type=button] [value=value],
 a.button.cancel .button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel {
     float:left;
-}
+}*/
 
 .button:hover,
 a.button:hover
@@ -148,7 +150,6 @@ input[type="submit"].confirm:hover,
     text-decoration: none;
 }
 
-#patient-search-clear-button:hover,
 .icon-delete:hover,
 .icon-remove:hover,
 .button.cancel:hover,
@@ -161,6 +162,11 @@ a.button.cancel:hover,
     color: #ff4747;
     cursor: pointer;
 }
+
+#patient-search-clear-button:hover {
+    background: #ff4747;
+}
+
 
 .main-content .visit-actions a:hover,
 .main-content .spaced a:hover,
@@ -199,6 +205,8 @@ input[type="submit"]:disabled:hover {
 }
 
 /* BUTTONS > Pagination */
+
+.ngPagerButton,
 .ui-state-default.ui-button {
     color: #373F46;
     padding: 8px;
@@ -257,6 +265,12 @@ a.view-details {
     text-decoration: none;
 }
 
+#viewAllAppointmentTypes a,
+.date-range-picker-clear-link {
+    cursor: pointer;
+}
+
+
 .edit-info {
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
 }
@@ -266,9 +280,14 @@ a.view-details {
 }
 
 #patient-search-clear-button {
-    color: #373F46;
-    margin-left: -36px;
-    right: 42px;
+    background: #55D6BE;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    height: 40px;
+    padding: 12px 14px;
+    top: 1px;
+    right: 7px;
 }
 
 /*
@@ -340,6 +359,15 @@ button.confirm.big i.icon-arrow-right {float: right;}
     margin-top:2rem;
 }
 
+.patient-header+#edit-patient-identifier-dialog+.actions.dropdown {
+    background: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin: -18px 0 0 1024px;
+    width: 10rem;
+}
+
 /* Attachments */
 
 .att_upload-container button.confirm, button#allergyui-addNewAllergy {
@@ -347,6 +375,10 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+*,
+*:hover,
+a,
+a:hover,
 form input,
 form select,
 form textarea,
@@ -402,7 +434,9 @@ button.primary:hover {background: #55D6BE}
 button.right {float: right}
 
 button.addEntry::before {
-  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f055";
   margin-right: 5px;
 }
 button.removeEntry {
@@ -419,3 +453,11 @@ button.removeEntry:hover {
   color: #FF0000;
 }
 button {outline: none}
+
+.button.confirm.active, button.confirm.active, input[type="submit"].confirm.active, input[type="button"].confirm.active, input[type="submit"].confirm.active, a.button.confirm.active {
+  background: #D0FEF5;
+}
+div#similarPatientsSlideView ul#similarPatientsSelect button.local_button{
+  padding: 12px 24px;
+  margin: 8px;
+}
