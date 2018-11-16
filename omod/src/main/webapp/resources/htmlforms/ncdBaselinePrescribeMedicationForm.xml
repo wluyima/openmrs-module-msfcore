@@ -130,10 +130,8 @@
             }
             
             function appendToDivError(divError, medicationId){
-            	console.log("entrou....");
-	        	var requiredMessage = '<lookup expression="fn.getConcept(\'+${medicationId}+\').name"/>';
-	        	console.log(requiredMessage);	
-	   			divError.append("<span>"+requiredMessage+"</span>");
+            	var requiredMessage = '<lookup expression="fn.getConcept('+medicationId+').name"/>';
+	        	divError.append("<span>"+requiredMessage+"</span>");
             }
                        
             function getPrescribedMedicationIds(){
