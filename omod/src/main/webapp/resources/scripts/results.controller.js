@@ -36,27 +36,8 @@ function ResultsController($scope, $sce) {
             } else {
                 clearFilterFields($scope, results);
             }
-            var pagination = results.pagination;
-            if (isEmpty(pagination.toItemNumber) || pagination.totalItemsNumber <= pagination.toItemNumber) {
-                pagination.toItemNumber = pagination.totalItemsNumber;
-            }
-            if (pagination.totalItemsNumber == 0) {
-                pagination.fromItemNumber = 0;
-            }
-            if (initialisePages) {
-                // render pagination on first page load or resultsPerPage change
-                $scope.pages = [];
-                // one page
-                if (pagination.toItemNumber == pagination.totalItemsNumber) {
-                    if (pagination.totalItemsNumber > 0) {
-                        $scope.pages[1] = getPageObject(1, url);
-                    }
-                } else { // more than one pages
-                    $scope.pages = getPossiblePages(url, parseInteger($scope.resultsPerPage), pagination.totalItemsNumber);
-                    setNextAndPreviousPages($scope, $scope.pages[0]);
-                }
-                $scope.currentPage = 1;
-            }
+            renderPagination($scope, results.pagination, initialisePages);
+            
             // display results
             $scope.results = results;
             $scope.$apply();
@@ -65,22 +46,8 @@ function ResultsController($scope, $sce) {
     // caching retrieveResults to make it accessible outside ResultsController
     retrieveResults = this.retrieveResults;
 
-    // page is page number/next/previous
-    this.paginate = this.paginate || function(page) {
-        if (page) {
-            url = page.url;
-            $scope.currentPage = page.page;
-            retrieveResults(false);
-            setNextAndPreviousPages($scope, page);
-        }
-    }
-
-    // change results per page
-    this.pagination = this.pagination || function() {
-        // remove and re-add pagination to url
-        url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
-        // retrive new results by new url
-        retrieveResults(true);
+    this.retrieveResultsInitialisePages = this.retrieveResultsInitialisePages || function() {
+    	retrieveResults(true);
     }
 
     this.edit = this.edit || function($event, result) {
@@ -138,7 +105,7 @@ function ResultsController($scope, $sce) {
             if (result[key].type == "DATE") {
                 if (!isEmpty(value)) {
                     time = value;
-                    value = convertToOpenMRSDateFormat($scope, new Date(value));
+                    value = convertToDateFormat($scope.results.dateFormatPattern, new Date(value));
                 }
             }
         }
@@ -184,91 +151,15 @@ function ResultsController($scope, $sce) {
     }
 
     $scope.retrieveResults = retrieveResults;
+    $scope.retrieveResultsInitialisePages = this.retrieveResultsInitialisePages;
     $scope.edit = this.edit;
     $scope.purge = this.purge;
-    $scope.paginate = this.paginate;
-    $scope.pagination = this.pagination;
+    $scope.paginate = paginate;
+    $scope.pagination = pagination;
     $scope.renderResultValue = this.renderResultValue;
     $scope.nameFilter = this.nameFilter;
     $scope.statusFilter = this.statusFilter;
     $scope.datesFilter = this.datesFilter;
-}
-
-function removePaginationFromURL(urlString) {
-    if (urlString.indexOf("&fromItemNumber=") > 0) {
-        urlString = urlString.substring(0, urlString.indexOf("&fromItemNumber="));
-    }
-    return urlString;
-}
-
-/**
- * Replace pagination params from in if they exist
- */
-function replacePaginationInURL(urlString, from, to) {
-    urlString = removePaginationFromURL(urlString);
-    return urlString + "&fromItemNumber=" + from + "&toItemNumber=" + to;
-}
-
-function replacePaginationInURLToRetrieveAll($scope) {
-    $scope.resultsPerPage = "all";
-    url = replacePaginationInURL(url, "1", $scope.resultsPerPage);
-}
-
-/**
- * Check if an object is not existing or empty/blank
- */
-function isEmpty(object) {
-    if (typeof object == "boolean") {
-        return false;
-    }
-    return !object || object == null || object == undefined || object == "" || object.length == 0;
-}
-
-function parseInteger(string) {
-    if (string == 'all') {
-        return Number.MAX_SAFE_INTEGER;
-    } else {
-        return parseInt(string);
-    }
-}
-
-function getPossiblePages(urlString, resultsPerPage, totalItemsNumber) {
-    var pages = [];
-    var paginationAttempts = Math.ceil(totalItemsNumber / resultsPerPage);
-    // i is the pagecount to display
-    var from = 1;
-    for (i = 1; i <= paginationAttempts; i++) {
-        var to;
-        if (i == 1) {
-            to = resultsPerPage;
-        } else {
-            if (from >= totalItemsNumber) {
-                to = totalItemsNumber;
-            } else {
-                to = (from - 1) + resultsPerPage;
-            }
-        }
-        urlString = replacePaginationInURL(urlString, from, to);
-        pages[i] = getPageObject(i, urlString);
-        from = to + 1;
-    }
-    // return compact pages
-    return pages.filter(function() {
-        return true;
-    });
-}
-
-function getPageObject(page, pageUrl) {
-    // page is non 0 index whereas $scope.pages is
-    return {
-        "page": page,
-        "url": pageUrl
-    };
-}
-
-function setNextAndPreviousPages($scope, currentPage) {
-    $scope.nextPage = $scope.pages[currentPage.page];
-    $scope.previousPage = $scope.pages[currentPage.page - 2];
 }
 
 function replaceElementWithTextInput($scope, result, element) {
@@ -303,14 +194,6 @@ function replaceElementWithTextInput($scope, result, element) {
         }
         return jQuery(inputElement);
     });
-}
-
-function convertToOpenMRSDateFormat($scope, date) {
-    return jQuery.datepicker.formatDate($scope.results.dateFormatPattern.toLowerCase().replace("yyyy", "yy"), date);
-}
-
-function convertToDatePickerDateFormat(date) {
-    return jQuery.datepicker.formatDate("yy-mm-dd", date);
 }
 
 function replaceElementWithLabel(element) {
@@ -351,7 +234,7 @@ function generateResultRowData($scope) {
         var type = id.split("_")[2];
         if (type == "DATE") {
             if (isValidDate(value)) {
-                value = convertToOpenMRSDateFormat($scope, new Date(value));
+                value = convertToDateFormat($scope.results.dateFormatPattern, new Date(value));
             } else {
                 value = "";
             }
@@ -453,12 +336,6 @@ function removeResultsNonMatchedByDates(dateField, i, resultRow, results, startD
     var date = new Date(dateString);
     if (!isValidDate(dateString) || date.getTime() < new Date(startDate).getTime() || date.getTime() > new Date(endDate).getTime()) {
         results.results = removeItemAtIndex(results.results, i);
-    }
-}
-
-function isValidDate(dateString) {
-    if (!isEmpty(dateString)) {
-        return !isNaN(new Date(dateString).getTime());
     }
 }
 

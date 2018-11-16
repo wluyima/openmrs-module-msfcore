@@ -1,4 +1,5 @@
-<script src="${ui.resourceLink('msfcore', 'scripts/msf.js')}"></script>
+<script src="${ui.resourceLink('msfcore', 'scripts/msf.utils.js')}"></script>
+<script src="${ui.resourceLink('msfcore', 'scripts/angular.pagination.js')}"></script>
 <script src="${ui.resourceLink('msfcore', 'scripts/results.controller.js')}"></script>
 <link href="${ui.resourceLink('msfcore', 'styles/results.css')}" rel="stylesheet" type="text/css" media="all">
 
@@ -76,7 +77,8 @@
 			<span><input type="button" onclick="history.back();" value="${ ui.message('general.back')}"/></span>
 			<span>${ui.message('msfcore.show')}</span>
 			<span>
-				<select ng-model="resultsPerPage" ng-change="pagination()">
+				<select ng-model="resultsPerPage" ng-change="pagination(this, retrieveResultsInitialisePages)">
+					<option value="5">5</option>
 					<option value="25">25</option>
 					<option value="50" ng-show="results.pagination.totalItemsNumber > 25">50</option>
 					<option value="100" ng-show="results.pagination.totalItemsNumber > 50">100</option>
@@ -85,10 +87,10 @@
 			</span>
 			<span>${ui.message('msfcore.entries')}</span>
 		</div>
-		<div class="right showing-pages">
-			<span class='page' ng-repeat="page in pages" ng-class="{'current-page':page.page==currentPage}" ng-click="paginate(page)"> {{page.page}} </span>
-			<span ng-class="{'page':nextPage, 'disabled': !nextPage}" ng-click="paginate(nextPage)">${ui.message('general.next')}</span>
-			<span ng-class="{'page':previousPage, 'disabled': !previousPage}" ng-click="paginate(previousPage)">${ui.message('general.previous')}</span>
+		<div class="right showing-pages" ng-init="scp = this">
+			<span class='page' ng-repeat="page in pages" ng-class="{'current-page':page.page==currentPage}" ng-click="paginate(scp, page, retrieveResults)"> {{page.page}} </span>
+			<span ng-class="{'page':nextPage, 'disabled': !nextPage}" ng-click="paginate(scp, nextPage, retrieveResults)">${ui.message('general.next')}</span>
+			<span ng-class="{'page':previousPage, 'disabled': !previousPage}" ng-click="paginate(scp, previousPage, retrieveResults)">${ui.message('general.previous')}</span>
 		</div>
 		<div class="center pages">
 			<span class="disabled">
