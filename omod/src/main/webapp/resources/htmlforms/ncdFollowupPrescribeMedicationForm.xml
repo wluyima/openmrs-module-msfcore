@@ -74,22 +74,19 @@
                     }
                 }
                 
-                 beforeSubmit.push(function() {
-					var divError = jq('#duplication-prescription-error');
+                beforeSubmit.push(function() {
+					var duplicatedIds = getDulpicatedMedicationIds()
 					
-					divError.find('span').remove();
-					divError.hide();
-					
-					var duplicated = getDulpicatedMedicationIds();
-					if(duplicated.length > 0){
+					if(duplicatedIds.length > 0){
 						
-						var requiredMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/>';
-                		divError.append("<span>"+requiredMessage+"</span>");
-						
-						duplicated.forEach(function(medicationId){
-							appendToDivError(divError, medicationId);
+						var errorMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/> : '
+
+						duplicatedIds.forEach(function(medicationId){
+							errorMessage += $("select[id^=w] option[value='" + medicationId + "']").first().text() + ','
 						});
-                		divError.show();
+
+						jq('#duplication-prescription-error').html(errorMessage)
+						jq('#duplication-prescription-error').show()
                 		return false;
                 	}
                 	return true;
@@ -116,12 +113,7 @@
                 }
                 return filled;
             }
-            
-            function appendToDivError(divError, medicationId){
-            	var requiredMessage = '<lookup expression="fn.getConcept('+medicationId+').name"/>';
-	        	divError.append("<span>"+requiredMessage+"</span>");
-            }
-                       
+                   
             function getPrescribedMedicationIds(){
            		return getUsedContainers()
            			    .map((container) => getValue(`name-${getIndexFromId(container.attr('id'))}.value`))
