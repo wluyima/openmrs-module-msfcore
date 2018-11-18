@@ -1,11 +1,15 @@
 package org.openmrs.module.msfcore.web.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.Pagination;
 import org.openmrs.module.msfcore.api.AuditService;
@@ -27,11 +31,78 @@ public class AuditLogResource extends BaseDataResource {
 
     @Override
     protected AlreadyPaged<SimpleObject> doSearch(RequestContext context) throws ResponseException {
-        Pagination pagination = buildPaginationFromContext(context).build();
+        Pagination pagination = Pagination.builder().build();
         SimpleObject response = new SimpleObject();
-        List<AuditLog> audits = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, pagination);
+
+        String fromAuditNumber = context.getParameter("fromItemNumber");
+        String toAuditNumber = context.getParameter("toItemNumber");
+        String patientId = context.getParameter("patientId");
+        // time in milisecs
+        String startDateTime = context.getParameter("startDateTime");
+        // time in milisecs
+        String endDateTime = context.getParameter("endDateTime");
+        // comma separated
+        String selectedEventsRaw = context.getParameter("events");
+        // username
+        String user = context.getParameter("user");
+
+        Patient patient = null;
+        Date startTime = null;
+        Date endTime = null;
+        String[] selectedEvents = null;
+        if (StringUtils.isNotBlank(patientId)) {
+            patient = getPatientFromId(patientId);
+        }
+        if (StringUtils.isNotBlank(fromAuditNumber)) {
+            pagination.setFromItemNumber(Integer.parseInt(fromAuditNumber));
+        }
+        if (StringUtils.isNotBlank(toAuditNumber)) {
+            pagination.setToItemNumber(Integer.parseInt(toAuditNumber));
+        }
+        if (StringUtils.isNotBlank(startDateTime)) {
+            startTime = new Date(Integer.parseInt(startDateTime));
+        }
+        if (StringUtils.isNotBlank(endDateTime)) {
+            endTime = new Date(Integer.parseInt(endDateTime));
+        }
+        if (StringUtils.isNotBlank(selectedEventsRaw)) {
+            selectedEvents = selectedEventsRaw.split(",");
+        }
+        List<Event> logEvents = new ArrayList<Event>();
+        List<Patient> patients = null;
+        List<User> users = null;
+
+        if (patient != null) {
+            patients = Arrays.asList(patient);
+        }
+        if (StringUtils.isNotBlank(user)) {
+            users = new ArrayList<User>();
+            User logUser = Context.getUserService().getUserByUsername(user.trim());
+            if (logUser == null) {
+                user = "";
+            }
+            users.add(logUser);
+        }
+        if (selectedEvents != null) {
+            for (String event : selectedEvents) {
+                logEvents.add(Event.valueOf(event));
+            }
+        } else {
+            logEvents = null;
+        }
+        List<AuditLog> auditLogs = Context.getService(AuditService.class).getAuditLogs(startTime, endTime, logEvents, patients, users,
+                        null, null, pagination);
         response.add("pagination", pagination);
-        response.add("auditLogs", audits);
+        response.add("auditLogs", auditLogs);
+        response.add("dateFormatPattern", Context.getDateTimeFormat().toPattern());
+        response.add("startTime", startTime);
+        response.add("endTime", endTime);
+        response.add("events", selectedEvents);
+        response.add("userSuggestions", userSuggestions());
+        response.add("user", user);
+        response.add("patientId", patient != null ? patient.getUuid() : null);
+        response.add("patientDisplay", patient != null ? patient.getPersonName().getFullName() + " #"
+                        + patient.getPatientIdentifier().getIdentifier() : null);
         return new AlreadyPaged<SimpleObject>(context, Arrays.asList(response), false);
     }
 
@@ -39,9 +110,10 @@ public class AuditLogResource extends BaseDataResource {
     protected AlreadyPaged<SimpleObject> doGetAll(RequestContext context) throws ResponseException {
         Pagination pagination = Pagination.builder().build();
         SimpleObject response = new SimpleObject();
-        List<AuditLog> audits = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, null);
+        List<AuditLog> audits = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, pagination);
         response.add("pagination", pagination);
         response.add("auditLogs", audits);
+        response.add("dateFormatPattern", Context.getDateFormat().toPattern());
         return new AlreadyPaged<SimpleObject>(context, Arrays.asList(response), false);
     }
 
@@ -74,16 +146,15 @@ public class AuditLogResource extends BaseDataResource {
     }
 
     @Override
-    public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
+    public DelegatingResourceDescription getRepresentationDescription(Representation representation) {
         DelegatingResourceDescription description = new DelegatingResourceDescription();
-        description.addProperty("date");
-        description.addProperty("event");
-        description.addProperty("detail");
+        description.addRequiredProperty("event");
+        description.addRequiredProperty("date");
+        description.addRequiredProperty("detail");
         description.addProperty("patient", Representation.REF);
         description.addProperty("user", Representation.REF);
         description.addProperty("provider", Representation.REF);
         description.addProperty("location", Representation.REF);
-        description.addProperty("uuid");
         return description;
     }
 
@@ -113,4 +184,17 @@ public class AuditLogResource extends BaseDataResource {
         // TODO support others as u need in future
     }
 
+    private List<String> userSuggestions() {
+        List<String> suggestions = new ArrayList<String>();
+
+        for (User u : Context.getUserService().getAllUsers()) {
+            if (StringUtils.isNotBlank(u.getUsername())) {
+                suggestions.add(u.getUsername());
+            }
+            if (StringUtils.isNotBlank(u.getSystemId())) {
+                suggestions.add(u.getSystemId());
+            }
+        }
+        return new ArrayList<String>(new HashSet<String>(suggestions));
+    }
 }

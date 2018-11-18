@@ -79,6 +79,9 @@ function parseInteger(string) {
  * Converts a date to a given dateFormat pattern (transforms the pattern if java to js)
  */
 function convertToDateFormat(dateFormatPattern, date) {
+	if(typeof date == "string" || typeof date == "number") {
+		date = new Date(date);
+	}
     return jQuery.datepicker.formatDate(dateFormatPattern.toLowerCase().replace("yyyy", "yy"), date);
 }
 

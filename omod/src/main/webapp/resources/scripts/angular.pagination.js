@@ -89,7 +89,12 @@ function renderPagination($scope, pagination, initialisePages) {
  */
 function replacePaginationInURL(urlString, from, to) {
     urlString = removePaginationFromURL(urlString);
-    return urlString + "&fromItemNumber=" + from + "&toItemNumber=" + to;
+    if(urlString.indexOf("?") == -1) {
+    	urlString += "?fromItemNumber=" + from;
+    } else {
+    	urlString += "&fromItemNumber=" + from;
+    }
+    return urlString + "&toItemNumber=" + to;
 }
 
 /**
