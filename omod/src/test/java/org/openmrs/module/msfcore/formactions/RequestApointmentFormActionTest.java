@@ -146,36 +146,6 @@ public class RequestApointmentFormActionTest extends BaseContextMockTest {
         requestAppointmentAction.requestAppointment(patient, observations, provider);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void requestAppointment_shouldThrowExceptionWhenAppointmentTypeIsNotFound() {
-        Date now = new Date();
-        Date requestAppointmentDate = DateUtils.addDays(now, 30);
-
-        Patient patient = new Patient();
-        Obs dateObs = new Obs();
-        Concept dateConcept = new Concept();
-        dateConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_DATE_UUID);
-        dateObs.setConcept(dateConcept);
-        dateObs.setValueDate(requestAppointmentDate);
-
-        Obs commentObs = new Obs();
-        Concept commentConcept = new Concept();
-        commentConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_COMMENT_UUID);
-        commentObs.setConcept(commentConcept);
-
-        Obs appointmentTypeObs = new Obs();
-        Concept appointmentTypeConcept = new Concept();
-        appointmentTypeConcept.setUuid(MSFCoreConfig.CONCEPT_REQUEST_APPOINTMENT_TYPE_UUID);
-        appointmentTypeObs.setConcept(appointmentTypeConcept);
-        appointmentTypeObs.setValueText("Some Random Inexistent Type");
-
-        Set<Obs> observations = Sets.newSet(dateObs, commentObs, appointmentTypeObs);
-        AppointmentType generalMedicine = new AppointmentType("General Medicine", null, null);
-        AppointmentType gynecology = new AppointmentType("Gynecology", null, null);
-        when(appointmentService.getAllAppointmentTypes(false)).thenReturn(Arrays.asList(generalMedicine, gynecology));
-        requestAppointmentAction.requestAppointment(patient, observations);
-    }
-
     @Test
     public void requestAppointment_shouldNotSaveIfDateIsNull() {
         // provider from the standard test dataset
