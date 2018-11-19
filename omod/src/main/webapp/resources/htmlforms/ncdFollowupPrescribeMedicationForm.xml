@@ -34,10 +34,6 @@
 				});
 
 				// enabling and disabling the allergy sections there are only 5 so far
-                if( jq(getUsedContainers()).length == 1){
-                    jq('#1-removeEntry').remove();
-                 }
-
                 jq('#' + NUMBER_ENTRIES + '-addEntry').remove();
 
                 // show and remove sections
@@ -57,6 +53,11 @@
                     jq(':input:not(:button)', contentAddId).val([]);
                     jq('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
                     jq('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
+
+                    // display the first 'Add other medication' button if all the entries are removed
+                    if (getNumberMedications() == 0) {
+                        jq("#addEntry").show();
+                    }
                     return false;
                 });
 
@@ -66,6 +67,17 @@
                         //jq('#' + i + '-addEntry').toggle(false);
                         jq('#' + i + '-toggleContainer').show();
                     }
+                }
+
+                function getNumberMedications() {
+                    var numberMedications = 0;
+                    for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                        var containerId = `#${i}-toggleContainer`;
+                            if(jq(containerId).is(":visible")) {
+                                numberMedications++;
+                            }
+                    }
+                    return numberMedications;
                 }
 
             function getUsedContainers() {
