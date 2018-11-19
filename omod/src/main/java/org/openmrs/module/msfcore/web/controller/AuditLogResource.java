@@ -1,5 +1,7 @@
 package org.openmrs.module.msfcore.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,6 +14,7 @@ import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.msfcore.Pagination;
+import org.openmrs.module.msfcore.Pagination.PaginationBuilder;
 import org.openmrs.module.msfcore.api.AuditService;
 import org.openmrs.module.msfcore.audit.AuditLog;
 import org.openmrs.module.msfcore.audit.AuditLog.Event;
@@ -31,18 +34,16 @@ public class AuditLogResource extends BaseDataResource {
 
     @Override
     protected AlreadyPaged<SimpleObject> doSearch(RequestContext context) throws ResponseException {
-        Pagination pagination = Pagination.builder().build();
+        PaginationBuilder paginationBuilder = buildPaginationFromContext(context);
         SimpleObject response = new SimpleObject();
 
-        String fromAuditNumber = context.getParameter("fromItemNumber");
-        String toAuditNumber = context.getParameter("toItemNumber");
         String patientId = context.getParameter("patientId");
         // time in milisecs
         String startDateTime = context.getParameter("startDateTime");
         // time in milisecs
         String endDateTime = context.getParameter("endDateTime");
         // comma separated
-        String selectedEventsRaw = context.getParameter("events");
+        String selectedEventsRaw = context.getParameter("selectedEvents");
         // username
         String user = context.getParameter("user");
 
@@ -53,17 +54,16 @@ public class AuditLogResource extends BaseDataResource {
         if (StringUtils.isNotBlank(patientId)) {
             patient = getPatientFromId(patientId);
         }
-        if (StringUtils.isNotBlank(fromAuditNumber)) {
-            pagination.setFromItemNumber(Integer.parseInt(fromAuditNumber));
-        }
-        if (StringUtils.isNotBlank(toAuditNumber)) {
-            pagination.setToItemNumber(Integer.parseInt(toAuditNumber));
-        }
-        if (StringUtils.isNotBlank(startDateTime)) {
-            startTime = new Date(Integer.parseInt(startDateTime));
-        }
-        if (StringUtils.isNotBlank(endDateTime)) {
-            endTime = new Date(Integer.parseInt(endDateTime));
+        SimpleDateFormat dateISOFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            if (StringUtils.isNotBlank(startDateTime)) {
+                startTime = dateISOFormatted.parse(startDateTime);
+            }
+            if (StringUtils.isNotBlank(endDateTime)) {
+                endTime = dateISOFormatted.parse(endDateTime);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         if (StringUtils.isNotBlank(selectedEventsRaw)) {
             selectedEvents = selectedEventsRaw.split(",");
@@ -90,19 +90,20 @@ public class AuditLogResource extends BaseDataResource {
         } else {
             logEvents = null;
         }
+        Pagination pagination = paginationBuilder.build();
         List<AuditLog> auditLogs = Context.getService(AuditService.class).getAuditLogs(startTime, endTime, logEvents, patients, users,
                         null, null, pagination);
         response.add("pagination", pagination);
         response.add("auditLogs", auditLogs);
-        response.add("dateFormatPattern", Context.getDateTimeFormat().toPattern());
-        response.add("startTime", startTime);
-        response.add("endTime", endTime);
-        response.add("events", selectedEvents);
+        response.add("events", Event.values());
         response.add("userSuggestions", userSuggestions());
-        response.add("user", user);
+        response.add("startTime", startDateTime);
+        response.add("endTime", endDateTime);
+        response.add("selectEvents", selectedEvents);
         response.add("patientId", patient != null ? patient.getUuid() : null);
         response.add("patientDisplay", patient != null ? patient.getPersonName().getFullName() + " #"
                         + patient.getPatientIdentifier().getIdentifier() : null);
+        response.add("user", user);
         return new AlreadyPaged<SimpleObject>(context, Arrays.asList(response), false);
     }
 
@@ -113,7 +114,8 @@ public class AuditLogResource extends BaseDataResource {
         List<AuditLog> audits = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, pagination);
         response.add("pagination", pagination);
         response.add("auditLogs", audits);
-        response.add("dateFormatPattern", Context.getDateFormat().toPattern());
+        response.add("events", Event.values());
+        response.add("userSuggestions", userSuggestions());
         return new AlreadyPaged<SimpleObject>(context, Arrays.asList(response), false);
     }
 

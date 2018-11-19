@@ -42,8 +42,21 @@ function getPageObject(page, pageUrl) {
  * Removes pagination parameters from a urlString
  */
 function removePaginationFromURL(urlString) {
-    if (urlString.indexOf("&fromItemNumber=") > 0) {
-        urlString = urlString.substring(0, urlString.indexOf("&fromItemNumber="));
+    if (urlString.indexOf("fromItemNumber=") > 0) {
+        urlString = urlString.substring(0, urlString.indexOf("fromItemNumber="));
+    }
+    //remove anyother parameters such as filters. 
+    //TODO rename function perhaps
+    urlString = removeFilterParametersFromURL(urlString);
+    return urlString;
+}
+
+/**
+ * Removes filter parameters from a urlString
+ */
+function removeFilterParametersFromURL(urlString) {
+    if (urlString.indexOf("startDateTime=") > 0) {
+        urlString = urlString.substring(0, urlString.indexOf("startDateTime="));
     }
     return urlString;
 }
@@ -94,7 +107,7 @@ function replacePaginationInURL(urlString, from, to) {
     } else {
     	urlString += "&fromItemNumber=" + from;
     }
-    return urlString + "&toItemNumber=" + to;
+    return (urlString + "&toItemNumber=" + to).replace("?&", "?");
 }
 
 /**

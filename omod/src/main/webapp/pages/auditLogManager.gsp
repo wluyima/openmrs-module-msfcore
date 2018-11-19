@@ -12,6 +12,7 @@
 
 <% ui.includeJavascript("uicommons", "angular.min.js") %>
 <% ui.includeJavascript("msfcore", "msf.utils.js") %>
+<% ui.includeJavascript("msfcore", "jquery-dateformat.js") %>
 <% ui.includeJavascript("msfcore", "angular.pagination.js") %>
 <% ui.includeJavascript("msfcore", "auditLog.controller.js") %>
 <% ui.includeJavascript("msfcore", "auditLogsManager.js") %>
@@ -38,7 +39,7 @@
 	    <input type="hidden" name="patientId" id="patient-id" value="{{audits.patientId}}"/>
 	    ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget", [ showLastViewedPatients: false ]) }
 		<br/>
-		<input type="button" id="submit-form" value="${ui.message('msfcore.filter')}"/>
+		<input type="button" ng-click="filterAuditLogs()" value="${ui.message('msfcore.filter')}"/>
 		<input type="button" onclick="window.location.href='auditLogManager.page'" value="${ ui.message('msfcore.reset')}"/>
 	</form>
 </div>
@@ -57,7 +58,7 @@
 	    <tbody>
 	    	<tr ng-repeat="log in audits.auditLogs">
 	    		<td>{{log.event}}</td>
-	    		<td>{{convertToDateFormat(audits.dateFormatPattern, log.date)}}</td>
+	    		<td title="{{log.date}}">{{prettyDate(log.date)}}</td>
 	    		<td>{{log.user.display}}</td>
 	    		<td>{{log.detail}}</td>
 	    	</tr>
@@ -72,7 +73,9 @@
 				<option value="25">25</option>
 				<option value="50" ng-show="audits.pagination.totalItemsNumber > 25">50</option>
 				<option value="100" ng-show="audits.pagination.totalItemsNumber > 50">100</option>
-				<option value="all" ng-show="audits.pagination.totalItemsNumber > 100">${ui.message('msfcore.all')}</option>
+				<option value="200" ng-show="audits.pagination.totalItemsNumber > 100">200</option>
+				<option value="400" ng-show="audits.pagination.totalItemsNumber > 200">400</option>
+				<option value="all" ng-show="audits.pagination.totalItemsNumber > 400">${ui.message('msfcore.all')}</option>
 			</select>
 		</span>
 		<span>${ui.message('msfcore.entries')}</span>

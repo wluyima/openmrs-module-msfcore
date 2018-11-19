@@ -25,7 +25,7 @@ function AuditLogsController($scope, $sce) {
             //TODO fix dates
             jQuery("[id^=start-time-]").val(audits.startTime);
       	    jQuery("[id^=end-time-]").val(audits.endTime);
-      	    jQuery.each(audits.events, function(i, e) {
+      	    jQuery.each(audits.selectEvents, function(i, e) {
       	    	jQuery("#events option[value=" + e + "]").prop("selected", true);
       	    });
       	    jQuery("#viewer").autocomplete({
@@ -45,10 +45,43 @@ function AuditLogsController($scope, $sce) {
     this.retrieveAuditLogsInitialisePages = this.retrieveAuditLogsInitialisePages || function() {
         retrieveAuditLogs(true);
     }
+    
+    this.prettyDate = this.prettyDate || function(date) {
+    	return jQuery.format.prettyDate(date);
+    }
 
+    this.filterAuditLogs = this.filterAuditLogs || function() {
+    	var filterUrl = removeFilterParametersFromURL(removePaginationFromURL(url)) + "?";
+    	var startDateTime = jQuery("#start-time-field").val();
+    	var endDateTime = jQuery("#end-time-field").val();
+    	var selectedEvents = jQuery("#events").val();
+    	var user = jQuery("#viewer").val();
+    	var patientId = jQuery("#patient-id").val();
+    	if(!isEmpty(startDateTime)) {
+    		filterUrl += "&startDateTime=" + startDateTime;
+    	}
+    	if(!isEmpty(endDateTime)) {
+    		filterUrl += "&endDateTime=" + endDateTime;
+    	}
+    	if(!isEmpty(selectedEvents)) {
+    		filterUrl += "&selectedEvents=" + selectedEvents.join(",");
+    	}
+    	if(!isEmpty(user)) {
+    		filterUrl += "&user=" + user;
+    	}
+    	if(!isEmpty(patientId)) {
+    		filterUrl += "&patientId=" + patientId;
+    	}
+    	if(!filterUrl.endsWith("?")) {
+    		url = filterUrl.replace("?&", "?").replace("??", "?");
+    		retrieveAuditLogs(true);
+    	}
+    }
+    
     $scope.retrieveAuditLogs = retrieveAuditLogs;
     $scope.retrieveAuditLogsInitialisePages = this.retrieveAuditLogsInitialisePages;
     $scope.paginate = paginate;
     $scope.pagination = pagination;
-    $scope.convertToDateFormat = convertToDateFormat;
+    $scope.prettyDate = this.prettyDate
+    $scope.filterAuditLogs = this.filterAuditLogs;
 }
