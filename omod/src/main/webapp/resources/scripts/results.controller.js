@@ -297,13 +297,8 @@ function clearFilterFields($scope, results) {
     jQuery("#filter-start-date").val("");
     jQuery("#filter-end-date").val("");
     if (results.filters.dates && results.filters.dates.length > 0) {
-        if (results.resultCategory == "DRUG_LIST") {
-            jQuery("#filter-dates").val("all");
-            $scope.filterDateValue = "all";
-        } else {
-            jQuery("#filter-dates").val(results.filters.dates[0]);
-            $scope.filterDateValue = results.filters.dates[0];
-        }
+    	jQuery("#filter-dates").val(results.filters.dates[0]);
+        $scope.filterDateValue = results.filters.dates[0];
     }
     $scope.filterStartDate = "";
     $scope.filterEndDate = "";

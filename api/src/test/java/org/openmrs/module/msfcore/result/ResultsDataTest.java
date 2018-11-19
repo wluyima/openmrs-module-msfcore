@@ -214,7 +214,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         assertEquals(ResultColumn.builder().value("921de0a3-05c4-444a-be03-e01b4c4b9142").build(), resultsData.getResults().get(4).get(
                         "uuid"));
-        assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(4).get("status"));
+        assertEquals(ResultColumn.builder().value(ResultStatus.STOPPED).build(), resultsData.getResults().get(4).get("status"));
 
         assertEquals(ResultColumn.builder().value(ResultStatus.PENDING).build(), resultsData.getResults().get(3).get("status"));
         assertEquals(ResultColumn.builder().value(Arrays.asList(ResultAction.EDIT, ResultAction.DELETE)).build(), resultsData.getResults()
@@ -247,7 +247,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         assertEquals(ResultColumn.builder().value("44rrc453-fc20-4f1b-a351-7eff54b4daf5").build(), resultsData.getResults().get(1).get(
                         "uuid"));
-        assertEquals(ResultColumn.builder().value(ResultStatus.INACTIVE).build(), resultsData.getResults().get(1).get("status"));
+        assertEquals(ResultColumn.builder().value(ResultStatus.STOPPED).build(), resultsData.getResults().get(1).get("status"));
         assertEquals(ResultColumn.builder().value(true).type(Type.STOP).stopDate(
                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse("2018-11-14 03:21:00.0")).build(), resultsData.getResults()
                         .get(1).get(Context.getMessageSourceService().getMessage("msfcore.stop")));
@@ -290,7 +290,7 @@ public class ResultsDataTest extends BaseModuleContextSensitiveTest {
 
         // should retreive filters
         assertEquals(ResultFilters.builder().name(Context.getMessageSourceService().getMessage("msfcore.drugName")).statuses(
-                        Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.INACTIVE)).dates(
+                        Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.STOPPED)).dates(
                         Arrays.asList(Context.getMessageSourceService().getMessage("msfcore.datePrescribed"), Context
                                         .getMessageSourceService().getMessage("msfcore.dispenseDate"))).build(), resultsData.getFilters());
 
