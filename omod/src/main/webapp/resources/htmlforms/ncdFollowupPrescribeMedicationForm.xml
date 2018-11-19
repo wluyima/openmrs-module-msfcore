@@ -54,12 +54,18 @@
                     jq('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
                     jq('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
 
-                    // display the first 'Add other medication' button if all the entries are removed
-                    if (getNumberMedications() == 0) {
-                        jq("#addEntry").show();
-                    }
+                    displayOrHideAddOtherMedicationButton();
+                    
                     return false;
                 });
+
+                function displayOrHideAddOtherMedicationButton() {
+                    if (getNumberMedications() == 0) {
+                        jq("#addEntry").show(); // display the first 'Add other medication' button if all the entries are removed
+                    } else {
+                        jq("#addEntry").hide(); // display the first 'Add other medication' button if one or more entries exist
+                    }
+                }
 
                 // show any prescriptions that have been saved
                 for (i = 1; i &lt; NUMBER_ENTRIES; i++) {
@@ -79,6 +85,8 @@
                     }
                     return numberMedications;
                 }
+
+                displayOrHideAddOtherMedicationButton();
 
             function getUsedContainers() {
                 var usedContainers = [];
