@@ -88,26 +88,26 @@
 
                 displayOrHideAddOtherMedicationButton();
 
-            function getUsedContainers() {
-                var usedContainers = [];
-                for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
-                    var containerId = `${i}-toggleContainer`;
-                    if (i == 1 || isPrescriptionFilled(i)) {
-                        usedContainers.push(jq(`#${i}-toggleContainer`));
+                function getUsedContainers() {
+                    var usedContainers = [];
+                    for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                        var containerId = `${i}-toggleContainer`;
+                        if (i == 1 || isPrescriptionFilled(i)) {
+                            usedContainers.push(jq(`#${i}-toggleContainer`));
+                        }
                     }
+                    return usedContainers;
                 }
-                return usedContainers;
-            }
-            
-            function isPrescriptionFilled(i) {
-                var filled;
-                if (typeof(getValue) != 'undefined') {
-                    filled = getValue(`name-${i}.value`) != "";
-                } else {
-                    filled = jq(`#name-${i}`).children('.value').length > 0;
+                
+                function isPrescriptionFilled(i) {
+                    var filled;
+                    if (typeof(getValue) != 'undefined') {
+                        filled = getValue(`name-${i}.value`) != "";
+                    } else {
+                        filled = jq(`#name-${i}`).children('.value').length > 0;
+                    }
+                    return filled;
                 }
-                return filled;
-            }
 			});
 
 		}
