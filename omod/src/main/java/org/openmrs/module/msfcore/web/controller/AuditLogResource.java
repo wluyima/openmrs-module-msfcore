@@ -36,9 +36,13 @@ public class AuditLogResource extends BaseDataResource {
     }
 
     @Override
-    protected AlreadyPaged<AuditLog> doGetAll(RequestContext context) throws ResponseException {
+    protected AlreadyPaged<SimpleObject> doGetAll(RequestContext context) throws ResponseException {
+        Pagination pagination = Pagination.builder().build();
+        SimpleObject response = new SimpleObject();
         List<AuditLog> audits = Context.getService(AuditService.class).getAuditLogs(null, null, null, null, null, null, null, null);
-        return new AlreadyPaged<AuditLog>(context, audits, false);
+        response.add("pagination", pagination);
+        response.add("auditLogs", audits);
+        return new AlreadyPaged<SimpleObject>(context, Arrays.asList(response), false);
     }
 
     @Override
@@ -98,6 +102,11 @@ public class AuditLogResource extends BaseDataResource {
         if (auditLog.getEvent().equals(Event.VIEW_LAB_RESULTS)) {
             auditLog.setDetail(Context.getMessageSourceService().getMessage(
                             "msfcore.viewLabResultsEvent",
+                            new Object[]{auditLog.getPatient().getPerson().getPersonName().getFullName(),
+                                            auditLog.getPatient().getPatientIdentifier().getIdentifier()}, null));
+        } else if (auditLog.getEvent().equals(Event.VIEW_DRUG_DISPENSING)) {
+            auditLog.setDetail(Context.getMessageSourceService().getMessage(
+                            "msfcore.viewDrugDispensingEvent",
                             new Object[]{auditLog.getPatient().getPerson().getPersonName().getFullName(),
                                             auditLog.getPatient().getPatientIdentifier().getIdentifier()}, null));
         }

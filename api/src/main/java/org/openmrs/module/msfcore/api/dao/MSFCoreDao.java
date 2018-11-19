@@ -23,6 +23,7 @@ import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Obs;
 import org.openmrs.Order;
+import org.openmrs.Order.Action;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -96,6 +97,8 @@ public class MSFCoreDao extends MSFCoreBaseDao {
         if (concepts != null && !concepts.isEmpty()) {
             crit.add(Restrictions.in("concept", concepts));
         }
+        // exclude discontinuing orders
+        crit.add(Restrictions.not(Restrictions.eq("action", Action.DISCONTINUE)));
 
         applyPaginationToCriteria(pagination, crit);
         crit.addOrder(desc("dateActivated"));
@@ -104,11 +107,8 @@ public class MSFCoreDao extends MSFCoreBaseDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept) {
         Criteria crit = getSession().createCriteria(Obs.class);
-        if (person != null) {
-            crit.add(Restrictions.eq("person", person));
-        }
         if (order != null) {
             crit.add(Restrictions.eq("order", order));
         }
