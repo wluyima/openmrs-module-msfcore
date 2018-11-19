@@ -32,7 +32,7 @@
 					<td ng-if="results.filters.statuses" class="no-wrap">
 						<select ng-model="filterStatusValue" id="filter-status" ng-change="statusFilter()">
 							<option value="all" ng-if="results.resultCategory == 'LAB_RESULTS'">${ui.message('msfcore.statusAll')}</option>
-							<option value="all" ng-if="results.resultCategory == 'DRUG_LIST'">${ui.message('msfcore.stopAll')}</option>
+							<option value="all" ng-if="results.resultCategory == 'DRUG_LIST'">${ui.message('msfcore.statusAll')}</option>
 							<option ng-repeat="status in results.filters.statuses" value="{{status}}">{{status.charAt(0).toUpperCase() + status.substr(1).toLowerCase();}}</option>
 						</select>
 					</td>
@@ -41,7 +41,6 @@
 							<input onfocus="this.type='date'" id="filter-start-date" placeholder="${ui.message('msfcore.startDate')}" ng-model="filterStartDate" ng-change="datesFilter()" />
 							<input onfocus="this.type='date'" id="filter-end-date" placeholder="${ui.message('msfcore.endDate')}" ng-model="filterEndDate" ng-change="datesFilter()" />
 							<select id="filter-dates" ng-model="filterDateValue" ng-change="datesFilter()"">
-								<option ng-if="results.resultCategory == 'DRUG_LIST'" value="all">${ui.message('msfcore.all')}</option>
 								<option ng-repeat="date in results.filters.dates" value="{{date}}">{{date}}</option>
 							</select>
 						</div>

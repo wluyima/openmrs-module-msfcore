@@ -80,7 +80,7 @@ public class ResultsData {
             keys.addAll(getDrugOrdersKeys());
             filters.setDates(getLocalizedKeys(Arrays.asList("msfcore.datePrescribed", "msfcore.dispenseDate")));
             filters.setName(Context.getMessageSourceService().getMessage("msfcore.drugName"));
-            filters.setStatuses(Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.INACTIVE));
+            filters.setStatuses(Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.ACTIVE, ResultStatus.STOPPED));
         } else if (resultCategory.equals(ResultCategory.LAB_RESULTS)) {
             orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
             filters.setStatuses(Arrays.asList(ResultStatus.CANCELLED, ResultStatus.PENDING, ResultStatus.COMPLETED));
@@ -174,7 +174,7 @@ public class ResultsData {
         if (drugOrder.getVoided()) {
             status = ResultStatus.CANCELLED;
         } else if (isDiscontinued) {
-            status = ResultStatus.INACTIVE;
+            status = ResultStatus.STOPPED;
         } else if (dispensedObs == null || dispensedDateObs == null) {
             status = ResultStatus.PENDING;
             actions.add(ResultAction.EDIT);
