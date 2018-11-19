@@ -484,4 +484,9 @@ public class MSFCoreConfig {
 
     public static final String ENCOUNTER_TYPE_DISPENSE_DRUG_UUID = "0aa6553b-be5z-413a-93fr-23962bc594e0";
 
+    public static final String CHART_SEARCH_EXTENSION_ID = "chartsearch.chartSearchLink";
+
+    public static final String ADMIT_TO_INPATIENT_EXTENSION_ID = "referenceapplication.realTime.simpleAdmission";
+
+    public static final String VISIT_NOTE_EXTENSION_ID = "referenceapplication.realTime.simpleVisitNote";
 }
