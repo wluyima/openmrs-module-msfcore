@@ -43,6 +43,7 @@
 							<select id="filter-dates" ng-model="filterDateValue" ng-change="datesFilter()"">
 								<option ng-repeat="date in results.filters.dates" value="{{date}}">{{date}}</option>
 							</select>
+							<input type="button" onclick="retrieveResults()" value="${ui.message('msfcore.clear')}"/>
 						</div>
 					</td>
 				</tr>
