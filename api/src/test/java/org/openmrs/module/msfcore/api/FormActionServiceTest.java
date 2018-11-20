@@ -146,8 +146,8 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
-        executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
-        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        executeDataSet("FormActionService.xml");
+        Encounter encounter = Context.getEncounterService().getEncounter(32);
 
         // initially we should have 2 non voided orders for both concepts
         List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
@@ -158,25 +158,25 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
         formActionService.saveDrugOrders(encounter);
 
         // then just one active order for concept 1000021
-        encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        encounter = Context.getEncounterService().getEncounter(32);
         activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
         Assert.assertEquals(1, activeOrders.size());
         Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
     }
     @Test
     public void saveDrugOrders_shouldNotUpdateOrderIfItWasNotChanged() throws Exception {
-        executeDataSet("saveDrugOrders_shouldNotUpdateOrderIfItWasNotChanged.xml");
+        executeDataSet("FormActionService.xml");
 
-        Encounter encounter = Context.getEncounterService().getEncounter(32);
+        Encounter encounter = Context.getEncounterService().getEncounter(33);
         Assert.assertEquals(1, encounter.getOrders().size());
-        Assert.assertEquals(9, encounter.getOrders().iterator().next().getId().intValue());
+        Assert.assertEquals(11, encounter.getOrders().iterator().next().getId().intValue());
 
         formActionService.saveDrugOrders(encounter);
 
         // Nothing is supposed to be changed
-        encounter = Context.getEncounterService().getEncounter(32);
+        encounter = Context.getEncounterService().getEncounter(33);
         Assert.assertEquals(1, encounter.getOrders().size());
-        Assert.assertEquals(9, encounter.getOrders().iterator().next().getId().intValue());
+        Assert.assertEquals(11, encounter.getOrders().iterator().next().getId().intValue());
     }
 
     @Test
