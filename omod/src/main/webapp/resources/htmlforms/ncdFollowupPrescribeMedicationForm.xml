@@ -237,7 +237,7 @@
                 </div>
 
                 <div>
-                  <button class="addEntry" id="addEntry"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"></lookup></button>
+                  <button class="addEntry" id="addEntry"><lookup expression="fn.message('msfcore.ncdfollowup.addanother.medication')"></lookup></button>
                 </div>
 
                 <br /><br />
