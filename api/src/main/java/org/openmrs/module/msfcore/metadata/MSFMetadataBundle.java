@@ -20,6 +20,13 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.MSF_OTHER_ID_NAME);
         install(PersonAttributeTypes.MSF_EDUCATION_ABLE_TO_READ);
         install(PersonAttributeTypes.MSF_EDUCATION_ABLE_TO_WRITE);
+        install(PersonAttributeTypes.FATHER);
+        install(PersonAttributeTypes.MOTHER);
+        install(PersonAttributeTypes.SISTER);
+        install(PersonAttributeTypes.BROTHER);
+        install(PersonAttributeTypes.UNCLE);
+        install(PersonAttributeTypes.AUNT);
+        install(PersonAttributeTypes.OTHER);
 
         log.info("Installing LocationAttributeTypes");
         install(LocationAttributeTypes.LOCATION_CODE);
