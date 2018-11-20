@@ -212,6 +212,30 @@ a.visited {
     display: none;
 }
 
+.flex-row,
+.flex-col {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row !important;
+    margin: 24px 0;
+}
+
+.flex-col {
+    flex-direction: column !important;
+}
+
+.flex-row > .flex-col {
+    margin-right: 24px;
+}
+
+/* Spacers */
+
+.margin-r-24 {
+    margin-right: 24px;
+}
+
 /* TOASTS */
 
 .toast-item {
