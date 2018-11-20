@@ -215,6 +215,7 @@ public class MSFCoreActivator extends BaseModuleActivator {
         triggerMSFApps(false);
         removeMSFMeta();
         Context.getAdministrationService().updateGlobalProperty(MSFCoreConfig.GP_MANADATORY, "false");
+        removeMsfForms();
         super.willStop();
     }
 
@@ -231,6 +232,18 @@ public class MSFCoreActivator extends BaseModuleActivator {
         try {
             HtmlFormsInitializer htmlFormsInitializer = new HtmlFormsInitializer("msfcore");
             htmlFormsInitializer.started();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Installing MSF Forms
+     */
+    private void removeMsfForms() {
+        try {
+            HtmlFormsInitializer htmlFormsInitializer = new HtmlFormsInitializer("msfcore");
+            htmlFormsInitializer.stopped();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

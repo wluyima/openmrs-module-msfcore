@@ -80,7 +80,14 @@ public interface MSFCoreService extends OpenmrsService {
 
     void manageNCDProgram(Encounter encounter);
 
-    List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
+    /**
+     * @param patient
+     * @param type
+     * @param concepts
+     * @param pagination
+     * @return matching orders excluding orders that discontinued others
+     */
+    public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination);
 
-    List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept);
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept);
 }
