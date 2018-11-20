@@ -75,23 +75,23 @@
                     }
                 }
 
-                function getNumberMedications() {
-                    var numberMedications = 0;
-                    for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
-                        var containerId = `#${i}-toggleContainer`;
-                            if(jq(containerId).is(":visible")) {
-                                numberMedications++;
-                            }
-                    }
-                    return numberMedications;
-                }
-
                 displayOrHideAddOtherMedicationButton();
 
                 beforeSubmit.push(validateDupplicatedMedication);
                 beforeSubmit.push(validateRequired);
 			});
 			
+            function getNumberMedications() {
+                var numberMedications = 0;
+                for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
+                    var containerId = `#${i}-toggleContainer`;
+                        if(jq(containerId).is(":visible")) {
+                            numberMedications++;
+                        }
+                }
+                return numberMedications;
+            }
+
             function validateRequired() {
                 var requiredMessage = '<lookup expression="fn.message('msfcore.required')"/>';
                 return validateRequiredFields(getRequiredFieldIds(), requiredMessage);
