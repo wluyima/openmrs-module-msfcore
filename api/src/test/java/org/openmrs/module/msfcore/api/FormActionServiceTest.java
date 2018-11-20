@@ -25,7 +25,6 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.api.ObsService;
-import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private FormActionService formActionService;
-
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     private ObsService obsService;
@@ -149,24 +145,24 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-	public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
-		executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-		
-		// initially we should have 2 non voided orders for both concepts
-		List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
-		Assert.assertEquals(2, activeOrders.size());
-		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
-		
-		formActionService.saveDrugOrders(encounter);
-		
-		// then just one active order for concept 1000021
-		encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
-		activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
-		Assert.assertEquals(1, activeOrders.size());
-		Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
-	}
+    public void saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved() throws Exception {
+        executeDataSet("saveDrugOrders_shouldVoidOrderWhenEntryIsRemoved.xml");
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+
+        // initially we should have 2 non voided orders for both concepts
+        List<Order> activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(2, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(924)).findAny().isPresent());
+
+        formActionService.saveDrugOrders(encounter);
+
+        // then just one active order for concept 1000021
+        encounter = Context.getEncounterService().getEncounterByUuid("a131a0c9-e550-47da-a8d1-0eaa269cb3gh");
+        activeOrders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
+        Assert.assertEquals(1, activeOrders.size());
+        Assert.assertTrue(activeOrders.stream().filter(o -> o.getConcept().getId().equals(1000021)).findAny().isPresent());
+    }
     @Test
     public void saveDrugOrders_shouldNotUpdateOrderIfItWasNotChanged() throws Exception {
         executeDataSet("saveDrugOrders_shouldNotUpdateOrderIfItWasNotChanged.xml");
@@ -177,29 +173,29 @@ public class FormActionServiceTest extends BaseModuleContextSensitiveTest {
 
         formActionService.saveDrugOrders(encounter);
 
-        //Nothing is supposed to be changed
+        // Nothing is supposed to be changed
         encounter = Context.getEncounterService().getEncounter(32);
         Assert.assertEquals(1, encounter.getOrders().size());
         Assert.assertEquals(9, encounter.getOrders().iterator().next().getId().intValue());
     }
 
     @Test
-	public void saveAllergies_shouldCreateAllergies() throws Exception {
-		executeDataSet("MSFCoreService.xml");
-		
-		Encounter encounter = Context.getEncounterService().getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
-		
-		Allergies allergies = formActionService.saveAllergies(encounter);
-		Assert.assertNotNull(allergies);
-		Assert.assertEquals(3, allergies.size());
-		allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
-		allergies.forEach(a -> Assert.assertTrue(
-		    Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
-		allergies.forEach(a -> a.getReactions().forEach(r -> Assert.assertTrue(
-		    Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
-		allergies.forEach(a -> Assert
-		        .assertTrue(Arrays.asList(162543, 162538, 71617).contains(a.getAllergen().getCodedAllergen().getId())));
-	}
+    public void saveAllergies_shouldCreateAllergies() throws Exception {
+        executeDataSet("MSFCoreService.xml");
+
+        Encounter encounter = Context.getEncounterService().getEncounterByUuid("992b696b-529c-4ded-b7f7-4876fb4f2936");
+
+        Allergies allergies = formActionService.saveAllergies(encounter);
+        Assert.assertNotNull(allergies);
+        Assert.assertEquals(3, allergies.size());
+        allergies.forEach(a -> Assert.assertTrue(a.getReactions().size() > 0));
+        allergies.forEach(a -> Assert.assertTrue(
+                        Arrays.asList(AllergenType.DRUG, AllergenType.FOOD, AllergenType.ENVIRONMENT).contains(a.getAllergenType())));
+        allergies.forEach(a -> a.getReactions().forEach(r -> Assert
+                        .assertTrue(Arrays.asList(120148, 143264, 139581, 121629, 121677).contains(r.getReaction().getConceptId()))));
+        allergies.forEach(
+                        a -> Assert.assertTrue(Arrays.asList(162543, 162538, 71617).contains(a.getAllergen().getCodedAllergen().getId())));
+    }
     @Test(expected = IllegalArgumentException.class)
     public void saveAllergies_shouldThrowsExceptionSavingAllergies() throws Exception {
         executeDataSet("MSFCoreService.xml");

@@ -114,14 +114,14 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     }
 
     private boolean isOrderFulfilled(Patient patient, Order order) {
-        return dao.getObservationsByPersonAndOrderAndConcept(patient, order, null).size() > 0;
+        return dao.getObservationsByOrderAndConcept(order, null).size() > 0;
     }
 
     private boolean isDrugOrderDispensed(Order order) {
         if (order != null) {
             Concept dispensedConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED);
             if (dispensedConcept != null) {
-                return dao.getObservationsByPersonAndOrderAndConcept(order.getPatient(), order, dispensedConcept).size() > 0;
+                return dao.getObservationsByOrderAndConcept(order, dispensedConcept).size() > 0;
             } else {
                 throw new IllegalArgumentException(String.format("Concept with UUID %s not found", MSFCoreConfig.CONCEPT_UUID_DESPENSED));
             }

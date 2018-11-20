@@ -295,19 +295,16 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
     public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveCorrectObs() {
         executeDataSet("MSFCoreService.xml");
 
-        Assert.assertEquals("203d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
-                        .getObservationsByPersonAndOrderAndConcept(Context.getPersonService().getPerson(7),
-                                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(5000023)).get(0)
-                        .getUuid());
+        Assert.assertEquals(5, Context.getService(MSFCoreService.class).getObservationsByOrderAndConcept(
+                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(5000023)).get(0).getId().intValue());
     }
 
     @Test
     public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveNoObsIfConceptDoesntMatch() {
         executeDataSet("MSFCoreService.xml");
 
-        Assert.assertEquals(0, Context.getService(MSFCoreService.class).getObservationsByPersonAndOrderAndConcept(
-                        Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1),
-                        Context.getConceptService().getConcept(5000011)).size());
+        Assert.assertEquals(0, Context.getService(MSFCoreService.class).getObservationsByOrderAndConcept(
+                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(5000012)).size());
     }
 
     @Test

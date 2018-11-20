@@ -358,3 +358,8 @@ td.cv-risk-options input[type="radio"] + label{
   margin-bottom: 0;
 }
 .obs-field.select-arrow {margin-top:0;}
+
+/* 11. Request appointment */
+span#appointment_next_date .hasDatepicker {
+  min-width: 232px;
+}
