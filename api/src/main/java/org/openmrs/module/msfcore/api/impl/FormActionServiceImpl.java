@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.openmrs.Allergies;
@@ -141,34 +142,38 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     }
 
     @Override
-    public void saveDrugOrders(Encounter encounter) {
-        final OrderService orderService = Context.getOrderService();
-        final EncounterService encounterService = Context.getEncounterService();
-        final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
-        final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
-        final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-        final Set<Obs> groups = encounter.getObsAtTopLevel(true);
-        for (final Obs group : groups) {
-            Order currentOrder = group.getOrder();
-            if (!isDrugOrderDispensed(currentOrder)) {
-                if (!group.getVoided()) {
-                    final Set<Obs> observations = group.getGroupMembers();
-                    final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
-                                    observations);
-                    final Drug drug = this.dao.getDrugByConcept(medication);
-                    final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations, drug);
-                    if (isOrderModified(order, currentOrder)) {
-                        voidOrder(currentOrder);
-                        updateEncounter(encounter, group, observations, order);
-                    }
-                } else {
-                    voidOrder(currentOrder);
-                }
-            }
-        }
-        encounterService.saveEncounter(encounter);
-    }
-
+	public void saveDrugOrders(Encounter encounter) {
+		final OrderService orderService = Context.getOrderService();
+		final EncounterService encounterService = Context.getEncounterService();
+		final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+		final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+		final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
+		
+		//On followup some top level OBSs are not prescription groups
+		final List<Obs> groups = encounter.getObsAtTopLevel(true).stream().filter(g -> g.isObsGrouping())
+		        .collect(Collectors.toList());
+		
+		for (final Obs group : groups) {
+			Order currentOrder = group.getOrder();
+			if (!isDrugOrderDispensed(currentOrder)) {
+				if (!group.getVoided()) {
+					final Set<Obs> observations = group.getGroupMembers();
+					final Concept medication = this
+					        .getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
+					final Drug drug = this.dao.getDrugByConcept(medication);
+					final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations,
+					    drug);
+					if (isOrderModified(order, currentOrder)) {
+						voidOrder(currentOrder);
+						updateEncounter(encounter, group, observations, order);
+					}
+				} else {
+					voidOrder(currentOrder);
+				}
+			}
+		}
+		encounterService.saveEncounter(encounter);
+	}
     private void voidOrder(Order order) {
         if (order != null) {
             order.setVoided(true);
