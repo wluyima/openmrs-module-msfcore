@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+
+  <!-- TODO: This needs to be refactored and moved to a FormActionService.xml -->
   
   <global_property property="order.drugDosingUnitsConceptUuid" property_value="d09764da-2bf1-4ab6-933f-07a50add8f33" description="Specifies the uuid of the concept set where its members represent the possible drug dosing units" uuid="f7d3d1ef-64f1-4afc-8169-45aa8454ad10"/>
   <global_property property="order.drugRoutesConceptUuid" property_value="162394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" description="Specifies the uuid of the concept set where its members represent the possible drug routes" uuid="2a050d51-ccd9-4bec-92b5-477614816a1b"/>
