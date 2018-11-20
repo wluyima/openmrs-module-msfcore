@@ -18,11 +18,11 @@ import org.springframework.stereotype.Component;
  * MSFCoreActivator
  */
 @Component
-public class ScheduledAppointmentsReport extends BaseMSFReportManager {
+public class DefaultedPatientsReport extends BaseMSFReportManager {
 
     @Override
     public String getName() {
-        return Context.getMessageSourceService().getMessage("msfcore.reports.scheduledAppointments");
+        return Context.getMessageSourceService().getMessage("msfcore.reports.defaultedPatients");
     }
 
     public String getDatasetName(ReportDefinition definition) {
@@ -31,12 +31,12 @@ public class ScheduledAppointmentsReport extends BaseMSFReportManager {
 
     @Override
     public String getUuid() {
-        return ReportConstants.SCHEDULED_APPOINTMENTS_REPORT_UUID;
+        return ReportConstants.DEFAULTED_PATIENTS_REPORT_UUID;
     }
 
     @Override
     public String getDescription() {
-        return Context.getMessageSourceService().getMessage("msfcore.reports.scheduledAppointments.description");
+        return Context.getMessageSourceService().getMessage("msfcore.reports.defaultedPatients.description");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ScheduledAppointmentsReport extends BaseMSFReportManager {
 
         // Using sql is the easiest way here
         SqlDataSetDefinition sqlDataDef = new SqlDataSetDefinition();
-        sqlDataDef.setUuid("dc2b093b-531a-484a-aa6e-b185f61215cb");
+        sqlDataDef.setUuid("304f741c-60a2-4a44-bf3b-89cd1308f10a");
         sqlDataDef.setName(getDatasetName(reportDef));
         sqlDataDef.addParameters(getParameters());
         sqlDataDef.setSqlQuery(getReportSQLQuery());
@@ -74,16 +74,16 @@ public class ScheduledAppointmentsReport extends BaseMSFReportManager {
     @Override
     public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
         List<ReportDesign> l = new ArrayList<ReportDesign>();
-        ReportDesign design = ReportManagerUtil.createExcelTemplateDesign("be2118d8-c8f1-4948-ae65-ec63237e6a95", reportDefinition,
-                        "excel_template_appointments.xls");
+        ReportDesign design = ReportManagerUtil.createExcelTemplateDesign("618a3b96-4879-4234-8967-5dac6b2b3e83", reportDefinition,
+                        "excel_template_defaulters.xls");
         design.addPropertyValue("repeatingSections", "sheet:1,row:6,dataset:" + getDatasetName(reportDefinition));
-        design.setName("excel_template_appointments");
+        design.setName("excel_template_defaulters");
         l.add(design);
         return l;
     }
 
     private String getReportSQLQuery() {
-        return ReportUtil.readStringFromResource("query_appointments.sql");
+        return ReportUtil.readStringFromResource("query_defaulters.sql");
     }
 
 }
