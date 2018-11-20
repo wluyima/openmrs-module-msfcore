@@ -18,6 +18,8 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.DATE_OF_ARRIVAL);
         install(PersonAttributeTypes.OLD_FACILITY_CODE);
         install(PersonAttributeTypes.MSF_OTHER_ID_NAME);
+        install(PersonAttributeTypes.MSF_EDUCATION_ABLE_TO_READ);
+        install(PersonAttributeTypes.MSF_EDUCATION_ABLE_TO_WRITE);
 
         log.info("Installing LocationAttributeTypes");
         install(LocationAttributeTypes.LOCATION_CODE);
