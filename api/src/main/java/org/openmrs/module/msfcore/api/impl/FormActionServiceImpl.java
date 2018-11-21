@@ -11,6 +11,7 @@ package org.openmrs.module.msfcore.api.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
         List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
 
-        List<Order> orders = encounter.getOrdersWithoutOrderGroups();
+        List<Order> orders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
         Concept labOrdersSetConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_SET_LAB_ORDERS_UUID);
 
         for (Obs obs : allObs) {
@@ -84,7 +85,6 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         }
         encounterService.saveEncounter(encounter);
     }
-
     @Override
     public void saveDrugOrders(Encounter encounter) {
         final OrderService orderService = Context.getOrderService();
@@ -116,7 +116,7 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         }
         encounterService.saveEncounter(encounter);
     }
-    private Optional<Order> getExistingOrder(List<Order> orders, Obs obs) {
+    private Optional<Order> getExistingOrder(Collection<Order> orders, Obs obs) {
         return orders.stream().filter(o -> o.getConcept().equals(obs.getConcept())).findAny();
     }
     private boolean isOrderFulfilled(Order order) {
