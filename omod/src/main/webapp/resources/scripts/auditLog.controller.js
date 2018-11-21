@@ -85,3 +85,11 @@ function AuditLogsController($scope, $sce) {
     $scope.prettyDate = this.prettyDate
     $scope.filterAuditLogs = this.filterAuditLogs;
 }
+
+function removeFilterParametersFromURL(urlString) {
+	if(urlString.indexOf("?") > 0) {
+		return urlString.substring(0, urlString.indexOf("?"));
+	} else {
+		return urlString;
+	}
+}
