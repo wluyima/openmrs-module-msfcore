@@ -1,6 +1,8 @@
 package org.openmrs.module.msfcore.metadata;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.CoreConstructors1_10;
+import org.openmrs.module.metadatadeploy.descriptor.OrderTypeDescriptor;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -99,6 +101,11 @@ public class MSFMetadataBundle extends AbstractMetadataBundle {
 
         log.info("Installing Privileges");
         install(Privileges.ENROLL_IN_PROGRAM);
+
+        log.info("Installing OrderTypes");
+        OrderTypeDescriptor referralDescriptor = OrderTypes.REFERRAL;
+        deployService.installObject(CoreConstructors1_10.orderType(referralDescriptor.name(), referralDescriptor.description(),
+                        referralDescriptor.uuid(), referralDescriptor.javaClassName(), null));
     }
 
 }

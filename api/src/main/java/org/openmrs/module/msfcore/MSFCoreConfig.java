@@ -539,4 +539,6 @@ public class MSFCoreConfig {
     public static final String PERSON_ATTRIBUTE_MOTHER_UUID = "0cd7e060-ec40-11e8-8eb2-f2801f1b9fd6";
 
     public static final String PERSON_ATTRIBUTE_FATHER_UUID = "0cd7e060-ec40-11e8-8eb2-f2801f1b9fd7";
+
+    public static final String REFERRAL_ORDER_TYPE_UUID = "1bb0842a-ed99-11e8-8eb2-f2801f1b9fd1";
 }
