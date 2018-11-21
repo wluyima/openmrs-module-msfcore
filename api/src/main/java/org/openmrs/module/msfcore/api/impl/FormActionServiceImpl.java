@@ -11,6 +11,7 @@ package org.openmrs.module.msfcore.api.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,6 @@ import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.OrderFrequency;
 import org.openmrs.OrderType;
-import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
@@ -45,6 +45,8 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
 
     private static final String ORDER_VOID_REASON = "Obs was voided";
 
+    private MSFCoreDao dao;
+
     @SuppressWarnings("serial")
     private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
 
@@ -55,15 +57,6 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         }
     };
 
-    MSFCoreDao dao;
-
-    /**
-     * Injected in moduleApplicationContext.xml
-     */
-    public void setDao(MSFCoreDao dao) {
-        this.dao = dao;
-    }
-
     @Override
     public void saveTestOrders(Encounter encounter) {
         OrderService orderService = Context.getOrderService();
@@ -73,57 +66,70 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
         List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
 
-        List<Order> orders = encounter.getOrdersWithoutOrderGroups();
+        List<Order> orders = encounter.getOrders().stream().filter(o -> !o.getVoided()).collect(Collectors.toList());
         Concept labOrdersSetConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_SET_LAB_ORDERS_UUID);
 
         for (Obs obs : allObs) {
-
-            // check for test order observations only (exludes results)
-            if (!labOrdersSetConcept.getSetMembers().contains(obs.getConcept())) {
-                break;
-            }
-
-            boolean isOrderFound = false;
-            for (Order order : orders) {
-
-                // look for existing order for that obs
-                if (obs.getConcept().equals(order.getConcept())) {
-                    isOrderFound = true;
-
-                    // ignore fulfilled orders
-                    if (isOrderFulfilled(encounter.getPatient(), order)) {
-                        break;
-                    }
-
-                    // void order if obs is voided
-                    if (obs.getVoided().equals(true)) {
-                        orderService.voidOrder(order, ORDER_VOID_REASON);
-                        break;
-                    }
+            // check for test order observations only (excludes results)
+            if (labOrdersSetConcept.getSetMembers().contains(obs.getConcept())) {
+                Optional<Order> existingOrder = getExistingOrder(orders, obs);
+                boolean mustInactivate = existingOrder.isPresent() && !isOrderFulfilled(existingOrder.get()) && obs.getVoided();
+                boolean mustCreate = !existingOrder.isPresent() && !obs.getVoided();
+                if (mustInactivate) {
+                    orderService.voidOrder(existingOrder.get(), ORDER_VOID_REASON);
+                } else if (mustCreate) {
+                    TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, obs.getConcept());
+                    orderService.saveOrder(order, null);
                 }
             }
-
-            // if not orders were found, create an order for this obs
-            if (!isOrderFound && obs.getVoided().equals(false)) {
-                TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, obs.getConcept());
-                orderService.saveOrder(order, null);
-            }
         }
-
         encounterService.saveEncounter(encounter);
     }
+    @Override
+    public void saveDrugOrders(Encounter encounter) {
+        final OrderService orderService = Context.getOrderService();
+        final EncounterService encounterService = Context.getEncounterService();
+        final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+        final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
+        final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
 
-    private boolean isOrderFulfilled(Patient patient, Order order) {
+        // On followup some top level OBSs are not prescription groups
+        final List<Obs> groups = encounter.getObsAtTopLevel(true).stream().filter(g -> g.isObsGrouping()).collect(Collectors.toList());
+
+        for (final Obs group : groups) {
+            Order currentOrder = group.getOrder();
+            if (!isDrugOrderDispensed(currentOrder)) {
+                if (!group.getVoided()) {
+                    final Set<Obs> observations = group.getGroupMembers();
+                    final Concept medication = this.getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID,
+                                    observations);
+                    final Drug drug = this.dao.getDrugByConcept(medication);
+                    final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations, drug);
+                    if (isOrderModified(order, currentOrder)) {
+                        voidOrder(currentOrder);
+                        updateEncounter(encounter, group, observations, order);
+                    }
+                } else {
+                    voidOrder(currentOrder);
+                }
+            }
+        }
+        encounterService.saveEncounter(encounter);
+    }
+    private Optional<Order> getExistingOrder(Collection<Order> orders, Obs obs) {
+        return orders.stream().filter(o -> o.getConcept().equals(obs.getConcept())).findAny();
+    }
+    private boolean isOrderFulfilled(Order order) {
         return dao.getObservationsByOrderAndConcept(order, null).size() > 0;
     }
 
     private boolean isDrugOrderDispensed(Order order) {
         if (order != null) {
-            Concept dispensedConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DESPENSED);
+            Concept dispensedConcept = Context.getConceptService().getConceptByUuid(MSFCoreConfig.CONCEPT_UUID_DISPENSED);
             if (dispensedConcept != null) {
                 return dao.getObservationsByOrderAndConcept(order, dispensedConcept).size() > 0;
             } else {
-                throw new IllegalArgumentException(String.format("Concept with UUID %s not found", MSFCoreConfig.CONCEPT_UUID_DESPENSED));
+                throw new IllegalArgumentException(String.format("Concept with UUID %s not found", MSFCoreConfig.CONCEPT_UUID_DISPENSED));
             }
         }
         return false;
@@ -141,39 +147,6 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         return order;
     }
 
-    @Override
-	public void saveDrugOrders(Encounter encounter) {
-		final OrderService orderService = Context.getOrderService();
-		final EncounterService encounterService = Context.getEncounterService();
-		final OrderType orderType = orderService.getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
-		final Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
-		final CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-		
-		//On followup some top level OBSs are not prescription groups
-		final List<Obs> groups = encounter.getObsAtTopLevel(true).stream().filter(g -> g.isObsGrouping())
-		        .collect(Collectors.toList());
-		
-		for (final Obs group : groups) {
-			Order currentOrder = group.getOrder();
-			if (!isDrugOrderDispensed(currentOrder)) {
-				if (!group.getVoided()) {
-					final Set<Obs> observations = group.getGroupMembers();
-					final Concept medication = this
-					        .getObsConceptValueByConceptUuid(MSFCoreConfig.CONCEPT_PRESCRIBED_MEDICATION_UUID, observations);
-					final Drug drug = this.dao.getDrugByConcept(medication);
-					final DrugOrder order = this.createDrugOrder(encounter, orderType, provider, careSetting, observations,
-					    drug);
-					if (isOrderModified(order, currentOrder)) {
-						voidOrder(currentOrder);
-						updateEncounter(encounter, group, observations, order);
-					}
-				} else {
-					voidOrder(currentOrder);
-				}
-			}
-		}
-		encounterService.saveEncounter(encounter);
-	}
     private void voidOrder(Order order) {
         if (order != null) {
             order.setVoided(true);
@@ -193,13 +166,13 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     }
 
     private void updateEncounter(Encounter encounter, final Obs group, final Set<Obs> observations, final DrugOrder order) {
-		encounter.addOrder(order);
-		final Obs newGroup = Obs.newInstance(group);
-		newGroup.setOrder(order);
-		group.setVoided(true);
-		observations.forEach(o -> o.setVoided(true));
-		encounter.addObs(newGroup);
-	}
+        encounter.addOrder(order);
+        final Obs newGroup = Obs.newInstance(group);
+        newGroup.setOrder(order);
+        group.setVoided(true);
+        observations.forEach(o -> o.setVoided(true));
+        encounter.addObs(newGroup);
+    }
     @Override
     public Allergies saveAllergies(Encounter encounter) {
         return Context.getRegisteredComponents(AllergyUtils.class).get(0).saveAllergies(encounter);
@@ -265,6 +238,13 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     }
 
     private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
-		return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
-	}
+        return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
+    }
+    /**
+     * Injected in moduleApplicationContext.xml
+     */
+    public void setDao(MSFCoreDao dao) {
+        this.dao = dao;
+    }
+
 }
