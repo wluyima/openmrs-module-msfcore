@@ -2,7 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("msfcore.patientSummary") ])
 %>
 
-<script src="${ui.resourceLink('msfcore', 'scripts/msf.js')}"></script>
+<script src="${ui.resourceLink('msfcore', 'scripts/msf.utils.js')}"></script>
 <link href="${ui.resourceLink('msfcore', 'styles/patientSummary.css')}" rel="stylesheet" type="text/css" media="all">
 
 <script type="text/javascript">
