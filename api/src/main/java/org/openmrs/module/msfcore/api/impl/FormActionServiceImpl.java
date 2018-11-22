@@ -47,6 +47,13 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
 
     private MSFCoreDao dao;
 
+    /**
+     * Injected in moduleApplicationContext.xml
+     */
+    public void setDao(MSFCoreDao dao) {
+        this.dao = dao;
+    }
+
     @SuppressWarnings("serial")
     private static final Map<String, Integer> DURATION_UNIT_CONCEPT_UUID_TO_NUMBER_OF_DAYS = new HashMap<String, Integer>() {
 
@@ -116,6 +123,11 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
         }
         encounterService.saveEncounter(encounter);
     }
+    @Override
+    public void saveReferralOrders(Encounter encounter) {
+
+    }
+
     private Optional<Order> getExistingOrder(Collection<Order> orders, Obs obs) {
         return orders.stream().filter(o -> o.getConcept().equals(obs.getConcept())).findAny();
     }
@@ -240,11 +252,4 @@ public class FormActionServiceImpl extends BaseOpenmrsService implements FormAct
     private Optional<Obs> getObservationByConceptUuid(String conceptUuid, Set<Obs> observations) {
         return observations.stream().filter(o -> o.getConcept().getUuid().equals(conceptUuid)).findAny();
     }
-    /**
-     * Injected in moduleApplicationContext.xml
-     */
-    public void setDao(MSFCoreDao dao) {
-        this.dao = dao;
-    }
-
 }

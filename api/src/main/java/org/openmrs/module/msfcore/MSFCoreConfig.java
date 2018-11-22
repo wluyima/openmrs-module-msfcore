@@ -518,6 +518,8 @@ public class MSFCoreConfig {
 
     public static final String CONCEPT_SET_LAB_ORDERS_UUID = "23281464-74d8-47d9-9a39-7a1f1d7caa49";
 
+    public static final String CONCEPT_SET_REFERRAL_ORDERS_UUID = "51d1044c-b97a-406f-93c8-324b6bee1e61";
+
     public static final String CONCEPT_UUID_DISPENSED = "5000036AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     public static final String CONCEPT_UUID_DESPENSED_DATE = "5000039AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
