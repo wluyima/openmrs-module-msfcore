@@ -74,7 +74,7 @@
     	}
     	
     	jQuery("#print-patient-summary").click(function(e) {
-    		printPageWithIgnore(".summary-actions-wrapper");
+    		printPageWithIgnoreInclude(".summary-actions-wrapper");
     	});
     });
 </script>
